@@ -3,11 +3,12 @@
 Usage: python3 -I build.py            (reads ./data, writes ./site)
 Refresh data: copy Bosses Bloons Mods IncomeSets Buffs Knowledge Powers
 paragonDegreeData.json textTable.json from the export folder into ./data
-and update data/VERSION.txt.
+and the KnowledgeLayout folder written by btd6-knowledge-dumper (F6 in game, gives game.json too).
 """
 import html
 import base64
 import collections
+import datetime
 import functools
 import json
 import math
@@ -143,7 +144,11 @@ def load(path):
         return json.load(f)
 
 
-VERSION = (DATA / "VERSION.txt").read_text(encoding="utf-8").strip()
+# game.json from btd6-knowledge-dumper (F6 in game): version, shop order, bloon property bits
+GAME_JSON = DATA / "KnowledgeLayout" / "game.json"
+GAME = load(GAME_JSON) if GAME_JSON.exists() else {}
+VERSION = (f"{GAME['version']} (дамп {datetime.date.fromtimestamp(GAME_JSON.stat().st_mtime)})" if GAME
+           else (DATA / "VERSION.txt").read_text(encoding="utf-8").strip())
 
 # Languages: Russian is written in the code; other languages translate the finished HTML with a phrase
 # dictionary (i18n_<lang>.json) and take game names/descriptions from data/textTable.<lang>.json.
@@ -621,17 +626,35 @@ def build_income():
 
 
 
-def tower_of(icon_name):
-    """Source of a buff icon like BuffIconAlchemist3xx: a tower badge linking to its page, else the plain name."""
+@functools.cache
+def buff_towers():
+    """buffIconName or buffLocsName -> towers whose models carry it (the source tower's CanBuffIndicatorModel)."""
+    out = {}
+    for f in (DATA / "Towers").glob("*/*.json"):
+        for name in set(re.findall(r'"buff(?:Icon|Locs)Name": "([^"]+)"', f.read_text(encoding="utf-8"))):
+            out.setdefault(name, set()).add(f.parent.name)
+    return out
+
+
+def tower_badge(tid):
+    return (f"<a class='badge' href='tower-{tid}.html'><span>башня</span>"
+            f"<b>{icon('towers', tid, 18)}{esc(TEXT.get(tid, tid))}</b></a>")
+
+
+def tower_of(icon_name, buff_name=""):
+    """Source of a buff: towers whose data carry its icon, else a guess from the icon name (BuffIconAlchemist3xx),
+    else towers carrying its buff name (checked last: heroes reuse tower buff names, e.g. BiggerRadiusBuff)."""
+    found = buff_towers().get(icon_name)
+    if found:
+        return "".join(tower_badge(tid) for tid in sorted(found, key=lambda x: SHOP_ORDER.index(x) if x in SHOP_ORDER else 99))
     rest = icon_name.removeprefix("BuffIcon")
     for end in range(len(rest), 3, -1):
         word = rest[:end]
         if word[0].isupper() and (end == len(rest) or not rest[end].islower()) and isinstance(TEXT.get(word), str):
             if (DATA / "Towers" / word).is_dir():
-                return (f"<a class='badge' href='tower-{word}.html'><span>башня</span>"
-                        f"<b>{icon('towers', word, 18)}{esc(TEXT[word])}</b></a>")
+                return tower_badge(word)
             return f"<span class='badge'><span>источник</span><b>{esc(TEXT[word])}</b></span>"
-    return ""
+    return "".join(tower_badge(tid) for tid in sorted(buff_towers().get(buff_name, ())))
 
 
 def flag(k, v, good=True):
@@ -650,12 +673,12 @@ def build_buffs():
                 f"<span><span class='id'>{esc(d.get('buffName'))}</span><br><small class='note'>{esc(name)}</small></span></span>")
         stack = "<div class='stackgrid'>" + "".join([flag("stackable", d.get("stackable")), param("maxStackSize", "∞" if (d.get("maxStackSize") or 0) >= 2**31 - 1 else d.get("maxStackSize")),
                           flag("globalRange", d.get("globalRange"))]) + "</div>"
-        rows.append((Raw(tower_of(name)) or "–", Raw(buff), Raw(stack)))
+        rows.append((Raw(tower_of(name, d.get("buffName", ""))) or "–", Raw(buff), Raw(stack)))
         INDEX.append([d.get("buffName", ""), "Баффы", "buffs.html", name])
     rows.sort(key=lambda r: (re.sub("<[^>]+>", "", r[0]), r[1]))  # by visible source name
     body = (card("table", "Все индикаторы баффов",
                  "<p class='note'>stackable показывает, складывается ли бафф с тем же именем от второго источника. "
-                 "maxStackSize 0 = лимит не задан. globalRange = действует на всю карту. Источник определён по имени иконки.</p>"
+                 "maxStackSize 0 = лимит не задан. globalRange = действует на всю карту. Источник: башня, в модели которой записана эта иконка. Для остальных (герои и прочее) угадан по имени иконки.</p>"
                  "<input class='filter' type='search' placeholder='Фильтр: башня или бафф' aria-label='Фильтр баффов' "
                  "data-filter='#buffs tbody tr'>"
                  + table(["Источник", "Бафф", "Стакинг"], rows).replace("<table>", "<table id='buffs'>", 1), section="Баффы"))
@@ -861,8 +884,9 @@ def bloon_icon_style(ids):
 # ---------- towers ----------
 
 TOWER_SETS = {1: "Primary", 2: "Military", 4: "Magic", 8: "Support"}
-# shop order in the game (GameModel.towerSet is not in the Mod Helper export); unknown towers go last by cost
-SHOP_ORDER = ["DartMonkey", "BoomerangMonkey", "BombShooter", "TackShooter", "IceMonkey", "GlueGunner", "Desperado",
+# shop order: GameModel.towerSet from game.json; the list below is the fallback until the dump exists.
+# Unknown towers go last by cost.
+SHOP_ORDER = [t["id"] for t in sorted(GAME.get("towerSet") or [], key=lambda t: t["index"])] or ["DartMonkey", "BoomerangMonkey", "BombShooter", "TackShooter", "IceMonkey", "GlueGunner", "Desperado",
               "SniperMonkey", "MonkeySub", "MonkeyBuccaneer", "MonkeyAce", "HeliPilot", "MortarMonkey", "DartlingGunner",
               "WizardMonkey", "SuperMonkey", "NinjaMonkey", "Alchemist", "Druid", "Mermonkey", "Skywarden",
               "BananaFarm", "SpikeFactory", "MonkeyVillage", "EngineerMonkey", "BeastHandler"]

@@ -18,12 +18,12 @@ python3 -I build.py          # writes site/ (Russian) and site/en/
    `<Proton prefix>/drive_c/users/steamuser/AppData/LocalLow/Ninja Kiwi/BloonsTD6/`.
 2. Copy `Bosses Bloons Mods IncomeSets Buffs Knowledge Powers Upgrades paragonDegreeData.json textTable.json`,
    the 26 main tower folders from `Towers/`, and `Rounds/DefaultRoundSet`, `Rounds/AlternateRoundSet` into `data/`.
-   Update `data/VERSION.txt`.
 3. For English game text, switch the game to English, export again, and copy `textTable.json` to
    `data/textTable.en.json`.
 4. Monkey Knowledge layout: with the `KnowledgeDumper` mod (`../btd6-knowledge-dumper`) open the Monkey
    Knowledge screen and press F6, then copy `<game>/KnowledgeLayout/` into `data/KnowledgeLayout/`
-   (icons converted to 96px webp).
+   (icons converted to 96px webp). F6 also writes `game.json`: game version, shop order of towers and
+   bloon property bits. Without it the build falls back to `data/VERSION.txt` and a built-in tower order.
 5. Icons for towers, upgrades and bloons: `python3 -I tools/fetch_icons.py`, then convert
    `data/icons/raw/*` to webp in `data/icons/web/` (see the script header).
 

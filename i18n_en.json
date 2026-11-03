@@ -238,7 +238,7 @@
 "Источник": "Source",
 "Бафф": "Buff",
 "Стакинг": "Stacking",
-"maxStackSize 0 = лимит не задан. globalRange = действует на всю карту. Источник определён по имени иконки.": "maxStackSize 0 = no limit set. globalRange = works across the whole map. The source is taken from the icon name.",
+"maxStackSize 0 = лимит не задан. globalRange = действует на всю карту. Источник: башня, в модели которой записана эта иконка. Для остальных (герои и прочее) угадан по имени иконки.": "maxStackSize 0 = no limit set. globalRange = works across the whole map. Source: the tower whose model carries this icon. Others (heroes and so on) are guessed from the icon name.",
 "Свойства, HP и дети": "Properties, HP and children",
 "Обычные шары": "Regular bloons",
 "Золотые": "Golden",
