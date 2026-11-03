@@ -109,11 +109,29 @@ def main():
           "mode-Clicks": "BTD6_ClicksBtn.png", "mode-AlternateBloonsRounds": "BTD6_AlternateBloonsBtn.png",
           "mode-Apopalypse": "BTD6_ApopalypseBtn.png", "mode-Deflation": "BTD6_DeflationBtn.png",
           "mode-HalfCash": "BTD6_HalfMoneyBtn.png", "mode-Reverse": "BTD6_ReverseBtn.png",
-          "mode-DoubleMoabHealth": "BTD6_DoubleHpMoabsBtn.png", "mode-Sandbox": "BTD6_SandboxBtn.png"}
-    q = {"action": "query", "prop": "imageinfo", "iiprop": "url", "format": "json",
-         "titles": "|".join("File:" + n for n in ui.values())}
-    pages = json.loads(get(API + "?" + urllib.parse.urlencode(q)))["query"]["pages"].values()
-    urls = {p["title"].removeprefix("File:").replace(" ", "_"): p["imageinfo"][0]["url"] for p in pages if "imageinfo" in p}
+          "mode-DoubleMoabHealth": "BTD6_DoubleHpMoabsBtn.png", "mode-Sandbox": "BTD6_SandboxBtn.png",
+          "paragon": "BTD6_tutorial_ParagonIcon.png", "powers": "BTD6_PowersIcon.png",
+          **{f"boss-{b}": f"BTD6_{b}Btn.png" for b in
+             ("Bloonarius", "Lych", "Vortex", "Dreadbloon", "Phayze", "Blastapopoulos", "Diamondback")},
+          # powers: id in data/Powers -> wiki file
+          **{f"power-{p}": f"BTD6_{f}.png" for p, f in {
+              "BananaFarmer": "BananaFarmerIcon", "BananaFarmerProPower": "BananaFarmerProIcon", "BattleCat": "BattleCatIcon",
+              "CamoTrap": "CamoTrapIcon", "CashDrop": "CashDropIcon", "CaveMonkey": "CaveMonkeyIcon", "DartTime": "DartTimeIcon",
+              "EnergisingTotem": "EnergisingTotemIcon", "GlueTrap": "GlueTrapIcon", "HealthPotion": "HealthPotionStoreIcon",
+              "MoabMine": "MoabMineIcon", "MonkeyBoost": "MonkeyBoostIcon", "MonkeyBoostProPower": "MonkeyBoostProIcon",
+              "Pontoon": "PontoonIcon", "PortableLake": "PortableLakeIcon", "PortableLakeProPower": "PortableLakeProIcon",
+              "SheRa": "SheRaPowerIcon", "Skeletor": "SkeletorPowerIcon", "StaminaPotion": "StaminaPotionStoreIcon",
+              "SuperMonkeyBeaconPower": "SuperMonkeyBeaconIcon", "SuperMonkeyStorm": "SuperMonkeyStormIcon",
+              "SwordOfPower": "SwordOfPowerIcon", "TechBot": "TechbotIcon", "TechBotPrimePower": "TechbotProIcon",
+              "Thrive": "ThriveIcon"}.items()}}
+    names, urls = list(ui.values()), {}
+    for i in range(0, len(names), 50):  # the API takes at most 50 titles per request
+        q = {"action": "query", "prop": "imageinfo", "iiprop": "url", "format": "json",
+             "titles": "|".join("File:" + n for n in names[i:i + 50])}
+        for p in json.loads(get(API + "?" + urllib.parse.urlencode(q)))["query"]["pages"].values():
+            if "imageinfo" in p:
+                urls[p["title"].removeprefix("File:").replace(" ", "_")] = p["imageinfo"][0]["url"]
+        time.sleep(DELAY)
     for key, name in ui.items():
         if name in urls:
             wanted[("ui", key)] = urls[name]

@@ -277,6 +277,7 @@ def stats(items):
 
 
 def game_text(text):
+    text = re.sub(r"</?(sup|sub|b|i|u)>|</?color[^>]*>", "", text or "")  # game rich-text tags
     return f"<div class='game'>{esc(text)}</div>" if text else ""
 
 
@@ -402,6 +403,10 @@ def build_paragon():
     body = (
         stats([("степеней", d.get("degreeCount")), ("сила для 100", top)])
         + card("pie", "Откуда берётся сила", donut, section="Парагон")
+        + card("towers", "Башни с парагоном", "<div class='chips'>" + " ".join(
+            f"<a class='badge' href='tower-{p.parent.name}.html#crosspath'><span>парагон</span><b>{icon('towers', p.parent.name, 18)}"
+            f"{esc(t(p.parent.name, fallback=p.parent.name))}</b></a>" for p in sorted((DATA / "Towers").glob("*/*-Paragon.json")))
+            + "</div>", section="Парагон")
         + card("curve", "Сколько силы нужно на степень",
                chart + "<p class='note'>Прирост между соседними степенями растёт, поэтому последние степени самые дорогие.</p>"
                "<details><summary>Таблица всех 100 степеней</summary>"
@@ -475,8 +480,8 @@ def build_bosses():
         mechanics = sorted({label(short_type(x)) for x in normal.get("behaviors") or []
                             if isinstance(x, dict) and not skipped(x)})
         inner = (
-            "<div class='split'><div>"
-            + game_text(t(f"{boss}InfoPanelDescription"))
+            "<div class='split'><div><div class='hero-row'>" + icon("ui", f"boss-{boss}", 104, "ic mode-ic") + "<div>"
+            + game_text(t(f"{boss}InfoPanelDescription")) + "</div></div>"
             + stats([("HP T1", normal["maxHealth"]), ("HP элит. T5", top), ("скорость T1", normal["speed"]),
                      ("скорость элит. T5", tiers[-1][2]["speed"])])
             + "<h3>Поведения</h3><div class='chips'>" + "".join(f"<span class='chip'>{esc(m)}</span>" for m in mechanics) + "</div>"
@@ -574,8 +579,12 @@ def build_modes():
                 "mode-Deflation" if stem.startswith("CoopDeflation") else "mode-Medium" if stem.startswith("CoopStandard")
                 else f"mode-{stem}")
             pic = icon("ui", key, 96, "ic mode-ic")
-            inner = (f"<div class='hero-row'>{pic}<div>" if pic else "<div><div>") + game_text(
-                t(f"et_{stem.lower()}description")) + mod_table(mods) + "</div></div>"
+            desc = t(f"et_{stem.lower()}description")
+            if "{0}" in desc:  # Deflation: "start at round {0} with {1} cash", values from its own modifiers
+                vals = {short_type(m): m for m in mods}
+                desc = desc.replace("{0}", fmt(vals.get("StartingRoundModModel", {}).get("round", "?"))).replace(
+                    "{1}", fmt(vals.get("StartingCashModModel", {}).get("changeBase", "?")))
+            inner = (f"<div class='hero-row'>{pic}<div>" if pic else "<div><div>") + game_text(desc) + mod_table(mods) + "</div></div>"
             cards.append(card(stem, name, inner, en_id=stem, section="Режимы"))
         if cards:
             body.append(group(gid, title, cards))
@@ -608,13 +617,16 @@ def build_income():
 
 
 
-def tower_of(icon):
-    """Tower name for a buff icon like BuffIconAlchemist3xx, via the game's text table."""
-    rest = icon.removeprefix("BuffIcon")
+def tower_of(icon_name):
+    """Source of a buff icon like BuffIconAlchemist3xx: a tower badge linking to its page, else the plain name."""
+    rest = icon_name.removeprefix("BuffIcon")
     for end in range(len(rest), 3, -1):
         word = rest[:end]
         if word[0].isupper() and (end == len(rest) or not rest[end].islower()) and isinstance(TEXT.get(word), str):
-            return TEXT[word]
+            if (DATA / "Towers" / word).is_dir():
+                return (f"<a class='badge' href='tower-{word}.html'><span>башня</span>"
+                        f"<b>{icon('towers', word, 18)}{esc(TEXT[word])}</b></a>")
+            return esc(TEXT[word])
     return ""
 
 
@@ -623,11 +635,11 @@ def build_buffs():
     for f in json_files("Buffs"):
         d = load(f)
         st = d.get("stackable")
-        rows.append((esc(tower_of(d.get("iconName", ""))) or "–", f"<span class='id'>{esc(d.get('buffName'))}</span>",
+        rows.append((Raw(tower_of(d.get("iconName", ""))) or "–", f"<span class='id'>{esc(d.get('buffName'))}</span>",
                      f"<span class='chip{'' if st else ' no'}'>{'стакается' if st else 'не стакается'}</span>",
                      d.get("maxStackSize"), d.get("globalRange"), f"<span class='id'>{esc(d.get('iconName'))}</span>"))
         INDEX.append([d.get("buffName", ""), "Баффы", "buffs.html", d.get("iconName", "")])
-    rows.sort(key=lambda r: (r[0], r[1]))
+    rows.sort(key=lambda r: (re.sub("<[^>]+>", "", r[0]), r[1]))  # by visible tower name
     body = (card("table", "Все индикаторы баффов",
                  "<p class='note'>stackable показывает, складывается ли бафф с тем же именем от второго источника. "
                  "maxStackSize 0 = лимит не задан. globalRange = действует на всю карту. Башня определена по имени иконки.</p>"
@@ -772,9 +784,11 @@ def build_powers():
         name = t(f.stem, fallback=f.stem)
         fl = flatten(d)
         nums = [(k, v) for k, v in fl.items() if isinstance(v, (int, float)) and not isinstance(v, bool)]
-        inner = (game_text(t(f"{f.stem} Description", f"{f.stem}Description"))
-                 + stats([(labels[k], d[k]) for k in labels if k in d])
-                 + f"<details><summary>Все числовые параметры ({len(nums)})</summary>{kv_table(nums)}</details>")
+        pic = icon("ui", f"power-{f.stem}", 84, "ic kicon")
+        inner = ((f"<div class='hero-row'>{pic}<div>" if pic else "<div><div>")
+                 + game_text(t(f"{f.stem} Description", f"{f.stem}Description"))
+                 + stats([(labels[k], Raw(icon("ui", "mm", 22) + fmt(d[k])) if k == "cost" else d[k]) for k in labels if k in d])
+                 + f"<details><summary>Все числовые параметры ({len(nums)})</summary>{kv_table(nums)}</details></div></div>")
         groups["pro" if "Pro" in f.stem else "powers"].append(card(f.stem, name, inner, en_id=f.stem, section="Силы"))
     page("powers.html", "Силы",
          "Силы (Powers) и Powers Pro. Описание из игры и все числовые параметры модели: урон, длительности, "
@@ -784,7 +798,7 @@ def build_powers():
 
 
 def build_index():
-    tiles = "".join(f"<a class='tile' href='{f}'><b>{esc(t(n, fallback=n))}</b><small>{esc(s)}</small></a>" for f, n, s in PAGES[1:])
+    tiles = "".join(f"<a class='tile page-tile' href='{f}'>{page_icon(f, 56)}<span><b>{esc(t(n, fallback=n))}</b><small>{esc(s)}</small></span></a>" for f, n, s in PAGES[1:])
     page("index.html", "BTD6 Tech Wiki",
          "Точные числа Bloons TD 6 прямо из моделей игры: HP боссов по тирам, модификаторы режимов, "
          "множители дохода, стакинг баффов, формула парагона. Названия и описания взяты из текстов игры, "
@@ -809,6 +823,16 @@ def icon(kind, oid, size, cls="ic"):
     """Inline <img> for an icon, or "" when there is none."""
     uri = data_uri(kind, oid)
     return f"<img class='{cls}' src='{uri}' width='{size}' height='{size}' alt='' loading='lazy'>" if uri else ""
+
+
+PAGE_ICONS = {"paragon.html": ("ui", "paragon"), "bosses.html": ("ui", "boss-Bloonarius"), "modes.html": ("ui", "mode-Clicks"),
+              "income.html": ("ui", "coin"), "buffs.html": ("towers", "MonkeyVillage"), "knowledge.html": ("ui", "knowledge"),
+              "powers.html": ("ui", "powers"), "towers.html": ("towers", "DartMonkey"), "rounds.html": ("ui", "startround")}
+
+
+def page_icon(file, size):
+    spec = PAGE_ICONS.get(file)
+    return icon(spec[0], spec[1], size) if spec else ""
 
 
 def bloon_css(b):
@@ -1060,7 +1084,7 @@ def build_rounds():
                + "</div>")
         INDEX.append([title, "Раунды", f"rounds.html#{rs}", rs])
         sections.append(card(rs, title,
-                             bar + "<input class='filter' type='search' placeholder='Фильтр: номер или шар' aria-label='Фильтр раундов' "
+                             (f"<div class='chips'><a class='badge' href='modes.html#AlternateBloonsRounds'><span>режим</span><b>{icon('ui', 'mode-AlternateBloonsRounds', 18)}{esc(t('Mode AlternateBloonsRounds', fallback='ABR'))}</b></a></div>" if rs == "AlternateRoundSet" else "") + bar + "<input class='filter' type='search' placeholder='Фильтр: номер или шар' aria-label='Фильтр раундов' "
                              f"data-filter='#{rs}-t tbody tr'>"
                              f"<div class='wrap'><table id='{rs}-t'><thead><tr>{head}</tr></thead><tbody>{''.join(rows)}</tbody></table></div>",
                              section="Раунды"))

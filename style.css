@@ -229,7 +229,7 @@ svg text{fill:var(--soft);font:11px var(--body)}
 
 /* Groups of small cards, round mechanics */
 h2.group{font-size:28px;margin:34px 0 0;scroll-margin-top:90px}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,560px),1fr));gap:0 22px;align-items:start}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,560px),1fr));gap:0 22px;align-items:stretch}
 .tagbar{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
 .tagbar button{font:600 13px var(--body);padding:5px 12px;border:2px solid var(--edge);border-radius:999px;background:var(--sky);
   color:var(--ink);box-shadow:0 2px 0 var(--edge);cursor:pointer}
@@ -253,3 +253,6 @@ a.badge:hover b{filter:brightness(1.08)}
 .stat b .ic{width:22px;height:22px}
 .kicon{width:84px;height:84px;filter:drop-shadow(0 3px 0 var(--edge))}
 .mode-ic{width:96px;height:96px;filter:drop-shadow(0 3px 0 var(--edge))}
+.page-tile{display:flex;gap:14px;align-items:center}
+.page-tile .ic{width:56px;height:56px}
+.page-tile>span{min-width:0}
