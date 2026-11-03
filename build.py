@@ -501,6 +501,21 @@ def group(gid, title, cards):
     return f"<h2 class='group' id='{esc(gid)}'>{esc(title)}</h2><div class='cards'>{''.join(cards)}</div>"
 
 
+def param(k, v):
+    """A model parameter as a two-part badge; ids that have a page here link to it."""
+    href, text = None, fmt(v)
+    if k == "towerSetToLock" and v in TOWER_SETS:
+        href, text = f"towers.html#set-{TOWER_SETS[v]}", esc(t(TOWER_SETS[v], fallback=TOWER_SETS[v]))
+    elif k == "towerToLock" and (DATA / "Towers" / str(v)).is_dir():
+        href, text = f"tower-{v}.html", esc(t(v, fallback=v))
+    elif k == "roundsetName" and (DATA / "Rounds" / str(v)).is_dir():
+        href = f"rounds.html#{v}"
+    elif k == "bloonId":
+        text = esc(t(v, fallback=v))
+    inner = f"<span>{esc(k)}</span><b>{text}</b>"
+    return f"<a class='badge' href='{href}'>{inner}</a>" if href else f"<span class='badge'>{inner}</span>"
+
+
 MODE_GROUPS = [
     ("difficulty", "Сложности", ["Easy", "Medium", "Hard", "Impoppable"]),
     ("modes", "Режимы игры", None),  # everything not listed elsewhere
@@ -521,7 +536,7 @@ def build_modes():
                 continue
             mods = load(files[stem]).get("mutatorMods") or []
             name = t(f"Mode {stem}", stem, fallback=stem)
-            rows = [(esc(label(short_type(m))), ", ".join(f"{k} = {fmt(v)}" for k, v in flatten(m).items()) or "–")
+            rows = [(esc(label(short_type(m))), " ".join(param(k, v) for k, v in flatten(m).items()) or "–")
                     for m in mods]
             inner = (game_text(t(f"et_{stem.lower()}description"))
                      + (table(["Модификатор", "Параметры"], rows) if rows else "<p class='note'>Без модификаторов.</p>"))
@@ -897,7 +912,7 @@ def build_towers():
     for ts in sorted(tiles):
         grid = "".join(f"<a class='tile tower-tile' href='tower-{esc(tid)}.html'>{icon('towers', tid, 72)}<span><b>{esc(n)}</b>{price([c], 'cost tile-price')}</span></a>"
                        for tid, n, c in sorted(tiles[ts], key=lambda x: (SHOP_ORDER.index(x[0]) if x[0] in SHOP_ORDER else 99, x[2])))
-        body.append(f"<h2 style='margin-top:28px'>{esc(t(TOWER_SETS.get(ts), fallback=''))}</h2><div class='grid'>{grid}</div>")
+        body.append(f"<h2 class='group' id='set-{TOWER_SETS.get(ts)}'>{esc(t(TOWER_SETS.get(ts), fallback=''))}</h2><div class='grid'>{grid}</div>")
         for tid, n, c in tiles[ts]:
             INDEX.append([n, "Башни", f"tower-{tid}.html", tid])
     page("towers.html", "Башни",

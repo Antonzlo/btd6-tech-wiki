@@ -236,3 +236,12 @@ h2.group{font-size:28px;margin:34px 0 0;scroll-margin-top:90px}
 .tagbar button.on{background:var(--gold);color:var(--gold-ink)}
 .chip.new{background:var(--gold);color:var(--gold-ink);font-weight:700}
 tr.newrow td:first-child{box-shadow:inset 4px 0 0 var(--gold)}
+
+/* Parameter badges (shields style) */
+.badge{display:inline-flex;margin:2px 4px 2px 0;border-radius:6px;overflow:hidden;font-size:12.5px;line-height:1.7;
+  border:1.5px solid var(--edge);vertical-align:middle;white-space:nowrap}
+.badge span{background:var(--edge);color:#e6eefb;padding:0 7px;font-family:var(--code);font-size:11.5px}
+.badge b{background:var(--sky);color:var(--ink);padding:0 8px;font-weight:600}
+a.badge b{background:var(--gold);color:var(--gold-ink)}
+a.badge:hover{text-decoration:none}
+a.badge:hover b{filter:brightness(1.08)}
