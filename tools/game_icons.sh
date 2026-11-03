@@ -20,7 +20,7 @@ one() {  # one <png> <webp>
 grep -ho '"iconName": "[^"]*"' data/Buffs/*.json | cut -d'"' -f4 | sort -u | while read -r n; do
   rest=${n#Map}; rest=${rest#BuffIcon}; rest=${rest#Buff}
   found=
-  for c in "$n" "BuffIcon$rest" "${rest}Icon" "${rest}UpgradeIcon"; do
+  for c in "$n" "BuffIcon$rest" "$rest" "${rest}Icon" "${rest}UpgradeIcon"; do
     if [ -f "$src/sprites/$c.png" ]; then one "$src/sprites/$c.png" "$web/buffs/$n.webp"; found=1; break; fi
   done
   if [ -z "$found" ]; then  # e.g. BuffIconOvercharge -> BuffIconBoomerangOvercharge
