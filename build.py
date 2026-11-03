@@ -324,8 +324,7 @@ def page(file, title, lead, body, toc=()):
         f"<main class='page-{file.removesuffix('.html')}'><h1>{esc(title)}</h1><p class='lead'>{lead}</p><p class='ver'>Данные: {esc(VERSION)}</p>"
         f"{body}<footer class='foot'>Неофициальная фанатская вики, без монетизации. Данные, названия, тексты и изображения "
         "принадлежат <a href='https://ninjakiwi.com' rel='noopener'>Ninja Kiwi</a>. Данные выгружены через "
-        "<a href='https://github.com/gurrenm3/BTD-Mod-Helper' rel='noopener'>BTD6 Mod Helper</a>, иконки из игры, несколько иконок интерфейса с "
-        "<a href='https://www.bloonswiki.com' rel='noopener'>Blooncyclopedia</a> (CC BY-NC-SA 4.0). "
+        "<a href='https://github.com/gurrenm3/BTD-Mod-Helper' rel='noopener'>BTD6 Mod Helper</a>, иконки из спрайтов игры. "
         "<a href='https://github.com/Antonzlo/btd6-tech-wiki' rel='noopener'>Исходный код</a>.</footer>"
         f"</main></div><script src='search.js?v={JS_VER}'></script>")
     # the artifact page itself is a fragment (the host adds the skeleton); --pages builds plain files for GitHub Pages

@@ -27,13 +27,12 @@ python3 -I build.py          # writes site/ (Russian) and site/en/
    (icons converted to 96px webp). F6 also writes `game.json`: game version, shop order of towers and
    bloon property bits (required). Keep `data/VERSION.txt` at the export version; the build warns when the game is newer.
 5. Icons: press F7 in game with the dumper (main menu, mode select, inside a game: each screen adds the sprites
-   it has loaded), then `sh tools/game_icons.sh` writes `data/icons/web/`. UI icon names are in `tools/ui_sprites.txt`;
-   the few not dumped yet are still the Blooncyclopedia files. `sh tools/compose_icons.sh` makes the ban icons.
+   it has loaded), then `sh tools/game_icons.sh` writes `data/icons/web/`. UI icon names are in `tools/ui_sprites.txt`.
+   `sh tools/compose_icons.sh` makes the ban icons.
 
 ## Files
 
 - `build.py` the generator, `style.css` the styles, `i18n_en.json` English phrases for the interface.
 - `data/` the game export the site is built from.
 
-Game data, names, descriptions and images belong to Ninja Kiwi. Icons come from
-[Blooncyclopedia](https://www.bloonswiki.com) (CC BY-NC-SA).
+Game data, names, descriptions and images (icons are the game sprites) belong to Ninja Kiwi.

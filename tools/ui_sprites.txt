@@ -1,7 +1,7 @@
 # site icon key -> game sprite name (from <game>/GameIcons/sprites, dumped by btd6-knowledge-dumper F7)
 coin CoinIcon
 lives LivesIcon
-mm ArtifactTokenMonkeyMoney
+mm MMBundleIcon
 nosell SellingDisabledIcon
 knowledge KnowledgeIcon
 speed FastForwardBtn
