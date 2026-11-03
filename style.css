@@ -226,3 +226,13 @@ svg text{fill:var(--soft);font:11px var(--body)}
 .legend b{font-variant-numeric:tabular-nums;text-align:right}
 .legend small{color:var(--soft);font-variant-numeric:tabular-nums}
 .foot{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);font-size:13px;color:var(--soft);max-width:80ch}
+
+/* Groups of small cards, round mechanics */
+h2.group{font-size:28px;margin:34px 0 0;scroll-margin-top:90px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,560px),1fr));gap:0 22px;align-items:start}
+.tagbar{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+.tagbar button{font:600 13px var(--body);padding:5px 12px;border:2px solid var(--edge);border-radius:999px;background:var(--sky);
+  color:var(--ink);box-shadow:0 2px 0 var(--edge);cursor:pointer}
+.tagbar button.on{background:var(--gold);color:var(--gold-ink)}
+.chip.new{background:var(--gold);color:var(--gold-ink);font-weight:700}
+tr.newrow td:first-child{box-shadow:inset 4px 0 0 var(--gold)}

@@ -54,7 +54,8 @@ else if(e.key==='Escape'){hits=[];draw()}});
 document.addEventListener('click',function(e){if(!e.target.closest('.search')){hits=[];draw()}});
 document.addEventListener('keydown',function(e){if(e.key==='/'&&document.activeElement!==box&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){box.focus();e.preventDefault()}});
 document.querySelectorAll('[data-filter]').forEach(function(f){var rows=document.querySelectorAll(f.dataset.filter);
-f.addEventListener('input',function(){var q=norm(f.value);rows.forEach(function(r){r.hidden=q&&norm(r.textContent).indexOf(q)<0})})});
+f.addEventListener('input',function(){var q=norm(f.value);rows.forEach(function(r){r.dataset.th=q&&norm(r.textContent).indexOf(q)<0?'1':'';r.hidden=!!(r.dataset.th||r.dataset.gh)})})});
+document.querySelectorAll('.tagbar').forEach(function(bar){var rows=document.querySelectorAll(bar.dataset.target+' tbody tr');bar.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){bar.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});var tag=b.dataset.tag;rows.forEach(function(r){r.dataset.gh=tag&&(' '+r.dataset.tags+' ').indexOf(' '+tag+' ')<0?'1':'';r.hidden=!!(r.dataset.th||r.dataset.gh)})})})});
 document.querySelectorAll('.kgraph').forEach(function(g){var nodes={};g.querySelectorAll('.kn').forEach(function(n){nodes[n.dataset.id]=n});
 function chain(id,acc){if(acc[id]||!nodes[id])return acc;acc[id]=1;(nodes[id].dataset.req||'').split(' ').filter(Boolean).forEach(function(p){chain(p,acc)});return acc}
 function clear(){g.classList.remove('dim');g.querySelectorAll('.lit').forEach(function(e){e.classList.remove('lit')})}
@@ -101,6 +102,24 @@ TYPE_LABELS = {
     "AttackModel": "Атака",
     "AttackAirUnitModel": "Атака с воздуха",
     "StartingCashModModel": "Стартовые деньги",
+    "LockTowerSetModModel": "Запрет категории башен",
+    "EndRoundModModel": "Последний раунд",
+    "MonkeyMoneyModModel": "Monkey Money за победу",
+    "StartingHealthModModel": "Стартовые жизни",
+    "StartingRoundModModel": "Стартовый раунд",
+    "SellMultiplierModModel": "Доля при продаже",
+    "BonusCashPerRoundModModel": "Бонус за раунд",
+    "GlobalCostModModel": "Множитель цен",
+    "MaxHealthModModel": "Максимум жизней",
+    "LockTowerModModel": "Запрет башни",
+    "GlobalSpeedModModel": "Скорость шаров",
+    "DisableContinueModModel": "Без продолжения",
+    "SetHealthForBloonModModel": "HP шара",
+    "RoundSetModModel": "Набор раундов",
+    "RemoveManaShieldModModel": "Без щита маны",
+    "DisableSellTowerModModel": "Без продажи",
+    "DisableMonkeyKnowledgeModModel": "Без обезьяньих знаний",
+    "BloonHealthModel": "HP шаров",
     "ModifyAllCashModModel": "Весь доход",
     "HealSelfActionModel": "Самолечение",
     "SetSpeedPercentActionModel": "Скорость (доля)",
@@ -477,19 +496,39 @@ def build_bosses():
          "".join(body), toc)
 
 
+def group(gid, title, cards):
+    """A titled section whose small cards sit two per row on wide screens."""
+    return f"<h2 class='group' id='{esc(gid)}'>{esc(title)}</h2><div class='cards'>{''.join(cards)}</div>"
+
+
+MODE_GROUPS = [
+    ("difficulty", "Сложности", ["Easy", "Medium", "Hard", "Impoppable"]),
+    ("modes", "Режимы игры", None),  # everything not listed elsewhere
+    ("coop", "Кооператив", ["CoopStandardCash2", "CoopStandardCash3", "CoopStandardCash4",
+                             "CoopDeflationCash2", "CoopDeflationCash3", "CoopDeflationCash4"]),
+    ("other", "Прочее", ["Sandbox", "Tutorial"]),
+]
+
+
 def build_modes():
+    files = {f.stem: f for f in json_files("Mods")}
+    listed = {m for _, _, ms in MODE_GROUPS if ms for m in ms}
     body, toc = [], []
-    for f in json_files("Mods"):
-        mods = load(f).get("mutatorMods") or []
-        name = t(f"Mode {f.stem}", f.stem, fallback=f.stem)
-        rows = []
-        for m in mods:
-            fl = flatten(m)
-            rows.append((esc(label(short_type(m))), ", ".join(f"{k} = {fmt(v)}" for k, v in fl.items()) or "–"))
-        inner = (game_text(t(f"et_{f.stem.lower()}description"))
-                 + (table(["Модификатор", "Параметры"], rows) if rows else "<p class='note'>Без модификаторов.</p>"))
-        body.append(card(f.stem, name, inner, en_id=f.stem, section="Режимы"))
-        toc.append((f.stem, name))
+    for gid, title, members in MODE_GROUPS:
+        cards = []
+        for stem in members or sorted(set(files) - listed):
+            if stem not in files:
+                continue
+            mods = load(files[stem]).get("mutatorMods") or []
+            name = t(f"Mode {stem}", stem, fallback=stem)
+            rows = [(esc(label(short_type(m))), ", ".join(f"{k} = {fmt(v)}" for k, v in flatten(m).items()) or "–")
+                    for m in mods]
+            inner = (game_text(t(f"et_{stem.lower()}description"))
+                     + (table(["Модификатор", "Параметры"], rows) if rows else "<p class='note'>Без модификаторов.</p>"))
+            cards.append(card(stem, name, inner, en_id=stem, section="Режимы"))
+        if cards:
+            body.append(group(gid, title, cards))
+            toc.append((gid, title))
     page("modes.html", "Режимы и сложности",
          "Режим это набор модификаторов поверх обычной игры: множители денег, HP, цен, запреты. "
          "Здесь все модификаторы каждого режима с точными значениями. Кооп-режимы CoopStandardCash и "
@@ -499,7 +538,8 @@ def build_modes():
 
 def build_income():
     body, toc = [], []
-    for f in json_files("IncomeSets"):
+    # the normal game first, the rest alphabetically
+    for f in sorted(json_files("IncomeSets"), key=lambda f: (f.stem != "DefaultIncomeSet", f.stem)):
         d = load(f)
         rows, start = [], 1
         for th in d.get("thresholds") or []:
@@ -512,7 +552,7 @@ def build_income():
     page("income.html", "Доход по раундам",
          "Деньги за лопание шаров умножаются на коэффициент, который зависит от номера раунда. "
          "DefaultIncomeSet используется в обычной игре, остальные в своих режимах.",
-         "".join(body), toc)
+         f"<div class='cards'>{''.join(body)}</div>", toc)
 
 
 
@@ -656,20 +696,22 @@ def build_knowledge():
 
 
 def build_powers():
-    body, toc = [], []
+    labels = {"cost": "цена, MM", "quantity": "за покупку", "startCount": "в начале"}
+    groups = {"powers": [], "pro": []}
     for f in json_files("Powers"):
         d = load(f)
         name = t(f.stem, fallback=f.stem)
         fl = flatten(d)
         nums = [(k, v) for k, v in fl.items() if isinstance(v, (int, float)) and not isinstance(v, bool)]
         inner = (game_text(t(f"{f.stem} Description", f"{f.stem}Description"))
-                 + stats([(k, d[k]) for k in ("cost", "quantity", "startCount") if k in d])
+                 + stats([(labels[k], d[k]) for k in labels if k in d])
                  + f"<details><summary>Все числовые параметры ({len(nums)})</summary>{kv_table(nums)}</details>")
-        body.append(card(f.stem, name, inner, en_id=f.stem, section="Силы"))
-        toc.append((f.stem, name))
+        groups["pro" if "Pro" in f.stem else "powers"].append(card(f.stem, name, inner, en_id=f.stem, section="Силы"))
     page("powers.html", "Силы",
          "Силы (Powers) и Powers Pro. Описание из игры и все числовые параметры модели: урон, длительности, "
-         "радиусы, перезарядки.", "".join(body), toc)
+         "радиусы, перезарядки.",
+         group("powers", "Силы", groups["powers"]) + group("pro", "Powers Pro", groups["pro"]),
+         [("powers", "Силы"), ("pro", "Powers Pro")])
 
 
 def build_index():
@@ -906,10 +948,20 @@ def build_rounds():
                 return th["multiplier"]
         return income.get("finalMultiplier", 1)
 
+    def tags(b):
+        m = bloons[b]
+        return {k for k, on in (("camo", m.get("isCamo")), ("regrow", m.get("isGrow")), ("fortified", m.get("isFortified")),
+                                ("lead", m.get("baseId") == "Lead"), ("ceramic", m.get("baseId") == "Ceramic"),
+                                ("moab", m.get("isMoab"))) if on}
+
+    prop_names = {"camo": t("Camo"), "regrow": t("Regrow"), "fortified": "Укреплённые"}
+    filters = [("", "Все"), ("new", "С новым"), ("camo", t("Camo")), ("regrow", t("Regrow")), ("fortified", "Укреплённые"),
+               ("lead", t("Lead")), ("ceramic", t("Ceramic")), ("moab", "MOAB-класс")]
+
     sections, toc = [], []
     for rs, title in (("DefaultRoundSet", "Обычные раунды"), ("AlternateRoundSet", "Альтернативные раунды (ABR)")):
         folder = DATA / "Rounds" / rs
-        rows, total = [], 0
+        rows, total, seen = [], 0, set()
         for f in sorted(folder.glob("*.json"), key=lambda f: int(f.stem)):
             r = int(f.stem)
             groups = load(f).get("groups") or []
@@ -920,13 +972,28 @@ def build_rounds():
             bonus = 100 + r
             total += cash + bonus
             dur = max((g["end"] for g in groups), default=0) / 60
-            rows.append((r, f"<div class='chips'>{chips}</div>", r_rbe, round(cash, 1), bonus, round(total, 1), round(dur, 2)))
+            # first appearance of a bloon type or a property (camo, regrow, fortified)
+            row_tags = set().union(*(tags(g["bloon"]) for g in groups)) if groups else set()
+            feats = [bloons[g["bloon"]].get("baseId") for g in groups] + [p for p in ("camo", "regrow", "fortified") if p in row_tags]
+            new = list(dict.fromkeys(x for x in feats if x not in seen))
+            seen.update(new)
+            badges = "".join(f"<span class='chip new'>{esc(prop_names.get(x) or t(x, fallback=x))}</span>" for x in new)
+            if new:
+                row_tags.add("new")
+            cells = [r, Raw(f"<div class='chips'>{chips}</div>"), Raw(f"<div class='chips'>{badges}</div>"), r_rbe,
+                     round(cash, 1), bonus, round(total, 1), round(dur, 2)]
+            rows.append(f"<tr data-tags='{' '.join(sorted(row_tags))}'{' class=newrow' if new else ''}>" + "".join(
+                f"<td class='n'>{fmt(c)}</td>" if isinstance(c, (int, float)) else f"<td>{c}</td>" for c in cells) + "</tr>")
+        head = "".join(f"<th>{h}</th>" for h in ("Раунд", "Шары", "Впервые", "RBE", "$ за лопание", "$ бонус", "$ всего с 1-го", "Длит., с"))
+        bar = (f"<div class='tagbar' data-target='#{rs}-t'>"
+               + "".join(f"<button type='button' data-tag='{k}'{' class=on' if not k else ''}>{esc(n)}</button>" for k, n in filters)
+               + "</div>")
         INDEX.append([title, "Раунды", f"rounds.html#{rs}", rs])
         sections.append(card(rs, title,
-                             "<input class='filter' type='search' placeholder='Фильтр: номер или шар' aria-label='Фильтр раундов' "
+                             bar + "<input class='filter' type='search' placeholder='Фильтр: номер или шар' aria-label='Фильтр раундов' "
                              f"data-filter='#{rs}-t tbody tr'>"
-                             + table(["Раунд", "Шары", "RBE", "$ за лопание", "$ бонус", "$ всего с 1-го", "Длит., с"], rows)
-                             .replace("<table>", f"<table id='{rs}-t'>", 1), section="Раунды"))
+                             f"<div class='wrap'><table id='{rs}-t'><thead><tr>{head}</tr></thead><tbody>{''.join(rows)}</tbody></table></div>",
+                             section="Раунды"))
         toc.append((rs, title))
     page("rounds.html", "Раунды",
          "Состав каждого раунда и посчитанные по моделям шаров величины. RBE это сумма HP всех слоёв. "
