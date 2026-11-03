@@ -267,3 +267,6 @@ a.badge:hover b{filter:brightness(1.08)}
 .paragon li{display:flex;gap:14px;align-items:flex-start;padding-block:8px}
 .paragon li>div{flex:1;min-width:0}
 .para-ic{width:72px;height:72px}
+.home-grid{grid-template-columns:repeat(3,minmax(0,1fr));max-width:1100px}
+@media (max-width:1100px){.home-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.home-grid{grid-template-columns:minmax(0,1fr)}}
