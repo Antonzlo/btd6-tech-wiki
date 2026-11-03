@@ -1,4 +1,26 @@
 {
+ "BombShooter": [
+  "BombShooter Paragon"
+ ],
+ "BombShooter (wiki)": [
+  "biggerbombs",
+  "blooncrush",
+  "bloonimpact",
+  "bombblitz",
+  "bombparagonicon",
+  "bombparagonoblivionmissilesiloaa",
+  "clusterbombs",
+  "extrarange",
+  "fasterreload",
+  "fragbombs",
+  "heavybombs",
+  "missilelauncher",
+  "moabassassin",
+  "moabeliminator",
+  "moabmauler",
+  "reallybigbombs",
+  "recursivecluster"
+ ],
  "EngineerMonkey": [
   "XXXL Trap"
  ],
@@ -24,6 +46,28 @@
   "ultraboost",
   "xxxl"
  ],
+ "IceMonkey": [
+  "IceMonkey Paragon"
+ ],
+ "IceMonkey (wiki)": [
+  "absolutezero",
+  "arcticwind",
+  "cryocannon",
+  "deepfreeze",
+  "eclipseaa",
+  "embrittlement",
+  "enhancedfreeze",
+  "icemonkeyparagonicon",
+  "iceshards",
+  "icicleimpale",
+  "icicles",
+  "largerradius",
+  "metalfreeze",
+  "permafrost",
+  "refreeze",
+  "snowstorm",
+  "superbrittle"
+ ],
  "MonkeyAce": [
   "Centered Path"
  ],
@@ -47,6 +91,27 @@
   "spyplane",
   "tsarbomba",
   "tsarbombaupgradeiconaa"
+ ],
+ "MonkeySub": [
+  "MonkeySub Paragon"
+ ],
+ "MonkeySub (wiki)": [
+  "advancedintel",
+  "airburstdarts",
+  "armorpiercingdarts",
+  "ballisticmissile",
+  "barbeddarts",
+  "bloontoniumreactor",
+  "energizer",
+  "finalstrikeiconaa",
+  "firststrikecapability",
+  "heattippeddart",
+  "longerrange",
+  "preemptivestrike",
+  "subcommander",
+  "submergeandsupport",
+  "tripleguns",
+  "twinguns"
  ],
  "MonkeyVillage": [
   "Monkeyopolis"
@@ -93,7 +158,8 @@
  ],
  "SniperMonkey": [
   "Large Calibre",
-  "Supply Drop"
+  "Supply Drop",
+  "SniperMonkey Paragon"
  ],
  "SniperMonkey (wiki)": [
   "ammodropt4aaicon",
@@ -118,5 +184,53 @@
   "semiautomatic",
   "shrapnelshot",
   "singleoutaaicon"
+ ],
+ "SpikeFactory": [
+  "SpikeFactory Paragon"
+ ],
+ "SpikeFactory (wiki)": [
+  "biggerstacks",
+  "carpetofspikes",
+  "deadlyspikes",
+  "directedspikes",
+  "evenfasterproduction",
+  "fasterproduction",
+  "longlifespikes",
+  "longreach",
+  "moabshredr",
+  "permaspike",
+  "spikedballs",
+  "spikedmines",
+  "spikefactoryparagoncontrolledburstaa",
+  "spikefactoryparagonicon",
+  "spikefactoryparagonspikeageddonaa",
+  "spikestorm",
+  "supermines",
+  "whitehotspikes"
+ ],
+ "TackShooter": [
+  "TackShooter Paragon"
+ ],
+ "TackShooter (wiki)": [
+  "blademaelstrom",
+  "blademaelstromupgradeiconaa",
+  "bladeshooter",
+  "evenfastershooting",
+  "evenmoretacks",
+  "fastershooting",
+  "hotshots",
+  "infernoring",
+  "longrangetacks",
+  "moretacks",
+  "overdrive",
+  "ringoffire",
+  "supermaelstrom",
+  "supermaelstromupgradeiconaa",
+  "superrangetacks",
+  "tackshooterparagoneruptionaa",
+  "tackshooterparagonicon",
+  "tackshooterparagonmeteoraa",
+  "tacksprayer",
+  "thetackzone"
  ]
 }

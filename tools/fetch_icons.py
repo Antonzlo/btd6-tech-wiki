@@ -67,6 +67,7 @@ def main():
 
     # tower portraits (base) and upgrade icons
     unmatched = {}
+    en_text = load(DATA / "textTable.en.json") if (DATA / "textTable.en.json").exists() else {}
     portraits = list_images("BTD6_000-")
     for folder in sorted(p for p in (DATA / "Towers").iterdir() if p.is_dir()):
         tid = folder.name
@@ -93,6 +94,15 @@ def main():
                     wanted[("upgrades", up)] = icons[hit]
                 else:
                     unmatched.setdefault(tid, []).append(up)
+        # paragon: the data id is "<Tower> Paragon", the wiki file uses the English name ("Apex Plasma Master")
+        pf = folder / f"{tid}-Paragon.json"
+        if pf.exists():
+            up = (load(pf).get("appliedUpgrades") or [""])[-1]
+            hit = norm(en_text.get(up, ""))
+            if hit in icons:
+                wanted[("upgrades", up)] = icons[hit]
+            else:
+                unmatched.setdefault(tid, []).append(up)
         if tid in unmatched:
             unmatched[tid + " (wiki)"] = sorted(icons)
 

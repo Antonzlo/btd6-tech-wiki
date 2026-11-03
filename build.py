@@ -960,6 +960,12 @@ def build_towers():
                             f"<span class='price'>{price([c], 'cost big')}<small>всего {price(done)}</small></span></div>"
                             f"<p>{esc(t(u + ' Description'))}</p></div></li>")
             cols.append(f"<div class='path'><h3>Путь {i + 1}</h3><ol>{''.join(rows)}</ol></div>")
+        para = ""
+        if (folder / f"{tid}-Paragon.json").exists():
+            u = (load(folder / f"{tid}-Paragon.json").get("appliedUpgrades") or [""])[-1]
+            para = (f"<div class='paragon'><h3>Парагон</h3><ol><li>{icon('upgrades', u, 72, 'ic up-ic para-ic')}<div>"
+                    f"<div class='up-head'><b>{esc(t(u, fallback=u))}</b><span class='price'>{price([ucost.get(u, 0)], 'cost big')}</span></div>"
+                    f"<p>{esc(t(u + ' Description'))}</p></div></li></ol></div>")
         picker = "".join(
             f"<div class='xp-row' data-path='{i}'><span>Путь {i + 1}</span>"
             + "".join(f"<button type='button' data-tier='{n}'>{n}</button>" for n in range(6)) + "</div>"
@@ -973,7 +979,7 @@ def build_towers():
                           ("радиус места", base.get("radius")), ("категория", t(TOWER_SETS.get(base.get("towerSet")), fallback=""))])
                  + "</div></div>",
                  en_id=tid, section="Башни")
-            + card("upgrades", "Улучшения", f"<div class='paths'>{''.join(cols)}</div>", section=name)
+            + card("upgrades", "Улучшения", f"<div class='paths'>{''.join(cols)}</div>{para}", section=name)
             + card("crosspath", "Кроссапгрейд",
                    "<p class='note'>Выберите тиры путей, как в игре. Показаны цена со всеми улучшениями, "
                    "атаки, перезарядка, урон и пробивание каждого снаряда, включая вложенные (взрывы, осколки).</p>"

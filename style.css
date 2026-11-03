@@ -256,3 +256,14 @@ a.badge:hover b{filter:brightness(1.08)}
 .page-tile{display:flex;gap:14px;align-items:center}
 .page-tile .ic{width:56px;height:56px}
 .page-tile>span{min-width:0}
+
+/* Upgrade tiers line up across the three paths (subgrid rows) */
+.paths{grid-template-rows:auto repeat(5,auto);gap:0 28px}
+.path{display:grid;grid-row:span 6;grid-template-rows:subgrid}
+.path ol{display:contents}
+.path li{padding-block:8px}
+.paragon{margin-top:14px;border-top:2px solid var(--gold);padding-top:4px}
+.paragon ol{list-style:none;margin:0;padding:0}
+.paragon li{display:flex;gap:14px;align-items:flex-start;padding-block:8px}
+.paragon li>div{flex:1;min-width:0}
+.para-ic{width:72px;height:72px}
