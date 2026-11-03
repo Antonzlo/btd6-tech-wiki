@@ -272,5 +272,14 @@
 "Не наносят урона базовой атакой:": "Base attack deals no damage:",
 "Список башен посчитан по immuneBloonProperties урона их снарядов ": "The tower list comes from the immuneBloonProperties of their projectile damage ",
 "в базовой модели (000). Улучшения часто снимают ограничение.": "in the base model (000). Upgrades often lift the limit.",
-"Что значит каждое свойство и какие башни его не лопают": "What each property means and which towers cannot pop it"
+"Что значит каждое свойство и какие башни его не лопают": "What each property means and which towers cannot pop it",
+"Все герои: цена, дальность и 20 уровней. XP до уровня взят из модели улучшения уровня, множитель опыта героя в нём уже учтён. Описания уровней из текстов игры.": "All heroes: cost, range and 20 levels. XP to a level comes from the level's upgrade model, the hero's XP scale is already in it. Level descriptions come from the game text.",
+"цена (Средний)": "cost (Medium)",
+"XP до 20 уровня": "XP to level 20",
+"XP до уровня": "XP to level",
+"XP всего": "Total XP",
+"Что даёт": "What it gives",
+"Уровни и опыт": "Levels and XP",
+"Уровень": "Level",
+"Герои": "Heroes"
 }

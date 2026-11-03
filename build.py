@@ -36,6 +36,7 @@ PAGES = [
     ("knowledge.html", "Monkey Knowledge", "Цены и эффекты"),
     ("powers.html", "Силы", "Параметры сил"),
     ("towers.html", "Башни", "Улучшения и кроссапгрейды"),
+    ("heroes.html", "Герои", "Уровни и опыт"),
     ("bloons.html", "Шары", "Свойства, HP и дети"),
     ("rounds.html", "Раунды", "Состав, RBE и деньги"),
 ]
@@ -834,6 +835,38 @@ def build_powers():
          [("powers", "Силы"), ("pro", "Powers Pro")])
 
 
+def build_heroes():
+    upgrades = {f.stem: load(f) for f in json_files("Upgrades")}
+    heroes = []
+    for folder in sorted(p for p in (DATA / "Heroes").iterdir() if p.is_dir()):
+        hid = folder.name
+        base = load(folder / f"{hid}.json")
+        # level N comes from the upgrade's tier (N - 1); xpCost is the XP from level N-1 to N, hero XP scale included
+        levels = sorted(((upgrades[u].get("tier", 0) + 1, upgrades[u].get("xpCost", 0))
+                         for u in load(folder / f"{hid} 20.json").get("appliedUpgrades") or [] if u in upgrades))
+        heroes.append((base.get("cost", 0), t(hid, fallback=hid), hid, base, levels))
+    cards = []
+    for cost, name, hid, base, levels in sorted(heroes):
+        lvl_text = lambda n: esc(re.sub(r"</?(sup|sub|b|i|u)>|</?color[^>]*>", "", t(f"{hid} Level {n} Description", fallback="")))
+        total, rows = 0, [(1, "–", 0, lvl_text(1))]
+        for lvl, xp in levels:
+            total += xp
+            rows.append((lvl, xp, total, lvl_text(lvl)))
+        pic = icon("heroes", hid, 84, "ic kicon")
+        inner = ((f"<div class='hero-row'>{pic}<div>" if pic else "<div><div>")
+                 + f"<p><b>{esc(t(f'{hid} Short Description', fallback=''))}</b></p>"
+                 + game_text(t(f"{hid} Description"))
+                 + stats([("цена (Средний)", Raw(f"${fmt(cost)}")), ("дальность", num(base.get("range"))),
+                          ("XP до 20 уровня", total)])
+                 + "</div></div>"
+                 + table(["Уровень", "XP до уровня", "XP всего", "Что даёт"], [(a, b, c, Raw(d)) for a, b, c, d in rows]))
+        cards.append(card(hid, name, inner, en_id=hid, section="Герои"))
+    page("heroes.html", "Герои",
+         "Все герои: цена, дальность и 20 уровней. XP до уровня взят из модели улучшения уровня, "
+         "множитель опыта героя в нём уже учтён. Описания уровней из текстов игры.",
+         f"<div class='cards'>{''.join(cards)}</div>", [(hid, name) for _, name, hid, _, _ in sorted(heroes)])
+
+
 def build_index():
     tiles = "".join(f"<a class='tile page-tile' href='{f}'>{page_icon(f, 56)}<span><b>{esc(t(n, fallback=n))}</b><small>{esc(s)}</small></span></a>" for f, n, s in PAGES[1:])
     page("index.html", "BTD6 Tech Wiki",
@@ -861,7 +894,7 @@ def icon(kind, oid, size, cls="ic"):
 PAGE_ICONS = {"paragon.html": ("ui", "paragon"), "bosses.html": ("ui", "boss-Bloonarius"), "modes.html": ("ui", "mode-Clicks"),
               "income.html": ("ui", "coin"), "buffs.html": ("towers", "MonkeyVillage"), "knowledge.html": ("ui", "knowledge"),
               "powers.html": ("ui", "powers"), "towers.html": ("towers", "DartMonkey"), "rounds.html": ("ui", "startround"),
-              "bloons.html": ("bloons", "Red")}
+              "bloons.html": ("bloons", "Red"), "heroes.html": ("heroes", "Quincy")}
 
 
 def page_icon(file, size):
@@ -1249,7 +1282,8 @@ def main():
         for file, build in (("paragon.html", build_paragon), ("bosses.html", build_bosses), ("modes.html", build_modes),
                             ("income.html", build_income), ("buffs.html", build_buffs),
                             ("knowledge.html", build_knowledge), ("powers.html", build_powers),
-                            ("towers.html", build_towers), ("bloons.html", build_bloons), ("rounds.html", build_rounds),
+                            ("towers.html", build_towers), ("heroes.html", build_heroes), ("bloons.html", build_bloons),
+                            ("rounds.html", build_rounds),
                             ("index.html", build_index)):
             current_file = file
             build()

@@ -6,8 +6,9 @@ cd "$(dirname "$0")/.."
 src=${1:-$HOME/.local/share/Steam/steamapps/common/BloonsTD6/GameIcons}
 web=data/icons/web
 
-for kind in towers upgrades bloons; do
+for kind in towers upgrades bloons heroes; do
   mkdir -p "$web/$kind"
+  [ -d "$src/$kind" ] || continue
   magick mogrify -path "$web/$kind" -format webp -trim +repage -resize '128x128>' -strip -quality 88 "$src/$kind"/*.png
 done
 rm -rf "$web/buffs"
@@ -20,6 +21,7 @@ one() {  # one <png> <webp>
 grep -ho '"iconName": "[^"]*"' data/Buffs/*.json | cut -d'"' -f4 | sort -u | while read -r n; do
   rest=${n#Map}; rest=${rest#BuffIcon}; rest=${rest#Buff}
   found=
+  if [ -f "$src/buffs/$n.png" ]; then one "$src/buffs/$n.png" "$web/buffs/$n.webp"; continue; fi
   for c in "$n" "BuffIcon$rest" "$rest" "${rest}Icon" "${rest}UpgradeIcon"; do
     if [ -f "$src/sprites/$c.png" ]; then one "$src/sprites/$c.png" "$web/buffs/$n.webp"; found=1; break; fi
   done

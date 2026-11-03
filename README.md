@@ -20,6 +20,7 @@ python3 -I build.py          # writes site/ (Russian) and site/en/
    `<Proton prefix>/drive_c/users/steamuser/AppData/LocalLow/Ninja Kiwi/BloonsTD6/`.
 2. Copy `Bosses Bloons Mods IncomeSets Buffs Knowledge Powers Upgrades paragonDegreeData.json textTable.json`,
    the 26 main tower folders from `Towers/`, and `Rounds/DefaultRoundSet`, `Rounds/AlternateRoundSet` into `data/`.
+   For each hero (towerSet 16 with 20 levels) copy `<Hero>.json` and `<Hero> 20.json` into `data/Heroes/<Hero>/`.
 3. For English game text, switch the game to English, export again, and copy `textTable.json` to
    `data/textTable.en.json`.
 4. Monkey Knowledge layout: with the `KnowledgeDumper` mod (`../btd6-knowledge-dumper`) open the Monkey
