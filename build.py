@@ -843,15 +843,11 @@ def build_index():
          "текстах игры, сделаны по названиям полей.</p>")
 
 
-# ---------- icons (from tools/fetch_icons.py, resized to data/icons/web/*.webp) ----------
-
-ICONS = load(DATA / "icons" / "manifest.json") if (DATA / "icons" / "manifest.json").exists() else {}
-
+# ---------- icons (game sprites via tools/game_icons.sh: data/icons/web/<kind>/<id>.webp) ----------
 
 def data_uri(kind, oid):
-    rel = ICONS.get(kind, {}).get(oid)
-    # icons made here (tools/compose_icons.sh) are not in the download manifest
-    return webp_uri(DATA / "icons" / "web" / (f"{rel}.webp" if rel else f"{kind}/{oid}.webp"))
+    # file names keep [A-Za-z0-9_-] of the id, like the dumper mod writes them
+    return webp_uri(DATA / "icons" / "web" / kind / (re.sub(r"[^A-Za-z0-9_-]", "_", oid) + ".webp"))
 
 
 def icon(kind, oid, size, cls="ic"):

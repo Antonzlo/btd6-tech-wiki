@@ -1,6 +1,6 @@
 #!/bin/sh
 # Icons the game does not have: a source icon with a red "not allowed" sign over it.
-# Run after fetch_icons.py and the webp conversion. Needs ImageMagick 7 (magick).
+# Run after tools/game_icons.sh. Needs ImageMagick 7 (magick).
 set -eu
 cd "$(dirname "$0")/.."
 out=data/icons/web/ui
@@ -13,4 +13,4 @@ ban() {  # ban <source image> <output name>
 }
 
 ban data/KnowledgeLayout/icons/ManaShield.webp nomana
-ban data/icons/raw/ui/knowledge.png noknowledge
+ban data/icons/web/ui/knowledge.webp noknowledge
