@@ -8,7 +8,6 @@ and the KnowledgeLayout folder written by btd6-knowledge-dumper (F6 in game, giv
 import html
 import base64
 import collections
-import datetime
 import functools
 import json
 import math
@@ -145,10 +144,11 @@ def load(path):
 
 
 # game.json from btd6-knowledge-dumper (F6 in game): version, shop order, bloon property bits
-GAME_JSON = DATA / "KnowledgeLayout" / "game.json"
-GAME = load(GAME_JSON) if GAME_JSON.exists() else {}
-VERSION = (f"{GAME['version']} (дамп {datetime.date.fromtimestamp(GAME_JSON.stat().st_mtime)})" if GAME
-           else (DATA / "VERSION.txt").read_text(encoding="utf-8").strip())
+GAME = load(DATA / "KnowledgeLayout" / "game.json")
+# the numbers come from the Mod Helper export, so its version (VERSION.txt) is the one shown
+VERSION = (DATA / "VERSION.txt").read_text(encoding="utf-8").strip()
+if not VERSION.startswith(GAME["version"] + " "):
+    print(f"warning: game is {GAME['version']}, data export is {VERSION}: export again", file=sys.stderr)
 
 # Languages: Russian is written in the code; other languages translate the finished HTML with a phrase
 # dictionary (i18n_<lang>.json) and take game names/descriptions from data/textTable.<lang>.json.
@@ -884,12 +884,8 @@ def bloon_icon_style(ids):
 # ---------- towers ----------
 
 TOWER_SETS = {1: "Primary", 2: "Military", 4: "Magic", 8: "Support"}
-# shop order: GameModel.towerSet from game.json; the list below is the fallback until the dump exists.
-# Unknown towers go last by cost.
-SHOP_ORDER = [t["id"] for t in sorted(GAME.get("towerSet") or [], key=lambda t: t["index"])] or ["DartMonkey", "BoomerangMonkey", "BombShooter", "TackShooter", "IceMonkey", "GlueGunner", "Desperado",
-              "SniperMonkey", "MonkeySub", "MonkeyBuccaneer", "MonkeyAce", "HeliPilot", "MortarMonkey", "DartlingGunner",
-              "WizardMonkey", "SuperMonkey", "NinjaMonkey", "Alchemist", "Druid", "Mermonkey", "Skywarden",
-              "BananaFarm", "SpikeFactory", "MonkeyVillage", "EngineerMonkey", "BeastHandler"]
+# shop order: GameModel.towerSet from game.json. Towers missing from data/Towers are skipped by the pages.
+SHOP_ORDER = [t["id"] for t in sorted(GAME["towerSet"], key=lambda t: t["index"])]
 EFFECT_WORDS = ("Slow", "Freeze", "Stun", "Knockback", "Wind", "DamageOverTime", "AddBehaviorToBloon", "Bleed", "Burn")
 
 
@@ -1091,7 +1087,10 @@ BLOON_GROUPS = [
     ("undead", "Нежить", ["UndeadMoab", "UndeadBfb", "UndeadZomg"]),
 ]
 # BloonProperties flags from the game code
-BLOON_PROPS = [(1, "Свинец"), (2, "Чёрный"), (4, "Белый"), (8, "Фиолетовый"), (16, "Заморожен"), (32, "Неуязвим"), (64, "Стекло")]
+# bits from the game enum (game.json), Russian labels by enum name
+PROP_LABELS = {"Lead": "Свинец", "Black": "Чёрный", "White": "Белый", "Purple": "Фиолетовый", "Frozen": "Заморожен",
+               "Immune": "Неуязвим", "Glass": "Стекло"}
+BLOON_PROPS = [(bit, PROP_LABELS.get(n, n)) for n, bit in GAME["bloonProperties"].items() if bit]
 
 
 PROP_INFO = {

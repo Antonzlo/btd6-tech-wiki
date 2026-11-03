@@ -1,0 +1,123 @@
+{
+  "version": "57.4",
+  "towerSet": [
+    {
+      "id": "DartMonkey",
+      "index": 0
+    },
+    {
+      "id": "BoomerangMonkey",
+      "index": 1
+    },
+    {
+      "id": "BombShooter",
+      "index": 2
+    },
+    {
+      "id": "TackShooter",
+      "index": 3
+    },
+    {
+      "id": "IceMonkey",
+      "index": 4
+    },
+    {
+      "id": "GlueGunner",
+      "index": 5
+    },
+    {
+      "id": "Desperado",
+      "index": 6
+    },
+    {
+      "id": "SniperMonkey",
+      "index": 7
+    },
+    {
+      "id": "MonkeySub",
+      "index": 8
+    },
+    {
+      "id": "MonkeyBuccaneer",
+      "index": 9
+    },
+    {
+      "id": "MonkeyAce",
+      "index": 10
+    },
+    {
+      "id": "HeliPilot",
+      "index": 11
+    },
+    {
+      "id": "MortarMonkey",
+      "index": 12
+    },
+    {
+      "id": "DartlingGunner",
+      "index": 13
+    },
+    {
+      "id": "WizardMonkey",
+      "index": 14
+    },
+    {
+      "id": "SuperMonkey",
+      "index": 15
+    },
+    {
+      "id": "NinjaMonkey",
+      "index": 16
+    },
+    {
+      "id": "Alchemist",
+      "index": 17
+    },
+    {
+      "id": "Druid",
+      "index": 18
+    },
+    {
+      "id": "Mermonkey",
+      "index": 19
+    },
+    {
+      "id": "Skywarden",
+      "index": 20
+    },
+    {
+      "id": "BananaFarm",
+      "index": 21
+    },
+    {
+      "id": "SpikeFactory",
+      "index": 22
+    },
+    {
+      "id": "MonkeyVillage",
+      "index": 23
+    },
+    {
+      "id": "EngineerMonkey",
+      "index": 24
+    },
+    {
+      "id": "BeastHandler",
+      "index": 25
+    },
+    {
+      "id": "Sheriff",
+      "index": 26
+    }
+  ],
+  "bloonProperties": {
+    "None": 0,
+    "Lead": 1,
+    "Black": 2,
+    "White": 4,
+    "Purple": 8,
+    "Frozen": 16,
+    "Immune": 32,
+    "Glass": 64
+  }
+}

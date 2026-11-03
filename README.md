@@ -23,7 +23,7 @@ python3 -I build.py          # writes site/ (Russian) and site/en/
 4. Monkey Knowledge layout: with the `KnowledgeDumper` mod (`../btd6-knowledge-dumper`) open the Monkey
    Knowledge screen and press F6, then copy `<game>/KnowledgeLayout/` into `data/KnowledgeLayout/`
    (icons converted to 96px webp). F6 also writes `game.json`: game version, shop order of towers and
-   bloon property bits. Without it the build falls back to `data/VERSION.txt` and a built-in tower order.
+   bloon property bits (required). Keep `data/VERSION.txt` at the export version; the build warns when the game is newer.
 5. Icons for towers, upgrades and bloons: `python3 -I tools/fetch_icons.py`, then convert
    `data/icons/raw/*` to webp in `data/icons/web/` (see the script header).
 
