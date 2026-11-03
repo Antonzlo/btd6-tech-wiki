@@ -843,11 +843,12 @@ def build_heroes():
         hid = folder.name
         base = load(folder / f"{hid}.json")
         # level N comes from the upgrade's tier (N - 1); xpCost is the XP from level N-1 to N, hero XP scale included
+        top = load(folder / f"{hid} 20.json")
         levels = sorted(((upgrades[u].get("tier", 0) + 1, upgrades[u].get("xpCost", 0))
-                         for u in load(folder / f"{hid} 20.json").get("appliedUpgrades") or [] if u in upgrades))
-        heroes.append((base.get("cost", 0), t(hid, fallback=hid), hid, base, levels))
+                         for u in top.get("appliedUpgrades") or [] if u in upgrades))
+        heroes.append((base.get("cost", 0), t(hid, fallback=hid), hid, base, levels, abilities_of([(None, top)])))
     cards = []
-    for cost, name, hid, base, levels in sorted(heroes):
+    for cost, name, hid, base, levels, abils in sorted(heroes, key=lambda h: h[:3]):
         lvl_text = lambda n: esc(re.sub(r"</?(sup|sub|b|i|u)>|</?color[^>]*>", "", t(f"{hid} Level {n} Description", fallback="")))
         total, rows = 0, [(1, "–", 0, lvl_text(1))]
         for lvl, xp in levels:
@@ -860,12 +861,14 @@ def build_heroes():
                  + stats([("цена (Средний)", Raw(f"${fmt(cost)}")), ("дальность", num(base.get("range"))),
                           ("XP до 20 уровня", total)])
                  + "</div></div>"
-                 + table(["Уровень", "XP до уровня", "XP всего", "Что даёт"], [(a, b, c, Raw(d)) for a, b, c, d in rows]))
+                 + table(["Уровень", "XP до уровня", "XP всего", "Что даёт"], [(a, b, c, Raw(d)) for a, b, c, d in rows])
+                 + ("<h3>Способности</h3>" + abilities_table(abils, lambda up: f"уровень {upgrades[up].get('tier', 0) + 1}"
+                                                              if up in upgrades else esc(up)) if abils else ""))
         cards.append(card(hid, name, inner, en_id=hid, section="Герои"))
     page("heroes.html", "Герои",
          "Все герои: цена, дальность и 20 уровней. XP до уровня взят из модели улучшения уровня, "
          "множитель опыта героя в нём уже учтён. Описания уровней из текстов игры.",
-         f"<div class='cards'>{''.join(cards)}</div>", [(hid, name) for _, name, hid, _, _ in sorted(heroes)])
+         f"<div class='cards'>{''.join(cards)}</div>", [(h[2], h[1]) for h in sorted(heroes, key=lambda h: h[:3])])
 
 
 def build_index():
@@ -976,6 +979,30 @@ def tower_summary(d, upgrade_costs):
             "other": sorted(set(other))}
 
 
+def abilities_of(models):
+    """Abilities across (upgrade, model) pairs, first appearance wins: {display name: AbilityModel}.
+    The upgrade of the first model that has it replaces addedViaUpgrade, which keeps the old name when a
+    tier 5 swaps the ability (Plasma Monkey Fan Club says "Super Monkey Fan Club")."""
+    out = {}
+    for up, d in models:
+        for b in d.get("behaviors") or []:
+            if isinstance(b, dict) and short_type(b) == "AbilityModel" and not b.get("isHidden") and b.get("displayName"):
+                out.setdefault(b["displayName"], {**b, "addedViaUpgrade": up or b.get("addedViaUpgrade")})
+    return out
+
+
+def abilities_table(abils, source):
+    """Table of abilities: icon, name, where it comes from (source(upgrade name)), cooldown, game text."""
+    rows = []
+    for key, b in abils.items():
+        pic = icon("abilities", (b.get("icon") or {}).get("guidRef") or "", 40) or "<span class='mod-ic'></span>"
+        text = t(f"{key} Ability Description", fallback=b.get("description") or "")
+        rows.append((Raw(f"<span class='mod-name'>{pic}<b>{esc(t(f'{key} Ability', key, fallback=key))}</b></span>"),
+                     Raw(source(b.get("addedViaUpgrade") or "")), Raw(f"{fmt(num(b.get('cooldown')))}&nbsp;с"),
+                     re.sub(r"</?(sup|sub|b|i|u)>|</?color[^>]*>", "", text)))
+    return table(["Способность", "Откуда", "Перезарядка", "Описание"], rows) if rows else ""
+
+
 def build_towers():
     global current_file
     upgrades = {load(f).get("name"): load(f) for f in json_files("Upgrades")}
@@ -1036,6 +1063,13 @@ def build_towers():
             + "".join(f"<button type='button' data-tier='{n}'>{n}</button>" for n in range(6)) + "</div>"
             for i in range(3))
         extra = [k for k in variants if not k.isdigit()]
+        # abilities from the single-path models, tier by tier, then the paragon
+        codes = ["".join(str(n) if j == i else "0" for j in range(3)) for n in range(1, 6) for i in range(3)] + ["Paragon"]
+        models = [load(folder / f"{tid}-{c}.json") for c in codes if (folder / f"{tid}-{c}.json").exists()]
+        abils = abilities_of(((m.get("appliedUpgrades") or [None])[-1], m) for m in models)
+        where = {u: f"путь {i + 1}, {n}: {t(u, fallback=u)}" for i, path in enumerate(paths) for n, u in enumerate(path, 1)}
+        if para:
+            where[u] = f"{t('Paragon', fallback='Парагон')}: {t(u, fallback=u)}"
         body = (
             selector
             + card("about", name,
@@ -1045,6 +1079,8 @@ def build_towers():
                  + "</div></div>",
                  en_id=tid, section="Башни")
             + card("upgrades", "Улучшения", f"<div class='paths'>{''.join(cols)}</div>{para}", section=name)
+            + (card("abilities", "Способности", abilities_table(abils, lambda up: esc(where.get(up, t(up, fallback=up)))),
+                    section=name) if abils else "")
             + card("crosspath", "Кроссапгрейд",
                    "<p class='note'>Выберите тиры путей, как в игре. Показаны цена со всеми улучшениями, "
                    "атаки, перезарядка, урон и пробивание каждого снаряда, включая вложенные (взрывы, осколки).</p>"
@@ -1055,7 +1091,8 @@ def build_towers():
                    f"<script type='application/json' class='xp-data'>{json.dumps(variants, ensure_ascii=False).replace('</', '<\\/')}</script>",
                    section=name))
         page(file, name, f"{esc(t(TOWER_SETS.get(base.get('towerSet')), fallback=''))}. Все числа из моделей башни.",
-             body, toc=[("about", "Описание"), ("upgrades", "Улучшения"), ("crosspath", "Кроссапгрейд")])
+             body, toc=[("about", "Описание"), ("upgrades", "Улучшения")] + ([("abilities", "Способности")] if abils else [])
+             + [("crosspath", "Кроссапгрейд")])
         tiles.setdefault(base.get("towerSet"), []).append((tid, name, base.get("cost")))
     current_file = "towers.html"
     body = []
