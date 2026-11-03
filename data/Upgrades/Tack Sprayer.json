@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 450,
+  "xpCost": 2450,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "d4938a51787d7bc4d841e529e4456249",
+    "AssetGUID": "d4938a51787d7bc4d841e529e4456249"
+  },
+  "path": 2,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Tack Sprayer",
+  "IsParagon": false,
+  "name": "Tack Sprayer"
+}

@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 26500,
+  "xpCost": 30000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "dfd6a004d78c14a6e904488eaf96c075",
+    "AssetGUID": "dfd6a004d78c14a6e904488eaf96c075"
+  },
+  "path": 2,
+  "tier": 4,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Soulbind",
+  "IsParagon": false,
+  "name": "Soulbind"
+}

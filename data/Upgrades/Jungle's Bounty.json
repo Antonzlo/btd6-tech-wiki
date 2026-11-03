@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 4900,
+  "xpCost": 11000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "9541c67b8e047be4e946a69d299b4682",
+    "AssetGUID": "9541c67b8e047be4e946a69d299b4682"
+  },
+  "path": 1,
+  "tier": 3,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Jungle's Bounty",
+  "IsParagon": false,
+  "name": "Jungle's Bounty"
+}

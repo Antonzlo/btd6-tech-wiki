@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.PowerProUpgradeModel, Assembly-CSharp",
+  "cost": 800,
+  "xpCost": -1,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "0a758471f1351c942a2c0fed2da1c569",
+    "AssetGUID": "0a758471f1351c942a2c0fed2da1c569"
+  },
+  "path": 2,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Monkey Banker",
+  "IsParagon": false,
+  "name": "Monkey Banker"
+}

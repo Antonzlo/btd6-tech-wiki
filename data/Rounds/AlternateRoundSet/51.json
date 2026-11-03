@@ -1,0 +1,23 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Rounds.RoundModel, Assembly-CSharp",
+  "groups": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "CeramicFortifiedCamo",
+      "start": 0.0,
+      "end": 925.014,
+      "count": 28,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Zebra",
+      "start": 959.27997,
+      "end": 1267.6194,
+      "count": 10,
+      "name": ""
+    }
+  ],
+  "emissions_": null,
+  "name": ""
+}

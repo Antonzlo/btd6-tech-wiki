@@ -1,0 +1,12 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.ModModel, Assembly-CSharp",
+  "mutatorMods": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Gameplay.Mods.BloonHealthModel, Assembly-CSharp",
+      "healthMod": 2.0,
+      "bloonTag": "Moabs",
+      "name": "BloonHealthModel_"
+    }
+  ],
+  "name": "DoubleMoabHealth"
+}

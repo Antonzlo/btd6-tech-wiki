@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 250,
+  "xpCost": 180,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "834e7ddb5446dd54b87d370160ed46d4",
+    "AssetGUID": "834e7ddb5446dd54b87d370160ed46d4"
+  },
+  "path": 1,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Faster Reload",
+  "IsParagon": false,
+  "name": "Faster Reload"
+}

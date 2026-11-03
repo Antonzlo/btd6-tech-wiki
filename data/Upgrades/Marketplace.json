@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 2700,
+  "xpCost": 3200,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "001321564a25a4e28935ba688aaf96cf",
+    "AssetGUID": "001321564a25a4e28935ba688aaf96cf"
+  },
+  "path": 2,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Marketplace",
+  "IsParagon": false,
+  "name": "Marketplace"
+}

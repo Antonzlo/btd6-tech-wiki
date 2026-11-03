@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.BuffIndicatorModel, Assembly-CSharp",
+  "buffName": "BuffIconBoomerangParagon",
+  "iconName": "BuffIconBoomerangParagon",
+  "stackable": false,
+  "maxStackSize": 0,
+  "globalRange": true,
+  "onlyShowBuffIfMutated": false,
+  "dontShowX": false,
+  "_fullName": "BuffIconBoomerangParagonBuffIconBoomerangParagon",
+  "FullName": "BuffIconBoomerangParagonBuffIconBoomerangParagon",
+  "name": "BuffIndicatorModel_BuffIconBoomerangParagon-BuffIconBoomerangParagon"
+}

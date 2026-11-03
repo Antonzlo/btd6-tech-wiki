@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 200,
+  "xpCost": 500,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "e7ef3fc013a83354daf2f9501aa72822",
+    "AssetGUID": "e7ef3fc013a83354daf2f9501aa72822"
+  },
+  "path": 2,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Re-Freeze",
+  "IsParagon": false,
+  "name": "Re-Freeze"
+}

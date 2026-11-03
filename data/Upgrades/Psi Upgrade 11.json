@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 0,
+  "xpCost": 24570,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": null,
+    "AssetGUID": null
+  },
+  "path": 0,
+  "tier": 10,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Psi Upgrade 11",
+  "IsParagon": true,
+  "name": "Psi Upgrade 11"
+}

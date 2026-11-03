@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 4200,
+  "xpCost": 11000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "0973c30d220ec4a488dd919b1e86e45a",
+    "AssetGUID": "0973c30d220ec4a488dd919b1e86e45a"
+  },
+  "path": 0,
+  "tier": 3,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Abyssal Warrior",
+  "IsParagon": false,
+  "name": "Abyssal Warrior"
+}

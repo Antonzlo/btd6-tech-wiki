@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 1100,
+  "xpCost": 2200,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "875ed9a2739df4c0282955450dccd637",
+    "AssetGUID": "875ed9a2739df4c0282955450dccd637"
+  },
+  "path": 2,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Signal Flare",
+  "IsParagon": false,
+  "name": "Signal Flare"
+}

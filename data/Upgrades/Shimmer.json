@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 1500,
+  "xpCost": 2200,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "3f078943acee04c8284d8d8d87c5b9ba",
+    "AssetGUID": "3f078943acee04c8284d8d8d87c5b9ba"
+  },
+  "path": 2,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Shimmer",
+  "IsParagon": false,
+  "name": "Shimmer"
+}

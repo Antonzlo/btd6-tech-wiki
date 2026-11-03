@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 425,
+  "xpCost": 700,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "23124f8c84c649b4db949db077048c93",
+    "AssetGUID": "23124f8c84c649b4db949db077048c93"
+  },
+  "path": 0,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Buccaneer-Double Shot",
+  "IsParagon": false,
+  "name": "Buccaneer-Double Shot"
+}

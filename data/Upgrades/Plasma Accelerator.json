@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 11750,
+  "xpCost": 12500,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "b012a1dc98c7e4a3885b7b904ee9ad0b",
+    "AssetGUID": "b012a1dc98c7e4a3885b7b904ee9ad0b"
+  },
+  "path": 0,
+  "tier": 3,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Plasma Accelerator",
+  "IsParagon": false,
+  "name": "Plasma Accelerator"
+}

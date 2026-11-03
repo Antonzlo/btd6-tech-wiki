@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.BuffIndicatorModel, Assembly-CSharp",
+  "buffName": "BuffIconSniperAmmo",
+  "iconName": "BuffIconSniperAmmo",
+  "stackable": false,
+  "maxStackSize": 0,
+  "globalRange": false,
+  "onlyShowBuffIfMutated": false,
+  "dontShowX": false,
+  "_fullName": "BuffIconSniperAmmoBuffIconSniperAmmo",
+  "FullName": "BuffIconSniperAmmoBuffIconSniperAmmo",
+  "name": "BuffIndicatorModel_BuffIconSniperAmmo-BuffIconSniperAmmo"
+}

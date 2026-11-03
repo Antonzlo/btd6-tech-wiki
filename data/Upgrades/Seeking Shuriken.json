@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 300,
+  "xpCost": 140,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "9f55e117cdfc14cf0a91ba06f9e3cbfa",
+    "AssetGUID": "9f55e117cdfc14cf0a91ba06f9e3cbfa"
+  },
+  "path": 2,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Seeking Shuriken",
+  "IsParagon": false,
+  "name": "Seeking Shuriken"
+}

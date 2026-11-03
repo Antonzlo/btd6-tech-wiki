@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 280,
+  "xpCost": 520,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "67e10d46e81dc654f82b8c6e07710807",
+    "AssetGUID": "67e10d46e81dc654f82b8c6e07710807"
+  },
+  "path": 0,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Glaives",
+  "IsParagon": false,
+  "name": "Glaives"
+}

@@ -1,0 +1,572 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Bloons.BloonModel, Assembly-CSharp",
+  "id": "LychElite5",
+  "baseId": "Lych",
+  "display": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "3b79eab91dc4cb848a79e436eece2e13",
+    "AssetGUID": "3b79eab91dc4cb848a79e436eece2e13"
+  },
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "b84b3263b2f0094499293f41e46749ff",
+    "AssetGUID": "b84b3263b2f0094499293f41e46749ff"
+  },
+  "overlayClass": 18,
+  "tags": [
+    "Moabs",
+    "Boss",
+    "Bad",
+    "Elite"
+  ],
+  "behaviors": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+      "display": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "3b79eab91dc4cb848a79e436eece2e13",
+        "AssetGUID": "3b79eab91dc4cb848a79e436eece2e13"
+      },
+      "layer": 0,
+      "positionOffset": {
+        "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "MagnitudeSquared": 0.0,
+        "Magnitude": 0.0,
+        "Rotation": 0.0,
+        "SimToDispRotation": 180.0
+      },
+      "scale": 1.0,
+      "ignoreRotation": false,
+      "animationChanges": null,
+      "delayedReveal": 0.0,
+      "category": 2,
+      "isAnimationPaused": false,
+      "lockDisplayDelayModification": false,
+      "name": "DisplayModel_BloonDisplay"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.DistributeCashModel, Assembly-CSharp",
+      "cash": 0.0,
+      "multiplier": 1.0,
+      "additive": 0.0,
+      "additionalCash": 0.0,
+      "giveNoCash": false,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.ShowDamageTextModel, Assembly-CSharp",
+      "showText": false,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.PopEffectModel, Assembly-CSharp",
+      "displayAssetId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "a26c13a357838ee409d09f86a54a4fca",
+        "AssetGUID": "a26c13a357838ee409d09f86a54a4fca"
+      },
+      "soundEffect1Id": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "463fff76fb92d3b4fa583cff51415dc1",
+        "AssetGUID": "463fff76fb92d3b4fa583cff51415dc1"
+      },
+      "soundEffect2Id": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "463fff76fb92d3b4fa583cff51415dc1",
+        "AssetGUID": "463fff76fb92d3b4fa583cff51415dc1"
+      },
+      "soundEffect3Id": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "463fff76fb92d3b4fa583cff51415dc1",
+        "AssetGUID": "463fff76fb92d3b4fa583cff51415dc1"
+      },
+      "soundEffect4Id": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "463fff76fb92d3b4fa583cff51415dc1",
+        "AssetGUID": "463fff76fb92d3b4fa583cff51415dc1"
+      },
+      "soundEffectGroupID": "MoabDestroyedSounds",
+      "soundEffectGroupLimit": 2,
+      "soundEffectTimeDelay": 90,
+      "soundEffectTimeDelayFF": 180,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.LychBossSuperScriptModel, Assembly-CSharp",
+      "preventFallthrough": true,
+      "drainInterval": 12.0,
+      "drainInitialInterval": 2.0,
+      "drainEtherealExitInterval": 0.5,
+      "drainActionIds": [
+        "AbsorbBuffs",
+        "AbsorbBuffsAnimTrigger"
+      ],
+      "regrowInterval": 9.0,
+      "regrowInitialInterval": 2.0,
+      "regrowDrainInterval": 3.0,
+      "regrowEtherealExitInterval": 3.0,
+      "regrowActionIds": [
+        "RegrowHeal"
+      ],
+      "tombstoneInterval": 18.0,
+      "tombstoneInitialInterval": 10.0,
+      "tombstoneEtherealExitInterval": 2.0,
+      "tombstoneActionIds": [
+        "SpawnTombstone"
+      ],
+      "tombstoneHealthOverride": 500000.0,
+      "tombstoneMoabHealthOverride": 4000.0,
+      "tombstoneBfbHealthOverride": 8000.0,
+      "tombstoneZomgHealthOverride": 80000.0,
+      "tombstoneSpawnSpeedModifier": 3.0,
+      "etherealHealthPercentageValues": [
+        0.8333,
+        0.6666,
+        0.5,
+        0.3333,
+        0.1666
+      ],
+      "etherealEnterActionIds": [
+        "EtherealAnim",
+        "SpeedDown",
+        "RemoveMutators",
+        "SpawnLychSoul1",
+        "SpawnLychSoul2",
+        "SpawnLychSoul3",
+        "SpawnLychSoul4",
+        "SpawnLychSoul5"
+      ],
+      "etherealExitActionIds": [
+        "NonEtherealAnim",
+        "SpeedUp"
+      ],
+      "totalKills": 0,
+      "TombstoneSpawnHealthOverrides": null,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.CreateSoundOnDamageBloonModel, Assembly-CSharp",
+      "sounds": [
+        {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "a200b313c2cad4848930bd4e8ed8429c",
+          "AssetGUID": "a200b313c2cad4848930bd4e8ed8429c"
+        },
+        {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "c7edc0ecb57f35a408c5da2097c7fd2d",
+          "AssetGUID": "c7edc0ecb57f35a408c5da2097c7fd2d"
+        },
+        {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "09b29cc02fd26c0478956b381d8c8b33",
+          "AssetGUID": "09b29cc02fd26c0478956b381d8c8b33"
+        },
+        {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "df27614540f8be443987da59abb2305c",
+          "AssetGUID": "df27614540f8be443987da59abb2305c"
+        }
+      ],
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.BadImmunityModel, Assembly-CSharp",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.CreateSoundOnSpawnBloonModel, Assembly-CSharp",
+      "sound": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "543a1758e782f6a47994018ab15f2e87",
+        "AssetGUID": "543a1758e782f6a47994018ab15f2e87"
+      },
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.SpawnDeathAnimModel, Assembly-CSharp",
+      "spawnAnimTrigLabel": "Placement",
+      "spawnAnimLength": 3.0,
+      "deathAnimTrigLabel": "Die",
+      "deathAnimLength": 3.0,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.AnimDamageStateModel, Assembly-CSharp",
+      "numOfAnimStates": 5,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.AbsorbTowerBuffsActionModel, Assembly-CSharp",
+      "towerFreezeDuration": 5.0,
+      "towerFreezeDurationFrames": 0,
+      "radius": 100.0,
+      "ignoredBuffs": [
+        "SwitchDisplay",
+        "LychFreeze",
+        "TurboHero",
+        "HeatItUp:Pierce",
+        "HeatItUp:Pierce PierceUp",
+        "HeatItUp:Damage",
+        "HeatItUp:DamageLead",
+        "HeatItUp:Damage DamageUp",
+        "NavalTacticsRate",
+        "NavalTacticsPierce",
+        "NavalTacticsDamage",
+        "NavalTacticsVisibility",
+        "PatFusty:RallyingRoar",
+        "Biohack-Delay-Shutdown",
+        "Biohack-Delay",
+        "Biohack-Damage",
+        "Shutoff",
+        "ChangeDamageTypeHero",
+        "ArmorPiercingShellsMoab",
+        "ArmorPiercingShellsCeramic",
+        "ArmorPiercingShellsDamage",
+        "BuffIconStrikerjones-ArtilleryCommandDamage",
+        "BloodSacrificeBuff",
+        "LongArmOfLight",
+        "DamageMutatorZZZ",
+        "CPOEPMutatorZZZ",
+        "ChurchillArmorPiercingShellDisplay",
+        "MonkeyBoost",
+        "Thrive",
+        "TimeStopTowers",
+        "JarOfPickles",
+        "JarOfPicklesV2",
+        "JarOfPicklesV3",
+        "SeeInvisibilityPotion",
+        "SeeInvisibilityPotionV2",
+        "SeeInvisibilityPotionV3",
+        "SeeInvisibilityEffect",
+        "SharpeningStone",
+        "SharpeningStoneGreater",
+        "GeraldoUpgradeBlocker",
+        "BottleHotSauce",
+        "Fertilizer",
+        "BrickellFreezeOtherMinesMutator",
+        "TowerFreeze",
+        "FlightBoost"
+      ],
+      "buffsAlwaysRemoved": [
+        "AcidicMixtureBuff",
+        "AcidicMixturePermaBuff",
+        "BerserkerBrew",
+        "BerserkerBrewBetter",
+        "BerserkerBrewPerma",
+        "BerserkerBrewBlockerMutation",
+        "Ultraboost",
+        "AbsoluteZeroRateBuff"
+      ],
+      "buffsThatDontHeal": [
+        "BerserkerBrewBlockerMutation",
+        "BionicAugmentation",
+        "SeeInvisibilityPotionEffect"
+      ],
+      "towersWhichAreDestroyed": [],
+      "towerFreezeDisplayAsset": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "1b840daaa72a9f44b84bf8a7624ebb48",
+        "AssetGUID": "1b840daaa72a9f44b84bf8a7624ebb48"
+      },
+      "triggerName": "AbsorbBuffs",
+      "actionId": "AbsorbBuffs",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.PlayAnimTriggerActionModel, Assembly-CSharp",
+      "triggerName": "AbsorbBuffs",
+      "pauseMovementDuration": 0.0,
+      "actionId": "AbsorbBuffsAnimTrigger",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.SellTriggerModel, Assembly-CSharp",
+      "actionIds": [
+        "SellLychAnimation"
+      ],
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.PlayAnimTriggerActionModel, Assembly-CSharp",
+      "triggerName": "Sell",
+      "pauseMovementDuration": 0.0,
+      "actionId": "SellLychAnimation",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.PlayAnimTriggerActionModel, Assembly-CSharp",
+      "triggerName": "Ethereal",
+      "pauseMovementDuration": 0.0,
+      "actionId": "EtherealAnim",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.SetSpeedPercentActionModel, Assembly-CSharp",
+      "percent": 0.5,
+      "revert": false,
+      "time": 0.0,
+      "distance": 0.0,
+      "actionId": "SpeedDown",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.RemoveAllMutatorsActionModel, Assembly-CSharp",
+      "mutatorsToIgnoreList": [
+        "PauseMovement",
+        "SetSpeedPercent",
+        "Invulnerable",
+        "CarpetSpikes",
+        "SpiritOfTheForestClose",
+        "SpiritOfTheForestMedium",
+        "SpiritOfTheForestFar",
+        "GrowBlock",
+        "Heartstopper",
+        "RushBehaviorMutator"
+      ],
+      "actionId": "RemoveMutators",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.SpawnBloonsActionModel, Assembly-CSharp",
+      "bossName": "Lych",
+      "bloonType": "MiniLychElite5",
+      "spawnCount": 1,
+      "spawnOverTime": 0.0,
+      "spawnDistAhead": 0.0,
+      "spawnTrackMin": 0.1,
+      "spawnTrackMax": 0.15,
+      "animationLength": 0.0,
+      "invulnerableWhileAnimating": false,
+      "healthPercentOfSelf": 0.0,
+      "healthOverride": 0.0,
+      "animCurveIds": [],
+      "moabAnimCurveIds": [],
+      "actionId": "SpawnLychSoul1",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.SpawnBloonsActionModel, Assembly-CSharp",
+      "bossName": "Lych",
+      "bloonType": "MiniLychElite5",
+      "spawnCount": 1,
+      "spawnOverTime": 0.0,
+      "spawnDistAhead": 0.0,
+      "spawnTrackMin": 0.3,
+      "spawnTrackMax": 0.35,
+      "animationLength": 0.0,
+      "invulnerableWhileAnimating": false,
+      "healthPercentOfSelf": 0.0,
+      "healthOverride": 0.0,
+      "animCurveIds": [],
+      "moabAnimCurveIds": [],
+      "actionId": "SpawnLychSoul2",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.SpawnBloonsActionModel, Assembly-CSharp",
+      "bossName": "Lych",
+      "bloonType": "MiniLychElite5",
+      "spawnCount": 1,
+      "spawnOverTime": 0.0,
+      "spawnDistAhead": 0.0,
+      "spawnTrackMin": 0.45,
+      "spawnTrackMax": 0.5,
+      "animationLength": 0.0,
+      "invulnerableWhileAnimating": false,
+      "healthPercentOfSelf": 0.0,
+      "healthOverride": 0.0,
+      "animCurveIds": [],
+      "moabAnimCurveIds": [],
+      "actionId": "SpawnLychSoul3",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.SpawnBloonsActionModel, Assembly-CSharp",
+      "bossName": "Lych",
+      "bloonType": "MiniLychElite5",
+      "spawnCount": 1,
+      "spawnOverTime": 0.0,
+      "spawnDistAhead": 0.0,
+      "spawnTrackMin": 0.6,
+      "spawnTrackMax": 0.65,
+      "animationLength": 0.0,
+      "invulnerableWhileAnimating": false,
+      "healthPercentOfSelf": 0.0,
+      "healthOverride": 0.0,
+      "animCurveIds": [],
+      "moabAnimCurveIds": [],
+      "actionId": "SpawnLychSoul4",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.SpawnBloonsActionModel, Assembly-CSharp",
+      "bossName": "Lych",
+      "bloonType": "MiniLychElite5",
+      "spawnCount": 1,
+      "spawnOverTime": 0.0,
+      "spawnDistAhead": 0.0,
+      "spawnTrackMin": 0.75,
+      "spawnTrackMax": 0.8,
+      "animationLength": 0.0,
+      "invulnerableWhileAnimating": false,
+      "healthPercentOfSelf": 0.0,
+      "healthOverride": 0.0,
+      "animCurveIds": [],
+      "moabAnimCurveIds": [],
+      "actionId": "SpawnLychSoul5",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.PlayAnimTriggerActionModel, Assembly-CSharp",
+      "triggerName": "NonEthereal",
+      "pauseMovementDuration": 0.0,
+      "actionId": "NonEtherealAnim",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.SetSpeedPercentActionModel, Assembly-CSharp",
+      "percent": 1.0,
+      "revert": true,
+      "time": 0.0,
+      "distance": 0.0,
+      "actionId": "SpeedUp",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.HealSelfActionModel, Assembly-CSharp",
+      "healAmount": 0,
+      "healPercent": 0.015,
+      "bossSkullIncreasePercent": 0.2,
+      "actionId": "RegrowHeal",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.LychTombstoneSpawnActionModel, Assembly-CSharp",
+      "bossName": "Lych",
+      "bloonType": "TombstoneElite5",
+      "spawnCount": 1,
+      "spawnOverTime": 0.0,
+      "spawnDistAhead": -50.0,
+      "spawnTrackMin": 0.0,
+      "spawnTrackMax": 0.0,
+      "actionId": "SpawnTombstone",
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Bloons.Behaviors.WorthReductionModel, Assembly-CSharp",
+      "worthMultiplier": 0.35,
+      "name": ""
+    }
+  ],
+  "mods": null,
+  "damageDisplayStates": [],
+  "collisionGroup": {
+    "$type": "Il2CppAssets.Scripts.Models.Physics.CollisionGroupModel, Assembly-CSharp",
+    "collisionGroup": [
+      {
+        "$type": "Il2CppAssets.Scripts.Models.Physics.CollisionGroupModel+CollisionGroupData, Assembly-CSharp",
+        "offset": {
+          "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector2, Assembly-CSharp",
+          "x": 0.0,
+          "y": 20.2,
+          "MagnitudeSquared": 408.04004,
+          "Magnitude": 20.2,
+          "Rotation": 0.0
+        },
+        "radius": 26.33,
+        "precalculatedOffset": {
+          "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector2, Assembly-CSharp",
+          "x": 0.0,
+          "y": 0.0,
+          "MagnitudeSquared": 0.0,
+          "Magnitude": 0.0,
+          "Rotation": 0.0
+        }
+      },
+      {
+        "$type": "Il2CppAssets.Scripts.Models.Physics.CollisionGroupModel+CollisionGroupData, Assembly-CSharp",
+        "offset": {
+          "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector2, Assembly-CSharp",
+          "x": 0.0,
+          "y": -14.2,
+          "MagnitudeSquared": 201.64,
+          "Magnitude": 14.2,
+          "Rotation": 180.0
+        },
+        "radius": 28.45,
+        "precalculatedOffset": {
+          "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector2, Assembly-CSharp",
+          "x": 0.0,
+          "y": 0.0,
+          "MagnitudeSquared": 0.0,
+          "Magnitude": 0.0,
+          "Rotation": 0.0
+        }
+      }
+    ],
+    "name": ""
+  },
+  "bloonProperties": 0,
+  "depletionEffects": [],
+  "isMoab": true,
+  "isBoss": true,
+  "isCamo": false,
+  "isCamoBlocked": false,
+  "isGrow": false,
+  "isFortified": false,
+  "hasChildrenWithDifferentTotalHealths": false,
+  "isInvulnerable": false,
+  "distributeDamageToChildren": false,
+  "disallowCosmetics": true,
+  "isSaved": true,
+  "isImmuneToSlow": false,
+  "isBossSegment": false,
+  "rotateToFollowPath": true,
+  "totalLeakDamage": null,
+  "storedLayers": null,
+  "radius": 40.0,
+  "danger": 16.0,
+  "maxHealth": 24000000,
+  "coopMultiplier": 1.0,
+  "armourMultiplier": 1.0,
+  "leakDamage": 0.0,
+  "leakDamageSet": 0.0,
+  "leakDamageMultiplier": 1.0,
+  "layerNumber": 1,
+  "bonusDamagePerHit": 0.0,
+  "layerCountOffset": 0,
+  "currentOverlays": null,
+  "dontShowInSandbox": false,
+  "dontShowInSandboxOnRelease": false,
+  "alwaysRecordsDamage": false,
+  "speed": 2.9,
+  "speedFrames": 0.0,
+  "legendsType": -1,
+  "variantName": null,
+  "variantPrefix": null,
+  "basicTypeFlags": 0,
+  "propertyFlags": 0,
+  "isFixedMaxHealth": false,
+  "typedTagsBitmask": 0,
+  "typedTagsBitmaskInitialized": false,
+  "updateChildBloonModels": false,
+  "childBloonModels": null,
+  "Tags": [
+    "Moabs",
+    "Boss",
+    "Bad",
+    "Elite"
+  ],
+  "Speed": 2.9,
+  "IsExclusiveToLegends": false,
+  "IsBaseType": true,
+  "IsVariant": false,
+  "CanAddToRoundSets": false,
+  "TypedTagsBitmask": 28672,
+  "IsBase": true,
+  "name": "LychElite5"
+}

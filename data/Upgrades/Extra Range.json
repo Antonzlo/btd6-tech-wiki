@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 200,
+  "xpCost": 150,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "e23d1c6713c1eef438f185457566eb85",
+    "AssetGUID": "e23d1c6713c1eef438f185457566eb85"
+  },
+  "path": 2,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Extra Range",
+  "IsParagon": false,
+  "name": "Extra Range"
+}

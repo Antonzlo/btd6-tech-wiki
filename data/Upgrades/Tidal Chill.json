@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 225,
+  "xpCost": 700,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "e89bdd31ca50e01419e3b5061cc3c777",
+    "AssetGUID": "e89bdd31ca50e01419e3b5061cc3c777"
+  },
+  "path": 1,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Tidal Chill",
+  "IsParagon": false,
+  "name": "Tidal Chill"
+}

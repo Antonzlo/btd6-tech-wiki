@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 250,
+  "xpCost": 200,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "ca1975fa03a8c4eaba2e75012723c6be",
+    "AssetGUID": "ca1975fa03a8c4eaba2e75012723c6be"
+  },
+  "path": 1,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Night Vision Goggles",
+  "IsParagon": false,
+  "name": "Night Vision Goggles"
+}

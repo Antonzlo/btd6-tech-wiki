@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 350,
+  "xpCost": 600,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "5312812441a08bb44b5f88d6bff46545",
+    "AssetGUID": "5312812441a08bb44b5f88d6bff46545"
+  },
+  "path": 1,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Heart of Oak",
+  "IsParagon": false,
+  "name": "Heart of Oak"
+}

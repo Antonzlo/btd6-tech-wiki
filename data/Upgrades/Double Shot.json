@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 900,
+  "xpCost": 2000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "7cc8b5c3493ee4cde9943e0ff214cd23",
+    "AssetGUID": "7cc8b5c3493ee4cde9943e0ff214cd23"
+  },
+  "path": 0,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Double Shot",
+  "IsParagon": false,
+  "name": "Double Shot"
+}

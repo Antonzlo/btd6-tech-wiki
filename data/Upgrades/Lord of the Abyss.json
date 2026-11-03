@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 23000,
+  "xpCost": 68000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "8b68da25def34ea4790d05a1760fa835",
+    "AssetGUID": "8b68da25def34ea4790d05a1760fa835"
+  },
+  "path": 0,
+  "tier": 4,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Lord of the Abyss",
+  "IsParagon": false,
+  "name": "Lord of the Abyss"
+}

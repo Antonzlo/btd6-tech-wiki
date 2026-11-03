@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 45000,
+  "xpCost": 100000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "1fb655a13799edf4ca1a28a868d38d2d",
+    "AssetGUID": "1fb655a13799edf4ca1a28a868d38d2d"
+  },
+  "path": 0,
+  "tier": 4,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Megalodon",
+  "IsParagon": false,
+  "name": "Megalodon"
+}

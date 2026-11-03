@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 250,
+  "xpCost": 580,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "4b565cc68687d1047a2528c2e450b085",
+    "AssetGUID": "4b565cc68687d1047a2528c2e450b085"
+  },
+  "path": 0,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Trident Swiftness",
+  "IsParagon": false,
+  "name": "Trident Swiftness"
+}

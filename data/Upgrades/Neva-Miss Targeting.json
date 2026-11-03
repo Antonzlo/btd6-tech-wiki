@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 2550,
+  "xpCost": 3000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "e6d363146284ea74c86c8759f56c8a1b",
+    "AssetGUID": "e6d363146284ea74c86c8759f56c8a1b"
+  },
+  "path": 2,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Neva-Miss Targeting",
+  "IsParagon": false,
+  "name": "Neva-Miss Targeting"
+}

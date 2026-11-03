@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 150,
+  "xpCost": 490,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "ae76b84d213d46c43899f584173fba26",
+    "AssetGUID": "ae76b84d213d46c43899f584173fba26"
+  },
+  "path": 2,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Even More Tacks",
+  "IsParagon": false,
+  "name": "Even More Tacks"
+}

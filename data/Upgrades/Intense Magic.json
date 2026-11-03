@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 300,
+  "xpCost": 140,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "37c9906b56cab4b94a6555d231e79738",
+    "AssetGUID": "37c9906b56cab4b94a6555d231e79738"
+  },
+  "path": 2,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Intense Magic",
+  "IsParagon": false,
+  "name": "Intense Magic"
+}

@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.BuffIndicatorModel, Assembly-CSharp",
+  "buffName": "BuffIconPiranha",
+  "iconName": "BuffIconPiranha",
+  "stackable": false,
+  "maxStackSize": 1,
+  "globalRange": true,
+  "onlyShowBuffIfMutated": true,
+  "dontShowX": true,
+  "_fullName": "BuffIconPiranhaBuffIconPiranha",
+  "FullName": "BuffIconPiranhaBuffIconPiranha",
+  "name": "BuffIndicatorModel_BuffIconPiranha-BuffIconPiranha"
+}

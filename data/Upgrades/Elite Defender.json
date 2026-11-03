@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 14900,
+  "xpCost": 30000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "c9cb42be6c73344b0bd7757d4201de65",
+    "AssetGUID": "c9cb42be6c73344b0bd7757d4201de65"
+  },
+  "path": 2,
+  "tier": 4,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Elite Defender",
+  "IsParagon": false,
+  "name": "Elite Defender"
+}

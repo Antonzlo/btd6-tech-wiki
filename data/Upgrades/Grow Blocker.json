@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 250,
+  "xpCost": 150,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "e8a414ba0671d4548b6e21eea38bd995",
+    "AssetGUID": "e8a414ba0671d4548b6e21eea38bd995"
+  },
+  "path": 1,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Grow Blocker",
+  "IsParagon": false,
+  "name": "Grow Blocker"
+}

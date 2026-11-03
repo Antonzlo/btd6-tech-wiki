@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.BuffIndicatorModel, Assembly-CSharp",
+  "buffName": "EliteSniperBuff",
+  "iconName": "BuffIconSniperx5x",
+  "stackable": false,
+  "maxStackSize": 0,
+  "globalRange": true,
+  "onlyShowBuffIfMutated": false,
+  "dontShowX": false,
+  "_fullName": "BuffIconSniperx5xEliteSniperBuff",
+  "FullName": "BuffIconSniperx5xEliteSniperBuff",
+  "name": "BuffIndicatorModel_BuffIconSniperx5x-EliteSniperBuff"
+}

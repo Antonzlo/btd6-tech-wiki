@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 22500,
+  "xpCost": 37500,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "2f1c81dd95efb56449ac4ddd5ce23d29",
+    "AssetGUID": "2f1c81dd95efb56449ac4ddd5ce23d29"
+  },
+  "path": 0,
+  "tier": 4,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "The Bloon Solver",
+  "IsParagon": false,
+  "name": "The Bloon Solver"
+}

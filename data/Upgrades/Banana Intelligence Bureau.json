@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.PowerProUpgradeModel, Assembly-CSharp",
+  "cost": 5000,
+  "xpCost": -1,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "ef5881ec58a99864498570209a184a9a",
+    "AssetGUID": "ef5881ec58a99864498570209a184a9a"
+  },
+  "path": 1,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Banana Intelligence Bureau",
+  "IsParagon": false,
+  "name": "Banana Intelligence Bureau"
+}

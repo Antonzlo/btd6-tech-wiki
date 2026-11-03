@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.BuffIndicatorModel, Assembly-CSharp",
+  "buffName": "CallToArmsBuff",
+  "iconName": "BuffIconVillagex4x",
+  "stackable": false,
+  "maxStackSize": 0,
+  "globalRange": true,
+  "onlyShowBuffIfMutated": false,
+  "dontShowX": false,
+  "_fullName": "BuffIconVillagex4xCallToArmsBuff",
+  "FullName": "BuffIconVillagex4xCallToArmsBuff",
+  "name": "BuffIndicatorModel_BuffIconVillagex4x-CallToArmsBuff"
+}

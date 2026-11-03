@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 160,
+  "xpCost": 250,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "59d49ca8b08082748a4eb2e4f30acf92",
+    "AssetGUID": "59d49ca8b08082748a4eb2e4f30acf92"
+  },
+  "path": 0,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Piranha",
+  "IsParagon": false,
+  "name": "Piranha"
+}

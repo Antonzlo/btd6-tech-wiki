@@ -1,0 +1,370 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Powers.PowerModel, Assembly-CSharp",
+  "cost": 50,
+  "canBeActivatedBetweenRounds": true,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "PowerIcons[PortableLakeIcon]",
+    "AssetGUID": "PowerIcons[PortableLakeIcon]"
+  },
+  "behaviors": null,
+  "mods": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Mods.ApplyModModel, Assembly-CSharp",
+      "mod": "CheaperLakes",
+      "target": "",
+      "name": "PortableLake"
+    }
+  ],
+  "tower": {
+    "$type": "Il2CppAssets.Scripts.Models.Towers.TowerModel, Assembly-CSharp",
+    "isPowerTower": true,
+    "cost": 0.0,
+    "range": 24.0,
+    "ignoreBlockers": false,
+    "isGlobalRange": false,
+    "tier": 0,
+    "tiers": [
+      0,
+      0,
+      0
+    ],
+    "towerSet": 64,
+    "towerTheme": "",
+    "icon": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+      "guidRef": null,
+      "AssetGUID": null
+    },
+    "icon3D": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+      "guidRef": null,
+      "AssetGUID": null
+    },
+    "portrait": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+      "guidRef": "c1738153284a15d4d9edcdeba5023696",
+      "AssetGUID": "c1738153284a15d4d9edcdeba5023696"
+    },
+    "instaIcon": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+      "guidRef": null,
+      "AssetGUID": null
+    },
+    "areaTypes": [
+      2
+    ],
+    "mods": [],
+    "ignoreTowerForSelection": false,
+    "footprint": {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.CircleFootprintModel, Assembly-CSharp",
+      "radius": 19.0,
+      "doesntBlockTowerPlacement": false,
+      "ignoresPlacementCheck": false,
+      "ignoresTowerOverlap": false,
+      "name": "CircleFootprintModel_Circle Footprint"
+    },
+    "dontDisplayUpgrades": true,
+    "emoteSpriteSmall": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+      "guidRef": null,
+      "AssetGUID": null
+    },
+    "emoteSpriteLarge": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+      "guidRef": null,
+      "AssetGUID": null
+    },
+    "doesntRotate": false,
+    "hideInfoButton": true,
+    "bonusSelectionRadius": 0.0,
+    "upgrades": [],
+    "appliedUpgrades": [],
+    "targetTypes": null,
+    "paragonUpgrade": null,
+    "isSubTower": false,
+    "isBakable": false,
+    "powerName": "PortableLake",
+    "showPowerTowerBuffs": false,
+    "animationSpeed": 1.0,
+    "towerSelectionMenuThemeId": "Default",
+    "secondarySelectionMenu": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+      "guidRef": null,
+      "AssetGUID": null
+    },
+    "ignoreCoopAreas": false,
+    "ignoreAreaChanges": false,
+    "canAlwaysBeSold": false,
+    "blockSelling": false,
+    "isParagon": false,
+    "ignoreMaxSellPercent": false,
+    "isStunned": false,
+    "ignoreStun": false,
+    "isPrimedForRedeploy": false,
+    "geraldoItemName": null,
+    "sellbackModifierAdd": 0.0,
+    "skinName": null,
+    "isBeastHandlerPet": null,
+    "selectParentOnSelected": null,
+    "dontAddMutatorsFromParent": false,
+    "showBuffs": true,
+    "destroyTowerOnRedistribution": false,
+    "displayScale": 1.0,
+    "beastHandlerLeashMutationId": null,
+    "loadedFromSave": false,
+    "useAirUnitHeight": false,
+    "isTransformedTower": false,
+    "cantBeStunned": false,
+    "_powerProTowerModel": null,
+    "frontierId": -1,
+    "towerSize": 0,
+    "isPowerProTower": false,
+    "isGeraldoItem": false,
+    "BaseId": "PortableLake",
+    "IsBeastHandlerPet": false,
+    "SelectParentOnSelected": false,
+    "DisplayScale": 1.0,
+    "IsSubEntity": false,
+    "BeastHandlerLeashMutationId": "BeastHandlerContributionPortableLake",
+    "powerProTowerModel": null,
+    "IsBaseTower": true,
+    "TargetTypes": null,
+    "IsExclusivelyWaterBased": false,
+    "baseId": "PortableLake",
+    "display": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+      "guidRef": "1eaa53a0095e81943a3e35c86755eeaa",
+      "AssetGUID": "1eaa53a0095e81943a3e35c86755eeaa"
+    },
+    "behaviors": [
+      {
+        "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.SellStackedTowersModel, Assembly-CSharp",
+        "name": "SellStackedTowersModel_PortableLake"
+      },
+      {
+        "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.AddMakeshiftAreaModel, Assembly-CSharp",
+        "points": [
+          {
+            "$type": "Assets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+            "x": -14.57,
+            "y": -19.21351,
+            "z": 10.0000048
+          },
+          {
+            "$type": "Assets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+            "x": 0.0,
+            "y": -25.5435143,
+            "z": 10.0000048
+          },
+          {
+            "$type": "Assets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+            "x": 15.06,
+            "y": -19.2835121,
+            "z": 10.0000048
+          },
+          {
+            "$type": "Assets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+            "x": 19.49,
+            "y": -5.773505,
+            "z": 10.0000048
+          },
+          {
+            "$type": "Assets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+            "x": 14.43,
+            "y": 8.586501,
+            "z": 10.0000048
+          },
+          {
+            "$type": "Assets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+            "x": 0.0,
+            "y": 13.8565035,
+            "z": 10.0000048
+          },
+          {
+            "$type": "Assets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+            "x": -14.43,
+            "y": 8.446502,
+            "z": 10.0000048
+          },
+          {
+            "$type": "Assets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+            "x": -19.7,
+            "y": -5.773505,
+            "z": 10.0000048
+          },
+          {
+            "$type": "Assets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+            "x": -14.57,
+            "y": -19.21351,
+            "z": 10.0000048
+          }
+        ],
+        "newAreaType": 1,
+        "filterInTowerSizes": [
+          "small",
+          "medium",
+          "large",
+          "XL"
+        ],
+        "filterInTowerSets": [],
+        "filterOutSpecificTowers": [
+          "Pontoon"
+        ],
+        "renderHeightOffset": 0.0,
+        "ignoreZAxisTowerCollision": true,
+        "destroyTowersOnAreaWhenSold": false,
+        "dontDestroyTowersWhenAreaChanges": false,
+        "lockedArea": false,
+        "prohibitTrackPlacement": false,
+        "name": "AddMakeshiftAreaModel_PortableLake"
+      },
+      {
+        "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.IgnoreTowersBlockerModel, Assembly-CSharp",
+        "filteredTowers": [
+          "Water"
+        ],
+        "name": ""
+      },
+      {
+        "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.CreateEffectOnSellModel, Assembly-CSharp",
+        "effectModel": {
+          "$type": "Il2CppAssets.Scripts.Models.Effects.EffectModel, Assembly-CSharp",
+          "assetId": {
+            "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+            "guidRef": "b1dec8a8d79593843bc2e2410eae944e",
+            "AssetGUID": "b1dec8a8d79593843bc2e2410eae944e"
+          },
+          "scale": 1.0,
+          "lifespan": 1.0,
+          "fullscreen": 0,
+          "useCenterPosition": false,
+          "useTransformPosition": false,
+          "useTransfromRotation": false,
+          "destroyOnTransformDestroy": false,
+          "alwaysUseAge": false,
+          "useRoundTime": false,
+          "name": ""
+        },
+        "name": "CreateEffectOnSellModel_PortableLake"
+      },
+      {
+        "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.CreateEffectOnPlaceModel, Assembly-CSharp",
+        "effectModel": null,
+        "createOnAirUnit": false,
+        "name": "CreateEffectOnPlaceModel_PortableLake"
+      },
+      {
+        "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.CreateSoundOnTowerPlaceModel, Assembly-CSharp",
+        "sound1": {
+          "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+          "assetId": {
+            "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+            "guidRef": "4023a65f29b4eb741b06515c8ddce830",
+            "AssetGUID": "4023a65f29b4eb741b06515c8ddce830"
+          },
+          "name": "SoundModel_PlaceTowerWater01"
+        },
+        "sound2": {
+          "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+          "assetId": {
+            "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+            "guidRef": "553f910a09200b649b3103b199171d83",
+            "AssetGUID": "553f910a09200b649b3103b199171d83"
+          },
+          "name": "SoundModel_PlaceTowerWater02"
+        },
+        "waterSound1": null,
+        "waterSound2": null,
+        "heroSound1": null,
+        "heroSound2": null,
+        "reactSound1": null,
+        "reactSoundAlt1": null,
+        "reactSound2": null,
+        "reactSoundAlt2": null,
+        "reactSound3": null,
+        "reactSoundAlt3": null,
+        "towerType1": "",
+        "towerSkin1": "",
+        "towerType2": "",
+        "towerSkin2": "",
+        "towerType3": "",
+        "towerSkin3": "",
+        "reactDelay": 0.0,
+        "name": "CreateSoundOnTowerPlaceModel_PortableLake"
+      },
+      {
+        "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.CreateSoundOnSellModel, Assembly-CSharp",
+        "sound": {
+          "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+          "assetId": {
+            "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+            "guidRef": "a8c789893d4275749af12c1efda9dd3e",
+            "AssetGUID": "a8c789893d4275749af12c1efda9dd3e"
+          },
+          "name": "SoundModel_UISell"
+        },
+        "name": "CreateSoundOnSellModel_PortableLake"
+      },
+      {
+        "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.PlayAnimationIndexModel, Assembly-CSharp",
+        "placeAnimation": 1,
+        "upgradeAnimation": 1,
+        "name": "PlayAnimationIndexModel_PortableLake"
+      },
+      {
+        "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+        "display": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "1eaa53a0095e81943a3e35c86755eeaa",
+          "AssetGUID": "1eaa53a0095e81943a3e35c86755eeaa"
+        },
+        "layer": -1,
+        "positionOffset": {
+          "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "MagnitudeSquared": 0.0,
+          "Magnitude": 0.0,
+          "Rotation": 0.0,
+          "SimToDispRotation": 180.0
+        },
+        "scale": 1.0,
+        "ignoreRotation": false,
+        "animationChanges": null,
+        "delayedReveal": 0.0,
+        "category": 4,
+        "isAnimationPaused": false,
+        "lockDisplayDelayModification": false,
+        "name": "DisplayModel_TowerDisplay"
+      }
+    ],
+    "radius": 19.0,
+    "cachedThrowMarkerHeight": 0.0,
+    "RadiusSquared": 0.0,
+    "name": "PortableLake"
+  },
+  "isDisabledByGameMode": false,
+  "isHidden": false,
+  "linkedToAchievement": 0,
+  "showBuffsForTower": false,
+  "quantity": 1,
+  "saveImmediately": false,
+  "storeNavigateToId": "",
+  "orderPriority": 0,
+  "alwaysPlaceAtScreenCentre": false,
+  "animatedIcon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "5776ddcbb80260d44b51f2587c1772ba",
+    "AssetGUID": "5776ddcbb80260d44b51f2587c1772ba"
+  },
+  "showAsNew": false,
+  "availableInMode": "",
+  "Cost": 50,
+  "CanBePurchasedWithMM": true,
+  "IsPowerPro": false,
+  "CanBeRewarded": true,
+  "PowerId": "PortableLake",
+  "name": "PortableLake"
+}

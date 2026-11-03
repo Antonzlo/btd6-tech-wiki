@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 2750,
+  "xpCost": 9000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "7cb7827558e2c2b4c95f6e0492f14571",
+    "AssetGUID": "7cb7827558e2c2b4c95f6e0492f14571"
+  },
+  "path": 2,
+  "tier": 3,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Icicles",
+  "IsParagon": false,
+  "name": "Icicles"
+}

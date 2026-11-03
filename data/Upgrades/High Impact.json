@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.PowerProUpgradeModel, Assembly-CSharp",
+  "cost": 1300,
+  "xpCost": -1,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "9069017db0b71434db83b765ccb33eaf",
+    "AssetGUID": "9069017db0b71434db83b765ccb33eaf"
+  },
+  "path": 2,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "High Impact",
+  "IsParagon": false,
+  "name": "High Impact"
+}

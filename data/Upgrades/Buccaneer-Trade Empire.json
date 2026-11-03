@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 23000,
+  "xpCost": 40000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "acf4ab52e2b6481478183bd6587baa10",
+    "AssetGUID": "acf4ab52e2b6481478183bd6587baa10"
+  },
+  "path": 2,
+  "tier": 4,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Buccaneer-Trade Empire",
+  "IsParagon": false,
+  "name": "Buccaneer-Trade Empire"
+}

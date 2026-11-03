@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.ModModel, Assembly-CSharp",
+  "mutatorMods": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Gameplay.Mods.StartingCashModModel, Assembly-CSharp",
+      "changeBase": 25500.0,
+      "addition": 0.0,
+      "multiplier": 0.0,
+      "name": "StartingCashModModel_"
+    }
+  ],
+  "name": "CoopDeflationCash3"
+}

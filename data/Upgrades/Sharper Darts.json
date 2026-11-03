@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 500,
+  "xpCost": 160,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "4ffddadd2ad24bb4ca8b5e50ecf30dd7",
+    "AssetGUID": "4ffddadd2ad24bb4ca8b5e50ecf30dd7"
+  },
+  "path": 2,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Sharper Darts",
+  "IsParagon": false,
+  "name": "Sharper Darts"
+}

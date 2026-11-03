@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 13000,
+  "xpCost": 20000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "4fbfe623cf6c86648894c86cf36afeb7",
+    "AssetGUID": "4fbfe623cf6c86648894c86cf36afeb7"
+  },
+  "path": 1,
+  "tier": 3,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "First Strike Capability",
+  "IsParagon": false,
+  "name": "First Strike Capability"
+}

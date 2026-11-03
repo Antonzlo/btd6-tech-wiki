@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 1050,
+  "xpCost": 2000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "18e9ce413fd874b4694d0b32e0e544c2",
+    "AssetGUID": "18e9ce413fd874b4694d0b32e0e544c2"
+  },
+  "path": 1,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Druid of the Jungle",
+  "IsParagon": false,
+  "name": "Druid of the Jungle"
+}

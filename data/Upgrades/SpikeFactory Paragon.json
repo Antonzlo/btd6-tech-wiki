@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 750000,
+  "xpCost": 1000000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "57b2eab3f657b5f4f843ce7cab14e9a8",
+    "AssetGUID": "57b2eab3f657b5f4f843ce7cab14e9a8"
+  },
+  "path": -1,
+  "tier": 5,
+  "locked": 0,
+  "confirmation": "Paragon",
+  "localizedNameOverride": "",
+  "LocsKey": "SpikeFactory Paragon",
+  "IsParagon": true,
+  "name": "SpikeFactory Paragon"
+}

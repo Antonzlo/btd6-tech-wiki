@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 2000,
+  "xpCost": 2500,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "babc6dbc7e96e164896786290c010498",
+    "AssetGUID": "babc6dbc7e96e164896786290c010498"
+  },
+  "path": 1,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Riptide Champion",
+  "IsParagon": false,
+  "name": "Riptide Champion"
+}

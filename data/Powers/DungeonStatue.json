@@ -1,0 +1,942 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Powers.PowerModel, Assembly-CSharp",
+  "cost": 50,
+  "canBeActivatedBetweenRounds": true,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": null,
+    "AssetGUID": null
+  },
+  "behaviors": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Powers.Effects.CreateEffectOnPowerModel, Assembly-CSharp",
+      "effectModel": {
+        "$type": "Il2CppAssets.Scripts.Models.Effects.EffectModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "cc4e51ecd049ee249a5bd51db3612483",
+          "AssetGUID": "cc4e51ecd049ee249a5bd51db3612483"
+        },
+        "scale": 1.0,
+        "lifespan": 1.0,
+        "fullscreen": 0,
+        "useCenterPosition": false,
+        "useTransformPosition": false,
+        "useTransfromRotation": false,
+        "destroyOnTransformDestroy": false,
+        "alwaysUseAge": false,
+        "useRoundTime": false,
+        "name": ""
+      },
+      "name": "CreateEffectOnPowerModel_DungeonStatue"
+    }
+  ],
+  "mods": null,
+  "tower": {
+    "$type": "Il2CppAssets.Scripts.Models.Towers.TowerModel, Assembly-CSharp",
+    "isPowerTower": true,
+    "cost": 0.0,
+    "range": 50.0,
+    "ignoreBlockers": true,
+    "isGlobalRange": true,
+    "tier": 0,
+    "tiers": [
+      0,
+      0,
+      0
+    ],
+    "towerSet": 64,
+    "towerTheme": "",
+    "icon": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+      "guidRef": null,
+      "AssetGUID": null
+    },
+    "icon3D": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+      "guidRef": null,
+      "AssetGUID": null
+    },
+    "portrait": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+      "guidRef": "4706e1e0ab479a348851c64ffe60a69b",
+      "AssetGUID": "4706e1e0ab479a348851c64ffe60a69b"
+    },
+    "instaIcon": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+      "guidRef": null,
+      "AssetGUID": null
+    },
+    "areaTypes": [
+      2
+    ],
+    "mods": [],
+    "ignoreTowerForSelection": false,
+    "footprint": {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.CircleFootprintModel, Assembly-CSharp",
+      "radius": 0.0,
+      "doesntBlockTowerPlacement": false,
+      "ignoresPlacementCheck": false,
+      "ignoresTowerOverlap": false,
+      "name": "CircleFootprintModel_Circle Footprint"
+    },
+    "dontDisplayUpgrades": true,
+    "emoteSpriteSmall": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+      "guidRef": null,
+      "AssetGUID": null
+    },
+    "emoteSpriteLarge": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+      "guidRef": null,
+      "AssetGUID": null
+    },
+    "doesntRotate": true,
+    "hideInfoButton": true,
+    "bonusSelectionRadius": 0.0,
+    "upgrades": [],
+    "appliedUpgrades": [],
+    "targetTypes": null,
+    "paragonUpgrade": null,
+    "isSubTower": true,
+    "isBakable": false,
+    "powerName": "DungeonStatue",
+    "showPowerTowerBuffs": false,
+    "animationSpeed": 1.0,
+    "towerSelectionMenuThemeId": "SmallUpgradeable",
+    "secondarySelectionMenu": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+      "guidRef": null,
+      "AssetGUID": null
+    },
+    "ignoreCoopAreas": false,
+    "ignoreAreaChanges": false,
+    "canAlwaysBeSold": false,
+    "blockSelling": true,
+    "isParagon": false,
+    "ignoreMaxSellPercent": false,
+    "isStunned": false,
+    "ignoreStun": false,
+    "isPrimedForRedeploy": false,
+    "geraldoItemName": null,
+    "sellbackModifierAdd": 0.0,
+    "skinName": null,
+    "isBeastHandlerPet": null,
+    "selectParentOnSelected": null,
+    "dontAddMutatorsFromParent": false,
+    "showBuffs": true,
+    "destroyTowerOnRedistribution": false,
+    "displayScale": 1.0,
+    "beastHandlerLeashMutationId": null,
+    "loadedFromSave": false,
+    "useAirUnitHeight": false,
+    "isTransformedTower": false,
+    "cantBeStunned": false,
+    "_powerProTowerModel": null,
+    "frontierId": -1,
+    "towerSize": 0,
+    "isPowerProTower": false,
+    "isGeraldoItem": false,
+    "BaseId": "DungeonStatue",
+    "IsBeastHandlerPet": false,
+    "SelectParentOnSelected": false,
+    "DisplayScale": 1.0,
+    "IsSubEntity": true,
+    "BeastHandlerLeashMutationId": "BeastHandlerContributionDungeonStatue",
+    "powerProTowerModel": null,
+    "IsBaseTower": true,
+    "TargetTypes": null,
+    "IsExclusivelyWaterBased": false,
+    "baseId": "DungeonStatue",
+    "display": {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+      "guidRef": null,
+      "AssetGUID": null
+    },
+    "behaviors": [
+      {
+        "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.CreateEffectOnPlaceModel, Assembly-CSharp",
+        "effectModel": {
+          "$type": "Il2CppAssets.Scripts.Models.Effects.EffectModel, Assembly-CSharp",
+          "assetId": {
+            "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+            "guidRef": "708be580149dc444d89314b6d9f388e9",
+            "AssetGUID": "708be580149dc444d89314b6d9f388e9"
+          },
+          "scale": 1.0,
+          "lifespan": 18.0,
+          "fullscreen": 0,
+          "useCenterPosition": false,
+          "useTransformPosition": false,
+          "useTransfromRotation": false,
+          "destroyOnTransformDestroy": false,
+          "alwaysUseAge": false,
+          "useRoundTime": false,
+          "name": ""
+        },
+        "createOnAirUnit": false,
+        "name": "CreateEffectOnPlaceModel_DungeonStatue"
+      },
+      {
+        "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.PlayAnimationIndexModel, Assembly-CSharp",
+        "placeAnimation": -1,
+        "upgradeAnimation": -1,
+        "name": "PlayAnimationIndexModel_DungeonStatue"
+      },
+      {
+        "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.SavedSubTowerModel, Assembly-CSharp",
+        "name": ""
+      },
+      {
+        "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.AttackModel, Assembly-CSharp",
+        "weapons": [
+          {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Weapons.WeaponModel, Assembly-CSharp",
+            "animation": 1,
+            "animationOffset": 0.0,
+            "animationOffsetFrames": 0,
+            "emission": {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions.SingleEmissionModel, Assembly-CSharp",
+              "behaviors": null,
+              "name": ""
+            },
+            "ejectX": 0.0,
+            "ejectY": -9.2,
+            "ejectZ": 22.1,
+            "projectile": {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.ProjectileModel, Assembly-CSharp",
+              "display": {
+                "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                "guidRef": "8cd3bf7bab650184481421dfc3137d98",
+                "AssetGUID": "8cd3bf7bab650184481421dfc3137d98"
+              },
+              "id": "BaseProjectile",
+              "maxPierce": 0.0,
+              "pierce": 9999999.0,
+              "scale": 1.0,
+              "ignoreBlockers": true,
+              "usePointCollisionWithBloons": false,
+              "canCollisionBeBlockedByMapLos": false,
+              "filters": null,
+              "behaviors": [
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.AgeModel, Assembly-CSharp",
+                  "rounds": 9999999,
+                  "useRoundTime": false,
+                  "lifespan": 9999999.0,
+                  "lifespanFrames": 0,
+                  "endOfRoundClearBypassModel": null,
+                  "Lifespan": 9999999.0,
+                  "collisionPass": 0,
+                  "name": "AgeModel_BaseProjectile"
+                },
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.TravelStraitModel, Assembly-CSharp",
+                  "speed": 24.0,
+                  "speedFrames": 0.0,
+                  "lifespan": 416666.62,
+                  "lifespanFrames": 0,
+                  "Speed": 24.0,
+                  "Lifespan": 416666.62,
+                  "collisionPass": 0,
+                  "name": "TravelStraitModel_BaseProjectile"
+                },
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.DamageModel, Assembly-CSharp",
+                  "damage": 50.0,
+                  "maxDamage": 0.0,
+                  "distributeToChildren": true,
+                  "overrideDistributeBlocker": false,
+                  "createPopEffect": true,
+                  "immuneBloonProperties": 72,
+                  "immuneBloonPropertiesOriginal": 72,
+                  "ignoreImmunityDestroy": false,
+                  "ignoreDamageMultipliers": false,
+                  "CappedDamage": 50.0,
+                  "collisionPass": 0,
+                  "name": "DamageModel_BaseProjectile_"
+                },
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.DamageModifierForTagModel, Assembly-CSharp",
+                  "tag": "Moabs",
+                  "tags": [
+                    "Moabs"
+                  ],
+                  "damageMultiplier": 1.0,
+                  "damageAddative": 50.0,
+                  "mustIncludeAllTags": false,
+                  "applyOverMaxDamage": false,
+                  "ignoreTag": false,
+                  "collisionPass": 0,
+                  "name": "DamageModifierForTagModel_BaseProjectile"
+                },
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.TrackTargetOrOrbitTowerModel, Assembly-CSharp",
+                  "maxTargetRange": 99999.0,
+                  "rotation": 9.0,
+                  "minimumSpeed": 70.0,
+                  "maximumSpeed": 220.0,
+                  "acceleration": 20.0,
+                  "accelerateInAngle": 10.0,
+                  "startDeceleratingIfAngleGreaterThan": 25.0,
+                  "orbitSpeed": 5.0,
+                  "orbitDistance": 35.0,
+                  "orbitTolerance": 20.0,
+                  "bloonTagFilter": "Purple",
+                  "searchDelayFrames": 0,
+                  "searchDelay": 0.1,
+                  "minimumSpeedFrames": 0.0,
+                  "maximumSpeedFrames": 0.0,
+                  "accelerationFrames": 0.0,
+                  "tagsToIgnore": null,
+                  "SearchDelay": 0.1,
+                  "collisionPass": 0,
+                  "name": "TrackTargetOrOrbitTowerModel_DungeonStatueTracking"
+                },
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.ClearHitBloonsModel, Assembly-CSharp",
+                  "interval": 1.0,
+                  "intervalFrames": 0,
+                  "collisionPass": 0,
+                  "name": ""
+                },
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.UpgradeableProjectileModel, Assembly-CSharp",
+                  "cost": 50000.0,
+                  "collisionPass": 0,
+                  "name": "UpgradeableProjectileModel_BaseProjectile"
+                },
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+                  "display": {
+                    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                    "guidRef": "8cd3bf7bab650184481421dfc3137d98",
+                    "AssetGUID": "8cd3bf7bab650184481421dfc3137d98"
+                  },
+                  "layer": 0,
+                  "positionOffset": {
+                    "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0,
+                    "MagnitudeSquared": 0.0,
+                    "Magnitude": 0.0,
+                    "Rotation": 0.0,
+                    "SimToDispRotation": 180.0
+                  },
+                  "scale": 1.0,
+                  "ignoreRotation": false,
+                  "animationChanges": null,
+                  "delayedReveal": 0.0,
+                  "category": 16,
+                  "isAnimationPaused": false,
+                  "lockDisplayDelayModification": false,
+                  "name": "DisplayModel_ProjectileDisplay"
+                }
+              ],
+              "collisionPasses": [
+                0
+              ],
+              "canCollideWithBloons": true,
+              "radius": 8.0,
+              "vsBlockerRadius": 0.0,
+              "hasDamageModifiers": true,
+              "dontUseCollisionChecker": false,
+              "checkCollisionInterval": 0.0,
+              "checkCollisionIntervalFrames": 0,
+              "ignoreNonTargetable": false,
+              "ignorePierceExhaustion": false,
+              "saveId": null,
+              "displayModel": null,
+              "cantCreateSubProjectiles": false,
+              "CappedPierce": 9999999.0,
+              "name": "ProjectileModel_BaseProjectile"
+            },
+            "fireWithoutTarget": true,
+            "fireBetweenRounds": false,
+            "behaviors": [
+              {
+                "$type": "Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors.LimitProjectileModel, Assembly-CSharp",
+                "projectileId": "BaseProjectile",
+                "limit": 1,
+                "delayInFrames": 0,
+                "limitByDestroyedPriorProjectile": false,
+                "globalForPlayer": true,
+                "name": ""
+              },
+              {
+                "$type": "Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors.HasUpgradeableProjectilesModel, Assembly-CSharp",
+                "upgradeIndicatorId": "DungeonStatueLights",
+                "projectiles": [
+                  {
+                    "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.ProjectileModel, Assembly-CSharp",
+                    "display": {
+                      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                      "guidRef": "8cd3bf7bab650184481421dfc3137d98",
+                      "AssetGUID": "8cd3bf7bab650184481421dfc3137d98"
+                    },
+                    "id": "BaseProjectile",
+                    "maxPierce": 0.0,
+                    "pierce": 9999999.0,
+                    "scale": 1.0,
+                    "ignoreBlockers": true,
+                    "usePointCollisionWithBloons": false,
+                    "canCollisionBeBlockedByMapLos": false,
+                    "filters": null,
+                    "behaviors": [
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.AgeModel, Assembly-CSharp",
+                        "rounds": 9999999,
+                        "useRoundTime": false,
+                        "lifespan": 9999999.0,
+                        "lifespanFrames": 0,
+                        "endOfRoundClearBypassModel": null,
+                        "Lifespan": 9999999.0,
+                        "collisionPass": 0,
+                        "name": "AgeModel_BaseProjectile"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.TravelStraitModel, Assembly-CSharp",
+                        "speed": 24.0,
+                        "speedFrames": 0.0,
+                        "lifespan": 416666.62,
+                        "lifespanFrames": 0,
+                        "Speed": 24.0,
+                        "Lifespan": 416666.62,
+                        "collisionPass": 0,
+                        "name": "TravelStraitModel_BaseProjectile"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.DamageModel, Assembly-CSharp",
+                        "damage": 50.0,
+                        "maxDamage": 0.0,
+                        "distributeToChildren": true,
+                        "overrideDistributeBlocker": false,
+                        "createPopEffect": true,
+                        "immuneBloonProperties": 72,
+                        "immuneBloonPropertiesOriginal": 72,
+                        "ignoreImmunityDestroy": false,
+                        "ignoreDamageMultipliers": false,
+                        "CappedDamage": 50.0,
+                        "collisionPass": 0,
+                        "name": "DamageModel_BaseProjectile_"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.DamageModifierForTagModel, Assembly-CSharp",
+                        "tag": "Moabs",
+                        "tags": [
+                          "Moabs"
+                        ],
+                        "damageMultiplier": 1.0,
+                        "damageAddative": 50.0,
+                        "mustIncludeAllTags": false,
+                        "applyOverMaxDamage": false,
+                        "ignoreTag": false,
+                        "collisionPass": 0,
+                        "name": "DamageModifierForTagModel_BaseProjectile"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.TrackTargetOrOrbitTowerModel, Assembly-CSharp",
+                        "maxTargetRange": 99999.0,
+                        "rotation": 9.0,
+                        "minimumSpeed": 70.0,
+                        "maximumSpeed": 220.0,
+                        "acceleration": 20.0,
+                        "accelerateInAngle": 10.0,
+                        "startDeceleratingIfAngleGreaterThan": 25.0,
+                        "orbitSpeed": 5.0,
+                        "orbitDistance": 35.0,
+                        "orbitTolerance": 20.0,
+                        "bloonTagFilter": "Purple",
+                        "searchDelayFrames": 0,
+                        "searchDelay": 0.1,
+                        "minimumSpeedFrames": 0.0,
+                        "maximumSpeedFrames": 0.0,
+                        "accelerationFrames": 0.0,
+                        "tagsToIgnore": null,
+                        "SearchDelay": 0.1,
+                        "collisionPass": 0,
+                        "name": "TrackTargetOrOrbitTowerModel_DungeonStatueTracking"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.ClearHitBloonsModel, Assembly-CSharp",
+                        "interval": 1.0,
+                        "intervalFrames": 0,
+                        "collisionPass": 0,
+                        "name": ""
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.UpgradeableProjectileModel, Assembly-CSharp",
+                        "cost": 50000.0,
+                        "collisionPass": 0,
+                        "name": "UpgradeableProjectileModel_BaseProjectile"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+                        "display": {
+                          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                          "guidRef": "8cd3bf7bab650184481421dfc3137d98",
+                          "AssetGUID": "8cd3bf7bab650184481421dfc3137d98"
+                        },
+                        "layer": 0,
+                        "positionOffset": {
+                          "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+                          "x": 0.0,
+                          "y": 0.0,
+                          "z": 0.0,
+                          "MagnitudeSquared": 0.0,
+                          "Magnitude": 0.0,
+                          "Rotation": 0.0,
+                          "SimToDispRotation": 180.0
+                        },
+                        "scale": 1.0,
+                        "ignoreRotation": false,
+                        "animationChanges": null,
+                        "delayedReveal": 0.0,
+                        "category": 16,
+                        "isAnimationPaused": false,
+                        "lockDisplayDelayModification": false,
+                        "name": "DisplayModel_ProjectileDisplay"
+                      }
+                    ],
+                    "collisionPasses": [
+                      0
+                    ],
+                    "canCollideWithBloons": true,
+                    "radius": 8.0,
+                    "vsBlockerRadius": 0.0,
+                    "hasDamageModifiers": true,
+                    "dontUseCollisionChecker": false,
+                    "checkCollisionInterval": 0.0,
+                    "checkCollisionIntervalFrames": 0,
+                    "ignoreNonTargetable": false,
+                    "ignorePierceExhaustion": false,
+                    "saveId": null,
+                    "displayModel": null,
+                    "cantCreateSubProjectiles": false,
+                    "CappedPierce": 9999999.0,
+                    "name": "ProjectileModel_BaseProjectile"
+                  },
+                  {
+                    "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.ProjectileModel, Assembly-CSharp",
+                    "display": {
+                      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                      "guidRef": "5ff4827999079a54aa6c81e71047e719",
+                      "AssetGUID": "5ff4827999079a54aa6c81e71047e719"
+                    },
+                    "id": "FirstUpgradeProjectile",
+                    "maxPierce": 0.0,
+                    "pierce": 9999999.0,
+                    "scale": 1.0,
+                    "ignoreBlockers": true,
+                    "usePointCollisionWithBloons": false,
+                    "canCollisionBeBlockedByMapLos": false,
+                    "filters": null,
+                    "behaviors": [
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.AgeModel, Assembly-CSharp",
+                        "rounds": 9999999,
+                        "useRoundTime": false,
+                        "lifespan": 9999999.0,
+                        "lifespanFrames": 0,
+                        "endOfRoundClearBypassModel": null,
+                        "Lifespan": 9999999.0,
+                        "collisionPass": 0,
+                        "name": "AgeModel_FirstUpgradeProjectile"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.TravelStraitModel, Assembly-CSharp",
+                        "speed": 30.0,
+                        "speedFrames": 0.0,
+                        "lifespan": 333333.3,
+                        "lifespanFrames": 0,
+                        "Speed": 30.0,
+                        "Lifespan": 333333.3,
+                        "collisionPass": 0,
+                        "name": "TravelStraitModel_FirstUpgradeProjectile"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.DamageModel, Assembly-CSharp",
+                        "damage": 100.0,
+                        "maxDamage": 0.0,
+                        "distributeToChildren": true,
+                        "overrideDistributeBlocker": false,
+                        "createPopEffect": true,
+                        "immuneBloonProperties": 72,
+                        "immuneBloonPropertiesOriginal": 72,
+                        "ignoreImmunityDestroy": false,
+                        "ignoreDamageMultipliers": false,
+                        "CappedDamage": 100.0,
+                        "collisionPass": 0,
+                        "name": "DamageModel_FirstUpgradeProjectile_"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.DamageModifierForTagModel, Assembly-CSharp",
+                        "tag": "Moabs",
+                        "tags": [
+                          "Moabs"
+                        ],
+                        "damageMultiplier": 1.0,
+                        "damageAddative": 150.0,
+                        "mustIncludeAllTags": false,
+                        "applyOverMaxDamage": false,
+                        "ignoreTag": false,
+                        "collisionPass": 0,
+                        "name": "DamageModifierForTagModel_FirstUpgradeProjectile"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.TrackTargetOrOrbitTowerModel, Assembly-CSharp",
+                        "maxTargetRange": 99999.0,
+                        "rotation": 9.0,
+                        "minimumSpeed": 70.0,
+                        "maximumSpeed": 220.0,
+                        "acceleration": 20.0,
+                        "accelerateInAngle": 10.0,
+                        "startDeceleratingIfAngleGreaterThan": 25.0,
+                        "orbitSpeed": 5.0,
+                        "orbitDistance": 35.0,
+                        "orbitTolerance": 20.0,
+                        "bloonTagFilter": "Purple",
+                        "searchDelayFrames": 0,
+                        "searchDelay": 0.1,
+                        "minimumSpeedFrames": 0.0,
+                        "maximumSpeedFrames": 0.0,
+                        "accelerationFrames": 0.0,
+                        "tagsToIgnore": null,
+                        "SearchDelay": 0.1,
+                        "collisionPass": 0,
+                        "name": "TrackTargetOrOrbitTowerModel_DungeonStatueTracking"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.ClearHitBloonsModel, Assembly-CSharp",
+                        "interval": 1.0,
+                        "intervalFrames": 0,
+                        "collisionPass": 0,
+                        "name": ""
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.UpgradeableProjectileModel, Assembly-CSharp",
+                        "cost": 100000.0,
+                        "collisionPass": 0,
+                        "name": "UpgradeableProjectileModel_FirstUpgradeProjectile"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+                        "display": {
+                          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                          "guidRef": "5ff4827999079a54aa6c81e71047e719",
+                          "AssetGUID": "5ff4827999079a54aa6c81e71047e719"
+                        },
+                        "layer": 0,
+                        "positionOffset": {
+                          "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+                          "x": 0.0,
+                          "y": 0.0,
+                          "z": 0.0,
+                          "MagnitudeSquared": 0.0,
+                          "Magnitude": 0.0,
+                          "Rotation": 0.0,
+                          "SimToDispRotation": 180.0
+                        },
+                        "scale": 1.0,
+                        "ignoreRotation": false,
+                        "animationChanges": null,
+                        "delayedReveal": 0.0,
+                        "category": 16,
+                        "isAnimationPaused": false,
+                        "lockDisplayDelayModification": false,
+                        "name": "DisplayModel_ProjectileDisplay"
+                      }
+                    ],
+                    "collisionPasses": [
+                      0
+                    ],
+                    "canCollideWithBloons": true,
+                    "radius": 8.0,
+                    "vsBlockerRadius": 0.0,
+                    "hasDamageModifiers": true,
+                    "dontUseCollisionChecker": false,
+                    "checkCollisionInterval": 0.0,
+                    "checkCollisionIntervalFrames": 0,
+                    "ignoreNonTargetable": false,
+                    "ignorePierceExhaustion": false,
+                    "saveId": null,
+                    "displayModel": null,
+                    "cantCreateSubProjectiles": false,
+                    "CappedPierce": 9999999.0,
+                    "name": "ProjectileModel_FirstUpgradeProjectile"
+                  },
+                  {
+                    "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.ProjectileModel, Assembly-CSharp",
+                    "display": {
+                      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                      "guidRef": "57526a904fac3ac488a7d49b9c3c6945",
+                      "AssetGUID": "57526a904fac3ac488a7d49b9c3c6945"
+                    },
+                    "id": "SecondUpgradeProjectile",
+                    "maxPierce": 0.0,
+                    "pierce": 9999999.0,
+                    "scale": 1.0,
+                    "ignoreBlockers": true,
+                    "usePointCollisionWithBloons": false,
+                    "canCollisionBeBlockedByMapLos": false,
+                    "filters": null,
+                    "behaviors": [
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.AgeModel, Assembly-CSharp",
+                        "rounds": 9999999,
+                        "useRoundTime": false,
+                        "lifespan": 9999999.0,
+                        "lifespanFrames": 0,
+                        "endOfRoundClearBypassModel": null,
+                        "Lifespan": 9999999.0,
+                        "collisionPass": 0,
+                        "name": "AgeModel_SecondUpgradeProjectile"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.TravelStraitModel, Assembly-CSharp",
+                        "speed": 36.0,
+                        "speedFrames": 0.0,
+                        "lifespan": 277777.75,
+                        "lifespanFrames": 0,
+                        "Speed": 36.0,
+                        "Lifespan": 277777.75,
+                        "collisionPass": 0,
+                        "name": "TravelStraitModel_SecondUpgradeProjectile"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.DamageModel, Assembly-CSharp",
+                        "damage": 150.0,
+                        "maxDamage": 0.0,
+                        "distributeToChildren": true,
+                        "overrideDistributeBlocker": false,
+                        "createPopEffect": true,
+                        "immuneBloonProperties": 72,
+                        "immuneBloonPropertiesOriginal": 72,
+                        "ignoreImmunityDestroy": false,
+                        "ignoreDamageMultipliers": false,
+                        "CappedDamage": 150.0,
+                        "collisionPass": 0,
+                        "name": "DamageModel_SecondUpgradeProjectile_"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.DamageModifierForTagModel, Assembly-CSharp",
+                        "tag": "Moabs",
+                        "tags": [
+                          "Moabs"
+                        ],
+                        "damageMultiplier": 1.0,
+                        "damageAddative": 350.0,
+                        "mustIncludeAllTags": false,
+                        "applyOverMaxDamage": false,
+                        "ignoreTag": false,
+                        "collisionPass": 0,
+                        "name": "DamageModifierForTagModel_SecondUpgradeProjectile"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.TrackTargetOrOrbitTowerModel, Assembly-CSharp",
+                        "maxTargetRange": 99999.0,
+                        "rotation": 9.0,
+                        "minimumSpeed": 70.0,
+                        "maximumSpeed": 220.0,
+                        "acceleration": 20.0,
+                        "accelerateInAngle": 10.0,
+                        "startDeceleratingIfAngleGreaterThan": 25.0,
+                        "orbitSpeed": 5.0,
+                        "orbitDistance": 35.0,
+                        "orbitTolerance": 20.0,
+                        "bloonTagFilter": "Purple",
+                        "searchDelayFrames": 0,
+                        "searchDelay": 0.1,
+                        "minimumSpeedFrames": 0.0,
+                        "maximumSpeedFrames": 0.0,
+                        "accelerationFrames": 0.0,
+                        "tagsToIgnore": null,
+                        "SearchDelay": 0.1,
+                        "collisionPass": 0,
+                        "name": "TrackTargetOrOrbitTowerModel_DungeonStatueTracking"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.ClearHitBloonsModel, Assembly-CSharp",
+                        "interval": 1.0,
+                        "intervalFrames": 0,
+                        "collisionPass": 0,
+                        "name": ""
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+                        "display": {
+                          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                          "guidRef": "57526a904fac3ac488a7d49b9c3c6945",
+                          "AssetGUID": "57526a904fac3ac488a7d49b9c3c6945"
+                        },
+                        "layer": 0,
+                        "positionOffset": {
+                          "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+                          "x": 0.0,
+                          "y": 0.0,
+                          "z": 0.0,
+                          "MagnitudeSquared": 0.0,
+                          "Magnitude": 0.0,
+                          "Rotation": 0.0,
+                          "SimToDispRotation": 180.0
+                        },
+                        "scale": 1.0,
+                        "ignoreRotation": false,
+                        "animationChanges": null,
+                        "delayedReveal": 0.0,
+                        "category": 16,
+                        "isAnimationPaused": false,
+                        "lockDisplayDelayModification": false,
+                        "name": "DisplayModel_ProjectileDisplay"
+                      }
+                    ],
+                    "collisionPasses": [
+                      0
+                    ],
+                    "canCollideWithBloons": true,
+                    "radius": 8.0,
+                    "vsBlockerRadius": 0.0,
+                    "hasDamageModifiers": true,
+                    "dontUseCollisionChecker": false,
+                    "checkCollisionInterval": 0.0,
+                    "checkCollisionIntervalFrames": 0,
+                    "ignoreNonTargetable": false,
+                    "ignorePierceExhaustion": false,
+                    "saveId": null,
+                    "displayModel": null,
+                    "cantCreateSubProjectiles": false,
+                    "CappedPierce": 9999999.0,
+                    "name": "ProjectileModel_SecondUpgradeProjectile"
+                  }
+                ],
+                "name": ""
+              }
+            ],
+            "rate": 1.0,
+            "rateFrames": 0,
+            "useAttackPosition": false,
+            "startInCooldown": false,
+            "customStartCooldown": 0.0,
+            "customStartCooldownFrames": 0,
+            "animateOnMainAttack": false,
+            "storeTargetOnAnimationStart": false,
+            "isStunned": false,
+            "modelName": "Weapon",
+            "Rate": 1.0,
+            "UseThrowMarker": true,
+            "name": "WeaponModel_Weapon"
+          }
+        ],
+        "behaviors": [
+          {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors.AttackFilterModel, Assembly-CSharp",
+            "filters": [
+              {
+                "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterInvisibleModel, Assembly-CSharp",
+                "isActive": true,
+                "ignoreBroadPhase": false,
+                "name": ""
+              }
+            ],
+            "name": ""
+          }
+        ],
+        "range": 9999999.0,
+        "targetProvider": null,
+        "offsetX": 0.0,
+        "offsetY": 0.0,
+        "offsetZ": 0.0,
+        "attackThroughWalls": true,
+        "fireWithoutTarget": true,
+        "framesBeforeRetarget": 0,
+        "addsToSharedGrid": true,
+        "sharedGridRange": 0.0,
+        "drawRangeCircle": false,
+        "disableOnCreate": false,
+        "fixedRange": false,
+        "name": "AttackModel_Attack_"
+      },
+      {
+        "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+        "display": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+          "guidRef": null,
+          "AssetGUID": null
+        },
+        "layer": -1,
+        "positionOffset": {
+          "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "MagnitudeSquared": 0.0,
+          "Magnitude": 0.0,
+          "Rotation": 0.0,
+          "SimToDispRotation": 180.0
+        },
+        "scale": 1.0,
+        "ignoreRotation": false,
+        "animationChanges": null,
+        "delayedReveal": 0.0,
+        "category": 4,
+        "isAnimationPaused": false,
+        "lockDisplayDelayModification": false,
+        "name": "DisplayModel_TowerDisplay"
+      },
+      {
+        "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+        "display": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "180e27a24722d3944881ee48b13f1beb",
+          "AssetGUID": "180e27a24722d3944881ee48b13f1beb"
+        },
+        "layer": 0,
+        "positionOffset": {
+          "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "MagnitudeSquared": 0.0,
+          "Magnitude": 0.0,
+          "Rotation": 0.0,
+          "SimToDispRotation": 180.0
+        },
+        "scale": 1.0,
+        "ignoreRotation": false,
+        "animationChanges": null,
+        "delayedReveal": 0.0,
+        "category": 1,
+        "isAnimationPaused": false,
+        "lockDisplayDelayModification": false,
+        "name": "DisplayModel_DungeonStatueLights"
+      }
+    ],
+    "radius": 0.0,
+    "cachedThrowMarkerHeight": 0.0,
+    "RadiusSquared": 0.0,
+    "name": "DungeonStatue"
+  },
+  "isDisabledByGameMode": false,
+  "isHidden": true,
+  "linkedToAchievement": 0,
+  "showBuffsForTower": false,
+  "quantity": 1,
+  "saveImmediately": false,
+  "storeNavigateToId": "",
+  "orderPriority": 0,
+  "alwaysPlaceAtScreenCentre": false,
+  "animatedIcon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": null,
+    "AssetGUID": null
+  },
+  "showAsNew": true,
+  "availableInMode": "",
+  "Cost": 50,
+  "CanBePurchasedWithMM": true,
+  "IsPowerPro": false,
+  "CanBeRewarded": true,
+  "PowerId": "DungeonStatue",
+  "name": "DungeonStatue"
+}

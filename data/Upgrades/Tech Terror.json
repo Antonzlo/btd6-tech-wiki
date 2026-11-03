@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 25000,
+  "xpCost": 35000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "a96e6ce0ea141404bbe4364a8163cebd",
+    "AssetGUID": "a96e6ce0ea141404bbe4364a8163cebd"
+  },
+  "path": 1,
+  "tier": 3,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Tech Terror",
+  "IsParagon": false,
+  "name": "Tech Terror"
+}

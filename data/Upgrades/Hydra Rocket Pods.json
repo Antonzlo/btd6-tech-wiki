@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 4500,
+  "xpCost": 2700,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "54f56e6354086462686f96d7ce8fe165",
+    "AssetGUID": "54f56e6354086462686f96d7ce8fe165"
+  },
+  "path": 1,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Hydra Rocket Pods",
+  "IsParagon": false,
+  "name": "Hydra Rocket Pods"
+}

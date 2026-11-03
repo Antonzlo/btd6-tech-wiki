@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 3000,
+  "xpCost": 3000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "61ad53798e04b4cb8a3233e063e05fbb",
+    "AssetGUID": "61ad53798e04b4cb8a3233e063e05fbb"
+  },
+  "path": 2,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Buckshot",
+  "IsParagon": false,
+  "name": "Buckshot"
+}

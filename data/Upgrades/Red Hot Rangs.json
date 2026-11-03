@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 300,
+  "xpCost": 490,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "059d1ecc930ebca4db38c755b98241fc",
+    "AssetGUID": "059d1ecc930ebca4db38c755b98241fc"
+  },
+  "path": 2,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Red Hot Rangs",
+  "IsParagon": false,
+  "name": "Red Hot Rangs"
+}

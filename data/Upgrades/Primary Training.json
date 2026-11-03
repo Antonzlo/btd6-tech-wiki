@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 800,
+  "xpCost": 2000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "ecba4e8d656984819b66fd9d821d0bea",
+    "AssetGUID": "ecba4e8d656984819b66fd9d821d0bea"
+  },
+  "path": 0,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Primary Training",
+  "IsParagon": false,
+  "name": "Primary Training"
+}

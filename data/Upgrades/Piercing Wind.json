@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.PowerProUpgradeModel, Assembly-CSharp",
+  "cost": 5000,
+  "xpCost": -1,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "bed0d3c0fbca0e64f919e8513daac825",
+    "AssetGUID": "bed0d3c0fbca0e64f919e8513daac825"
+  },
+  "path": 2,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Piercing Wind",
+  "IsParagon": false,
+  "name": "Piercing Wind"
+}

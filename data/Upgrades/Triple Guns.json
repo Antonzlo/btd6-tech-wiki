@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 1100,
+  "xpCost": 2750,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "f96e8327ca3253a4ca9a99daa2584908",
+    "AssetGUID": "f96e8327ca3253a4ca9a99daa2584908"
+  },
+  "path": 2,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Triple Guns",
+  "IsParagon": false,
+  "name": "Triple Guns"
+}

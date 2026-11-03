@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.BuffIndicatorModel, Assembly-CSharp",
+  "buffName": "ShinobiTacticsBuff",
+  "iconName": "BuffIconNinjax3x",
+  "stackable": true,
+  "maxStackSize": 20,
+  "globalRange": false,
+  "onlyShowBuffIfMutated": false,
+  "dontShowX": false,
+  "_fullName": "BuffIconNinjax3xShinobiTacticsBuff",
+  "FullName": "BuffIconNinjax3xShinobiTacticsBuff",
+  "name": "BuffIndicatorModel_BuffIconNinjax3x-ShinobiTacticsBuff"
+}

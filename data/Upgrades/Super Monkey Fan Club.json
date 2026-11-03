@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 7200,
+  "xpCost": 9500,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "8b5fb5b0bb91eb64fa9394b1b03cc4c7",
+    "AssetGUID": "8b5fb5b0bb91eb64fa9394b1b03cc4c7"
+  },
+  "path": 1,
+  "tier": 3,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Super Monkey Fan Club",
+  "IsParagon": false,
+  "name": "Super Monkey Fan Club"
+}

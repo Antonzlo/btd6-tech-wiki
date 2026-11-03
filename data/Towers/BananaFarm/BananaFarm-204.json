@@ -1,0 +1,648 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.TowerModel, Assembly-CSharp",
+  "isPowerTower": false,
+  "cost": 1250.0,
+  "range": 40.0,
+  "ignoreBlockers": false,
+  "isGlobalRange": false,
+  "tier": 4,
+  "tiers": [
+    2,
+    0,
+    4
+  ],
+  "towerSet": 8,
+  "towerTheme": "",
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MonkeyIcons[BananaFarmIcon]",
+    "AssetGUID": "MonkeyIcons[BananaFarmIcon]"
+  },
+  "icon3D": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "d7f10e0200d83a84a8158eb9f5a43047",
+    "AssetGUID": "d7f10e0200d83a84a8158eb9f5a43047"
+  },
+  "portrait": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "216081b5b89473a4c8f1bd19776ba8ab",
+    "AssetGUID": "216081b5b89473a4c8f1bd19776ba8ab"
+  },
+  "instaIcon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "37290076813984005a67246c68985a84",
+    "AssetGUID": "37290076813984005a67246c68985a84"
+  },
+  "areaTypes": [
+    2
+  ],
+  "mods": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Mods.ApplyModModel, Assembly-CSharp",
+      "mod": "FlatPackBuildings",
+      "target": "",
+      "name": "BananaFarmUpgrades"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Mods.ApplyModModel, Assembly-CSharp",
+      "mod": "FarmSubsidy",
+      "target": "",
+      "name": "BananaFarmUpgrades"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Mods.ApplyModModel, Assembly-CSharp",
+      "mod": "GlobalAbilityCooldowns",
+      "target": "",
+      "name": "BananaFarmUpgrades"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Mods.ApplyModModel, Assembly-CSharp",
+      "mod": "VeteranMonkeyTraining",
+      "target": "",
+      "name": "BananaFarmUpgrades"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Mods.ApplyModModel, Assembly-CSharp",
+      "mod": "BetterSellDeals",
+      "target": "",
+      "name": "BananaFarmUpgrades"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Mods.ApplyModModel, Assembly-CSharp",
+      "mod": "MonkeyEducation",
+      "target": "",
+      "name": "BananaFarmUpgrades"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Mods.ApplyModModel, Assembly-CSharp",
+      "mod": "HealthyBananas",
+      "target": "",
+      "name": "BananaFarmUpgrades"
+    }
+  ],
+  "ignoreTowerForSelection": false,
+  "footprint": {
+    "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.RectangleFootprintModel, Assembly-CSharp",
+    "xWidth": 30.0,
+    "yWidth": 30.0,
+    "doesntBlockTowerPlacement": false,
+    "ignoresPlacementCheck": false,
+    "ignoresTowerOverlap": false,
+    "name": ""
+  },
+  "dontDisplayUpgrades": false,
+  "emoteSpriteSmall": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": null,
+    "AssetGUID": null
+  },
+  "emoteSpriteLarge": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": null,
+    "AssetGUID": null
+  },
+  "doesntRotate": true,
+  "hideInfoButton": false,
+  "bonusSelectionRadius": 0.0,
+  "upgrades": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradePathModel, Assembly-CSharp",
+      "tower": "BananaFarm-205",
+      "upgrade": "Monkey Wall Street",
+      "name": "UpgradePathModel_UpgradePathModel"
+    }
+  ],
+  "appliedUpgrades": [
+    "EZ Collect",
+    "Banana Salvage",
+    "Increased Production",
+    "Greater Production",
+    "Marketplace",
+    "Central Market"
+  ],
+  "targetTypes": null,
+  "paragonUpgrade": null,
+  "isSubTower": false,
+  "isBakable": true,
+  "powerName": null,
+  "showPowerTowerBuffs": false,
+  "animationSpeed": 1.0,
+  "towerSelectionMenuThemeId": "BananaFarm",
+  "secondarySelectionMenu": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": null,
+    "AssetGUID": null
+  },
+  "ignoreCoopAreas": false,
+  "ignoreAreaChanges": false,
+  "canAlwaysBeSold": false,
+  "blockSelling": false,
+  "isParagon": false,
+  "ignoreMaxSellPercent": false,
+  "isStunned": false,
+  "ignoreStun": false,
+  "isPrimedForRedeploy": false,
+  "geraldoItemName": null,
+  "sellbackModifierAdd": 0.1,
+  "skinName": null,
+  "isBeastHandlerPet": null,
+  "selectParentOnSelected": null,
+  "dontAddMutatorsFromParent": false,
+  "showBuffs": true,
+  "destroyTowerOnRedistribution": false,
+  "displayScale": 1.0,
+  "beastHandlerLeashMutationId": null,
+  "loadedFromSave": false,
+  "useAirUnitHeight": false,
+  "isTransformedTower": false,
+  "cantBeStunned": false,
+  "_powerProTowerModel": null,
+  "frontierId": -1,
+  "towerSize": 0,
+  "isPowerProTower": false,
+  "isGeraldoItem": false,
+  "BaseId": "BananaFarm",
+  "IsBeastHandlerPet": false,
+  "SelectParentOnSelected": false,
+  "DisplayScale": 1.0,
+  "IsSubEntity": false,
+  "BeastHandlerLeashMutationId": "BeastHandlerContributionBananaFarm",
+  "powerProTowerModel": null,
+  "IsBaseTower": false,
+  "TargetTypes": null,
+  "IsExclusivelyWaterBased": false,
+  "baseId": "BananaFarm",
+  "display": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "3442ba6da93b5e945ad0c7f43085b1f9",
+    "AssetGUID": "3442ba6da93b5e945ad0c7f43085b1f9"
+  },
+  "behaviors": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.CreateEffectOnPlaceModel, Assembly-CSharp",
+      "effectModel": {
+        "$type": "Il2CppAssets.Scripts.Models.Effects.EffectModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "d36f0ba5351201f45b62cbe9e926c48d",
+          "AssetGUID": "d36f0ba5351201f45b62cbe9e926c48d"
+        },
+        "scale": 1.0,
+        "lifespan": 6.0,
+        "fullscreen": 0,
+        "useCenterPosition": false,
+        "useTransformPosition": false,
+        "useTransfromRotation": false,
+        "destroyOnTransformDestroy": false,
+        "alwaysUseAge": false,
+        "useRoundTime": false,
+        "name": ""
+      },
+      "createOnAirUnit": false,
+      "name": "CreateEffectOnPlaceModel_BananaFarm-204"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.CreateSoundOnUpgradeModel, Assembly-CSharp",
+      "sound": {
+        "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "f91dc7ea1b37815459e81e99254863ab",
+          "AssetGUID": "f91dc7ea1b37815459e81e99254863ab"
+        },
+        "name": "SoundModel_TowerUpgrade"
+      },
+      "sound1": {
+        "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "f91dc7ea1b37815459e81e99254863ab",
+          "AssetGUID": "f91dc7ea1b37815459e81e99254863ab"
+        },
+        "name": "SoundModel_TowerUpgrade"
+      },
+      "sound2": {
+        "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "f91dc7ea1b37815459e81e99254863ab",
+          "AssetGUID": "f91dc7ea1b37815459e81e99254863ab"
+        },
+        "name": "SoundModel_TowerUpgrade"
+      },
+      "sound3": {
+        "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "f91dc7ea1b37815459e81e99254863ab",
+          "AssetGUID": "f91dc7ea1b37815459e81e99254863ab"
+        },
+        "name": "SoundModel_TowerUpgrade"
+      },
+      "sound4": {
+        "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "f91dc7ea1b37815459e81e99254863ab",
+          "AssetGUID": "f91dc7ea1b37815459e81e99254863ab"
+        },
+        "name": "SoundModel_TowerUpgrade"
+      },
+      "sound5": {
+        "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "f91dc7ea1b37815459e81e99254863ab",
+          "AssetGUID": "f91dc7ea1b37815459e81e99254863ab"
+        },
+        "name": "SoundModel_TowerUpgrade"
+      },
+      "sound6": {
+        "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "f91dc7ea1b37815459e81e99254863ab",
+          "AssetGUID": "f91dc7ea1b37815459e81e99254863ab"
+        },
+        "name": "SoundModel_TowerUpgrade"
+      },
+      "sound7": {
+        "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "f91dc7ea1b37815459e81e99254863ab",
+          "AssetGUID": "f91dc7ea1b37815459e81e99254863ab"
+        },
+        "name": "SoundModel_TowerUpgrade"
+      },
+      "sound8": {
+        "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "f91dc7ea1b37815459e81e99254863ab",
+          "AssetGUID": "f91dc7ea1b37815459e81e99254863ab"
+        },
+        "name": "SoundModel_TowerUpgrade"
+      },
+      "name": "CreateSoundOnUpgradeModel_BananaFarm-204"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.CreateSoundOnSellModel, Assembly-CSharp",
+      "sound": {
+        "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "a8c789893d4275749af12c1efda9dd3e",
+          "AssetGUID": "a8c789893d4275749af12c1efda9dd3e"
+        },
+        "name": "SoundModel_UISell"
+      },
+      "name": "CreateSoundOnSellModel_BananaFarm-204"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.RectangleFootprintModel, Assembly-CSharp",
+      "xWidth": 30.0,
+      "yWidth": 30.0,
+      "doesntBlockTowerPlacement": false,
+      "ignoresPlacementCheck": false,
+      "ignoresTowerOverlap": false,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.CreateEffectOnSellModel, Assembly-CSharp",
+      "effectModel": {
+        "$type": "Il2CppAssets.Scripts.Models.Effects.EffectModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "b1dec8a8d79593843bc2e2410eae944e",
+          "AssetGUID": "b1dec8a8d79593843bc2e2410eae944e"
+        },
+        "scale": 1.0,
+        "lifespan": 1.0,
+        "fullscreen": 0,
+        "useCenterPosition": false,
+        "useTransformPosition": false,
+        "useTransfromRotation": false,
+        "destroyOnTransformDestroy": false,
+        "alwaysUseAge": false,
+        "useRoundTime": false,
+        "name": "EffectModel_SellEffect"
+      },
+      "name": "CreateEffectOnSellModel_BananaFarm-204"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.ShowCashIconInsteadModel, Assembly-CSharp",
+      "name": "ShowCashIconInsteadModel_BananaFarm-204"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.CreateSoundOnTowerPlaceModel, Assembly-CSharp",
+      "sound1": {
+        "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "4e14271436fb5b445afff1240816d6b9",
+          "AssetGUID": "4e14271436fb5b445afff1240816d6b9"
+        },
+        "name": "SoundModel_PlaceBananaFarm01"
+      },
+      "sound2": {
+        "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "760a050978caddd44a1f69e66f02a7e8",
+          "AssetGUID": "760a050978caddd44a1f69e66f02a7e8"
+        },
+        "name": "SoundModel_PlaceBananaFarm02"
+      },
+      "waterSound1": null,
+      "waterSound2": null,
+      "heroSound1": null,
+      "heroSound2": null,
+      "reactSound1": null,
+      "reactSoundAlt1": null,
+      "reactSound2": null,
+      "reactSoundAlt2": null,
+      "reactSound3": null,
+      "reactSoundAlt3": null,
+      "towerType1": null,
+      "towerSkin1": null,
+      "towerType2": null,
+      "towerSkin2": null,
+      "towerType3": null,
+      "towerSkin3": null,
+      "reactDelay": 0.0,
+      "name": "CreateSoundOnTowerPlaceModel_BananaFarm-204"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.CreateEffectOnUpgradeModel, Assembly-CSharp",
+      "effectModel": {
+        "$type": "Il2CppAssets.Scripts.Models.Effects.EffectModel, Assembly-CSharp",
+        "assetId": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "823809b31a6cbab4cab5efc530f919f7",
+          "AssetGUID": "823809b31a6cbab4cab5efc530f919f7"
+        },
+        "scale": 1.0,
+        "lifespan": 6.0,
+        "fullscreen": 0,
+        "useCenterPosition": false,
+        "useTransformPosition": false,
+        "useTransfromRotation": false,
+        "destroyOnTransformDestroy": false,
+        "alwaysUseAge": false,
+        "useRoundTime": false,
+        "name": "EffectModel_UpgradeEffectTier5"
+      },
+      "createOnAirUnit": false,
+      "name": "CreateEffectOnUpgradeModel_BananaFarm-204"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.AttackModel, Assembly-CSharp",
+      "weapons": [
+        {
+          "$type": "Il2CppAssets.Scripts.Models.Towers.Weapons.WeaponModel, Assembly-CSharp",
+          "animation": 1,
+          "animationOffset": 0.0,
+          "animationOffsetFrames": 0,
+          "emission": {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions.SingleEmmisionTowardsTargetModel, Assembly-CSharp",
+            "offset": 0.0,
+            "behaviors": null,
+            "name": ""
+          },
+          "ejectX": 0.0,
+          "ejectY": 0.0,
+          "ejectZ": 23.2,
+          "projectile": {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.ProjectileModel, Assembly-CSharp",
+            "display": {
+              "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+              "guidRef": "ea93504240deadd41aed8f22737322c9",
+              "AssetGUID": "ea93504240deadd41aed8f22737322c9"
+            },
+            "id": "Projectile",
+            "maxPierce": 0.0,
+            "pierce": 9999999.0,
+            "scale": 1.0,
+            "ignoreBlockers": true,
+            "usePointCollisionWithBloons": false,
+            "canCollisionBeBlockedByMapLos": false,
+            "filters": null,
+            "behaviors": [
+              {
+                "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CashModel, Assembly-CSharp",
+                "minimum": 70.0,
+                "maximum": 70.0,
+                "bonusMultiplier": 0.0,
+                "salvage": 1.0,
+                "noTransformCash": false,
+                "distributeSalvage": false,
+                "forceCreateProjectile": false,
+                "isDoubleable": false,
+                "distributeBonusIncome": false,
+                "emittedByCashEarnedMultiplier": 1.0,
+                "isPowerCash": false,
+                "collisionPass": 0,
+                "name": ""
+              },
+              {
+                "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.AgeModel, Assembly-CSharp",
+                "rounds": 9999999,
+                "useRoundTime": false,
+                "lifespan": 0.0,
+                "lifespanFrames": 0,
+                "endOfRoundClearBypassModel": null,
+                "Lifespan": 0.0,
+                "collisionPass": 0,
+                "name": "AgeModel_Projectile"
+              },
+              {
+                "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CreateTextEffectModel, Assembly-CSharp",
+                "assetId": {
+                  "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                  "guidRef": "80178409df24b3b479342ed73cffb63d",
+                  "AssetGUID": "80178409df24b3b479342ed73cffb63d"
+                },
+                "lifespan": 1.0,
+                "useTowerPosition": true,
+                "collisionPass": 0,
+                "name": ""
+              },
+              {
+                "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+                "display": {
+                  "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                  "guidRef": "ea93504240deadd41aed8f22737322c9",
+                  "AssetGUID": "ea93504240deadd41aed8f22737322c9"
+                },
+                "layer": 0,
+                "positionOffset": {
+                  "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0.0,
+                  "MagnitudeSquared": 0.0,
+                  "Magnitude": 0.0,
+                  "Rotation": 0.0,
+                  "SimToDispRotation": 180.0
+                },
+                "scale": 1.0,
+                "ignoreRotation": false,
+                "animationChanges": null,
+                "delayedReveal": 0.0,
+                "category": 16,
+                "isAnimationPaused": false,
+                "lockDisplayDelayModification": false,
+                "name": "DisplayModel_ProjectileDisplay"
+              }
+            ],
+            "collisionPasses": [
+              0
+            ],
+            "canCollideWithBloons": true,
+            "radius": 5.0,
+            "vsBlockerRadius": 0.0,
+            "hasDamageModifiers": false,
+            "dontUseCollisionChecker": false,
+            "checkCollisionInterval": 0.0,
+            "checkCollisionIntervalFrames": 0,
+            "ignoreNonTargetable": false,
+            "ignorePierceExhaustion": false,
+            "saveId": null,
+            "displayModel": null,
+            "cantCreateSubProjectiles": false,
+            "CappedPierce": 9999999.0,
+            "name": "ProjectileModel_Projectile"
+          },
+          "fireWithoutTarget": false,
+          "fireBetweenRounds": false,
+          "behaviors": [
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors.EmissionsPerRoundFilterModel, Assembly-CSharp",
+              "count": 20,
+              "name": ""
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors.WeaponRateMinModel, Assembly-CSharp",
+              "min": 0.05,
+              "name": ""
+            }
+          ],
+          "rate": 0.05,
+          "rateFrames": 0,
+          "useAttackPosition": false,
+          "startInCooldown": false,
+          "customStartCooldown": 0.0,
+          "customStartCooldownFrames": 0,
+          "animateOnMainAttack": false,
+          "storeTargetOnAnimationStart": false,
+          "isStunned": false,
+          "modelName": "Weapon",
+          "Rate": 0.05,
+          "UseThrowMarker": true,
+          "name": "WeaponModel_Weapon"
+        }
+      ],
+      "behaviors": [
+        {
+          "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors.RandomPositionBasicModel, Assembly-CSharp",
+          "minRadius": 0.0,
+          "maxRadius": 1.0,
+          "mapBorder": 7.0,
+          "useTerrainHeight": false,
+          "isOnSubTower": false,
+          "name": ""
+        },
+        {
+          "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors.AttackFilterModel, Assembly-CSharp",
+          "filters": [
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterInvisibleModel, Assembly-CSharp",
+              "isActive": true,
+              "ignoreBroadPhase": false,
+              "name": ""
+            }
+          ],
+          "name": ""
+        }
+      ],
+      "range": 40.0,
+      "targetProvider": {
+        "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors.RandomPositionBasicModel, Assembly-CSharp",
+        "minRadius": 20.0,
+        "maxRadius": 40.0,
+        "mapBorder": 7.0,
+        "useTerrainHeight": false,
+        "isOnSubTower": false,
+        "name": ""
+      },
+      "offsetX": 0.0,
+      "offsetY": 0.0,
+      "offsetZ": 0.0,
+      "attackThroughWalls": true,
+      "fireWithoutTarget": false,
+      "framesBeforeRetarget": 0,
+      "addsToSharedGrid": true,
+      "sharedGridRange": 0.0,
+      "drawRangeCircle": false,
+      "disableOnCreate": false,
+      "fixedRange": false,
+      "name": "AttackModel_Attack_"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.CentralMarketBuffModel, Assembly-CSharp",
+      "multiplier": 1.1,
+      "mutatorId": "CentralMarketBuff",
+      "maxStackCount": 10,
+      "buffLocsName": "CentralMarketBuff",
+      "buffIconName": "BuffIconBananaFarmxx4",
+      "maxStackSize": 10,
+      "isGlobalRange": true,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.PerRoundCashBonusTowerModel, Assembly-CSharp",
+      "cashPerRound": 0.0,
+      "cashRoundBonusMultiplier": 0.0,
+      "lifespan": 1.0,
+      "assetId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "80178409df24b3b479342ed73cffb63d",
+        "AssetGUID": "80178409df24b3b479342ed73cffb63d"
+      },
+      "distributeCash": false,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+      "display": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "3442ba6da93b5e945ad0c7f43085b1f9",
+        "AssetGUID": "3442ba6da93b5e945ad0c7f43085b1f9"
+      },
+      "layer": -1,
+      "positionOffset": {
+        "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "MagnitudeSquared": 0.0,
+        "Magnitude": 0.0,
+        "Rotation": 0.0,
+        "SimToDispRotation": 180.0
+      },
+      "scale": 1.0,
+      "ignoreRotation": false,
+      "animationChanges": null,
+      "delayedReveal": 0.0,
+      "category": 4,
+      "isAnimationPaused": false,
+      "lockDisplayDelayModification": false,
+      "name": "DisplayModel_TowerDisplay"
+    }
+  ],
+  "radius": 15.0,
+  "cachedThrowMarkerHeight": 0.0,
+  "RadiusSquared": 0.0,
+  "name": "BananaFarm-204"
+}

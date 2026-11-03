@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 550,
+  "xpCost": 600,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "b5f0602fb06bdaa43b7a14cd1d8cccbe",
+    "AssetGUID": "b5f0602fb06bdaa43b7a14cd1d8cccbe"
+  },
+  "path": 2,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Centered Path",
+  "IsParagon": false,
+  "name": "Centered Path"
+}

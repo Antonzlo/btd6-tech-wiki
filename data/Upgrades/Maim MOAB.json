@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 6300,
+  "xpCost": 10500,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "cee9c5b1ce7084425ad042eafb5baeb0",
+    "AssetGUID": "cee9c5b1ce7084425ad042eafb5baeb0"
+  },
+  "path": 0,
+  "tier": 3,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Maim MOAB",
+  "IsParagon": false,
+  "name": "Maim MOAB"
+}

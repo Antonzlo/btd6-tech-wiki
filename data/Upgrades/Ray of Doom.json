@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 75000,
+  "xpCost": 75000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "acd331f2fb1cc4805b677fea77afe33a",
+    "AssetGUID": "acd331f2fb1cc4805b677fea77afe33a"
+  },
+  "path": 0,
+  "tier": 4,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Ray of Doom",
+  "IsParagon": false,
+  "name": "Ray of Doom"
+}

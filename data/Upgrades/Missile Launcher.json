@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 400,
+  "xpCost": 650,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "dde2b1d6a857c19428a40d6680df2197",
+    "AssetGUID": "dde2b1d6a857c19428a40d6680df2197"
+  },
+  "path": 1,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Missile Launcher",
+  "IsParagon": false,
+  "name": "Missile Launcher"
+}

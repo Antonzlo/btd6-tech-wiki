@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 35000,
+  "xpCost": 32000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "c9d7df281d8cef847962d9e3955bb287",
+    "AssetGUID": "c9d7df281d8cef847962d9e3955bb287"
+  },
+  "path": 1,
+  "tier": 4,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Perma Charge",
+  "IsParagon": false,
+  "name": "Perma Charge"
+}

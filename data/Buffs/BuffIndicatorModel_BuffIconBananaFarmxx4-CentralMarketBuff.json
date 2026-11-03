@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.BuffIndicatorModel, Assembly-CSharp",
+  "buffName": "CentralMarketBuff",
+  "iconName": "BuffIconBananaFarmxx4",
+  "stackable": true,
+  "maxStackSize": 10,
+  "globalRange": true,
+  "onlyShowBuffIfMutated": false,
+  "dontShowX": false,
+  "_fullName": "BuffIconBananaFarmxx4CentralMarketBuff",
+  "FullName": "BuffIconBananaFarmxx4CentralMarketBuff",
+  "name": "BuffIndicatorModel_BuffIconBananaFarmxx4-CentralMarketBuff"
+}

@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 200,
+  "xpCost": 160,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "5a411761168cbab4e9f0e7783c13b296",
+    "AssetGUID": "5a411761168cbab4e9f0e7783c13b296"
+  },
+  "path": 1,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Enhanced Freeze",
+  "IsParagon": false,
+  "name": "Enhanced Freeze"
+}

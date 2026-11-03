@@ -1,0 +1,1092 @@
+"""Build the BTD6 tech wiki (static HTML) from a Mod Helper "Export Game Data" dump.
+
+Usage: python3 -I build.py            (reads ./data, writes ./site)
+Refresh data: copy Bosses Bloons Mods IncomeSets Buffs Knowledge Powers
+paragonDegreeData.json textTable.json from the export folder into ./data
+and update data/VERSION.txt.
+"""
+import html
+import json
+import math
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+DATA = ROOT / "data"
+SITE = ROOT / "site"
+
+# Asset references, visuals and physics carry no gameplay numbers
+SKIP_TYPES = ("ResourceUtils", "DisplayModel", "AudioClip", "SMath.Vector", "CollisionGroup",
+              "PopEffectModel", "CreateSoundOn", "AnimDamageState", "SpawnDeathAnim", "ShowDamageText",
+              "PlayAnimTrigger")
+SKIP_KEYS = {"$type", "guidRef", "AssetGUID", "display", "icon", "iconSmall", "name", "_name"}
+
+PAGES = [
+    ("index.html", "Главная", ""),
+    ("paragon.html", "Парагон", "Сила и степени"),
+    ("bosses.html", "Боссы", "HP и механики по тирам"),
+    ("modes.html", "Режимы", "Модификаторы сложностей"),
+    ("income.html", "Доход", "Множители дохода по раундам"),
+    ("buffs.html", "Баффы", "Что стакается"),
+    ("knowledge.html", "Monkey Knowledge", "Цены и эффекты"),
+    ("powers.html", "Силы", "Параметры сил"),
+    ("towers.html", "Башни", "Улучшения и кроссапгрейды"),
+    ("rounds.html", "Раунды", "Состав, RBE и деньги"),
+]
+
+CSS = (ROOT / "style.css").read_text(encoding="utf-8")
+
+SEARCH_JS = """
+(function(){
+var box=document.getElementById('q'),out=document.getElementById('qr');if(!box)return;var sel=0,hits=[];
+function norm(s){return s.toLowerCase().replace(/ё/g,'е')}
+function draw(){out.innerHTML='';hits.forEach(function(h,i){var a=document.createElement('a');a.href=h[2];
+if(i===sel)a.className='sel';var s=document.createElement('span');s.textContent=h[0];var m=document.createElement('small');
+m.textContent=h[1];a.appendChild(s);a.appendChild(m);out.appendChild(a)});out.hidden=!hits.length}
+box.addEventListener('input',function(){var q=norm(box.value.trim());sel=0;
+hits=q?WIKI_INDEX.filter(function(e){return norm(e[0]+' '+e[3]).indexOf(q)>=0}).slice(0,14):[];draw()});
+box.addEventListener('keydown',function(e){if(!hits.length)return;if(e.key==='ArrowDown'){sel=Math.min(sel+1,hits.length-1);draw();e.preventDefault()}
+else if(e.key==='ArrowUp'){sel=Math.max(sel-1,0);draw();e.preventDefault()}else if(e.key==='Enter'){location.href=hits[sel][2]}
+else if(e.key==='Escape'){hits=[];draw()}});
+document.addEventListener('click',function(e){if(!e.target.closest('.search')){hits=[];draw()}});
+document.addEventListener('keydown',function(e){if(e.key==='/'&&document.activeElement!==box&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){box.focus();e.preventDefault()}});
+document.querySelectorAll('[data-filter]').forEach(function(f){var rows=document.querySelectorAll(f.dataset.filter);
+f.addEventListener('input',function(){var q=norm(f.value);rows.forEach(function(r){r.hidden=q&&norm(r.textContent).indexOf(q)<0})})});
+document.querySelectorAll('.kgraph').forEach(function(g){var nodes={};g.querySelectorAll('.kn').forEach(function(n){nodes[n.dataset.id]=n});
+function chain(id,acc){if(acc[id]||!nodes[id])return acc;acc[id]=1;(nodes[id].dataset.req||'').split(' ').filter(Boolean).forEach(function(p){chain(p,acc)});return acc}
+function clear(){g.classList.remove('dim');g.querySelectorAll('.lit').forEach(function(e){e.classList.remove('lit')})}
+function light(id){clear();var on=chain(id,{});g.classList.add('dim');Object.keys(on).forEach(function(k){nodes[k].classList.add('lit')});
+g.querySelectorAll('.edge').forEach(function(e){if(on[e.dataset.from]&&on[e.dataset.to])e.classList.add('lit')})}
+Object.keys(nodes).forEach(function(id){var n=nodes[id];n.addEventListener('mouseenter',function(){light(id)});
+n.addEventListener('focus',function(){light(id)});n.addEventListener('mouseleave',clear);n.addEventListener('blur',clear)});var tip=g.querySelector('.ktip');if(tip)Object.keys(nodes).forEach(function(id){var n=nodes[id];n.addEventListener('mouseenter',function(){var b=n.getBoundingClientRect();tip.innerHTML='';var t=document.createElement('b');t.textContent=n.dataset.name;var c=document.createElement('small');c.textContent=n.dataset.cost+' MM';tip.appendChild(t);if(n.dataset.desc){var p=document.createElement('p');p.textContent=n.dataset.desc;tip.appendChild(p)}tip.appendChild(c);tip.hidden=false;var top=b.top-tip.offsetHeight-6;if(top<70)top=b.bottom+6;tip.style.left=Math.max(8,Math.min(innerWidth-tip.offsetWidth-8,b.left+b.width/2-tip.offsetWidth/2))+'px';tip.style.top=top+'px'});n.addEventListener('mouseleave',function(){tip.hidden=true})})});
+
+var DIFF_KEY='btd6-diff';function curMult(){try{return +localStorage.getItem(DIFF_KEY)||1}catch(x){return 1}}
+function applyDiff(){var m=curMult();document.querySelectorAll('.diff button').forEach(function(b){b.classList.toggle('on',+b.dataset.mult===m)});
+document.querySelectorAll('.cost[data-parts]').forEach(function(el){var s=el.dataset.parts.split(',').reduce(function(a,p){return a+(m===1?+p:Math.round(p*m/5)*5)},0);
+el.textContent='$'+s.toLocaleString('ru-RU')})}
+document.querySelectorAll('.diff button').forEach(function(b){b.addEventListener('click',function(){try{localStorage.setItem(DIFF_KEY,b.dataset.mult)}catch(x){}applyDiff()})});
+applyDiff();
+document.querySelectorAll('.xp').forEach(function(xp){var data=JSON.parse(xp.parentNode.querySelector('.xp-data').textContent),
+st=[0,0,0],variant=null,out=xp.querySelector('.xp-out');
+function e(s){return String(s==null?'–':s).replace(/[&<>"']/g,function(c){return'&#'+c.charCodeAt(0)+';'})}
+function f(v){if(v==null)return'–';if(typeof v==='number')return(Math.round(v*1e4)/1e4).toLocaleString('ru-RU');return e(v)}
+function key(){return st.join('')}
+function fix(changed){if(data[key()])return;for(var i=0;i<3;i++){if(i===changed)continue;while(st[i]>0&&!data[key()])st[i]--}
+if(!data[key()]){for(var j=0;j<3;j++)if(j!==changed)st[j]=0}}
+function draw(){var k=variant||key(),d=data[k];xp.querySelectorAll('.xp-row[data-path]').forEach(function(r){var p=+r.dataset.path;
+r.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',!variant&&+b.dataset.tier===st[p])})});
+xp.querySelectorAll('[data-variant]').forEach(function(b){b.classList.toggle('on',b.dataset.variant===variant)});
+if(!d){out.innerHTML='<p class="note">Нет данных для '+e(k)+'.</p>';return}
+var h='<div class="stats"><div class="stat"><b class="cost" data-parts="'+d.parts.join(',')+'">$'+f(d.cost)+'</b><small>цена '+e(k)+'</small></div><div class="stat"><b>'+f(d.range)+'</b><small>дальность</small></div></div>';
+d.attacks.forEach(function(a,ai){h+='<h3>'+e(a.name)+' <span class="id">дальность '+f(a.range)+'</span></h3><div class="wrap"><table><thead><tr><th>Оружие</th><th>Перезарядка, с</th><th>Атак/с</th><th>Снаряд</th><th>Кол-во</th><th>Урон</th><th>Пробив.</th><th>Модификаторы и эффекты</th></tr></thead><tbody>';
+a.weapons.forEach(function(w,wi){var n=Math.max(1,w.proj.length);w.proj.forEach(function(p,pi){h+='<tr>'+(pi===0?'<td rowspan="'+n+'">'+(wi+1)+(w.emission?' <span class="id">'+e(w.emission)+'</span>':'')+'</td><td class="n" rowspan="'+n+'">'+f(w.rate)+'</td><td class="n" rowspan="'+n+'">'+(w.rate?f(1/w.rate):'–')+'</td>':'')
++'<td style="padding-left:'+(10+p.depth*16)+'px">'+(p.depth?'↳ ':'')+e(p.label)+'</td><td class="n">'+f(p.count)+'</td><td class="n">'+f(p.damage)+'</td><td class="n">'+f(p.pierce)+'</td><td>'
++p.mods.concat(p.effects).map(function(m){return'<span class="chip">'+e(m)+'</span>'}).join(' ')+'</td></tr>'});
+if(!w.proj.length)h+='<tr><td>'+(wi+1)+'</td><td class="n">'+f(w.rate)+'</td><td class="n">'+(w.rate?f(1/w.rate):'–')+'</td><td colspan="5">–</td></tr>'});
+h+='</tbody></table></div>'});
+if(d.abilities.length)h+='<h3>Способности</h3><div class="chips">'+d.abilities.map(function(a){return'<span class="chip">'+e(a.name)+', перезарядка '+f(a.cooldown)+' с</span>'}).join('')+'</div>';
+if(d.other.length)h+='<h3>Прочие поведения</h3><div class="chips">'+d.other.map(function(o){return'<span class="chip">'+e(o)+'</span>'}).join('')+'</div>';
+out.innerHTML=h;applyDiff()}
+xp.querySelectorAll('.xp-row[data-path] button').forEach(function(b){b.addEventListener('click',function(){var p=+b.parentNode.dataset.path;variant=null;st[p]=+b.dataset.tier;fix(p);draw()})});
+xp.querySelectorAll('[data-variant]').forEach(function(b){b.addEventListener('click',function(){variant=b.dataset.variant;draw()})});
+draw()});
+})();
+"""
+
+# Readable labels for model types whose meaning is clear from the name
+TYPE_LABELS = {
+    "AttackModel": "Атака",
+    "AttackAirUnitModel": "Атака с воздуха",
+    "StartingCashModModel": "Стартовые деньги",
+    "ModifyAllCashModModel": "Весь доход",
+    "HealSelfActionModel": "Самолечение",
+    "SetSpeedPercentActionModel": "Скорость (доля)",
+    "SpawnBloonsActionModel": "Спавн шаров",
+    "LychTombstoneSpawnActionModel": "Спавн надгробий",
+    "AbsorbTowerBuffsActionModel": "Снятие баффов с башен",
+    "DistributeCashModel": "Деньги за урон",
+    "WorthReductionModel": "Снижение стоимости",
+}
+
+INDEX = []  # [title, section, url, extra search text]
+JS_VER = __import__("hashlib").md5(SEARCH_JS.encode()).hexdigest()[:8]  # cache-bust search.js when the script changes
+
+
+def load(path):
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+VERSION = (DATA / "VERSION.txt").read_text(encoding="utf-8").strip()
+
+# Languages: Russian is written in the code; other languages translate the finished HTML with a phrase
+# dictionary (i18n_<lang>.json) and take game names/descriptions from data/textTable.<lang>.json.
+LANGS = {"ru": "textTable.json", "en": "textTable.en.json"}
+LANG, OUT, TEXT, PHRASES = "ru", SITE, {}, None
+
+
+def set_lang(lang):
+    global LANG, OUT, TEXT, PHRASES
+    LANG = lang
+    OUT = SITE if lang == "ru" else SITE / lang
+    table = DATA / LANGS[lang]
+    if not table.exists():
+        print(f"warning: {table.name} missing, {lang} uses Russian game text", file=sys.stderr)
+        table = DATA / LANGS["ru"]
+    TEXT = load(table)
+    PHRASES = None
+    if lang != "ru":
+        words = load(ROOT / f"i18n_{lang}.json")
+        keys = sorted(words, key=len, reverse=True)
+        # whole phrases only: no Cyrillic letter right before or after the match
+        cyr = "А-Яа-яЁё"
+        # a phrase that starts/ends with a letter must not be glued to another letter (so "да" never hits "даёт")
+        alts = [("(?<![" + cyr + "])" if re.match(f"[{cyr}]", k) else "") + re.escape(k)
+                + ("(?![" + cyr + "])" if re.search(f"[{cyr}]$", k) else "") for k in keys]
+        first = "".join(sorted({re.escape(k[0]) for k in keys}))
+        # the leading class lets the engine skip non-matching positions (base64 icons) without trying every phrase
+        PHRASES = (re.compile(f"(?=[{first}])(?:" + "|".join(f"(?:{a})" for a in alts) + ")"), words)
+
+
+def translate(text):
+    if PHRASES is None:
+        return text
+    pattern, words = PHRASES
+    return pattern.sub(lambda m: words[m.group(0)], text)
+
+
+def t(*keys, fallback=""):
+    """First localized string found among keys, from the game's own text table."""
+    for key in keys:
+        value = TEXT.get(key)
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+    return fallback
+
+
+def esc(x):
+    return html.escape(str(x))
+
+
+def short_type(obj):
+    full = obj.get("$type", "") if isinstance(obj, dict) else ""
+    return full.split(",")[0].split(".")[-1] if full else ""
+
+
+def label(type_name):
+    if type_name in TYPE_LABELS:
+        return TYPE_LABELS[type_name]
+    return re.sub(r"(?<=[a-z])(?=[A-Z])", " ", re.sub(r"Model$", "", type_name))
+
+
+def skipped(value):
+    return isinstance(value, dict) and any(s in value.get("$type", "") for s in SKIP_TYPES)
+
+
+class Raw(str):
+    """Ready HTML that fmt() passes through unescaped."""
+
+
+def fmt(value):
+    if isinstance(value, Raw):
+        return value
+    if value is None:
+        return "–"
+    if isinstance(value, bool):
+        return "да" if value else "нет"
+    if isinstance(value, float):
+        if value.is_integer():
+            return f"{int(value):,}".replace(",", " ")
+        return f"{value:,.6g}".replace(",", " ")
+    if isinstance(value, int):
+        return f"{value:,}".replace(",", " ")
+    return esc(value)
+
+
+def scalar(value):
+    return isinstance(value, (str, int, float, bool))
+
+
+def flatten(obj, prefix="", out=None):
+    """Scalar leaves of a model as {readable.path: value}, skipping visuals and asset refs."""
+    out = {} if out is None else out
+    if not isinstance(obj, dict) or skipped(obj):
+        return out
+    counts = {}
+    for key, value in obj.items():
+        if key in SKIP_KEYS or value is None or skipped(value):
+            continue
+        if key[:1].isupper() and (key[:1].lower() + key[1:]) in obj:
+            continue  # Il2Cpp duplicates (speed / Speed)
+        path = f"{prefix}{key}"
+        if scalar(value):
+            out[path] = value
+        elif isinstance(value, list) and value and all(scalar(v) for v in value):
+            out[path] = ", ".join(str(v) for v in value)
+        elif isinstance(value, list):
+            for item in value:
+                if not isinstance(item, dict) or skipped(item):
+                    continue
+                name = short_type(item) or key
+                counts[name] = counts.get(name, 0) + 1
+                tag = name if counts[name] == 1 else f"{name}#{counts[name]}"
+                flatten(item, f"{prefix}{tag}.", out)
+        elif isinstance(value, dict):
+            flatten(value, f"{path}.", out)
+    return out
+
+
+def kv_table(pairs):
+    rows = "".join(f"<tr><td class='k'>{esc(k)}</td><td class='n'>{fmt(v)}</td></tr>" for k, v in pairs)
+    return f"<div class='wrap'><table>{rows}</table></div>"
+
+
+def table(headers, rows, row_attr=""):
+    head = "".join(f"<th>{esc(h)}</th>" for h in headers)
+    body = "".join(f"<tr{row_attr}>" + "".join(
+        f"<td class='n'>{fmt(c)}</td>" if isinstance(c, (int, float)) and not isinstance(c, bool)
+        else f"<td>{c if isinstance(c, str) else fmt(c)}</td>" for c in r) + "</tr>" for r in rows)
+    return f"<div class='wrap'><table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>"
+
+
+def stats(items):
+    return "<div class='stats'>" + "".join(
+        f"<div class='stat'><b>{fmt(v)}</b><small>{esc(k)}</small></div>" for k, v in items) + "</div>"
+
+
+def game_text(text):
+    return f"<div class='game'>{esc(text)}</div>" if text else ""
+
+
+def card(anchor, title, body, en_id="", tagline="", section=""):
+    INDEX.append([title, section, f"{current_file}#{anchor}", en_id])
+    head = (f"<div class='card-head'><h2>{esc(title)}</h2>"
+            + (f"<span class='tag'>{esc(tagline)}</span>" if tagline else "")
+            + (f"<span class='id'>{esc(en_id)}</span>" if en_id and en_id != title else "") + "</div>")
+    return f"<section class='card' id='{esc(anchor)}'>{head}{body}</section>"
+
+
+current_file = "index.html"
+
+
+def page(file, title, lead, body, toc=()):
+    side = "".join(f"<a href='{f}'{' class=on' if f == file else ''}>{esc(t(n, fallback=n))}</a>" for f, n, _ in PAGES)
+    other = ("en/" if LANG == "ru" else "../") + file
+    switch = f"<a class='lang' href='{other}' aria-label='Язык'>{'EN' if LANG == 'ru' else 'RU'}</a>"
+    toc_html = ("<div class='toc'><h4>На странице</h4>" + "".join(
+        f"<a href='#{esc(a)}'>{esc(n)}</a>" for a, n in toc) + "</div>") if toc else ""
+    head = (f"<meta charset=\"utf-8\"><title>{'BTD6 Tech Wiki' if file == 'index.html' else esc(title) + ' · BTD6 Tech Wiki'}</title>"
+            "<meta name=\"claude:viewport-fit-sides\" content=\"cover\">"
+            "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400"
+            "&family=Roboto+Mono&display=swap\">"
+            f"<style>{CSS}</style>")
+    content = (
+        "<header class='top'><a class='brand' href='index.html'>BTD6 Tech Wiki<span>"
+        f"{esc(VERSION.split(' ')[0])}</span></a>"
+        "<div class='search'><input id='q' type='search' placeholder='Поиск: босс, режим, знание, сила…  ( / )' "
+        "autocomplete='off' aria-label='Поиск по вики'><div class='results' id='qr' hidden></div></div>"
+        f"{switch}</header>"
+        f"<div class='layout'><aside class='side'><h4>Разделы</h4><nav>{side}</nav>{toc_html}</aside>"
+        f"<main><h1>{esc(title)}</h1><p class='lead'>{lead}</p><p class='ver'>Данные: {esc(VERSION)}</p>"
+        f"{body}</main></div><script src='search.js?v={JS_VER}'></script>")
+    if file == "index.html" and LANG == "ru":  # the artifact page itself; the host adds the skeleton
+        doc = head + content
+    else:
+        doc = (f"<!doctype html><html lang=\"{LANG}\"><head>"
+               f"<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">"
+               f"{head}</head><body>{content}</body></html>")
+    OUT.mkdir(parents=True, exist_ok=True)
+    (OUT / file).write_text(translate(doc), encoding="utf-8")
+
+
+def json_files(folder):
+    return sorted((DATA / folder).rglob("*.json"))
+
+
+# ---------- pages ----------
+
+def build_paragon():
+    d = load(DATA / "paragonDegreeData.json")
+    req = d["powerDegreeRequirements"]
+    top = req[-1]
+    # line chart: power needed per degree
+    w, h, pad = 640, 220, 36
+    pts = " ".join(f"{pad + (w - 2 * pad) * i / (len(req) - 1):.1f},{h - pad - (h - 2 * pad) * p / top:.1f}"
+                   for i, p in enumerate(req))
+    ticks = "".join(
+        f"<text x='{pad + (w - 2 * pad) * (deg - 1) / (len(req) - 1):.1f}' y='{h - pad + 16}' text-anchor='middle'>{deg}</text>"
+        for deg in (1, 25, 50, 75, 100))
+    yt = "".join(f"<text x='{pad - 6}' y='{h - pad - (h - 2 * pad) * v / top + 4:.1f}' text-anchor='end'>{v // 1000}k</text>"
+                 for v in (0, top // 2, top))
+    grid = "".join(f"<line class='pgrid' x1='{pad}' y1='{h - pad - (h - 2 * pad) * v / top:.1f}' x2='{w - pad}' "
+                   f"y2='{h - pad - (h - 2 * pad) * v / top:.1f}'/>" for v in (top // 2, top))
+    # one hover target per degree, wider than the line
+    step = (w - 2 * pad) / (len(req) - 1)
+    hits = "".join(f"<rect class='phit' x='{pad + step * i - step / 2:.1f}' y='{pad}' width='{step:.1f}' height='{h - 2 * pad}'>"
+                   f"<title>{i + 1}: {fmt(p)}</title></rect>" for i, p in enumerate(req))
+    chart = (f"<div class='wrap'><svg class='pchart' viewBox='0 0 {w} {h}' width='{w}' role='img' aria-label='Сила по степеням'>"
+             f"{grid}<line class='paxis' x1='{pad}' y1='{h - pad}' x2='{w - pad}' y2='{h - pad}'/>"
+             f"<polyline class='pline' points='{pts}'/>{ticks}{yt}{hits}</svg></div>")
+
+    # donut: share of each power source cap
+    srcs = [("макс. от лопаний", d.get("maxPowerFromPops", 0)), ("макс. от денег", d.get("maxPowerFromMoneySpent", 0)),
+            ("макс. от T5", d.get("maxPowerFromTier5Count", 0))]
+    total = sum(v for _, v in srcs)
+    R, SW, C = 70, 26, 2 * math.pi * 70
+    segs, acc = [], 0.0
+    for i, (lbl, v) in enumerate(srcs):
+        length = C * v / total
+        segs.append(f"<circle class='seg s{i + 1}' r='{R}' cx='100' cy='100' stroke-width='{SW}' "
+                    f"stroke-dasharray='{max(length - 3, 0):.2f} {C:.2f}' stroke-dashoffset='{-acc:.2f}'>"
+                    f"<title>{esc(lbl)}: {fmt(v)} ({v / total * 100:.1f}%)</title></circle>")
+        acc += length
+    legend = "".join(f"<li><i class='sw s{i + 1}'></i><span>{esc(lbl)}</span><b>{fmt(v)}</b><small>{v / total * 100:.1f}%</small></li>"
+                     for i, (lbl, v) in enumerate(srcs))
+    donut = (f"<div class='donut-row'><svg class='donut' viewBox='0 0 200 200' width='200' height='200' role='img' "
+             f"aria-label='Потолки силы по источникам'><g transform='rotate(-90 100 100)'>{''.join(segs)}</g>"
+             f"<text x='100' y='98' text-anchor='middle' class='dc-v'>{fmt(total)}</text>"
+             f"<text x='100' y='118' text-anchor='middle' class='dc-l'>сумма потолков</text></svg>"
+             f"<div><ul class='legend'>{legend}</ul><p class='note'>Для 100-й степени нужно {fmt(top)} силы, "
+             f"а сумма потолков этих источников {fmt(total)}. Ни один из них в одиночку до {fmt(top)} не доходит.</p></div></div>")
+    rows = [(i + 1, p, p - req[i - 1] if i else 0) for i, p in enumerate(req)]
+    fields = [
+        ("maxPowerFromPops", "Потолок силы от лопаний"),
+        ("popsOverX", "Делитель лопаний (лопаний на 1 силу)"),
+        ("maxPowerFromMoneySpent", "Потолок силы от потраченных денег"),
+        ("moneySpentOverX", "Параметр формулы денег"),
+        ("maxPowerFromTier5Count", "Потолок силы от башен 5-го тира"),
+        ("tier5TowersMultByX", "Сила за одну башню 5-го тира"),
+        ("maxPowerFromNonTier5Count", "Потолок силы от остальных улучшений"),
+        ("nonTier5TowersMultByX", "Множитель за остальные улучшения"),
+        ("cashEarnedContributionModifier", "Модификатор вклада заработанных денег"),
+        ("paidContributionPenalty", "Штраф вклада оплаченных денег"),
+        ("MaxInvestment", "Максимум вложений"),
+        ("damageIncreasePerDegree", "Урон за степень"),
+        ("damageIncreaseForDegrees", "…каждые N степеней"),
+        ("damagePercentPerDegree", "Урон, % за степень"),
+        ("pierceIncreasePerDegree", "Пробивание за степень"),
+        ("piercePercentPerDegree", "Пробивание, % за степень"),
+        ("attackCooldownReductionX", "Параметр ускорения атаки"),
+        ("bonusBossDamagePercent", "Доп. урон по боссам"),
+        ("bonusBossDamagePerDegrees", "…каждые N степеней"),
+        ("degreeCount", "Число степеней"),
+    ]
+    frows = [(f"<span class='id'>{esc(k)}</span>", esc(name), d[k]) for k, name in fields if k in d]
+    body = (
+        stats([("степеней", d.get("degreeCount")), ("сила для 100", top)])
+        + card("pie", "Откуда берётся сила", donut, section="Парагон")
+        + card("curve", "Сколько силы нужно на степень",
+               chart + "<p class='note'>Прирост между соседними степенями растёт, поэтому последние степени самые дорогие.</p>"
+               "<details><summary>Таблица всех 100 степеней</summary>"
+               + table(["Степень", "Сила", "Прирост"], rows) + "</details>", section="Парагон")
+        + card("sources", "Параметры модели парагона",
+               "<p class='note'>Значения взяты как есть. Русские подписи сделаны по названиям полей, точную формулу "
+               "игра в данных не хранит.</p>" + table(["Поле", "Смысл", "Значение"], frows), section="Парагон"))
+    page("paragon.html", "Парагон",
+         "Парагон получает степень от 1 до 100 по накопленной силе. Сила собирается из лопаний, потраченных денег "
+         "и пожертвованных улучшений, у каждого источника свой потолок.",
+         body, toc=[("curve", "Сила на степень"), ("sources", "Параметры")])
+
+
+def skulls(boss_model):
+    """HP fractions where the boss triggers its skull actions (multi-step health triggers)."""
+    out = set()
+    for beh in boss_model.get("behaviors") or []:
+        if not isinstance(beh, dict):
+            continue
+        vals = beh.get("percentageValues") or beh.get("etherealHealthPercentageValues") or []
+        if "HealthPercentTrigger" in beh.get("$type", "") and (len(vals) < 2 or beh.get("repeatFirst")):
+            continue
+        out.update(v for v in vals if isinstance(v, (int, float)) and 0 < v < 1)
+    return sorted(out, reverse=True)
+
+
+def plural(n, one, few, many):
+    if n % 10 == 1 and n % 100 != 11:
+        return one
+    return few if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14 else many
+
+
+HP_TOP = {}
+
+
+def hp_row(elite, n, b):
+    sk = skulls(b)
+    width = 100 * math.log10(b["maxHealth"]) / math.log10(HP_TOP[b["baseId"]])
+    ticks = "".join(f"<span class='skull' style='left:{v * 100:.2f}%' title='{v * 100:g}%'></span>" for v in sk)
+    cls = "e" if elite else "n"
+    return (f"<span class='t {cls}'>{'E' if elite else 'T'}{n}</span>"
+            f"<span class='bar {cls}' style='width:{width:.1f}%'><span class='fill' style='width:100%'></span>{ticks}</span>"
+            f"<span class='v'>{fmt(b['maxHealth'])}<small>{len(sk)} {plural(len(sk), 'череп', 'черепа', 'черепов')}</small></span>")
+
+
+def build_bosses():
+    body, toc = [], []
+    for boss in sorted(p.stem for p in json_files("Bosses")):
+        tiers = []
+        for f in sorted((DATA / "Bloons" / boss).glob("*.json")):
+            m = re.fullmatch(rf"{boss}(Elite)?(\d)", f.stem)
+            if m:
+                tiers.append((bool(m.group(1)), int(m.group(2)), load(f)))
+        if not tiers:
+            continue
+        tiers.sort(key=lambda x: (x[0], x[1]))
+        HP_TOP[boss] = max(b["maxHealth"] for _, _, b in tiers)
+        name = t(boss, fallback=boss)
+        top = max(b["maxHealth"] for _, _, b in tiers)
+        bars = "".join(hp_row(e, n, b) for e, n, b in tiers)
+        # parameters per tier: which numbers change, which stay the same
+        flats = [flatten(b) for _, _, b in tiers]
+        keys = list(dict.fromkeys(k for fl in flats for k in fl))
+        heads = ["Параметр"] + [f"{'E' if e else 'T'}{n}" for e, n, _ in tiers]
+        varying, constant = [], []
+        for k in keys:
+            vals = [fl.get(k) for fl in flats]
+            if len({json.dumps(v) for v in vals}) > 1:
+                varying.append([f"<span class='id'>{esc(k)}</span>"] + vals)
+            else:
+                constant.append((k, vals[0]))
+        normal = next(b for e, n, b in tiers if not e and n == 1)
+        mechanics = sorted({label(short_type(x)) for x in normal.get("behaviors") or []
+                            if isinstance(x, dict) and not skipped(x)})
+        inner = (
+            "<div class='split'><div>"
+            + game_text(t(f"{boss}InfoPanelDescription"))
+            + stats([("HP T1", normal["maxHealth"]), ("HP элит. T5", top), ("скорость T1", normal["speed"]),
+                     ("скорость элит. T5", tiers[-1][2]["speed"])])
+            + "<h3>Поведения</h3><div class='chips'>" + "".join(f"<span class='chip'>{esc(m)}</span>" for m in mechanics) + "</div>"
+            + "</div><div>"
+            + "<h3>HP и черепа по тирам</h3><p class='note'>T обычный, E элитный. Засечки на полосе это черепа: "
+              "пороги HP, на которых босс применяет способность. Длина полосы показывает HP тира относительно "
+              "самого крепкого, в логарифмической шкале.</p>"
+            + f"<div class='hp'>{bars}</div></div></div>"
+            + f"<h3>Что меняется по тирам ({len(varying)})</h3>" + table(heads, varying)
+            + f"<details><summary>Одинаково на всех тирах ({len(constant)})</summary>{kv_table(constant)}</details>")
+        tagline = " ".join(x for x in (t(f"{boss}TagLine"), t(f"{boss}TagLine2")) if x)
+        body.append(card(boss, name, inner, en_id=boss, tagline=tagline, section="Боссы"))
+        toc.append((boss, name))
+    page("bosses.html", "Боссы",
+         "Каждый босс есть в 5 обычных и 5 элитных тирах. Для каждого: описание из игры, HP по тирам "
+         "и все числовые параметры поведений, отдельно те, что растут с тиром.",
+         "".join(body), toc)
+
+
+def build_modes():
+    body, toc = [], []
+    for f in json_files("Mods"):
+        mods = load(f).get("mutatorMods") or []
+        name = t(f"Mode {f.stem}", f.stem, fallback=f.stem)
+        rows = []
+        for m in mods:
+            fl = flatten(m)
+            rows.append((esc(label(short_type(m))), ", ".join(f"{k} = {fmt(v)}" for k, v in fl.items()) or "–"))
+        inner = (game_text(t(f"et_{f.stem.lower()}description"))
+                 + (table(["Модификатор", "Параметры"], rows) if rows else "<p class='note'>Без модификаторов.</p>"))
+        body.append(card(f.stem, name, inner, en_id=f.stem, section="Режимы"))
+        toc.append((f.stem, name))
+    page("modes.html", "Режимы и сложности",
+         "Режим это набор модификаторов поверх обычной игры: множители денег, HP, цен, запреты. "
+         "Здесь все модификаторы каждого режима с точными значениями. Кооп-режимы CoopStandardCash и "
+         "CoopDeflationCash задают деньги для 2, 3 и 4 игроков.",
+         "".join(body), toc)
+
+
+def build_income():
+    body, toc = [], []
+    for f in json_files("IncomeSets"):
+        d = load(f)
+        rows, start = [], 1
+        for th in d.get("thresholds") or []:
+            rows.append((f"{start}–{th['threshold']}", th["multiplier"], f"{th['multiplier'] * 100:g}%"))
+            start = th["threshold"] + 1
+        final = d.get("finalMultiplier")
+        rows.append((f"{start}+", final, f"{final * 100:g}%" if final is not None else "–"))
+        body.append(card(f.stem, f.stem, table(["Раунды", "Множитель", "От обычного"], rows), section="Доход"))
+        toc.append((f.stem, f.stem))
+    page("income.html", "Доход по раундам",
+         "Деньги за лопание шаров умножаются на коэффициент, который зависит от номера раунда. "
+         "DefaultIncomeSet используется в обычной игре, остальные в своих режимах.",
+         "".join(body), toc)
+
+
+TOWER_NAMES = None
+
+
+def tower_of(icon):
+    """Tower name for a buff icon like BuffIconAlchemist3xx, via the game's text table."""
+    rest = icon.removeprefix("BuffIcon")
+    for end in range(len(rest), 3, -1):
+        word = rest[:end]
+        if word[0].isupper() and (end == len(rest) or not rest[end].islower()) and isinstance(TEXT.get(word), str):
+            return TEXT[word]
+    return ""
+
+
+def build_buffs():
+    rows = []
+    for f in json_files("Buffs"):
+        d = load(f)
+        st = d.get("stackable")
+        rows.append((esc(tower_of(d.get("iconName", ""))) or "–", f"<span class='id'>{esc(d.get('buffName'))}</span>",
+                     f"<span class='chip{'' if st else ' no'}'>{'стакается' if st else 'не стакается'}</span>",
+                     d.get("maxStackSize"), d.get("globalRange"), f"<span class='id'>{esc(d.get('iconName'))}</span>"))
+        INDEX.append([d.get("buffName", ""), "Баффы", "buffs.html", d.get("iconName", "")])
+    rows.sort(key=lambda r: (r[0], r[1]))
+    body = (card("table", "Все индикаторы баффов",
+                 "<p class='note'>stackable показывает, складывается ли бафф с тем же именем от второго источника. "
+                 "maxStackSize 0 = лимит не задан. globalRange = действует на всю карту. Башня определена по имени иконки.</p>"
+                 "<input class='filter' type='search' placeholder='Фильтр: башня или бафф' aria-label='Фильтр баффов' "
+                 "data-filter='#buffs tbody tr'>"
+                 + table(["Башня", "buffName", "Стак", "maxStackSize", "globalRange", "Иконка"], rows).replace(
+                     "<table>", "<table id='buffs'>", 1), section="Баффы"))
+    page("buffs.html", "Баффы и стакинг",
+         "Каждый бафф в игре показывается иконкой над башней. В модели иконки записано, стакается ли он "
+         "и сколько раз. По этой таблице видно, какие синергии складываются.", body)
+
+
+def wrap_words(text, width=19):
+    lines, cur = [], ""
+    for word in text.split():
+        if cur and len(cur) + 1 + len(word) > width:
+            lines.append(cur)
+            cur = word
+        else:
+            cur = f"{cur} {word}".strip()
+    lines.append(cur)
+    return lines[:2] if len(lines) <= 2 else [lines[0], lines[1][: width - 1] + "…"]
+
+
+def knowledge_graph(nodes):
+    """Layered SVG of one knowledge tree. nodes: {id: model}. Rows = unlock tier, then chain depth inside it."""
+    W, H, GX, GY = 168, 60, 22, 34
+    tier_of = {k: d.get("investmentRequired", 0) for k, d in nodes.items()}
+    reqs = {k: [p for p in d.get("prerequisiteIds") or [] if p in nodes] for k, d in nodes.items()}
+
+    depth = {}
+
+    def local_depth(k):
+        if k not in depth:
+            same = [p for p in reqs[k] if tier_of[p] == tier_of[k]]
+            depth[k] = 1 + max(map(local_depth, same)) if same else 0
+        return depth[k]
+
+    tiers = sorted(set(tier_of.values()))
+    base, row = {}, 0
+    for tr in tiers:
+        base[tr] = row
+        row += 1 + max(local_depth(k) for k in nodes if tier_of[k] == tr)
+    layer = {k: base[tier_of[k]] + local_depth(k) for k in nodes}
+
+    # Connected nodes (usually one tower's chain) form a group; each group gets its own columns,
+    # so arrows never cross into another group.
+    group = {k: k for k in nodes}
+
+    def find(k):
+        while group[k] != k:
+            group[k] = group[group[k]]
+            k = group[k]
+        return k
+
+    for k, ps in reqs.items():
+        for p in ps:
+            group[find(k)] = find(p)
+    groups = {}
+    for k in nodes:
+        groups.setdefault(find(k), []).append(k)
+    ordered = sorted(groups.values(), key=lambda g: min(nodes[k].get("idx", 0) for k in g))
+
+    kids = {k: [c for c, ps in reqs.items() if k in ps] for k in nodes}
+    mean = lambda xs: sum(xs) / len(xs)
+
+    x, offset = {}, 0.0
+    for members_all in ordered:
+        # crossing reduction: order each row by the mean position of parents (down) / children (up)
+        rows = [sorted((k for k in members_all if layer[k] == ly), key=lambda k: nodes[k].get("idx", 0))
+                for ly in range(row)]
+        pos = {k: i for r in rows for i, k in enumerate(r)}
+        for _ in range(12):
+            for sweep, link in ((range(1, row), reqs), (range(row - 2, -1, -1), kids)):
+                for ly in sweep:
+                    rows[ly].sort(key=lambda k: mean([pos[n] for n in link[k] if n in pos]) if any(
+                        n in pos for n in link[k]) else pos[k])
+                    pos.update({k: i for i, k in enumerate(rows[ly])})
+        # column grid: a node goes straight under its nearest prerequisite when that column is free,
+        # cells a line passes through are reserved so no node sits on top of a line
+        occ, col = set(), {}
+        for ly in range(row):
+            for k in rows[ly]:
+                ps = [p for p in reqs[k] if p in col]
+                if ps:
+                    p = max(ps, key=lambda p: (layer[p], -col[p]))
+                    start = col[p]
+                    between = [(start, r) for r in range(layer[p] + 1, ly)]
+                    order = [start] + [start + s * d for d in range(1, 40) for s in (1, -1)]
+                    c = next(c for c in order if c >= 0 and (c, ly) not in occ)
+                    occ.update(between)
+                else:
+                    c = next(c for c in range(200) if (c, ly) not in occ)
+                occ.add((c, ly))
+                col[k] = c
+        for k, c in col.items():
+            x[k] = offset + c * (W + GX)
+        offset += (max(col.values()) + 1) * (W + GX) + GX
+    width = max(x.values()) + W
+    pad_l, pad_t = 96, 14
+    height = row * (H + GY) + pad_t
+    ypos = lambda k: pad_t + layer[k] * (H + GY)
+
+    bands = []
+    for i, tr in enumerate(tiers):
+        rows_in = [layer[k] for k in nodes if tier_of[k] == tr]
+        y0 = pad_t + min(rows_in) * (H + GY) - GY / 2 + 4
+        y1 = pad_t + max(rows_in) * (H + GY) + H + GY / 2 - 4
+        bands.append(f"<rect class='band{i % 2}' x='0' y='{y0:.0f}' width='{pad_l + width + 12}' height='{y1 - y0:.0f}' rx='12'/>"
+                     f"<text class='bandlbl' x='12' y='{y0 + 22:.0f}'>{tr} очк.</text>")
+    edges = []
+    for k, ps in reqs.items():
+        for p in ps:
+            x1, y1 = pad_l + x[p] + W / 2, ypos(p) + H
+            x2, y2 = pad_l + x[k] + W / 2, ypos(k)
+            # elbow: down, across in the gap right above the child row, down
+            my = y2 - GY / 2
+            r = min(8, abs(x2 - x1) / 2, (my - y1) / 2)
+            if r < 1:
+                d = f"M{x1:.0f},{y1:.0f} V{y2:.0f}" if abs(x2 - x1) < 1 else f"M{x1:.0f},{y1:.0f} V{my:.0f} H{x2:.0f} V{y2:.0f}"
+            else:
+                sx = 1 if x2 > x1 else -1
+                d = (f"M{x1:.0f},{y1:.0f} V{my - r:.0f} Q{x1:.0f},{my:.0f} {x1 + sx * r:.0f},{my:.0f} "
+                     f"H{x2 - sx * r:.0f} Q{x2:.0f},{my:.0f} {x2:.0f},{my + r:.0f} V{y2:.0f}")
+            edges.append(f"<path class='edge' data-from='{esc(p)}' data-to='{esc(k)}' d='{d}'/>")
+    boxes = []
+    for k, d in nodes.items():
+        lines = wrap_words(t(k, fallback=k))
+        tx, ty = pad_l + x[k], ypos(k)
+        text = "".join(f"<tspan x='{tx + 10:.0f}' dy='{0 if i == 0 else 15}'>{esc(s)}</tspan>" for i, s in enumerate(lines))
+        boxes.append(
+            f"<a href='#{esc(k)}' class='kn' data-id='{esc(k)}' data-req='{esc(' '.join(reqs[k]))}'>"
+            f"<title>{esc(t(k, fallback=k))}: {fmt(d.get('monkeyMoneyCost'))} MM</title>"
+            f"<rect x='{tx:.0f}' y='{ty:.0f}' width='{W}' height='{H}' rx='10'/>"
+            f"<text class='nm' x='{tx + 10:.0f}' y='{ty + 19:.0f}'>{text}</text>"
+            f"<text class='mm' x='{tx + 10:.0f}' y='{ty + H - 9:.0f}'>{fmt(d.get('monkeyMoneyCost'))} MM</text></a>")
+    return (f"<div class='wrap kgraph'><svg viewBox='0 0 {pad_l + width + 12:.0f} {height:.0f}' "
+            f"width='{pad_l + width + 12:.0f}' role='img' aria-label='Дерево знаний'>"
+            + "".join(bands) + "".join(edges) + "".join(boxes) + "</svg></div>")
+
+
+LAYOUT_DIR = DATA / "KnowledgeLayout"
+
+
+def load_game_layout():
+    """Positions dumped from the in-game Monkey Knowledge screen (btd6-knowledge-dumper), by set."""
+    path = LAYOUT_DIR / "layout.json"
+    if not path.exists():
+        return {}
+    out = {}
+    for e in load(path):
+        out.setdefault(e["set"], []).append(e)
+    return out
+
+
+def icon_uri(kid):
+    import base64
+    f = LAYOUT_DIR / "icons" / f"{kid}.webp"
+    return "data:image/webp;base64," + base64.b64encode(f.read_bytes()).decode() if f.exists() else ""
+
+
+def knowledge_game_graph(entries, nodes):
+    """The tree exactly as the game lays it out: icon buttons, stem/arrow/elbow pieces, tier bands."""
+    S, pad_l, pad = 0.5, 70, 16
+    boxes = [e["rect"] for e in entries] + [a["rect"] for e in entries for a in e["arrows"]]
+    minx = min(r[0] - r[2] / 2 for r in boxes)
+    maxx = max(r[0] + r[2] / 2 for r in boxes)
+    maxy = max(r[1] + r[3] / 2 for r in boxes)
+    miny = min(r[1] - r[3] / 2 for r in boxes)
+    X = lambda v: pad_l + (v - minx) * S
+    Y = lambda v: pad + (maxy - v) * S
+    width, height = pad_l + (maxx - minx) * S + pad, (maxy - miny) * S + pad * 2
+
+    bands = []
+    for i, tier in enumerate(sorted({e["tier"] for e in entries})):
+        rs = [e["rect"] for e in entries if e["tier"] == tier]
+        top = Y(max(r[1] + r[3] / 2 for r in rs)) - 10
+        bottom = Y(min(r[1] - r[3] / 2 for r in rs)) + 10
+        bands.append(f"<rect class='band{i % 2}' x='0' y='{top:.0f}' width='{width:.0f}' height='{bottom - top:.0f}' rx='12'/>"
+                     f"<text class='bandlbl' x='12' y='{top + 22:.0f}'>{tier} очк.</text>")
+
+    pieces = []
+    for e in entries:
+        for a in e["arrows"]:
+            cx, cy, w, h = X(a["rect"][0]), Y(a["rect"][1]), abs(a["w"]) * S, abs(a["h"]) * S
+            tf = f"translate({cx:.1f},{cy:.1f}) rotate({-a['rot']:.0f}) scale({a.get('sx', 1):.0f},{a.get('sy', 1):.0f})"
+            sprite = a.get("sprite") or ""
+            if "Arrow" in sprite:  # head, points down in its own space
+                shape = f"<path d='M{-w / 2:.1f},{-h / 2:.1f} L{w / 2:.1f},{-h / 2:.1f} L0,{h / 2:.1f} Z'/>"
+            elif "Elbow" in sprite:  # corner joint where a horizontal and vertical stem meet
+                shape = f"<rect x='{-w / 2:.1f}' y='{-h / 2:.1f}' width='{w:.1f}' height='{h:.1f}' rx='{min(w, h) / 3:.1f}'/>"
+            else:  # stem
+                shape = f"<rect x='{-w / 2:.1f}' y='{-h / 2:.1f}' width='{w:.1f}' height='{h:.1f}' rx='2'/>"
+            pieces.append(f"<g class='piece' transform='{tf}'>{shape}</g>")
+
+    btns = []
+    for e in entries:
+        kid, d = e["id"], nodes.get(e["id"], {})
+        cx, cy, size = X(e["rect"][0]), Y(e["rect"][1]), e["rect"][2] * S
+        reqs = " ".join(p for p in d.get("prerequisiteIds") or [] if p in nodes)
+        uri = icon_uri(kid)
+        cost = d.get("monkeyMoneyCost")
+        btns.append(
+            f"<a href='#{esc(kid)}' class='kn' data-id='{esc(kid)}' data-req='{esc(reqs)}' "
+            f"data-name='{esc(t(kid, fallback=kid))}' data-cost='{fmt(cost)}' data-desc='{esc(t(kid + 'Description', kid + ' Description'))}'>"
+            f"<circle class='ring' cx='{cx:.1f}' cy='{cy:.1f}' r='{size / 2 - 2:.1f}'/>"
+            + (f"<image href='{uri}' x='{cx - size / 2:.1f}' y='{cy - size / 2:.1f}' width='{size:.1f}' height='{size:.1f}'/>" if uri else
+               f"<text class='nm' x='{cx:.1f}' y='{cy:.1f}' text-anchor='middle'>{esc(t(kid, fallback=kid))[:10]}</text>")
+            + (f"<text class='cost' x='{cx:.1f}' y='{cy + size / 2 + 2:.1f}' text-anchor='middle'>{fmt(cost)}</text>" if cost else "")
+            + "</a>")
+    return (f"<div class='wrap kgraph kgame'><svg viewBox='0 0 {width:.0f} {height:.0f}' width='{width:.0f}' role='img' "
+            f"aria-label='Дерево знаний как в игре'>" + "".join(bands) + "".join(pieces) + "".join(btns)
+            + "</svg><div class='ktip' hidden></div></div>")
+
+
+def build_knowledge():
+    body, toc = [], []
+    GAME_LAYOUT = load_game_layout()
+    for cat in sorted(p for p in (DATA / "Knowledge").iterdir() if p.is_dir()):
+        cards = []
+        for f in sorted(cat.glob("*.json"), key=lambda f: load(f).get("idx", 0)):
+            d = load(f)
+            name = t(f.stem, fallback=f.stem)
+            prereq = " · ".join(f"<a href='#{esc(p)}'>{esc(t(p, fallback=p))}</a>" for p in d.get("prerequisiteIds") or [])
+            fl = flatten(d.get("mod") or {})
+            inner = ("<div class='split'><div>" + game_text(t(f"{f.stem}Description", f"{f.stem} Description"))
+                     + stats([("Monkey Money", d.get("monkeyMoneyCost")), ("вложено в ветку", d.get("investmentRequired"))])
+                     + (f"<p class='note'>Требует: {prereq}</p>" if prereq else "")
+                     + "</div><div>" + (kv_table(fl.items()) if fl else "") + "</div></div>")
+            cards.append(card(f.stem, name, inner, en_id=f.stem, section=f"Знания · {cat.name}"))
+        nodes = {f.stem: load(f) for f in cat.glob("*.json")}
+        body.append(f"<h2 id='{esc(cat.name)}' style='margin-top:32px'>{esc(t(cat.name, fallback=cat.name))}</h2>"
+                    + (knowledge_game_graph(GAME_LAYOUT[cat.name], nodes) if cat.name in GAME_LAYOUT else knowledge_graph(nodes))
+                    + "".join(cards))
+        toc.append((cat.name, t(cat.name, fallback=cat.name)))
+    page("knowledge.html", t("Monkey Knowledge", fallback="Monkey Knowledge"),
+         "Пассивные улучшения за Monkey Money. Каждая ветка нарисована деревом: полосы это ряды, которые "
+         "открываются после N купленных знаний ветки, стрелки ведут от требуемого знания к следующему. "
+         "Наведите на узел, чтобы подсветить всю цепочку, нажмите, чтобы открыть карточку с числами. "
+         "Число в углу узла это цена в Monkey Money.",
+         "".join(body), toc)
+
+
+def build_powers():
+    body, toc = [], []
+    for f in json_files("Powers"):
+        d = load(f)
+        name = t(f.stem, fallback=f.stem)
+        fl = flatten(d)
+        nums = [(k, v) for k, v in fl.items() if isinstance(v, (int, float)) and not isinstance(v, bool)]
+        inner = (game_text(t(f"{f.stem} Description", f"{f.stem}Description"))
+                 + stats([(k, d[k]) for k in ("cost", "quantity", "startCount") if k in d])
+                 + f"<details><summary>Все числовые параметры ({len(nums)})</summary>{kv_table(nums)}</details>")
+        body.append(card(f.stem, name, inner, en_id=f.stem, section="Силы"))
+        toc.append((f.stem, name))
+    page("powers.html", "Силы",
+         "Силы (Powers) и Powers Pro. Описание из игры и все числовые параметры модели: урон, длительности, "
+         "радиусы, перезарядки.", "".join(body), toc)
+
+
+def build_index():
+    tiles = "".join(f"<a class='tile' href='{f}'><b>{esc(t(n, fallback=n))}</b><small>{esc(s)}</small></a>" for f, n, s in PAGES[1:])
+    page("index.html", "BTD6 Tech Wiki",
+         "Точные числа Bloons TD 6 прямо из моделей игры: HP боссов по тирам, модификаторы режимов, "
+         "множители дохода, стакинг баффов, формула парагона. Названия и описания взяты из текстов игры, "
+         "числа без округлений. Поиск по всему сайту: клавиша /.",
+         f"<div class='grid'>{tiles}</div>"
+         "<p class='note'>Источник: выгрузка Export Game Data из BTD6 Mod Helper. Подписи к полям, которых нет в "
+         "текстах игры, сделаны по названиям полей.</p>")
+
+
+# ---------- icons (from tools/fetch_icons.py, resized to data/icons/web/*.webp) ----------
+
+ICONS = load(DATA / "icons" / "manifest.json") if (DATA / "icons" / "manifest.json").exists() else {}
+_icon_cache = {}
+
+
+def data_uri(kind, oid):
+    rel = ICONS.get(kind, {}).get(oid)
+    if not rel:
+        return ""
+    if rel not in _icon_cache:
+        import base64
+        f = DATA / "icons" / "web" / f"{rel}.webp"
+        _icon_cache[rel] = "data:image/webp;base64," + base64.b64encode(f.read_bytes()).decode() if f.exists() else ""
+    return _icon_cache[rel]
+
+
+def icon(kind, oid, size, cls="ic"):
+    """Inline <img> for an icon, or "" when there is none."""
+    uri = data_uri(kind, oid)
+    return f"<img class='{cls}' src='{uri}' width='{size}' height='{size}' alt='' loading='lazy'>" if uri else ""
+
+
+def bloon_css(b):
+    return re.sub(r"[^A-Za-z0-9]", "", b)
+
+
+def bloon_icon_style(ids):
+    """One CSS class per bloon icon, so a page with hundreds of chips embeds each image once."""
+    rules = "".join(f".bi-{bloon_css(b)}{{background-image:url({data_uri('bloons', b)})}}" for b in sorted(ids) if data_uri("bloons", b))
+    return f"<style>{rules}</style>"
+
+
+# ---------- towers ----------
+
+TOWER_SETS = {1: "Primary", 2: "Military", 4: "Magic", 8: "Support"}
+# shop order in the game (GameModel.towerSet is not in the Mod Helper export); unknown towers go last by cost
+SHOP_ORDER = ["DartMonkey", "BoomerangMonkey", "BombShooter", "TackShooter", "IceMonkey", "GlueGunner", "Desperado",
+              "SniperMonkey", "MonkeySub", "MonkeyBuccaneer", "MonkeyAce", "HeliPilot", "MortarMonkey", "DartlingGunner",
+              "WizardMonkey", "SuperMonkey", "NinjaMonkey", "Alchemist", "Druid", "Mermonkey", "Skywarden",
+              "BananaFarm", "SpikeFactory", "MonkeyVillage", "EngineerMonkey", "BeastHandler"]
+EFFECT_WORDS = ("Slow", "Freeze", "Stun", "Knockback", "Wind", "DamageOverTime", "AddBehaviorToBloon", "Bleed", "Burn")
+
+
+def num(v):
+    return round(v, 4) if isinstance(v, float) else v
+
+
+def proj_summary(p, lbl, count, depth, out):
+    beh = [b for b in p.get("behaviors") or [] if isinstance(b, dict)]
+    dmg = next((b for b in beh if short_type(b) == "DamageModel"), None)
+    mods, effects = [], []
+    for b in beh:
+        st = short_type(b)
+        if "DamageModifier" in st:
+            fields = {k: v for k, v in b.items() if scalar(v) and k not in ("$type", "name", "collisionPass") and v not in (0, 0.0, False, "")}
+            mods.append(label_mod(st) + ": " + ", ".join(f"{k} {fmt(v)}" for k, v in fields.items()))
+        elif any(w in st for w in EFFECT_WORDS):
+            effects.append(label(st))
+    out.append({"label": lbl, "depth": depth, "count": count,
+                "damage": num(dmg["damage"]) if dmg else None, "pierce": num(p.get("pierce")),
+                "mods": mods, "effects": sorted(set(effects))})
+    for b in beh:
+        for k, v in b.items():
+            if isinstance(v, dict) and "ProjectileModel" in v.get("$type", ""):
+                em = b.get("emission") or {}
+                proj_summary(v, label(short_type(b)), em.get("count") or 1, depth + 1, out)
+
+
+def label_mod(st):
+    return re.sub(r"(?<=[a-z])(?=[A-Z])", " ", st.replace("DamageModifierFor", "").replace("Model", "")) or st
+
+
+def tower_summary(d, upgrade_costs):
+    attacks, abilities, other = [], [], []
+    for b in d.get("behaviors") or []:
+        if not isinstance(b, dict) or skipped(b):
+            continue
+        st = short_type(b)
+        if st.startswith("AttackModel") or st.endswith("AttackModel"):
+            weapons = []
+            for w in b.get("weapons") or []:
+                projs = []
+                em = w.get("emission") or {}
+                if isinstance(w.get("projectile"), dict):
+                    proj_summary(w["projectile"], "Снаряд", em.get("count") or 1, 0, projs)
+                weapons.append({"rate": num(w.get("rate")), "count": em.get("count") or 1,
+                                "emission": label(short_type(em)) if em else "", "proj": projs})
+            attacks.append({"name": label(st), "range": num(b.get("range")), "weapons": weapons})
+        elif st == "AbilityModel":
+            abilities.append({"name": t(b.get("displayName") or "", fallback=b.get("displayName") or b.get("name", "")),
+                              "cooldown": num(b.get("cooldown"))})
+        elif not any(s in st for s in ("Sound", "Effect", "Display")):
+            other.append(label(st))
+    parts = [d.get("cost", 0)] + [upgrade_costs.get(u, 0) for u in d.get("appliedUpgrades") or []]
+    return {"cost": sum(parts), "parts": parts, "range": num(d.get("range")), "attacks": attacks, "abilities": abilities,
+            "other": sorted(set(other))}
+
+
+def build_towers():
+    global current_file
+    upgrades = {load(f).get("name"): load(f) for f in json_files("Upgrades")}
+    ucost = {k: v.get("cost", 0) for k, v in upgrades.items()}
+    diffs = {}
+    for mode in ("Easy", "Medium", "Hard", "Impoppable"):
+        f = DATA / "Mods" / f"{mode}.json"
+        mult = next((m.get("multiplier") for m in (load(f).get("mutatorMods") or [])
+                     if short_type(m) == "GlobalCostModModel"), None) if f.exists() else None
+        diffs[t(mode, fallback=mode)] = mult if mult is not None else 1.0
+    # Impoppable is a mode played on Hard, so both cost multipliers apply (1.08 * 1.12 = 1.2096)
+    diffs[t("Impoppable", fallback="Impoppable")] = round(diffs[t("Impoppable", fallback="Impoppable")] * diffs[t("Hard", fallback="Hard")], 6)
+    # difficulty switch: every .cost element is recomputed in the browser from its Medium parts
+    selector = ("<div class='diff' role='group' aria-label='Сложность'><span>Сложность</span>" + "".join(
+        f"<button type='button' data-mult='{m}'{' class=on' if m == 1 else ''}>{esc(n)}</button>" for n, m in diffs.items())
+        + "</div><p class='note'>Цены пересчитаны по множителю цены режима и округлены до 5 $, "
+          "каждая покупка отдельно.</p>")
+
+    def price(parts, cls="cost"):
+        return Raw(f"<span class='{cls}' data-parts='{','.join(str(p) for p in parts)}'>${fmt(sum(parts))}</span>")
+
+    tiles = {}
+    for folder in sorted(p for p in (DATA / "Towers").iterdir() if p.is_dir()):
+        tid = folder.name
+        base = load(folder / f"{tid}.json")
+        variants = {}
+        for f in folder.glob(f"{tid}-*.json"):
+            suffix = f.stem.split("-", 1)[1]
+            variants[suffix] = tower_summary(load(f), ucost)
+        variants["000"] = tower_summary(base, ucost)
+        # upgrade paths from the max-tier files of each single path
+        paths = []
+        for i in range(3):
+            key = "".join("5" if j == i else "0" for j in range(3))
+            top = load(folder / f"{tid}-{key}.json") if (folder / f"{tid}-{key}.json").exists() else {}
+            paths.append(top.get("appliedUpgrades") or [])
+        name = t(tid, fallback=tid)
+        file = f"tower-{tid}.html"
+        current_file = file
+        cols = []
+        for i, path in enumerate(paths):
+            done, rows = [], []
+            for tier, u in enumerate(path, 1):
+                c = ucost.get(u, 0)
+                done.append(c)
+                rows.append(f"<li>{icon('upgrades', u, 56, 'ic up-ic')}<div><div class='up-head'><b>{tier}. {esc(t(u, fallback=u))}</b>"
+                            f"<span class='price'>{price([c], 'cost big')}<small>всего {price(done)}</small></span></div>"
+                            f"<p>{esc(t(u + ' Description'))}</p></div></li>")
+            cols.append(f"<div class='path'><h3>Путь {i + 1}</h3><ol>{''.join(rows)}</ol></div>")
+        diff_rows = [(esc(n), m, fmt(base.get("cost", 0) * m)) for n, m in diffs.items()]
+        picker = "".join(
+            f"<div class='xp-row' data-path='{i}'><span>Путь {i + 1}</span>"
+            + "".join(f"<button type='button' data-tier='{n}'>{n}</button>" for n in range(6)) + "</div>"
+            for i in range(3))
+        extra = [k for k in variants if not k.isdigit()]
+        body = (
+            selector
+            + card("about", name,
+                 "<div class='split'><div><div class='hero-row'>" + icon('towers', tid, 120, 'ic portrait') + "<div>" + game_text(t(f"{tid} Description", f"{tid}Description"))
+                 + stats([("цена", price([base.get("cost", 0)])), ("дальность", base.get("range")),
+                          ("радиус места", base.get("radius")), ("категория", t(TOWER_SETS.get(base.get("towerSet")), fallback=""))])
+                 + "</div></div></div><div><h3>Цена по сложностям</h3>"
+                 + table(["Сложность", "Множитель", "Цена без округления"], diff_rows)
+                 + "<p class='note'>Множитель цены из модели режима. Итоговые цены в игре округляются.</p></div></div>",
+                 en_id=tid, section="Башни")
+            + card("upgrades", "Улучшения", f"<div class='paths'>{''.join(cols)}</div>", section=name)
+            + card("crosspath", "Кроссапгрейд",
+                   "<p class='note'>Выберите тиры путей, как в игре. Показаны цена со всеми улучшениями, "
+                   "атаки, перезарядка, урон и пробивание каждого снаряда, включая вложенные (взрывы, осколки).</p>"
+                   f"<div class='xp' data-tower='{esc(tid)}'>{picker}"
+                   + (f"<div class='xp-row'><span>Особые</span>" + "".join(
+                       f"<button type='button' data-variant='{esc(k)}'>{esc(k)}</button>" for k in sorted(extra)) + "</div>" if extra else "")
+                   + "<div class='xp-out'></div></div>"
+                   f"<script type='application/json' class='xp-data'>{json.dumps(variants, ensure_ascii=False).replace('</', '<\\/')}</script>",
+                   section=name))
+        page(file, name, f"{esc(t(TOWER_SETS.get(base.get('towerSet')), fallback=''))}. Все числа из моделей башни.",
+             body, toc=[("about", "Описание"), ("upgrades", "Улучшения"), ("crosspath", "Кроссапгрейд")])
+        tiles.setdefault(base.get("towerSet"), []).append((tid, name, base.get("cost")))
+    current_file = "towers.html"
+    body = []
+    for ts in sorted(tiles):
+        grid = "".join(f"<a class='tile tower-tile' href='tower-{esc(tid)}.html'>{icon('towers', tid, 72)}<span><b>{esc(n)}</b>{price([c], 'cost tile-price')}</span></a>"
+                       for tid, n, c in sorted(tiles[ts], key=lambda x: (SHOP_ORDER.index(x[0]) if x[0] in SHOP_ORDER else 99, x[2])))
+        body.append(f"<h2 style='margin-top:28px'>{esc(t(TOWER_SETS.get(ts), fallback=''))}</h2><div class='grid'>{grid}</div>")
+        for tid, n, c in tiles[ts]:
+            INDEX.append([n, "Башни", f"tower-{tid}.html", tid])
+    page("towers.html", "Башни",
+         "Все основные башни. На странице башни: описание, улучшения с ценами и выбор кроссапгрейда "
+         "с точными числами атак.", selector + "".join(body))
+    return sorted(tid for ts in tiles.values() for tid, _, _ in ts)
+
+
+# ---------- rounds ----------
+
+def build_rounds():
+    bloons = {f.stem: load(f) for f in (DATA / "Bloons").rglob("*.json")}
+
+    def children(b):
+        out = []
+        for beh in bloons[b].get("behaviors") or []:
+            if isinstance(beh, dict) and short_type(beh) == "SpawnChildrenModel":
+                out += beh.get("children") or []
+        return out
+
+    rbe_cache, pops_cache = {}, {}
+
+    def rbe(b):
+        if b not in rbe_cache:
+            rbe_cache[b] = bloons[b].get("maxHealth", 1) + sum(rbe(c) for c in children(b))
+        return rbe_cache[b]
+
+    def pops(b):  # one $ per layer popped
+        if b not in pops_cache:
+            pops_cache[b] = 1 + sum(pops(c) for c in children(b))
+        return pops_cache[b]
+
+    def bloon_name(b):
+        m = bloons[b]
+        parts = [t(m.get("baseId"), fallback=m.get("baseId"))]
+        if m.get("isFortified"):
+            parts.append("укрепл.")
+        if m.get("isGrow"):
+            parts.append(t("Regrow").lower())
+        if m.get("isCamo"):
+            parts.append(t("Camo").lower())
+        return " ".join(parts)
+
+    income = load(DATA / "IncomeSets" / "DefaultIncomeSet.json")
+
+    def income_mult(r):
+        for th in income.get("thresholds") or []:
+            if r <= th["threshold"]:
+                return th["multiplier"]
+        return income.get("finalMultiplier", 1)
+
+    sections, toc = [], []
+    for rs, title in (("DefaultRoundSet", "Обычные раунды"), ("AlternateRoundSet", "Альтернативные раунды (ABR)")):
+        folder = DATA / "Rounds" / rs
+        rows, total = [], 0
+        for f in sorted(folder.glob("*.json"), key=lambda f: int(f.stem)):
+            r = int(f.stem)
+            groups = load(f).get("groups") or []
+            chips = "".join(f"<span class='chip bchip'><i class='bi bi-{bloon_css(g["bloon"])}'></i>{g['count']}× {esc(bloon_name(g['bloon']))}</span>" for g in groups)
+            r_rbe = sum(g["count"] * rbe(g["bloon"]) for g in groups)
+            r_pops = sum(g["count"] * pops(g["bloon"]) for g in groups)
+            cash = r_pops * income_mult(r)
+            bonus = 100 + r
+            total += cash + bonus
+            dur = max((g["end"] for g in groups), default=0) / 60
+            rows.append((r, f"<div class='chips'>{chips}</div>", r_rbe, round(cash, 1), bonus, round(total, 1), round(dur, 2)))
+        INDEX.append([title, "Раунды", f"rounds.html#{rs}", rs])
+        sections.append(card(rs, title,
+                             "<input class='filter' type='search' placeholder='Фильтр: номер или шар' aria-label='Фильтр раундов' "
+                             f"data-filter='#{rs}-t tbody tr'>"
+                             + table(["Раунд", "Шары", "RBE", "$ за лопание", "$ бонус", "$ всего с 1-го", "Длит., с"], rows)
+                             .replace("<table>", f"<table id='{rs}-t'>", 1), section="Раунды"))
+        toc.append((rs, title))
+    page("rounds.html", "Раунды",
+         "Состав каждого раунда и посчитанные по моделям шаров величины. RBE это сумма HP всех слоёв. "
+         "$ за лопание посчитан как 1 $ за каждый лопнутый слой, умноженный на множитель дохода раунда "
+         "(DefaultIncomeSet). Бонус за раунд 100 + номер раунда (BonusCashPerRoundModModel). "
+         "HP MOAB-класса в поздних раундах растёт, здесь показаны базовые значения.",
+         bloon_icon_style(set(bloons)) + "".join(sections), toc)
+
+
+def main():
+    global current_file, INDEX
+    for lang in LANGS:
+        set_lang(lang)
+        INDEX = []
+        for file, build in (("paragon.html", build_paragon), ("bosses.html", build_bosses), ("modes.html", build_modes),
+                            ("income.html", build_income), ("buffs.html", build_buffs),
+                            ("knowledge.html", build_knowledge), ("powers.html", build_powers),
+                            ("towers.html", build_towers), ("rounds.html", build_rounds),
+                            ("index.html", build_index)):
+            current_file = file
+            build()
+        (OUT / "search.js").write_text(
+            translate("var WIKI_INDEX=" + json.dumps(INDEX, ensure_ascii=False) + ";" + SEARCH_JS), encoding="utf-8")
+        left = sorted(set(re.findall(r"[А-Яа-яЁё][А-Яа-яЁё .,:()/-]*", "".join(
+            f.read_text(encoding="utf-8") for f in OUT.glob("*.html"))))) if lang != "ru" else []
+        print(f"{lang}: {len(INDEX)} search entries into {OUT}"
+              + (f", untranslated: {left[:15]}" if left else ""), file=sys.stderr)
+
+
+if __name__ == "__main__":
+    main()

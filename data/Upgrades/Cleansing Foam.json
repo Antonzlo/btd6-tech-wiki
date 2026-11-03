@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 900,
+  "xpCost": 2000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "b8402a5f7c3ea0f48a46cacb5a94bc93",
+    "AssetGUID": "b8402a5f7c3ea0f48a46cacb5a94bc93"
+  },
+  "path": 1,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Cleansing Foam",
+  "IsParagon": false,
+  "name": "Cleansing Foam"
+}

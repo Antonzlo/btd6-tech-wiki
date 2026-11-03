@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 1200,
+  "xpCost": 2000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "3b742658e1ccc467f92fe57ed7a8fa29",
+    "AssetGUID": "3b742658e1ccc467f92fe57ed7a8fa29"
+  },
+  "path": 1,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Shinobi Tactics",
+  "IsParagon": false,
+  "name": "Shinobi Tactics"
+}

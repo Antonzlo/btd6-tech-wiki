@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 280,
+  "xpCost": 670,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "205e28f0cfbf99443b2664f2ca553e42",
+    "AssetGUID": "205e28f0cfbf99443b2664f2ca553e42"
+  },
+  "path": 2,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Echosense Network",
+  "IsParagon": false,
+  "name": "Echosense Network"
+}

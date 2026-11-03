@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 72000,
+  "xpCost": 35000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "fdb09cec2dbd7e84ca5b75909c33a854",
+    "AssetGUID": "fdb09cec2dbd7e84ca5b75909c33a854"
+  },
+  "path": 1,
+  "tier": 4,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Ultraboost",
+  "IsParagon": false,
+  "name": "Ultraboost"
+}

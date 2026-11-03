@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 26000,
+  "xpCost": 35000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "db91fee2bc1f6a8428f99d5c384c828e",
+    "AssetGUID": "db91fee2bc1f6a8428f99d5c384c828e"
+  },
+  "path": 1,
+  "tier": 4,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "MOAB Eliminator",
+  "IsParagon": false,
+  "name": "MOAB Eliminator"
+}

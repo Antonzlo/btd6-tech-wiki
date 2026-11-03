@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.BuffIndicatorModel, Assembly-CSharp",
+  "buffName": "NaturesWrathBuff",
+  "iconName": "BuffIconObyn",
+  "stackable": false,
+  "maxStackSize": 0,
+  "globalRange": false,
+  "onlyShowBuffIfMutated": false,
+  "dontShowX": false,
+  "_fullName": "BuffIconObynNaturesWrathBuff",
+  "FullName": "BuffIconObynNaturesWrathBuff",
+  "name": "BuffIndicatorModel_BuffIconObyn-NaturesWrathBuff"
+}

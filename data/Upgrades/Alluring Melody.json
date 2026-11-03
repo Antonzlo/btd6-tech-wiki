@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 2000,
+  "xpCost": 3000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "7d34eed972e35af4188f20d9f3a2e9fc",
+    "AssetGUID": "7d34eed972e35af4188f20d9f3a2e9fc"
+  },
+  "path": 2,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Alluring Melody",
+  "IsParagon": false,
+  "name": "Alluring Melody"
+}

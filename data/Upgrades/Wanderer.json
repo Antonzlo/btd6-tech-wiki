@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 220,
+  "xpCost": 150,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "106ac8b4af8c82644b540e66cf0c5e39",
+    "AssetGUID": "106ac8b4af8c82644b540e66cf0c5e39"
+  },
+  "path": 2,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Wanderer",
+  "IsParagon": false,
+  "name": "Wanderer"
+}

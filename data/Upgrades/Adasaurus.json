@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 830,
+  "xpCost": 500,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "bcff1b03fea74c14b8c14280b9ede488",
+    "AssetGUID": "bcff1b03fea74c14b8c14280b9ede488"
+  },
+  "path": 1,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Adasaurus",
+  "IsParagon": false,
+  "name": "Adasaurus"
+}

@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 4500,
+  "xpCost": 8500,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "e4ffa069eaac7cd449ee36115a089e9b",
+    "AssetGUID": "e4ffa069eaac7cd449ee36115a089e9b"
+  },
+  "path": 1,
+  "tier": 3,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Glue Strike",
+  "IsParagon": false,
+  "name": "Glue Strike"
+}

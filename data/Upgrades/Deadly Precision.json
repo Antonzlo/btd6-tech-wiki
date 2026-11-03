@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 2200,
+  "xpCost": 3500,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "c3c966d80ff3a4d81840a44a41ea9654",
+    "AssetGUID": "c3c966d80ff3a4d81840a44a41ea9654"
+  },
+  "path": 0,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Deadly Precision",
+  "IsParagon": false,
+  "name": "Deadly Precision"
+}

@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 7500,
+  "xpCost": 6000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "e2bdaec3ca44ace41b051b67913443aa",
+    "AssetGUID": "e2bdaec3ca44ace41b051b67913443aa"
+  },
+  "path": 1,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Robo Monkey",
+  "IsParagon": false,
+  "name": "Robo Monkey"
+}

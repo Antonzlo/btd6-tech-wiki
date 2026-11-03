@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 900,
+  "xpCost": 2700,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "40577fc673f02d0469cf38e005092009",
+    "AssetGUID": "40577fc673f02d0469cf38e005092009"
+  },
+  "path": 1,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Buccaneer-Cannon Ship",
+  "IsParagon": false,
+  "name": "Buccaneer-Cannon Ship"
+}

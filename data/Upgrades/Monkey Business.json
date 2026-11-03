@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 500,
+  "xpCost": 250,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "cf04c5e8546c2413b86cfe53293425a0",
+    "AssetGUID": "cf04c5e8546c2413b86cfe53293425a0"
+  },
+  "path": 2,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Monkey Business",
+  "IsParagon": false,
+  "name": "Monkey Business"
+}

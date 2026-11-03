@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 200,
+  "xpCost": 140,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "93dbf3f2e81984fdcba207a7f51a29d9",
+    "AssetGUID": "93dbf3f2e81984fdcba207a7f51a29d9"
+  },
+  "path": 2,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Increased Accuracy",
+  "IsParagon": false,
+  "name": "Increased Accuracy"
+}

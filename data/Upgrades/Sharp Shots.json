@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 140,
+  "xpCost": 0,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "ede64e5fd78659145bd90dfce8c3f063",
+    "AssetGUID": "ede64e5fd78659145bd90dfce8c3f063"
+  },
+  "path": 0,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Sharp Shots",
+  "IsParagon": false,
+  "name": "Sharp Shots"
+}

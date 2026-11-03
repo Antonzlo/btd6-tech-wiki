@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.BuffIndicatorModel, Assembly-CSharp",
+  "buffName": "BuffIconGyrfalcon",
+  "iconName": "BuffIconGyrfalcon",
+  "stackable": false,
+  "maxStackSize": 1,
+  "globalRange": true,
+  "onlyShowBuffIfMutated": true,
+  "dontShowX": true,
+  "_fullName": "BuffIconGyrfalconBuffIconGyrfalcon",
+  "FullName": "BuffIconGyrfalconBuffIconGyrfalcon",
+  "name": "BuffIndicatorModel_BuffIconGyrfalcon-BuffIconGyrfalcon"
+}

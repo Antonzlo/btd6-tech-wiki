@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 1450,
+  "xpCost": 2700,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "4da283f013170c44c9e36f1acd9f08a6",
+    "AssetGUID": "4da283f013170c44c9e36f1acd9f08a6"
+  },
+  "path": 0,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Razor Rotors",
+  "IsParagon": false,
+  "name": "Razor Rotors"
+}

@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 200,
+  "xpCost": 120,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "79d96678a83f7344b91bea7f7a2c202f",
+    "AssetGUID": "79d96678a83f7344b91bea7f7a2c202f"
+  },
+  "path": 1,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Exploding Pineapple",
+  "IsParagon": false,
+  "name": "Exploding Pineapple"
+}

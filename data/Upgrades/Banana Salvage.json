@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 400,
+  "xpCost": 950,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "c3818bcf489484d5a83ffdd914c30d44",
+    "AssetGUID": "c3818bcf489484d5a83ffdd914c30d44"
+  },
+  "path": 2,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Banana Salvage",
+  "IsParagon": false,
+  "name": "Banana Salvage"
+}

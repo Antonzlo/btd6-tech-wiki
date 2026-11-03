@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 10000,
+  "xpCost": 11000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "132d67a40e06a4af3a0aecd04fa24c13",
+    "AssetGUID": "132d67a40e06a4af3a0aecd04fa24c13"
+  },
+  "path": 0,
+  "tier": 3,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Arcane Spike",
+  "IsParagon": false,
+  "name": "Arcane Spike"
+}

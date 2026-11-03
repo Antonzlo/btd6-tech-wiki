@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.BuffIndicatorModel, Assembly-CSharp",
+  "buffName": "BuffIconVillagex2x",
+  "iconName": "BuffIconVillagex2x",
+  "stackable": false,
+  "maxStackSize": 0,
+  "globalRange": false,
+  "onlyShowBuffIfMutated": false,
+  "dontShowX": false,
+  "_fullName": "BuffIconVillagex2xBuffIconVillagex2x",
+  "FullName": "BuffIconVillagex2xBuffIconVillagex2x",
+  "name": "BuffIndicatorModel_BuffIconVillagex2x-BuffIconVillagex2x"
+}

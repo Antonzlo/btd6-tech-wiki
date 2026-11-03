@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 600,
+  "xpCost": 2400,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "f48c449b32b1ea4478030506cbeb3407",
+    "AssetGUID": "f48c449b32b1ea4478030506cbeb3407"
+  },
+  "path": 0,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Hot Shots",
+  "IsParagon": false,
+  "name": "Hot Shots"
+}

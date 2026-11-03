@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 29000,
+  "xpCost": 45000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "3307f2ed223704b48a0059220eb8aab1",
+    "AssetGUID": "3307f2ed223704b48a0059220eb8aab1"
+  },
+  "path": 1,
+  "tier": 4,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Pre-emptive Strike",
+  "IsParagon": false,
+  "name": "Pre-emptive Strike"
+}

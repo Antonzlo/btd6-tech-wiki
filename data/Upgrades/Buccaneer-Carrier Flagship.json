@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 26000,
+  "xpCost": 37000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "a03f2dba057bdeb419d1c4464f18a55c",
+    "AssetGUID": "a03f2dba057bdeb419d1c4464f18a55c"
+  },
+  "path": 0,
+  "tier": 4,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Buccaneer-Carrier Flagship",
+  "IsParagon": false,
+  "name": "Buccaneer-Carrier Flagship"
+}

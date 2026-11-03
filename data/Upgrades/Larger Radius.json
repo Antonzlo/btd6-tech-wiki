@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 150,
+  "xpCost": 160,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "e654c31c86ca34f428a05ca7bb045ece",
+    "AssetGUID": "e654c31c86ca34f428a05ca7bb045ece"
+  },
+  "path": 2,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Larger Radius",
+  "IsParagon": false,
+  "name": "Larger Radius"
+}

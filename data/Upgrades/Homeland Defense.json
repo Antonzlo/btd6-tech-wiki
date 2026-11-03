@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 40000,
+  "xpCost": 30000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "2188333fbc2c7401882916e1b5170d1a",
+    "AssetGUID": "2188333fbc2c7401882916e1b5170d1a"
+  },
+  "path": 1,
+  "tier": 4,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Homeland Defense",
+  "IsParagon": false,
+  "name": "Homeland Defense"
+}

@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.PowerProUpgradeModel, Assembly-CSharp",
+  "cost": 650,
+  "xpCost": -1,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "3e0fbf102ff2cea4282dc6fd94d81b54",
+    "AssetGUID": "3e0fbf102ff2cea4282dc6fd94d81b54"
+  },
+  "path": 2,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Adaptive Workers",
+  "IsParagon": false,
+  "name": "Adaptive Workers"
+}

@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 2010,
+  "xpCost": 1000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "fa64ff4a08322a04fa4dddb2dad7e5b0",
+    "AssetGUID": "fa64ff4a08322a04fa4dddb2dad7e5b0"
+  },
+  "path": 0,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Great White",
+  "IsParagon": false,
+  "name": "Great White"
+}

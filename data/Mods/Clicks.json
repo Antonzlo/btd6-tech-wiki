@@ -1,0 +1,56 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.ModModel, Assembly-CSharp",
+  "mutatorMods": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Gameplay.Mods.LockTowerModModel, Assembly-CSharp",
+      "towerToLock": "BananaFarm",
+      "name": "LockTowerModModel_"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Gameplay.Mods.StartingRoundModModel, Assembly-CSharp",
+      "round": 6,
+      "name": "StartingRoundModModel_"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Gameplay.Mods.MaxHealthModModel, Assembly-CSharp",
+      "multiplier": 1.0,
+      "addition": 0.0,
+      "set": 1.0,
+      "name": "MaxHealthModModel_"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Gameplay.Mods.SellMultiplierModModel, Assembly-CSharp",
+      "multiplier": 0.0,
+      "addition": 0.0,
+      "name": "SellMultiplierModModel_"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Gameplay.Mods.ChimpsModModel, Assembly-CSharp",
+      "name": "ChimpsModModel_"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Gameplay.Mods.DisableSellTowerModModel, Assembly-CSharp",
+      "name": "DisableSellTowerModModel_"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Gameplay.Mods.DisableContinueModModel, Assembly-CSharp",
+      "name": "DisableContinueModModel_"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Gameplay.Mods.DisableMonkeyKnowledgeModModel, Assembly-CSharp",
+      "name": "DisableMonkeyKnowledgeModModel_"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Gameplay.Mods.EndRoundModModel, Assembly-CSharp",
+      "round": 100,
+      "name": "EndRoundModModel_"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Gameplay.Mods.MonkeyMoneyModModel, Assembly-CSharp",
+      "changeBase": 0.0,
+      "multiplier": 1.5,
+      "name": "MonkeyMoneyModModel_"
+    }
+  ],
+  "name": "Clicks"
+}

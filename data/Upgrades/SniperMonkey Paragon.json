@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 800000,
+  "xpCost": 750000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "e44b8e6d8ca4b264ea5ea2044e338d70",
+    "AssetGUID": "e44b8e6d8ca4b264ea5ea2044e338d70"
+  },
+  "path": -1,
+  "tier": 5,
+  "locked": 0,
+  "confirmation": "Paragon",
+  "localizedNameOverride": "",
+  "LocsKey": "SniperMonkey Paragon",
+  "IsParagon": true,
+  "name": "SniperMonkey Paragon"
+}

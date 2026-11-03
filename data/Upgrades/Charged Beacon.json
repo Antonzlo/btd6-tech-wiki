@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.PowerProUpgradeModel, Assembly-CSharp",
+  "cost": 1200,
+  "xpCost": 12500,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "24ec1eea1a05c1b47975e8d2fd57513b",
+    "AssetGUID": "24ec1eea1a05c1b47975e8d2fd57513b"
+  },
+  "path": 0,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Charged Beacon",
+  "IsParagon": false,
+  "name": "Charged Beacon"
+}

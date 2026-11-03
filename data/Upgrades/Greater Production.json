@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 600,
+  "xpCost": 750,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "3dd1f4a42ec8345ef82d7334c92b44a7",
+    "AssetGUID": "3dd1f4a42ec8345ef82d7334c92b44a7"
+  },
+  "path": 0,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Greater Production",
+  "IsParagon": false,
+  "name": "Greater Production"
+}

@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 850,
+  "xpCost": 750,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "94d2d003df0f6a54c92a84eab2adc197",
+    "AssetGUID": "94d2d003df0f6a54c92a84eab2adc197"
+  },
+  "path": 0,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Heart of Thunder",
+  "IsParagon": false,
+  "name": "Heart of Thunder"
+}

@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.BuffIndicatorModel, Assembly-CSharp",
+  "buffName": "BuffIconBottleHotSauce",
+  "iconName": "BuffIconBottleHotSauce",
+  "stackable": false,
+  "maxStackSize": 0,
+  "globalRange": false,
+  "onlyShowBuffIfMutated": false,
+  "dontShowX": false,
+  "_fullName": "BuffIconBottleHotSauceBuffIconBottleHotSauce",
+  "FullName": "BuffIconBottleHotSauceBuffIconBottleHotSauce",
+  "name": "BuffIndicatorModel_BuffIconBottleHotSauce-BuffIconBottleHotSauce"
+}

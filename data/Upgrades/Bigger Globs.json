@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 100,
+  "xpCost": 120,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "1b78f23f3fb7f194ab55a09dea7522aa",
+    "AssetGUID": "1b78f23f3fb7f194ab55a09dea7522aa"
+  },
+  "path": 1,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Bigger Globs",
+  "IsParagon": false,
+  "name": "Bigger Globs"
+}

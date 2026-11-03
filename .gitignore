@@ -1,0 +1,5 @@
+# build output, regenerate with: python3 -I build.py
+site/
+# original downloads, regenerate with: python3 -I tools/fetch_icons.py
+data/icons/raw/
+__pycache__/

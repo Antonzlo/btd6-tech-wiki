@@ -1,0 +1,11 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.ModModel, Assembly-CSharp",
+  "mutatorMods": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Gameplay.Mods.RoundSetModModel, Assembly-CSharp",
+      "roundsetName": "AlternateRoundSet",
+      "name": "RoundSetModModel_"
+    }
+  ],
+  "name": "AlternateBloonsRounds"
+}

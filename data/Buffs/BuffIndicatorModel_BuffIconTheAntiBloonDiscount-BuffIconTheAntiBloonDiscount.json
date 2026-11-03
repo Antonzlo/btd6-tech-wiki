@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.BuffIndicatorModel, Assembly-CSharp",
+  "buffName": "BuffIconTheAntiBloonDiscount",
+  "iconName": "BuffIconTheAntiBloonDiscount",
+  "stackable": false,
+  "maxStackSize": 1,
+  "globalRange": false,
+  "onlyShowBuffIfMutated": false,
+  "dontShowX": false,
+  "_fullName": "BuffIconTheAntiBloonDiscountBuffIconTheAntiBloonDiscount",
+  "FullName": "BuffIconTheAntiBloonDiscountBuffIconTheAntiBloonDiscount",
+  "name": "BuffIndicatorModel_BuffIconTheAntiBloonDiscount-BuffIconTheAntiBloonDiscount"
+}

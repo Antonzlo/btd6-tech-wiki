@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.BuffIndicatorModel, Assembly-CSharp",
+  "buffName": "TradeEmpireBuff",
+  "iconName": "BuffIconBuccaneerxx5",
+  "stackable": true,
+  "maxStackSize": 20,
+  "globalRange": true,
+  "onlyShowBuffIfMutated": false,
+  "dontShowX": false,
+  "_fullName": "BuffIconBuccaneerxx5TradeEmpireBuff",
+  "FullName": "BuffIconBuccaneerxx5TradeEmpireBuff",
+  "name": "BuffIndicatorModel_BuffIconBuccaneerxx5-TradeEmpireBuff"
+}

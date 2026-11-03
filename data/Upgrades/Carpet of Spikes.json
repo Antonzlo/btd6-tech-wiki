@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 41000,
+  "xpCost": 35000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "beca93cfa6584443081618415fec9cb0",
+    "AssetGUID": "beca93cfa6584443081618415fec9cb0"
+  },
+  "path": 1,
+  "tier": 4,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Carpet of Spikes",
+  "IsParagon": false,
+  "name": "Carpet of Spikes"
+}

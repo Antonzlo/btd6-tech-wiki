@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 400,
+  "xpCost": 550,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "6524993f309b54d43add144993de7958",
+    "AssetGUID": "6524993f309b54d43add144993de7958"
+  },
+  "path": 2,
+  "tier": 1,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "Smart Spikes",
+  "LocsKey": "Smart Spikes",
+  "IsParagon": false,
+  "name": "Directed Spikes"
+}

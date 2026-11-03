@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 4500,
+  "xpCost": 12000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "2839dd76ceecd024291cf9c489473e30",
+    "AssetGUID": "2839dd76ceecd024291cf9c489473e30"
+  },
+  "path": 0,
+  "tier": 3,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Ball Lightning",
+  "IsParagon": false,
+  "name": "Ball Lightning"
+}

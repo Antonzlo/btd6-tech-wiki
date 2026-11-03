@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 2100,
+  "xpCost": 3000,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "9f9fd740f1c2b2645b39f04fbb92310f",
+    "AssetGUID": "9f9fd740f1c2b2645b39f04fbb92310f"
+  },
+  "path": 2,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Enforcer",
+  "IsParagon": false,
+  "name": "Enforcer"
+}

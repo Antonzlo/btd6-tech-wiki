@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.BuffIndicatorModel, Assembly-CSharp",
+  "buffName": "EngineerMonkeyOverclock",
+  "iconName": "BuffIconEngineerx4x",
+  "stackable": false,
+  "maxStackSize": 0,
+  "globalRange": false,
+  "onlyShowBuffIfMutated": false,
+  "dontShowX": false,
+  "_fullName": "BuffIconEngineerx4xEngineerMonkeyOverclock",
+  "FullName": "BuffIconEngineerx4xEngineerMonkeyOverclock",
+  "name": "BuffIndicatorModel_BuffIconEngineerx4x-EngineerMonkeyOverclock"
+}

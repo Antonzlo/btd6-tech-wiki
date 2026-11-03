@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 1300,
+  "xpCost": 2100,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "28984e353b78f4e749ce0afe3144ab49",
+    "AssetGUID": "28984e353b78f4e749ce0afe3144ab49"
+  },
+  "path": 2,
+  "tier": 2,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Long Life Spikes",
+  "IsParagon": false,
+  "name": "Long Life Spikes"
+}

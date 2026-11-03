@@ -1,0 +1,13 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.BuffIndicatorModel, Assembly-CSharp",
+  "buffName": "BuffIconRosaliaFlightBoost",
+  "iconName": "BuffIconRosaliaFlightBoost",
+  "stackable": false,
+  "maxStackSize": 1,
+  "globalRange": false,
+  "onlyShowBuffIfMutated": true,
+  "dontShowX": false,
+  "_fullName": "BuffIconRosaliaFlightBoostBuffIconRosaliaFlightBoost",
+  "FullName": "BuffIconRosaliaFlightBoostBuffIconRosaliaFlightBoost",
+  "name": "BuffIndicatorModel_RosaliaFlightBoost-RosaliaFlightBoost"
+}

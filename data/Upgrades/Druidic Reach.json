@@ -1,0 +1,18 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Towers.Upgrades.UpgradeModel, Assembly-CSharp",
+  "cost": 100,
+  "xpCost": 120,
+  "icon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "0c586cc797c67d44f9b8d2d57324b820",
+    "AssetGUID": "0c586cc797c67d44f9b8d2d57324b820"
+  },
+  "path": 2,
+  "tier": 0,
+  "locked": 0,
+  "confirmation": "",
+  "localizedNameOverride": "",
+  "LocsKey": "Druidic Reach",
+  "IsParagon": false,
+  "name": "Druidic Reach"
+}
