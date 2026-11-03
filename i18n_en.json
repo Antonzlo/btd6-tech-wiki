@@ -260,5 +260,16 @@
 "Скорость": "Speed",
 "Все шары из моделей игры: HP слоя, RBE (сумма HP всех слоёв), деньги за полное лопание, скорость, ": "Every bloon from the game's models: layer HP, RBE (total HP of all layers), cash for a full pop, speed, ",
 "свойства и из чего шар состоит. Свойство блокирует урон тех башен, у которых оно указано в ": "properties and what the bloon contains. A property blocks damage from towers whose projectile lists it in ",
-"immuneBloonProperties снаряда: например, свинец у обычных дротиков.": "immuneBloonProperties: for example lead against plain darts."
+"immuneBloonProperties снаряда: например, свинец у обычных дротиков.": "immuneBloonProperties: for example lead against plain darts.",
+"Свойства": "Properties",
+"Не лопается острыми атаками.": "Sharp attacks cannot pop it.",
+"Невосприимчив к взрывам.": "Immune to explosions.",
+"Невосприимчив к холоду и заморозке.": "Immune to cold and freezing.",
+"Невосприимчив к огню, энергии и плазме.": "Immune to fire, energy and plasma.",
+"Состояние замороженного шара: острые атаки его не лопают.": "A frozen bloon: sharp attacks cannot pop it.",
+"Временно не получает урон.": "Temporarily takes no damage.",
+"Свойство шаров режима Frontier.": "A property of Frontier mode bloons.",
+"Не наносят урона базовой атакой:": "Base attack deals no damage:",
+"Список башен посчитан по immuneBloonProperties урона их снарядов ": "The tower list comes from the immuneBloonProperties of their projectile damage ",
+"в базовой модели (000). Улучшения часто снимают ограничение.": "in the base model (000). Upgrades often lift the limit."
 }

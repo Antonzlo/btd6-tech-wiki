@@ -646,8 +646,8 @@ def build_buffs():
         pic = icon("buffs", name, 32, "ic buff-ic") or "<span class='buff-ic'></span>"
         buff = (f"<span class='mod-name'>{pic}"
                 f"<span><span class='id'>{esc(d.get('buffName'))}</span><br><small class='note'>{esc(name)}</small></span></span>")
-        stack = " ".join([flag("stackable", d.get("stackable")), param("maxStackSize", d.get("maxStackSize")),
-                          flag("globalRange", d.get("globalRange"))])
+        stack = "<div class='stackgrid'>" + "".join([flag("stackable", d.get("stackable")), param("maxStackSize", "∞" if (d.get("maxStackSize") or 0) >= 2**31 - 1 else d.get("maxStackSize")),
+                          flag("globalRange", d.get("globalRange"))]) + "</div>"
         rows.append((Raw(tower_of(name)) or "–", Raw(buff), Raw(stack)))
         INDEX.append([d.get("buffName", ""), "Баффы", "buffs.html", name])
     rows.sort(key=lambda r: (re.sub("<[^>]+>", "", r[0]), r[1]))  # by visible source name
@@ -1068,8 +1068,44 @@ BLOON_GROUPS = [
 BLOON_PROPS = [(1, "Свинец"), (2, "Чёрный"), (4, "Белый"), (8, "Фиолетовый"), (16, "Заморожен"), (32, "Неуязвим"), (64, "Стекло")]
 
 
+PROP_INFO = {
+    1: "Не лопается острыми атаками.", 2: "Невосприимчив к взрывам.", 4: "Невосприимчив к холоду и заморозке.",
+    8: "Невосприимчив к огню, энергии и плазме.", 16: "Состояние замороженного шара: острые атаки его не лопают.",
+    32: "Временно не получает урон.", 64: "Свойство шаров режима Frontier.",
+}
+
+
+def damage_masks(obj, out):
+    """immuneBloonProperties of every DamageModel inside a tower model."""
+    if isinstance(obj, dict):
+        if short_type(obj) == "DamageModel":
+            out.append(obj.get("immuneBloonProperties") or 0)
+        for v in obj.values():
+            damage_masks(v, out)
+    elif isinstance(obj, list):
+        for v in obj:
+            damage_masks(v, out)
+    return out
+
+
+def properties_card():
+    """What each bloon property means and which base towers (000) cannot damage it at all."""
+    masks = {p.name: damage_masks(load(p / f"{p.name}.json"), []) for p in sorted((DATA / "Towers").iterdir()) if p.is_dir()}
+    rows = []
+    for bit, name in BLOON_PROPS:
+        blocked = [tid for tid in SHOP_ORDER if masks.get(tid) and all(m & bit for m in masks[tid])]
+        towers = " ".join(f"<a class='badge' href='tower-{tid}.html'><span>000</span><b>{icon('towers', tid, 18)}"
+                          f"{esc(t(tid, fallback=tid))}</b></a>" for tid in blocked)
+        rows.append(f"<div class='prop-row' id='prop-{bit}'><span class='badge no'><span>свойство</span><b>{esc(name)}</b></span>"
+                    f"<div><p>{esc(PROP_INFO.get(bit, ''))}</p>"
+                    + (f"<p class='note'>Не наносят урона базовой атакой:</p><div class='chips'>{towers}</div>" if towers else "")
+                    + "</div></div>")
+    return card("props", "Свойства", "<p class='note'>Список башен посчитан по immuneBloonProperties урона их снарядов "
+                "в базовой модели (000). Улучшения часто снимают ограничение.</p>" + "".join(rows), section="Шары")
+
+
 def build_bloons():
-    body, toc = [], []
+    body, toc = [properties_card()], [("props", "Свойства")]
     for gid, title, members in BLOON_GROUPS:
         cards = []
         for b in members:
@@ -1077,7 +1113,7 @@ def build_bloons():
                 continue
             m = BLOONS[b]
             name = t(b, fallback=b)
-            props = " ".join(f"<span class='badge no'><span>свойство</span><b>{esc(p)}</b></span>"
+            props = " ".join(f"<a class='badge no' href='#prop-{bit}'><span>свойство</span><b>{esc(p)}</b></a>"
                              for bit, p in BLOON_PROPS if (m.get("bloonProperties") or 0) & bit)
             kids = collections.Counter(children(b))
             kid_badges = " ".join(

@@ -276,3 +276,12 @@ a.badge:hover b{filter:brightness(1.08)}
 .badge.no b{background:var(--red-soft);color:var(--red)}
 .page-bloons .stat{min-width:0;padding:6px 12px}
 .page-bloons .wrap table{width:100%}
+.stackgrid{display:grid;grid-template-columns:150px 170px 160px;gap:6px}
+.stackgrid .badge{margin:0;display:flex}
+.stackgrid .badge span{flex:1}
+.stackgrid .badge b{min-width:46px;justify-content:center}
+.prop-row{display:grid;grid-template-columns:200px minmax(0,1fr);gap:14px;padding:10px 0;border-top:1px solid var(--rule);scroll-margin-top:90px}
+.prop-row p{margin:2px 0 6px}
+.prop-row:target{background:var(--sky)}
+@media (max-width:700px){.prop-row{grid-template-columns:minmax(0,1fr)}}
+.prop-row>.badge{align-self:start;justify-self:start}
