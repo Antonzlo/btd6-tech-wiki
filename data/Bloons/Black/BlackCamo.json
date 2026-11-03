@@ -1,5 +1,6 @@
 {
   "$type": "Il2CppAssets.Scripts.Models.Bloons.BloonModel, Assembly-CSharp",
+  "bloonProperties": 2,
   "id": "BlackCamo",
   "baseId": "Black",
   "display": {
@@ -117,7 +118,6 @@
   ],
   "damageDisplayStates": [],
   "collisionGroup": null,
-  "bloonProperties": 2,
   "depletionEffects": [],
   "isMoab": false,
   "isBoss": false,

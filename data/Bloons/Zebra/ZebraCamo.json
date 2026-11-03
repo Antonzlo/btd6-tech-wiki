@@ -1,5 +1,6 @@
 {
   "$type": "Il2CppAssets.Scripts.Models.Bloons.BloonModel, Assembly-CSharp",
+  "bloonProperties": 6,
   "id": "ZebraCamo",
   "baseId": "Zebra",
   "display": {
@@ -124,7 +125,6 @@
   ],
   "damageDisplayStates": [],
   "collisionGroup": null,
-  "bloonProperties": 6,
   "depletionEffects": [],
   "isMoab": false,
   "isBoss": false,

@@ -1,5 +1,6 @@
 {
   "$type": "Il2CppAssets.Scripts.Models.Bloons.BloonModel, Assembly-CSharp",
+  "bloonProperties": 0,
   "id": "CeramicFortified",
   "baseId": "Ceramic",
   "display": {
@@ -178,7 +179,6 @@
     }
   ],
   "collisionGroup": null,
-  "bloonProperties": 0,
   "depletionEffects": [],
   "isMoab": false,
   "isBoss": false,

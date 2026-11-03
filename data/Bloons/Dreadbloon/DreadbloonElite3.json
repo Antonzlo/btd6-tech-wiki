@@ -1,5 +1,6 @@
 {
   "$type": "Il2CppAssets.Scripts.Models.Bloons.BloonModel, Assembly-CSharp",
+  "bloonProperties": 1,
   "id": "DreadbloonElite3",
   "baseId": "Dreadbloon",
   "display": {
@@ -332,7 +333,6 @@
     ],
     "name": ""
   },
-  "bloonProperties": 1,
   "depletionEffects": [
     {
       "$type": "Il2CppAssets.Scripts.Models.Effects.EffectModel, Assembly-CSharp",

@@ -1,5 +1,6 @@
 {
   "$type": "Il2CppAssets.Scripts.Models.Bloons.BloonModel, Assembly-CSharp",
+  "bloonProperties": 0,
   "id": "UndeadZomg",
   "baseId": "UndeadZomg",
   "display": {
@@ -235,7 +236,6 @@
     ],
     "name": ""
   },
-  "bloonProperties": 0,
   "depletionEffects": [],
   "isMoab": true,
   "isBoss": false,

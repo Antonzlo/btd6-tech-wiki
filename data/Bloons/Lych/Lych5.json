@@ -1,5 +1,6 @@
 {
   "$type": "Il2CppAssets.Scripts.Models.Bloons.BloonModel, Assembly-CSharp",
+  "bloonProperties": 0,
   "id": "Lych5",
   "baseId": "Lych",
   "display": {
@@ -471,7 +472,6 @@
     ],
     "name": ""
   },
-  "bloonProperties": 0,
   "depletionEffects": [],
   "isMoab": true,
   "isBoss": true,

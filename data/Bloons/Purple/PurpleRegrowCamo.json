@@ -1,5 +1,6 @@
 {
   "$type": "Il2CppAssets.Scripts.Models.Bloons.BloonModel, Assembly-CSharp",
+  "bloonProperties": 8,
   "id": "PurpleRegrowCamo",
   "baseId": "Purple",
   "display": {
@@ -125,7 +126,6 @@
   ],
   "damageDisplayStates": [],
   "collisionGroup": null,
-  "bloonProperties": 8,
   "depletionEffects": [
     {
       "$type": "Il2CppAssets.Scripts.Models.Effects.EffectModel, Assembly-CSharp",

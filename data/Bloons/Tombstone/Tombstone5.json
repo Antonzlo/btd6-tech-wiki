@@ -1,5 +1,6 @@
 {
   "$type": "Il2CppAssets.Scripts.Models.Bloons.BloonModel, Assembly-CSharp",
+  "bloonProperties": 0,
   "id": "Tombstone5",
   "baseId": "Tombstone",
   "display": {
@@ -266,7 +267,6 @@
     }
   ],
   "collisionGroup": null,
-  "bloonProperties": 0,
   "depletionEffects": [],
   "isMoab": false,
   "isBoss": false,

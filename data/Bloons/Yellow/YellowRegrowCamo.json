@@ -1,5 +1,6 @@
 {
   "$type": "Il2CppAssets.Scripts.Models.Bloons.BloonModel, Assembly-CSharp",
+  "bloonProperties": 0,
   "id": "YellowRegrowCamo",
   "baseId": "Yellow",
   "display": {
@@ -118,7 +119,6 @@
   ],
   "damageDisplayStates": [],
   "collisionGroup": null,
-  "bloonProperties": 0,
   "depletionEffects": [],
   "isMoab": false,
   "isBoss": false,
