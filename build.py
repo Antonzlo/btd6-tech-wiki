@@ -1202,7 +1202,8 @@ def build_rounds():
         for f in sorted(folder.glob("*.json"), key=lambda f: int(f.stem)):
             r = int(f.stem)
             groups = load(f).get("groups") or []
-            chips = "".join(f"<span class='chip bchip'><i class='bi bi-{bloon_css(g["bloon"])}'></i>{g['count']}× {esc(bloon_name(g['bloon']))}</span>" for g in groups)
+            chips = "".join(f"<a class='chip bchip' href='bloons.html#{esc(bloons[g['bloon']].get('baseId', g['bloon']))}'>"
+                            f"<i class='bi bi-{bloon_css(g["bloon"])}'></i>{g['count']}× {esc(bloon_name(g['bloon']))}</a>" for g in groups)
             r_rbe = sum(g["count"] * rbe(g["bloon"]) for g in groups)
             r_pops = sum(g["count"] * pops(g["bloon"]) for g in groups)
             cash = r_pops * income_mult(r)
@@ -1214,7 +1215,8 @@ def build_rounds():
             feats = [bloons[g["bloon"]].get("baseId") for g in groups] + [p for p in ("camo", "regrow", "fortified") if p in row_tags]
             new = list(dict.fromkeys(x for x in feats if x not in seen))
             seen.update(new)
-            badges = "".join(f"<span class='chip new'>{esc(prop_names.get(x) or t(x, fallback=x))}</span>" for x in new)
+            badges = "".join(f"<span class='chip new'>{esc(prop_names[x])}</span>" if x in prop_names
+                             else f"<a class='chip new' href='bloons.html#{esc(x)}'>{esc(t(x, fallback=x))}</a>" for x in new)
             if new:
                 row_tags.add("new")
             cells = [r, Raw(f"<div class='chips'>{chips}</div>"), Raw(f"<div class='chips'>{badges}</div>"), r_rbe,
