@@ -233,5 +233,10 @@
 "башня": "tower",
 "Башни с парагоном": "Towers with a paragon",
 "парагон": "paragon",
-"режим": "mode"
+"режим": "mode",
+"источник": "source",
+"Источник": "Source",
+"Бафф": "Buff",
+"Стакинг": "Stacking",
+"maxStackSize 0 = лимит не задан. globalRange = действует на всю карту. Источник определён по имени иконки.": "maxStackSize 0 = no limit set. globalRange = works across the whole map. The source is taken from the icon name."
 }

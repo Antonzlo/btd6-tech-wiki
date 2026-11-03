@@ -271,3 +271,6 @@ a.badge:hover b{filter:brightness(1.08)}
 @media (max-width:1100px){.home-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:600px){.home-grid{grid-template-columns:minmax(0,1fr)}}
 .page-index>.lead,.page-index>.note,.page-index>.foot{max-width:1100px}
+.buff-ic{width:32px;height:32px;flex:none;display:inline-block}
+.badge.yes b{background:var(--green-soft);color:var(--green)}
+.badge.no b{background:var(--red-soft);color:var(--red)}

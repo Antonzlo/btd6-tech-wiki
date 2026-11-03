@@ -626,27 +626,35 @@ def tower_of(icon_name):
             if (DATA / "Towers" / word).is_dir():
                 return (f"<a class='badge' href='tower-{word}.html'><span>башня</span>"
                         f"<b>{icon('towers', word, 18)}{esc(TEXT[word])}</b></a>")
-            return esc(TEXT[word])
+            return f"<span class='badge'><span>источник</span><b>{esc(TEXT[word])}</b></span>"
     return ""
+
+
+def flag(k, v, good=True):
+    """Yes/no parameter badge; green when the value is the favourable one."""
+    cls = "yes" if bool(v) == good else "no"
+    return f"<span class='badge {cls}'><span>{esc(k)}</span><b>{fmt(v)}</b></span>"
 
 
 def build_buffs():
     rows = []
     for f in json_files("Buffs"):
         d = load(f)
-        st = d.get("stackable")
-        rows.append((Raw(tower_of(d.get("iconName", ""))) or "–", f"<span class='id'>{esc(d.get('buffName'))}</span>",
-                     f"<span class='chip{'' if st else ' no'}'>{'стакается' if st else 'не стакается'}</span>",
-                     d.get("maxStackSize"), d.get("globalRange"), f"<span class='id'>{esc(d.get('iconName'))}</span>"))
-        INDEX.append([d.get("buffName", ""), "Баффы", "buffs.html", d.get("iconName", "")])
-    rows.sort(key=lambda r: (re.sub("<[^>]+>", "", r[0]), r[1]))  # by visible tower name
+        name = d.get("iconName", "")
+        pic = icon("buffs", name, 32, "ic buff-ic") or "<span class='buff-ic'></span>"
+        buff = (f"<span class='mod-name'>{pic}"
+                f"<span><span class='id'>{esc(d.get('buffName'))}</span><br><small class='note'>{esc(name)}</small></span></span>")
+        stack = " ".join([flag("stackable", d.get("stackable")), param("maxStackSize", d.get("maxStackSize")),
+                          flag("globalRange", d.get("globalRange"))])
+        rows.append((Raw(tower_of(name)) or "–", Raw(buff), Raw(stack)))
+        INDEX.append([d.get("buffName", ""), "Баффы", "buffs.html", name])
+    rows.sort(key=lambda r: (re.sub("<[^>]+>", "", r[0]), r[1]))  # by visible source name
     body = (card("table", "Все индикаторы баффов",
                  "<p class='note'>stackable показывает, складывается ли бафф с тем же именем от второго источника. "
-                 "maxStackSize 0 = лимит не задан. globalRange = действует на всю карту. Башня определена по имени иконки.</p>"
+                 "maxStackSize 0 = лимит не задан. globalRange = действует на всю карту. Источник определён по имени иконки.</p>"
                  "<input class='filter' type='search' placeholder='Фильтр: башня или бафф' aria-label='Фильтр баффов' "
                  "data-filter='#buffs tbody tr'>"
-                 + table(["Башня", "buffName", "Стак", "maxStackSize", "globalRange", "Иконка"], rows).replace(
-                     "<table>", "<table id='buffs'>", 1), section="Баффы"))
+                 + table(["Источник", "Бафф", "Стакинг"], rows).replace("<table>", "<table id='buffs'>", 1), section="Баффы"))
     page("buffs.html", "Баффы и стакинг",
          "Каждый бафф в игре показывается иконкой над башней. В модели иконки записано, стакается ли он "
          "и сколько раз. По этой таблице видно, какие синергии складываются.", body)

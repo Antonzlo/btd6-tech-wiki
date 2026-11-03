@@ -65,6 +65,13 @@ def main():
                 wanted[("bloons", b)] = bloon_files[name]
                 break
 
+    # buff indicator icons: the wiki keeps the game's icon name (BTD6_BuffIconAlchemist3xx.png)
+    buff_files = list_images("BTD6_BuffIcon")
+    for f in (DATA / "Buffs").glob("*.json"):
+        name = load(f).get("iconName") or ""
+        if f"BTD6_{name}.png" in buff_files:
+            wanted[("buffs", name)] = buff_files[f"BTD6_{name}.png"]
+
     # tower portraits (base) and upgrade icons
     unmatched = {}
     en_text = load(DATA / "textTable.en.json") if (DATA / "textTable.en.json").exists() else {}
