@@ -1,8 +1,10 @@
 # BTD6 Tech Wiki
 
 A static wiki of exact Bloons TD 6 numbers taken from the game's own models: bosses by tier, modes,
-income, buff stacking, paragon, Monkey Knowledge, powers, towers with crosspaths, and rounds. Russian and
-English.
+income, buff stacking, paragon, Monkey Knowledge, powers, towers with crosspaths, and rounds.
+English (`/`) and Russian (`/ru/`).
+
+Live: https://zlobinanton.ovh/btd6-tech-wiki/ (GitHub Pages, branch `gh-pages`, deployed with `sh tools/deploy_pages.sh`).
 
 Python standard library only, no dependencies.
 
