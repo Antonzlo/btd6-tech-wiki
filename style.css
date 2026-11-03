@@ -249,3 +249,6 @@ a.badge:hover b{filter:brightness(1.08)}
 .mod-ic{width:22px;height:22px;flex:none;display:inline-block}
 .badge b{display:inline-flex;align-items:center;gap:5px}
 .badge b .ic{width:18px;height:18px}
+.stat b{display:flex;align-items:center;gap:6px}
+.stat b .ic{width:22px;height:22px}
+.kicon{width:84px;height:84px;filter:drop-shadow(0 3px 0 var(--edge))}

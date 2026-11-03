@@ -539,6 +539,13 @@ def param(k, v):
     return f"<a class='badge' href='{href}'>{inner}</a>" if href else f"<span class='badge'>{inner}</span>"
 
 
+def mod_table(mods):
+    """Mutator models as rows: icon + readable name, then their parameters as badges."""
+    rows = [(Raw(f"<span class='mod-name'>{mod_icon(short_type(m))}{esc(label(short_type(m)))}</span>"),
+             " ".join(param(k, v) for k, v in flatten(m).items() if v != "") or "–") for m in mods]
+    return table(["Модификатор", "Параметры"], rows) if rows else "<p class='note'>Без модификаторов.</p>"
+
+
 MODE_GROUPS = [
     ("difficulty", "Сложности", ["Easy", "Medium", "Hard", "Impoppable"]),
     ("modes", "Режимы игры", None),  # everything not listed elsewhere
@@ -559,10 +566,7 @@ def build_modes():
                 continue
             mods = load(files[stem]).get("mutatorMods") or []
             name = t(f"Mode {stem}", stem, fallback=stem)
-            rows = [(Raw(f"<span class='mod-name'>{mod_icon(short_type(m))}{esc(label(short_type(m)))}</span>"), " ".join(param(k, v) for k, v in flatten(m).items() if v != "") or "–")
-                    for m in mods]
-            inner = (game_text(t(f"et_{stem.lower()}description"))
-                     + (table(["Модификатор", "Параметры"], rows) if rows else "<p class='note'>Без модификаторов.</p>"))
+            inner = game_text(t(f"et_{stem.lower()}description")) + mod_table(mods)
             cards.append(card(stem, name, inner, en_id=stem, section="Режимы"))
         if cards:
             body.append(group(gid, title, cards))
@@ -651,6 +655,20 @@ def icon_uri(kid):
     return webp_uri(LAYOUT_DIR / "icons" / f"{kid}.webp")
 
 
+def kicon(kid, size, cls="ic"):
+    """Knowledge icon drawn from the page's shared symbol (each image is embedded once per page)."""
+    if not icon_uri(kid):
+        return ""
+    return (f"<svg class='{cls}' width='{size}' height='{size}' viewBox='0 0 1 1' aria-hidden='true'>"
+            f"<use href='#k-{esc(kid)}'/></svg>")
+
+
+def knowledge_symbols(ids):
+    defs = "".join(f"<symbol id='k-{esc(k)}' viewBox='0 0 1 1'><image href='{icon_uri(k)}' width='1' height='1'/></symbol>"
+                   for k in sorted(ids) if icon_uri(k))
+    return f"<svg width='0' height='0' style='position:absolute' aria-hidden='true'><defs>{defs}</defs></svg>"
+
+
 def knowledge_game_graph(entries, nodes):
     """The tree exactly as the game lays it out: icon buttons, stem/arrow/elbow pieces, tier bands."""
     S, pad_l, pad = 0.5, 70, 16
@@ -696,7 +714,7 @@ def knowledge_game_graph(entries, nodes):
             f"<a href='#{esc(kid)}' class='kn' data-id='{esc(kid)}' data-req='{esc(reqs)}' "
             f"data-name='{esc(t(kid, fallback=kid))}' data-cost='{fmt(cost)}' data-desc='{esc(t(kid + 'Description', kid + ' Description'))}'>"
             f"<circle class='ring' cx='{cx:.1f}' cy='{cy:.1f}' r='{size / 2 - 2:.1f}'/>"
-            + (f"<image href='{uri}' x='{cx - size / 2:.1f}' y='{cy - size / 2:.1f}' width='{size:.1f}' height='{size:.1f}'/>" if uri else
+            + (f"<use href='#k-{esc(kid)}' x='{cx - size / 2:.1f}' y='{cy - size / 2:.1f}' width='{size:.1f}' height='{size:.1f}'/>" if uri else
                f"<text class='nm' x='{cx:.1f}' y='{cy:.1f}' text-anchor='middle'>{esc(t(kid, fallback=kid))[:10]}</text>")
             + (f"<text class='cost' x='{cx:.1f}' y='{cy + size / 2 + 2:.1f}' text-anchor='middle'>{fmt(cost)}</text>" if cost else "")
             + "</a>")
@@ -713,12 +731,16 @@ def build_knowledge():
         for f in sorted(cat.glob("*.json"), key=lambda f: load(f).get("idx", 0)):
             d = load(f)
             name = t(f.stem, fallback=f.stem)
-            prereq = " · ".join(f"<a href='#{esc(p)}'>{esc(t(p, fallback=p))}</a>" for p in d.get("prerequisiteIds") or [])
-            fl = flatten(d.get("mod") or {})
-            inner = ("<div class='split'><div>" + game_text(t(f"{f.stem}Description", f"{f.stem} Description"))
-                     + stats([("Monkey Money", d.get("monkeyMoneyCost")), ("вложено в ветку", d.get("investmentRequired"))])
-                     + (f"<p class='note'>Требует: {prereq}</p>" if prereq else "")
-                     + "</div><div>" + (kv_table(fl.items()) if fl else "") + "</div></div>")
+            prereq = " ".join(f"<a class='badge' href='#{esc(p)}'><span>требует</span><b>"
+                              f"{kicon(p, 18)}{esc(t(p, fallback=p))}</b></a>"
+                              for p in d.get("prerequisiteIds") or [])
+            inner = ("<div class='split'><div><div class='hero-row'>"
+                     + kicon(f.stem, 84, "ic kicon")
+                     + "<div>" + game_text(t(f"{f.stem}Description", f"{f.stem} Description"))
+                     + stats([("Monkey Money", Raw(icon("ui", "mm", 22) + fmt(d.get("monkeyMoneyCost")))),
+                              ("вложено в ветку", Raw(icon("ui", "knowledge", 22) + fmt(d.get("investmentRequired"))))])
+                     + (f"<div class='chips'>{prereq}</div>" if prereq else "")
+                     + "</div></div></div><div>" + mod_table((d.get("mod") or {}).get("mutatorMods") or []) + "</div></div>")
             cards.append(card(f.stem, name, inner, en_id=f.stem, section=f"Знания · {cat.name}"))
         nodes = {f.stem: load(f) for f in cat.glob("*.json")}
         body.append(f"<h2 id='{esc(cat.name)}' style='margin-top:32px'>{esc(t(cat.name, fallback=cat.name))}</h2>"
@@ -730,7 +752,7 @@ def build_knowledge():
          "открываются после N купленных знаний ветки, стрелки ведут от требуемого знания к следующему. "
          "Наведите на узел, чтобы подсветить всю цепочку, нажмите, чтобы открыть карточку с числами. "
          "Число в углу узла это цена в Monkey Money.",
-         "".join(body), toc)
+         knowledge_symbols({p.stem for p in (DATA / "Knowledge").rglob("*.json")}) + "".join(body), toc)
 
 
 def build_powers():
