@@ -10,12 +10,24 @@ for kind in towers upgrades bloons; do
   mkdir -p "$web/$kind"
   magick mogrify -path "$web/$kind" -format webp -trim +repage -resize '128x128>' -strip -quality 88 "$src/$kind"/*.png
 done
+rm -rf "$web/buffs"
 mkdir -p "$web/buffs" "$web/ui"
-magick mogrify -path "$web/buffs" -format webp -trim +repage -resize '128x128>' -strip -quality 88 "$src"/sprites/BuffIcon*.png
 
 one() {  # one <png> <webp>
   magick "$1" -trim +repage -resize '128x128>' -strip -quality 88 "$2"
 }
+# buffs: the iconName from data/Buffs; some sprites are named differently, try the usual variants
+grep -ho '"iconName": "[^"]*"' data/Buffs/*.json | cut -d'"' -f4 | sort -u | while read -r n; do
+  rest=${n#Map}; rest=${rest#BuffIcon}; rest=${rest#Buff}
+  found=
+  for c in "$n" "BuffIcon$rest" "${rest}Icon" "${rest}UpgradeIcon"; do
+    if [ -f "$src/sprites/$c.png" ]; then one "$src/sprites/$c.png" "$web/buffs/$n.webp"; found=1; break; fi
+  done
+  if [ -z "$found" ]; then  # e.g. BuffIconOvercharge -> BuffIconBoomerangOvercharge
+    c=$(ls "$src/sprites/" | grep -m1 "^BuffIcon.*$rest\.png$" || true)
+    if [ -n "$c" ]; then one "$src/sprites/$c" "$web/buffs/$n.webp"; else echo "no sprite for buff $n"; fi
+  fi
+done
 for f in "$src"/powers/*.png; do
   one "$f" "$web/ui/power-$(basename "$f" .png).webp"
 done
