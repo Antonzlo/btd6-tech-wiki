@@ -506,11 +506,15 @@ LOCK_SVG = ("<svg class='ic mod-ic' viewBox='0 0 24 24' width='22' height='22' a
             "<path d='M8 10V7a4 4 0 0 1 8 0v3' fill='none' stroke='var(--edge)' stroke-width='2.5'/></svg>")
 # modifier type -> icon (kind, id) from data/icons, or the drawn lock
 MOD_ICONS = {
-    "StartingCashModModel": ("ui", "coin"), "ModifyAllCashModModel": ("ui", "coin"), "BonusCashPerRoundModModel": ("ui", "coin"),
+    "StartingCashModModel": ("ui", "startcash"), "ModifyAllCashModModel": ("ui", "coin"), "BonusCashPerRoundModModel": ("ui", "coin"),
     "GlobalCostModModel": ("ui", "coin"), "SellMultiplierModModel": ("ui", "coin"),
     "StartingHealthModModel": ("ui", "lives"), "MaxHealthModModel": ("ui", "lives"),
     "MonkeyMoneyModModel": ("ui", "mm"), "DisableSellTowerModModel": ("ui", "nosell"),
-    "DisableMonkeyKnowledgeModModel": ("ui", "knowledge"), "GlobalSpeedModModel": ("ui", "speed"),
+    "DisableMonkeyKnowledgeModModel": ("ui", "noknowledge"), "GlobalSpeedModModel": ("ui", "speed"),
+    "StartingRoundModModel": ("ui", "startround"), "EndRoundModModel": ("ui", "endround"),
+    "DisableContinueModModel": ("ui", "nocontinue"), "RoundSetModModel": ("ui", "roundset"),
+    "RemoveManaShieldModModel": ("ui", "nomana"), "ChimpsModModel": ("ui", "mode-Clicks"),
+    "ImpoppableModel": ("ui", "mode-Impoppable"), "DeflationModel": ("ui", "mode-Deflation"), "ReverseModel": ("ui", "mode-Reverse"),
     "SetHealthForBloonModModel": ("bloons", "Moab"), "BloonHealthModel": ("bloons", "Red"),
     "LockTowerSetModModel": "lock", "LockTowerModModel": "lock",
 }
@@ -566,7 +570,12 @@ def build_modes():
                 continue
             mods = load(files[stem]).get("mutatorMods") or []
             name = t(f"Mode {stem}", stem, fallback=stem)
-            inner = game_text(t(f"et_{stem.lower()}description")) + mod_table(mods)
+            key = {"PrimaryOnly": "Primary", "MilitaryOnly": "Military", "MagicOnly": "Magic"}.get(stem) or (
+                "mode-Deflation" if stem.startswith("CoopDeflation") else "mode-Medium" if stem.startswith("CoopStandard")
+                else f"mode-{stem}")
+            pic = icon("ui", key, 96, "ic mode-ic")
+            inner = (f"<div class='hero-row'>{pic}<div>" if pic else "<div><div>") + game_text(
+                t(f"et_{stem.lower()}description")) + mod_table(mods) + "</div></div>"
             cards.append(card(stem, name, inner, en_id=stem, section="Режимы"))
         if cards:
             body.append(group(gid, title, cards))
@@ -792,7 +801,8 @@ ICONS = load(DATA / "icons" / "manifest.json") if (DATA / "icons" / "manifest.js
 
 def data_uri(kind, oid):
     rel = ICONS.get(kind, {}).get(oid)
-    return webp_uri(DATA / "icons" / "web" / f"{rel}.webp") if rel else ""
+    # icons made here (tools/compose_icons.sh) are not in the download manifest
+    return webp_uri(DATA / "icons" / "web" / (f"{rel}.webp" if rel else f"{kind}/{oid}.webp"))
 
 
 def icon(kind, oid, size, cls="ic"):

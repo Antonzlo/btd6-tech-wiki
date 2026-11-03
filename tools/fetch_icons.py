@@ -97,10 +97,19 @@ def main():
             unmatched[tid + " (wiki)"] = sorted(icons)
 
     # interface icons for mode modifiers and tower categories, by exact wiki file name
-    ui = {"coin": "BTD6_CoinIcon.png", "lives": "BTD6_LivesIcon.png", "mm": "BTD6_MonkeyMoneyShop.png",
+    ui = {"coin": "BTD6_CoinIcon.png", "lives": "BTD6_LivesIcon.png", "mm": "BTD6_ArtifactTokenMonkeyMoney.png",
           "nosell": "BTD6_SellingDisabledIcon.png", "knowledge": "BTD6_KnowledgeIcon.png", "speed": "BTD6_FastForwardBtn.png",
           "Primary": "BTD6_PrimaryBtn.png", "Military": "BTD6_MilitaryBtn.png", "Magic": "BTD6_MagicBtn.png",
-          "Support": "BTD6_SupportBtn.png"}
+          "Support": "BTD6_SupportBtn.png",
+          "startcash": "BTD6_StartingCash.png", "startround": "BTD6_StartRoundIcon.png", "endround": "BTD6_EndRoundIcon.png",
+          "nocontinue": "BTD6_NoContinuesIcon.png", "roundset": "BTD6_CustomRoundIcon.png",
+          # mode buttons (find more names with tools/find_images.py)
+          "mode-Easy": "BTD6_ModeSelectEasyBtn.png", "mode-Medium": "BTD6_ModeSelectMediumBtn.png",
+          "mode-Hard": "BTD6_ModeSelectHardBtn.png", "mode-Impoppable": "BTD6_ImpoppableBtn.png",
+          "mode-Clicks": "BTD6_ClicksBtn.png", "mode-AlternateBloonsRounds": "BTD6_AlternateBloonsBtn.png",
+          "mode-Apopalypse": "BTD6_ApopalypseBtn.png", "mode-Deflation": "BTD6_DeflationBtn.png",
+          "mode-HalfCash": "BTD6_HalfMoneyBtn.png", "mode-Reverse": "BTD6_ReverseBtn.png",
+          "mode-DoubleMoabHealth": "BTD6_DoubleHpMoabsBtn.png", "mode-Sandbox": "BTD6_SandboxBtn.png"}
     q = {"action": "query", "prop": "imageinfo", "iiprop": "url", "format": "json",
          "titles": "|".join("File:" + n for n in ui.values())}
     pages = json.loads(get(API + "?" + urllib.parse.urlencode(q)))["query"]["pages"].values()
