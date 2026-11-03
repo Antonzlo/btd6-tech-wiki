@@ -135,15 +135,7 @@ svg text{fill:var(--soft);font:11px var(--body)}
 .kgraph .band0{fill:var(--sky)}
 .kgraph .band1{fill:var(--panel);stroke:var(--rule)}
 .kgraph .bandlbl{fill:var(--soft);font:600 13px var(--body)}
-.kgraph .edge{fill:none;stroke:var(--soft);stroke-width:2;opacity:.55}
-.kgraph .kn rect{fill:var(--panel);stroke:var(--edge);stroke-width:2.5}
 .kgraph .kn .nm{fill:var(--ink);font:500 13px var(--body)}
-.kgraph .kn .mm{fill:var(--soft);font:500 11.5px var(--body)}
-.kgraph .kn:hover .mm,.kgraph .kn.lit .mm{fill:var(--gold-ink)}
-.kgraph .kn:hover rect,.kgraph .kn:focus-visible rect,.kgraph .kn.lit rect{fill:var(--gold)}
-.kgraph .kn.lit .nm,.kgraph .kn:hover .nm{fill:var(--gold-ink)}
-.kgraph .edge.lit{stroke:var(--gold);opacity:1;stroke-width:3.5}
-.kgraph.dim .kn:not(.lit) {opacity:.45}
 .card:target{box-shadow:0 5px 0 var(--edge),0 0 0 4px var(--gold)}
 
 /* Knowledge tree in the game's own layout */
@@ -233,3 +225,4 @@ svg text{fill:var(--soft);font:11px var(--body)}
 .legend .sw.s1{background:var(--s1)}.legend .sw.s2{background:var(--s2)}.legend .sw.s3{background:var(--s3)}
 .legend b{font-variant-numeric:tabular-nums;text-align:right}
 .legend small{color:var(--soft);font-variant-numeric:tabular-nums}
+.foot{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);font-size:13px;color:var(--soft);max-width:80ch}

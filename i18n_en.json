@@ -154,10 +154,7 @@
 "цена (Medium)": "cost (Medium)",
 "радиус места": "footprint radius",
 "категория": "category",
-"Цена по сложностям": "Cost by difficulty",
 "Сложность": "Difficulty",
-"Цена без округления": "Cost before rounding",
-"Множитель цены из модели режима. Итоговые цены в игре округляются.": "Cost multiplier from the mode model. Final in-game prices are rounded.",
 "Улучшения": "Upgrades",
 "Кроссапгрейд": "Crosspath",
 "Выберите тиры путей, как в игре. Показаны цена со всеми улучшениями, ": "Pick the path tiers like in the game. Shown: the cost with all upgrades, ",
@@ -195,5 +192,11 @@
 " силы, ": " power, ",
 "а сумма потолков этих источников ": "and these sources cap out at ",
 ". Ни один из них в одиночку до ": ". None of them alone reaches ",
-" не доходит.": "."
+" не доходит.": ".",
+"Неофициальная фанатская вики, без монетизации. Данные, названия, тексты и изображения ": "Unofficial fan wiki, not monetized. Game data, names, text and images ",
+"принадлежат ": "belong to ",
+". Данные выгружены через ": ". Data exported with ",
+", иконки взяты из ": ", icons from ",
+"Исходный код": "Source code",
+"Нет раскладки: запустите KnowledgeDumper (F6).": "No layout: run KnowledgeDumper (F6)."
 }

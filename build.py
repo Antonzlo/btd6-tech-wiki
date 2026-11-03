@@ -6,6 +6,8 @@ paragonDegreeData.json textTable.json from the export folder into ./data
 and update data/VERSION.txt.
 """
 import html
+import base64
+import functools
 import json
 import math
 import re
@@ -289,7 +291,12 @@ def page(file, title, lead, body, toc=()):
         f"{switch}</header>"
         f"<div class='layout'><aside class='side'><h4>Разделы</h4><nav>{side}</nav>{toc_html}</aside>"
         f"<main><h1>{esc(title)}</h1><p class='lead'>{lead}</p><p class='ver'>Данные: {esc(VERSION)}</p>"
-        f"{body}</main></div><script src='search.js?v={JS_VER}'></script>")
+        f"{body}<footer class='foot'>Неофициальная фанатская вики, без монетизации. Данные, названия, тексты и изображения "
+        "принадлежат <a href='https://ninjakiwi.com' rel='noopener'>Ninja Kiwi</a>. Данные выгружены через "
+        "<a href='https://github.com/gurrenm3/BTD-Mod-Helper' rel='noopener'>BTD6 Mod Helper</a>, иконки взяты из "
+        "<a href='https://www.bloonswiki.com' rel='noopener'>Blooncyclopedia</a> (CC BY-NC-SA 4.0). "
+        "<a href='https://github.com/Antonzlo/btd6-tech-wiki' rel='noopener'>Исходный код</a>.</footer>"
+        f"</main></div><script src='search.js?v={JS_VER}'></script>")
     if file == "index.html" and LANG == "ru":  # the artifact page itself; the host adds the skeleton
         doc = head + content
     else:
@@ -408,12 +415,11 @@ def plural(n, one, few, many):
     return few if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14 else many
 
 
-HP_TOP = {}
 
 
-def hp_row(elite, n, b):
+def hp_row(elite, n, b, top):
     sk = skulls(b)
-    width = 100 * math.log10(b["maxHealth"]) / math.log10(HP_TOP[b["baseId"]])
+    width = 100 * math.log10(b["maxHealth"]) / math.log10(top)
     ticks = "".join(f"<span class='skull' style='left:{v * 100:.2f}%' title='{v * 100:g}%'></span>" for v in sk)
     cls = "e" if elite else "n"
     return (f"<span class='t {cls}'>{'E' if elite else 'T'}{n}</span>"
@@ -432,10 +438,9 @@ def build_bosses():
         if not tiers:
             continue
         tiers.sort(key=lambda x: (x[0], x[1]))
-        HP_TOP[boss] = max(b["maxHealth"] for _, _, b in tiers)
         name = t(boss, fallback=boss)
         top = max(b["maxHealth"] for _, _, b in tiers)
-        bars = "".join(hp_row(e, n, b) for e, n, b in tiers)
+        bars = "".join(hp_row(e, n, b, top) for e, n, b in tiers)
         # parameters per tier: which numbers change, which stay the same
         flats = [flatten(b) for _, _, b in tiers]
         keys = list(dict.fromkeys(k for fl in flats for k in fl))
@@ -510,7 +515,6 @@ def build_income():
          "".join(body), toc)
 
 
-TOWER_NAMES = None
 
 
 def tower_of(icon):
@@ -545,135 +549,6 @@ def build_buffs():
          "и сколько раз. По этой таблице видно, какие синергии складываются.", body)
 
 
-def wrap_words(text, width=19):
-    lines, cur = [], ""
-    for word in text.split():
-        if cur and len(cur) + 1 + len(word) > width:
-            lines.append(cur)
-            cur = word
-        else:
-            cur = f"{cur} {word}".strip()
-    lines.append(cur)
-    return lines[:2] if len(lines) <= 2 else [lines[0], lines[1][: width - 1] + "…"]
-
-
-def knowledge_graph(nodes):
-    """Layered SVG of one knowledge tree. nodes: {id: model}. Rows = unlock tier, then chain depth inside it."""
-    W, H, GX, GY = 168, 60, 22, 34
-    tier_of = {k: d.get("investmentRequired", 0) for k, d in nodes.items()}
-    reqs = {k: [p for p in d.get("prerequisiteIds") or [] if p in nodes] for k, d in nodes.items()}
-
-    depth = {}
-
-    def local_depth(k):
-        if k not in depth:
-            same = [p for p in reqs[k] if tier_of[p] == tier_of[k]]
-            depth[k] = 1 + max(map(local_depth, same)) if same else 0
-        return depth[k]
-
-    tiers = sorted(set(tier_of.values()))
-    base, row = {}, 0
-    for tr in tiers:
-        base[tr] = row
-        row += 1 + max(local_depth(k) for k in nodes if tier_of[k] == tr)
-    layer = {k: base[tier_of[k]] + local_depth(k) for k in nodes}
-
-    # Connected nodes (usually one tower's chain) form a group; each group gets its own columns,
-    # so arrows never cross into another group.
-    group = {k: k for k in nodes}
-
-    def find(k):
-        while group[k] != k:
-            group[k] = group[group[k]]
-            k = group[k]
-        return k
-
-    for k, ps in reqs.items():
-        for p in ps:
-            group[find(k)] = find(p)
-    groups = {}
-    for k in nodes:
-        groups.setdefault(find(k), []).append(k)
-    ordered = sorted(groups.values(), key=lambda g: min(nodes[k].get("idx", 0) for k in g))
-
-    kids = {k: [c for c, ps in reqs.items() if k in ps] for k in nodes}
-    mean = lambda xs: sum(xs) / len(xs)
-
-    x, offset = {}, 0.0
-    for members_all in ordered:
-        # crossing reduction: order each row by the mean position of parents (down) / children (up)
-        rows = [sorted((k for k in members_all if layer[k] == ly), key=lambda k: nodes[k].get("idx", 0))
-                for ly in range(row)]
-        pos = {k: i for r in rows for i, k in enumerate(r)}
-        for _ in range(12):
-            for sweep, link in ((range(1, row), reqs), (range(row - 2, -1, -1), kids)):
-                for ly in sweep:
-                    rows[ly].sort(key=lambda k: mean([pos[n] for n in link[k] if n in pos]) if any(
-                        n in pos for n in link[k]) else pos[k])
-                    pos.update({k: i for i, k in enumerate(rows[ly])})
-        # column grid: a node goes straight under its nearest prerequisite when that column is free,
-        # cells a line passes through are reserved so no node sits on top of a line
-        occ, col = set(), {}
-        for ly in range(row):
-            for k in rows[ly]:
-                ps = [p for p in reqs[k] if p in col]
-                if ps:
-                    p = max(ps, key=lambda p: (layer[p], -col[p]))
-                    start = col[p]
-                    between = [(start, r) for r in range(layer[p] + 1, ly)]
-                    order = [start] + [start + s * d for d in range(1, 40) for s in (1, -1)]
-                    c = next(c for c in order if c >= 0 and (c, ly) not in occ)
-                    occ.update(between)
-                else:
-                    c = next(c for c in range(200) if (c, ly) not in occ)
-                occ.add((c, ly))
-                col[k] = c
-        for k, c in col.items():
-            x[k] = offset + c * (W + GX)
-        offset += (max(col.values()) + 1) * (W + GX) + GX
-    width = max(x.values()) + W
-    pad_l, pad_t = 96, 14
-    height = row * (H + GY) + pad_t
-    ypos = lambda k: pad_t + layer[k] * (H + GY)
-
-    bands = []
-    for i, tr in enumerate(tiers):
-        rows_in = [layer[k] for k in nodes if tier_of[k] == tr]
-        y0 = pad_t + min(rows_in) * (H + GY) - GY / 2 + 4
-        y1 = pad_t + max(rows_in) * (H + GY) + H + GY / 2 - 4
-        bands.append(f"<rect class='band{i % 2}' x='0' y='{y0:.0f}' width='{pad_l + width + 12}' height='{y1 - y0:.0f}' rx='12'/>"
-                     f"<text class='bandlbl' x='12' y='{y0 + 22:.0f}'>{tr} очк.</text>")
-    edges = []
-    for k, ps in reqs.items():
-        for p in ps:
-            x1, y1 = pad_l + x[p] + W / 2, ypos(p) + H
-            x2, y2 = pad_l + x[k] + W / 2, ypos(k)
-            # elbow: down, across in the gap right above the child row, down
-            my = y2 - GY / 2
-            r = min(8, abs(x2 - x1) / 2, (my - y1) / 2)
-            if r < 1:
-                d = f"M{x1:.0f},{y1:.0f} V{y2:.0f}" if abs(x2 - x1) < 1 else f"M{x1:.0f},{y1:.0f} V{my:.0f} H{x2:.0f} V{y2:.0f}"
-            else:
-                sx = 1 if x2 > x1 else -1
-                d = (f"M{x1:.0f},{y1:.0f} V{my - r:.0f} Q{x1:.0f},{my:.0f} {x1 + sx * r:.0f},{my:.0f} "
-                     f"H{x2 - sx * r:.0f} Q{x2:.0f},{my:.0f} {x2:.0f},{my + r:.0f} V{y2:.0f}")
-            edges.append(f"<path class='edge' data-from='{esc(p)}' data-to='{esc(k)}' d='{d}'/>")
-    boxes = []
-    for k, d in nodes.items():
-        lines = wrap_words(t(k, fallback=k))
-        tx, ty = pad_l + x[k], ypos(k)
-        text = "".join(f"<tspan x='{tx + 10:.0f}' dy='{0 if i == 0 else 15}'>{esc(s)}</tspan>" for i, s in enumerate(lines))
-        boxes.append(
-            f"<a href='#{esc(k)}' class='kn' data-id='{esc(k)}' data-req='{esc(' '.join(reqs[k]))}'>"
-            f"<title>{esc(t(k, fallback=k))}: {fmt(d.get('monkeyMoneyCost'))} MM</title>"
-            f"<rect x='{tx:.0f}' y='{ty:.0f}' width='{W}' height='{H}' rx='10'/>"
-            f"<text class='nm' x='{tx + 10:.0f}' y='{ty + 19:.0f}'>{text}</text>"
-            f"<text class='mm' x='{tx + 10:.0f}' y='{ty + H - 9:.0f}'>{fmt(d.get('monkeyMoneyCost'))} MM</text></a>")
-    return (f"<div class='wrap kgraph'><svg viewBox='0 0 {pad_l + width + 12:.0f} {height:.0f}' "
-            f"width='{pad_l + width + 12:.0f}' role='img' aria-label='Дерево знаний'>"
-            + "".join(bands) + "".join(edges) + "".join(boxes) + "</svg></div>")
-
-
 LAYOUT_DIR = DATA / "KnowledgeLayout"
 
 
@@ -688,10 +563,14 @@ def load_game_layout():
     return out
 
 
-def icon_uri(kid):
-    import base64
-    f = LAYOUT_DIR / "icons" / f"{kid}.webp"
+@functools.cache
+def webp_uri(f):
+    """data: URI of a webp file, or "" when it is missing (pages cannot load images from other hosts)."""
     return "data:image/webp;base64," + base64.b64encode(f.read_bytes()).decode() if f.exists() else ""
+
+
+def icon_uri(kid):
+    return webp_uri(LAYOUT_DIR / "icons" / f"{kid}.webp")
 
 
 def knowledge_game_graph(entries, nodes):
@@ -765,7 +644,7 @@ def build_knowledge():
             cards.append(card(f.stem, name, inner, en_id=f.stem, section=f"Знания · {cat.name}"))
         nodes = {f.stem: load(f) for f in cat.glob("*.json")}
         body.append(f"<h2 id='{esc(cat.name)}' style='margin-top:32px'>{esc(t(cat.name, fallback=cat.name))}</h2>"
-                    + (knowledge_game_graph(GAME_LAYOUT[cat.name], nodes) if cat.name in GAME_LAYOUT else knowledge_graph(nodes))
+                    + (knowledge_game_graph(GAME_LAYOUT[cat.name], nodes) if cat.name in GAME_LAYOUT else "<p class='note'>Нет раскладки: запустите KnowledgeDumper (F6).</p>")
                     + "".join(cards))
         toc.append((cat.name, t(cat.name, fallback=cat.name)))
     page("knowledge.html", t("Monkey Knowledge", fallback="Monkey Knowledge"),
@@ -807,18 +686,11 @@ def build_index():
 # ---------- icons (from tools/fetch_icons.py, resized to data/icons/web/*.webp) ----------
 
 ICONS = load(DATA / "icons" / "manifest.json") if (DATA / "icons" / "manifest.json").exists() else {}
-_icon_cache = {}
 
 
 def data_uri(kind, oid):
     rel = ICONS.get(kind, {}).get(oid)
-    if not rel:
-        return ""
-    if rel not in _icon_cache:
-        import base64
-        f = DATA / "icons" / "web" / f"{rel}.webp"
-        _icon_cache[rel] = "data:image/webp;base64," + base64.b64encode(f.read_bytes()).decode() if f.exists() else ""
-    return _icon_cache[rel]
+    return webp_uri(DATA / "icons" / "web" / f"{rel}.webp") if rel else ""
 
 
 def icon(kind, oid, size, cls="ic"):
@@ -952,7 +824,6 @@ def build_towers():
                             f"<span class='price'>{price([c], 'cost big')}<small>всего {price(done)}</small></span></div>"
                             f"<p>{esc(t(u + ' Description'))}</p></div></li>")
             cols.append(f"<div class='path'><h3>Путь {i + 1}</h3><ol>{''.join(rows)}</ol></div>")
-        diff_rows = [(esc(n), m, fmt(base.get("cost", 0) * m)) for n, m in diffs.items()]
         picker = "".join(
             f"<div class='xp-row' data-path='{i}'><span>Путь {i + 1}</span>"
             + "".join(f"<button type='button' data-tier='{n}'>{n}</button>" for n in range(6)) + "</div>"
@@ -961,12 +832,10 @@ def build_towers():
         body = (
             selector
             + card("about", name,
-                 "<div class='split'><div><div class='hero-row'>" + icon('towers', tid, 120, 'ic portrait') + "<div>" + game_text(t(f"{tid} Description", f"{tid}Description"))
+                 "<div class='hero-row'>" + icon('towers', tid, 120, 'ic portrait') + "<div>" + game_text(t(f"{tid} Description", f"{tid}Description"))
                  + stats([("цена", price([base.get("cost", 0)])), ("дальность", base.get("range")),
                           ("радиус места", base.get("radius")), ("категория", t(TOWER_SETS.get(base.get("towerSet")), fallback=""))])
-                 + "</div></div></div><div><h3>Цена по сложностям</h3>"
-                 + table(["Сложность", "Множитель", "Цена без округления"], diff_rows)
-                 + "<p class='note'>Множитель цены из модели режима. Итоговые цены в игре округляются.</p></div></div>",
+                 + "</div></div>",
                  en_id=tid, section="Башни")
             + card("upgrades", "Улучшения", f"<div class='paths'>{''.join(cols)}</div>", section=name)
             + card("crosspath", "Кроссапгрейд",
@@ -992,7 +861,6 @@ def build_towers():
     page("towers.html", "Башни",
          "Все основные башни. На странице башни: описание, улучшения с ценами и выбор кроссапгрейда "
          "с точными числами атак.", selector + "".join(body))
-    return sorted(tid for ts in tiles.values() for tid, _, _ in ts)
 
 
 # ---------- rounds ----------
