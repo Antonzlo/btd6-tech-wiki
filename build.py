@@ -12,6 +12,7 @@ import functools
 import json
 import math
 import re
+import shutil
 import sys
 from pathlib import Path
 
@@ -153,13 +154,14 @@ if not VERSION.startswith(GAME["version"] + " "):
 # Languages: Russian is written in the code; other languages translate the finished HTML with a phrase
 # dictionary (i18n_<lang>.json) and take game names/descriptions from data/textTable.<lang>.json.
 LANGS = {"ru": "textTable.json", "en": "textTable.en.json"}
+MAIN_LANG = "en"  # served at the site root; the other language lives in /<lang>/
 LANG, OUT, TEXT, PHRASES = "ru", SITE, {}, None
 
 
 def set_lang(lang):
     global LANG, OUT, TEXT, PHRASES
     LANG = lang
-    OUT = SITE if lang == "ru" else SITE / lang
+    OUT = SITE if lang == MAIN_LANG else SITE / lang
     table = DATA / LANGS[lang]
     if not table.exists():
         print(f"warning: {table.name} missing, {lang} uses Russian game text", file=sys.stderr)
@@ -303,8 +305,8 @@ current_file = "index.html"
 
 def page(file, title, lead, body, toc=()):
     side = "".join(f"<a href='{f}'{' class=on' if f == file else ''}>{esc(t(n, fallback=n))}</a>" for f, n, _ in PAGES)
-    other = ("en/" if LANG == "ru" else "../") + file
-    switch = f"<a class='lang' href='{other}' aria-label='Язык'>{'EN' if LANG == 'ru' else 'RU'}</a>"
+    other = ("ru/" if LANG == MAIN_LANG else "../") + file
+    switch = f"<a class='lang' href='{other}' aria-label='Язык'>{'RU' if LANG == MAIN_LANG else 'EN'}</a>"
     toc_html = ("<div class='toc'><h4>На странице</h4>" + "".join(
         f"<a href='#{esc(a)}'>{esc(n)}</a>" for a, n in toc) + "</div>") if toc else ""
     head = (f"<meta charset=\"utf-8\"><title>{'BTD6 Tech Wiki' if file == 'index.html' else esc(title) + ' · BTD6 Tech Wiki'}</title>"
@@ -322,11 +324,12 @@ def page(file, title, lead, body, toc=()):
         f"<main class='page-{file.removesuffix('.html')}'><h1>{esc(title)}</h1><p class='lead'>{lead}</p><p class='ver'>Данные: {esc(VERSION)}</p>"
         f"{body}<footer class='foot'>Неофициальная фанатская вики, без монетизации. Данные, названия, тексты и изображения "
         "принадлежат <a href='https://ninjakiwi.com' rel='noopener'>Ninja Kiwi</a>. Данные выгружены через "
-        "<a href='https://github.com/gurrenm3/BTD-Mod-Helper' rel='noopener'>BTD6 Mod Helper</a>, иконки взяты из "
+        "<a href='https://github.com/gurrenm3/BTD-Mod-Helper' rel='noopener'>BTD6 Mod Helper</a>, иконки из игры, несколько иконок интерфейса с "
         "<a href='https://www.bloonswiki.com' rel='noopener'>Blooncyclopedia</a> (CC BY-NC-SA 4.0). "
         "<a href='https://github.com/Antonzlo/btd6-tech-wiki' rel='noopener'>Исходный код</a>.</footer>"
         f"</main></div><script src='search.js?v={JS_VER}'></script>")
-    if file == "index.html" and LANG == "ru":  # the artifact page itself; the host adds the skeleton
+    # the artifact page itself is a fragment (the host adds the skeleton); --pages builds plain files for GitHub Pages
+    if file == "index.html" and LANG == MAIN_LANG and "--pages" not in sys.argv:
         doc = head + content
     else:
         doc = (f"<!doctype html><html lang=\"{LANG}\"><head>"
@@ -1240,6 +1243,7 @@ def build_rounds():
 
 def main():
     global current_file, INDEX
+    shutil.rmtree(SITE, ignore_errors=True)  # no stale pages from an older layout
     for lang in LANGS:
         set_lang(lang)
         INDEX = []
