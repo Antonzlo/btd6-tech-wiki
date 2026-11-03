@@ -501,18 +501,41 @@ def group(gid, title, cards):
     return f"<h2 class='group' id='{esc(gid)}'>{esc(title)}</h2><div class='cards'>{''.join(cards)}</div>"
 
 
+LOCK_SVG = ("<svg class='ic mod-ic' viewBox='0 0 24 24' width='22' height='22' aria-hidden='true'>"
+            "<rect x='4' y='10' width='16' height='11' rx='3' fill='var(--gold)' stroke='var(--edge)' stroke-width='2'/>"
+            "<path d='M8 10V7a4 4 0 0 1 8 0v3' fill='none' stroke='var(--edge)' stroke-width='2.5'/></svg>")
+# modifier type -> icon (kind, id) from data/icons, or the drawn lock
+MOD_ICONS = {
+    "StartingCashModModel": ("ui", "coin"), "ModifyAllCashModModel": ("ui", "coin"), "BonusCashPerRoundModModel": ("ui", "coin"),
+    "GlobalCostModModel": ("ui", "coin"), "SellMultiplierModModel": ("ui", "coin"),
+    "StartingHealthModModel": ("ui", "lives"), "MaxHealthModModel": ("ui", "lives"),
+    "MonkeyMoneyModModel": ("ui", "mm"), "DisableSellTowerModModel": ("ui", "nosell"),
+    "DisableMonkeyKnowledgeModModel": ("ui", "knowledge"), "GlobalSpeedModModel": ("ui", "speed"),
+    "SetHealthForBloonModModel": ("bloons", "Moab"), "BloonHealthModel": ("bloons", "Red"),
+    "LockTowerSetModModel": "lock", "LockTowerModModel": "lock",
+}
+
+
+def mod_icon(type_name):
+    spec = MOD_ICONS.get(type_name)
+    if spec == "lock":
+        return LOCK_SVG
+    return icon(spec[0], spec[1], 22, "ic mod-ic") if spec else "<span class='mod-ic'></span>"
+
+
 def param(k, v):
     """A model parameter as a two-part badge; ids that have a page here link to it."""
-    href, text = None, fmt(v)
+    href, text, pic = None, fmt(v), ""
     if k == "towerSetToLock" and v in TOWER_SETS:
         href, text = f"towers.html#set-{TOWER_SETS[v]}", esc(t(TOWER_SETS[v], fallback=TOWER_SETS[v]))
+        pic = icon("ui", TOWER_SETS[v], 18)
     elif k == "towerToLock" and (DATA / "Towers" / str(v)).is_dir():
-        href, text = f"tower-{v}.html", esc(t(v, fallback=v))
+        href, text, pic = f"tower-{v}.html", esc(t(v, fallback=v)), icon("towers", v, 18)
     elif k == "roundsetName" and (DATA / "Rounds" / str(v)).is_dir():
         href = f"rounds.html#{v}"
     elif k == "bloonId":
-        text = esc(t(v, fallback=v))
-    inner = f"<span>{esc(k)}</span><b>{text}</b>"
+        text, pic = esc(t(v, fallback=v)), icon("bloons", v, 18)
+    inner = f"<span>{esc(k)}</span><b>{pic}{text}</b>"
     return f"<a class='badge' href='{href}'>{inner}</a>" if href else f"<span class='badge'>{inner}</span>"
 
 
@@ -536,7 +559,7 @@ def build_modes():
                 continue
             mods = load(files[stem]).get("mutatorMods") or []
             name = t(f"Mode {stem}", stem, fallback=stem)
-            rows = [(esc(label(short_type(m))), " ".join(param(k, v) for k, v in flatten(m).items()) or "–")
+            rows = [(Raw(f"<span class='mod-name'>{mod_icon(short_type(m))}{esc(label(short_type(m)))}</span>"), " ".join(param(k, v) for k, v in flatten(m).items() if v != "") or "–")
                     for m in mods]
             inner = (game_text(t(f"et_{stem.lower()}description"))
                      + (table(["Модификатор", "Параметры"], rows) if rows else "<p class='note'>Без модификаторов.</p>"))

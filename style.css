@@ -245,3 +245,7 @@ tr.newrow td:first-child{box-shadow:inset 4px 0 0 var(--gold)}
 a.badge b{background:var(--gold);color:var(--gold-ink)}
 a.badge:hover{text-decoration:none}
 a.badge:hover b{filter:brightness(1.08)}
+.mod-name{display:inline-flex;align-items:center;gap:8px}
+.mod-ic{width:22px;height:22px;flex:none;display:inline-block}
+.badge b{display:inline-flex;align-items:center;gap:5px}
+.badge b .ic{width:18px;height:18px}

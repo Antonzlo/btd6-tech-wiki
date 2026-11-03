@@ -96,6 +96,19 @@ def main():
         if tid in unmatched:
             unmatched[tid + " (wiki)"] = sorted(icons)
 
+    # interface icons for mode modifiers and tower categories, by exact wiki file name
+    ui = {"coin": "BTD6_CoinIcon.png", "lives": "BTD6_LivesIcon.png", "mm": "BTD6_MonkeyMoneyShop.png",
+          "nosell": "BTD6_SellingDisabledIcon.png", "knowledge": "BTD6_KnowledgeIcon.png", "speed": "BTD6_FastForwardBtn.png",
+          "Primary": "BTD6_PrimaryBtn.png", "Military": "BTD6_MilitaryBtn.png", "Magic": "BTD6_MagicBtn.png",
+          "Support": "BTD6_SupportBtn.png"}
+    q = {"action": "query", "prop": "imageinfo", "iiprop": "url", "format": "json",
+         "titles": "|".join("File:" + n for n in ui.values())}
+    pages = json.loads(get(API + "?" + urllib.parse.urlencode(q)))["query"]["pages"].values()
+    urls = {p["title"].removeprefix("File:").replace(" ", "_"): p["imageinfo"][0]["url"] for p in pages if "imageinfo" in p}
+    for key, name in ui.items():
+        if name in urls:
+            wanted[("ui", key)] = urls[name]
+
     manifest = {}
     for (kind, oid), url in sorted(wanted.items()):
         safe = re.sub(r"[^A-Za-z0-9_-]", "_", oid)

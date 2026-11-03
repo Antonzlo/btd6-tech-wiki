@@ -91,6 +91,18 @@
   "TackShooter": "towers/TackShooter",
   "WizardMonkey": "towers/WizardMonkey"
  },
+ "ui": {
+  "Magic": "ui/Magic",
+  "Military": "ui/Military",
+  "Primary": "ui/Primary",
+  "Support": "ui/Support",
+  "coin": "ui/coin",
+  "knowledge": "ui/knowledge",
+  "lives": "ui/lives",
+  "mm": "ui/mm",
+  "nosell": "ui/nosell",
+  "speed": "ui/speed"
+ },
  "upgrades": {
   "Absolute Zero": "upgrades/Absolute_Zero",
   "Abyss Dweller": "upgrades/Abyss_Dweller",
