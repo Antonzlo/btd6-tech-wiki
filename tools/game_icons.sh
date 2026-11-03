@@ -8,13 +8,13 @@ web=data/icons/web
 
 for kind in towers upgrades bloons; do
   mkdir -p "$web/$kind"
-  magick mogrify -path "$web/$kind" -format webp -resize '128x128>' -strip -quality 88 "$src/$kind"/*.png
+  magick mogrify -path "$web/$kind" -format webp -trim +repage -resize '128x128>' -strip -quality 88 "$src/$kind"/*.png
 done
 mkdir -p "$web/buffs" "$web/ui"
-magick mogrify -path "$web/buffs" -format webp -resize '128x128>' -strip -quality 88 "$src"/sprites/BuffIcon*.png
+magick mogrify -path "$web/buffs" -format webp -trim +repage -resize '128x128>' -strip -quality 88 "$src"/sprites/BuffIcon*.png
 
 one() {  # one <png> <webp>
-  magick "$1" -resize '128x128>' -strip -quality 88 "$2"
+  magick "$1" -trim +repage -resize '128x128>' -strip -quality 88 "$2"
 }
 for f in "$src"/powers/*.png; do
   one "$f" "$web/ui/power-$(basename "$f" .png).webp"
