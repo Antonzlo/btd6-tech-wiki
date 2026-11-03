@@ -271,5 +271,6 @@
 "Свойство шаров режима Frontier.": "A property of Frontier mode bloons.",
 "Не наносят урона базовой атакой:": "Base attack deals no damage:",
 "Список башен посчитан по immuneBloonProperties урона их снарядов ": "The tower list comes from the immuneBloonProperties of their projectile damage ",
-"в базовой модели (000). Улучшения часто снимают ограничение.": "in the base model (000). Upgrades often lift the limit."
+"в базовой модели (000). Улучшения часто снимают ограничение.": "in the base model (000). Upgrades often lift the limit.",
+"Что значит каждое свойство и какие башни его не лопают": "What each property means and which towers cannot pop it"
 }

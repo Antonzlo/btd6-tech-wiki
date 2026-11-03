@@ -96,6 +96,8 @@ out.innerHTML=h;applyDiff()}
 xp.querySelectorAll('.xp-row[data-path] button').forEach(function(b){b.addEventListener('click',function(){var p=+b.parentNode.dataset.path;variant=null;st[p]=+b.dataset.tier;fix(p);draw()})});
 xp.querySelectorAll('[data-variant]').forEach(function(b){b.addEventListener('click',function(){variant=b.dataset.variant;draw()})});
 draw()});
+function openTarget(){var id=decodeURIComponent(location.hash.slice(1));if(!id)return;var el=document.getElementById(id);if(!el)return;var d=el.closest('details');if(d&&!d.open){d.open=true;el.scrollIntoView()}}
+window.addEventListener('hashchange',openTarget);openTarget();
 })();
 """
 
@@ -1100,8 +1102,9 @@ def properties_card():
                     f"<div><p>{esc(PROP_INFO.get(bit, ''))}</p>"
                     + (f"<p class='note'>Не наносят урона базовой атакой:</p><div class='chips'>{towers}</div>" if towers else "")
                     + "</div></div>")
-    return card("props", "Свойства", "<p class='note'>Список башен посчитан по immuneBloonProperties урона их снарядов "
-                "в базовой модели (000). Улучшения часто снимают ограничение.</p>" + "".join(rows), section="Шары")
+    return card("props", "Свойства", "<details class='fold'><summary>Что значит каждое свойство и какие башни его не лопают</summary>"
+                "<p class='note'>Список башен посчитан по immuneBloonProperties урона их снарядов "
+                "в базовой модели (000). Улучшения часто снимают ограничение.</p>" + "".join(rows) + "</details>", section="Шары")
 
 
 def build_bloons():
@@ -1165,6 +1168,10 @@ def build_rounds():
     filters = [("", "Все"), ("new", "С новым"), ("camo", t("Camo")), ("regrow", t("Regrow")), ("fortified", "Укреплённые"),
                ("lead", t("Lead")), ("ceramic", t("Ceramic")), ("moab", "MOAB-класс")]
 
+    # end of round bonus from the Medium mode model (BonusCashPerRoundModModel: baseCash + round * roundMultiple)
+    bonus_mod = next((m for m in load(DATA / "Mods" / "Medium.json").get("mutatorMods") or []
+                      if short_type(m) == "BonusCashPerRoundModModel"), {})
+    bonus_base, bonus_per_round = bonus_mod.get("baseCash", 100), bonus_mod.get("roundMultiple", 1)
     sections, toc = [], []
     for rs, title in (("DefaultRoundSet", "Обычные раунды"), ("AlternateRoundSet", "Альтернативные раунды (ABR)")):
         folder = DATA / "Rounds" / rs
@@ -1176,7 +1183,7 @@ def build_rounds():
             r_rbe = sum(g["count"] * rbe(g["bloon"]) for g in groups)
             r_pops = sum(g["count"] * pops(g["bloon"]) for g in groups)
             cash = r_pops * income_mult(r)
-            bonus = 100 + r
+            bonus = bonus_base + r * bonus_per_round
             total += cash + bonus
             dur = max((g["end"] for g in groups), default=0) / 60
             # first appearance of a bloon type or a property (camo, regrow, fortified)
