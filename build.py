@@ -28,17 +28,18 @@ SKIP_KEYS = {"$type", "guidRef", "AssetGUID", "display", "icon", "iconSmall", "n
 
 PAGES = [
     ("index.html", "Главная", ""),
+    # your side, then the enemy, then the match rules, then account-wide extras
+    ("towers.html", "Башни", "Улучшения и кроссапгрейды"),
+    ("heroes.html", "Герои", "Уровни и опыт"),
     ("paragon.html", "Парагон", "Сила и степени"),
+    ("buffs.html", "Баффы", "Что стакается"),
+    ("bloons.html", "Шары", "Свойства, HP и дети"),
+    ("rounds.html", "Раунды", "Состав, RBE и деньги"),
     ("bosses.html", "Боссы", "HP и механики по тирам"),
     ("modes.html", "Режимы", "Модификаторы сложностей"),
     ("income.html", "Доход", "Множители дохода по раундам"),
-    ("buffs.html", "Баффы", "Что стакается"),
     ("knowledge.html", "Monkey Knowledge", "Цены и эффекты"),
     ("powers.html", "Силы", "Параметры сил"),
-    ("towers.html", "Башни", "Улучшения и кроссапгрейды"),
-    ("heroes.html", "Герои", "Уровни и опыт"),
-    ("bloons.html", "Шары", "Свойства, HP и дети"),
-    ("rounds.html", "Раунды", "Состав, RBE и деньги"),
 ]
 
 CSS = (ROOT / "style.css").read_text(encoding="utf-8")
