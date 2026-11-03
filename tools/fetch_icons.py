@@ -58,6 +58,10 @@ def main():
 
     # bloons used in rounds; MOAB-class files carry an "Icon" suffix on the wiki
     bloon_ids = {g["bloon"] for f in (DATA / "Rounds").rglob("*.json") for g in load(f).get("groups") or []}
+    # plus every variant shown on the bloons page (bosses have their own icons)
+    skip = ("Bloonarius", "Lych", "Vortex", "Dreadbloon", "Phayze", "Blastapopoulos", "Diamondback", "DreadRock", "MiniLych",
+            "Tombstone", "Test")
+    bloon_ids |= {f.stem for f in (DATA / "Bloons").glob("*/*.json") if not f.parent.name.startswith(skip)}
     bloon_files = list_images("BTD6_bloon_")
     for b in sorted(bloon_ids):
         for name in (f"BTD6_bloon_{b}.png", f"BTD6_bloon_{b}Icon.png", f"BTD6_bloon_{b.replace('Camo', '')}Icon.png"):
@@ -164,7 +168,7 @@ def main():
         path.write_bytes(get(url))
         time.sleep(DELAY)
     (DATA / "icons" / "manifest.json").write_text(json.dumps(manifest, indent=1, ensure_ascii=False), encoding="utf-8")
-    missing_b = sorted(bloon_ids - set(manifest.get("bloons", {})))
+    missing_b = sorted(bloon_ids - set(manifest.get("bloons", {})))[:20]
     print({k: len(v) for k, v in manifest.items()}, "bloons without icon:", missing_b)
     (DATA / "icons" / "unmatched.json").write_text(json.dumps(unmatched, indent=1), encoding="utf-8")
 

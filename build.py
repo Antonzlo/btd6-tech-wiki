@@ -7,6 +7,7 @@ and update data/VERSION.txt.
 """
 import html
 import base64
+import collections
 import functools
 import json
 import math
@@ -34,6 +35,7 @@ PAGES = [
     ("knowledge.html", "Monkey Knowledge", "Цены и эффекты"),
     ("powers.html", "Силы", "Параметры сил"),
     ("towers.html", "Башни", "Улучшения и кроссапгрейды"),
+    ("bloons.html", "Шары", "Свойства, HP и дети"),
     ("rounds.html", "Раунды", "Состав, RBE и деньги"),
 ]
 
@@ -835,7 +837,8 @@ def icon(kind, oid, size, cls="ic"):
 
 PAGE_ICONS = {"paragon.html": ("ui", "paragon"), "bosses.html": ("ui", "boss-Bloonarius"), "modes.html": ("ui", "mode-Clicks"),
               "income.html": ("ui", "coin"), "buffs.html": ("towers", "MonkeyVillage"), "knowledge.html": ("ui", "knowledge"),
-              "powers.html": ("ui", "powers"), "towers.html": ("towers", "DartMonkey"), "rounds.html": ("ui", "startround")}
+              "powers.html": ("ui", "powers"), "towers.html": ("towers", "DartMonkey"), "rounds.html": ("ui", "startround"),
+              "bloons.html": ("bloons", "Red")}
 
 
 def page_icon(file, size):
@@ -1015,38 +1018,98 @@ def build_towers():
 
 # ---------- rounds ----------
 
+# ---------- bloons (shared by the bloons and rounds pages) ----------
+
+BLOONS = {f.stem: load(f) for f in (DATA / "Bloons").rglob("*.json")}
+
+
+def children(b):
+    out = []
+    for beh in BLOONS[b].get("behaviors") or []:
+        if isinstance(beh, dict) and short_type(beh) == "SpawnChildrenModel":
+            out += beh.get("children") or []
+    return out
+
+
+@functools.cache
+def rbe(b):
+    """Total HP of every layer."""
+    return BLOONS[b].get("maxHealth", 1) + sum(rbe(c) for c in children(b))
+
+
+@functools.cache
+def pops(b):
+    """Layers popped, one $ each."""
+    return 1 + sum(pops(c) for c in children(b))
+
+
+def bloon_name(b):
+    m = BLOONS[b]
+    parts = [t(m.get("baseId"), fallback=m.get("baseId"))]
+    if m.get("isFortified"):
+        parts.append("укрепл.")
+    if m.get("isGrow"):
+        parts.append(t("Regrow").lower())
+    if m.get("isCamo"):
+        parts.append(t("Camo").lower())
+    return " ".join(parts)
+
+
+BLOON_GROUPS = [
+    ("regular", "Обычные шары", ["Red", "Blue", "Green", "Yellow", "Pink", "Black", "White", "Purple", "Lead", "Zebra",
+                                 "Rainbow", "Ceramic"]),
+    ("moab", "MOAB-класс", ["Moab", "Bfb", "Zomg", "Ddt", "Bad"]),
+    ("golden", "Золотые", ["Golden", "GoldenLead", "GoldenLeadPurple", "GoldenLeadPurpleZebra"]),
+    ("special", "Особые", ["AuraBloon", "DoshBloon", "GlassBloon", "DynamiteBloon", "RetributionBloon", "RingleaderBloon",
+                           "DiamondBloon"]),
+    ("undead", "Нежить", ["UndeadMoab", "UndeadBfb", "UndeadZomg"]),
+]
+# BloonProperties flags from the game code
+BLOON_PROPS = [(1, "Свинец"), (2, "Чёрный"), (4, "Белый"), (8, "Фиолетовый"), (16, "Заморожен"), (32, "Неуязвим"), (64, "Стекло")]
+
+
+def build_bloons():
+    body, toc = [], []
+    for gid, title, members in BLOON_GROUPS:
+        cards = []
+        for b in members:
+            if b not in BLOONS:
+                continue
+            m = BLOONS[b]
+            name = t(b, fallback=b)
+            props = " ".join(f"<span class='badge no'><span>свойство</span><b>{esc(p)}</b></span>"
+                             for bit, p in BLOON_PROPS if (m.get("bloonProperties") or 0) & bit)
+            kids = collections.Counter(children(b))
+            kid_badges = " ".join(
+                f"<a class='badge' href='#{esc(BLOONS[c].get('baseId', c))}'><span>дети</span>"
+                f"<b>{icon('bloons', c, 18)}{n}× {esc(bloon_name(c))}</b></a>" for c, n in kids.items() if c in BLOONS)
+            variants = sorted((f.stem for f in (DATA / "Bloons" / b).glob("*.json") if f.stem != b),
+                              key=lambda v: (rbe(v), v))
+            vrows = [(Raw(f"<span class='mod-name'>{icon('bloons', v, 22) or '<span class=mod-ic></span>'}{esc(bloon_name(v))}</span>"),
+                      BLOONS[v].get("maxHealth"), rbe(v), BLOONS[v].get("speed")) for v in variants]
+            beh = sorted({label(short_type(x)) for x in m.get("behaviors") or [] if isinstance(x, dict) and not skipped(x)})
+            pic = icon("bloons", b, 72, "ic kicon")
+            inner = ("<div class='hero-row'>" + pic + "<div>"
+                     + game_text(t(f"{b}Desc"))
+                     + stats([("HP слоя", m.get("maxHealth")), ("RBE", rbe(b)), ("$ за лопание", pops(b)),
+                              ("скорость", m.get("speed")), ("урон слоя при утечке", m.get("leakDamage"))])
+                     + (f"<div class='chips'>{props} {kid_badges}</div>" if props or kid_badges else "")
+                     + "</div></div>"
+                     + (f"<h3>Варианты ({len(vrows)})</h3>" + table(["Вариант", "HP слоя", "RBE", "Скорость"], vrows) if vrows else "")
+                     + (f"<h3>Поведения</h3><div class='chips'>{''.join(f'<span class=chip>{esc(x)}</span>' for x in beh)}</div>" if beh else ""))
+            cards.append(card(b, name, inner, en_id=b, section="Шары"))
+        if cards:
+            body.append(group(gid, title, cards))
+            toc.append((gid, title))
+    page("bloons.html", "Шары",
+         "Все шары из моделей игры: HP слоя, RBE (сумма HP всех слоёв), деньги за полное лопание, скорость, "
+         "свойства и из чего шар состоит. Свойство блокирует урон тех башен, у которых оно указано в "
+         "immuneBloonProperties снаряда: например, свинец у обычных дротиков.",
+         "".join(body), toc)
+
+
 def build_rounds():
-    bloons = {f.stem: load(f) for f in (DATA / "Bloons").rglob("*.json")}
-
-    def children(b):
-        out = []
-        for beh in bloons[b].get("behaviors") or []:
-            if isinstance(beh, dict) and short_type(beh) == "SpawnChildrenModel":
-                out += beh.get("children") or []
-        return out
-
-    rbe_cache, pops_cache = {}, {}
-
-    def rbe(b):
-        if b not in rbe_cache:
-            rbe_cache[b] = bloons[b].get("maxHealth", 1) + sum(rbe(c) for c in children(b))
-        return rbe_cache[b]
-
-    def pops(b):  # one $ per layer popped
-        if b not in pops_cache:
-            pops_cache[b] = 1 + sum(pops(c) for c in children(b))
-        return pops_cache[b]
-
-    def bloon_name(b):
-        m = bloons[b]
-        parts = [t(m.get("baseId"), fallback=m.get("baseId"))]
-        if m.get("isFortified"):
-            parts.append("укрепл.")
-        if m.get("isGrow"):
-            parts.append(t("Regrow").lower())
-        if m.get("isCamo"):
-            parts.append(t("Camo").lower())
-        return " ".join(parts)
+    bloons = BLOONS
 
     income = load(DATA / "IncomeSets" / "DefaultIncomeSet.json")
 
@@ -1119,7 +1182,7 @@ def main():
         for file, build in (("paragon.html", build_paragon), ("bosses.html", build_bosses), ("modes.html", build_modes),
                             ("income.html", build_income), ("buffs.html", build_buffs),
                             ("knowledge.html", build_knowledge), ("powers.html", build_powers),
-                            ("towers.html", build_towers), ("rounds.html", build_rounds),
+                            ("towers.html", build_towers), ("bloons.html", build_bloons), ("rounds.html", build_rounds),
                             ("index.html", build_index)):
             current_file = file
             build()
