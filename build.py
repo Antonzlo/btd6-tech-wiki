@@ -97,23 +97,24 @@ tiersIn=c.querySelector('.pcalc-tiers'),totemsIn=c.querySelector('.pcalc-totems'
 var degEl=c.querySelector('.pcalc-deg'),barEl=c.querySelector('.pcalc-bar'),powerEl=c.querySelector('.pcalc-power'),
 nextEl=c.querySelector('.pcalc-next'),pbPops=c.querySelector('.pb-pops'),pbCash=c.querySelector('.pb-cash'),
 pbT5=c.querySelector('.pb-t5'),pbTiers=c.querySelector('.pb-tiers'),pbTotems=c.querySelector('.pb-totems');
+var C=JSON.parse(c.dataset.cfg),top=C.MaxInvestment,ru=function(v){return v.toLocaleString('ru-RU')},k=function(v){return v/1000+'k'};
 function update(){var pInfo=paragons[towerSel.value]||{cost:300000};var m=curMult();
-var cost=Math.round((pInfo.cost||300000)*m);var costRatio=cost/20000;
+var cost=m===1?pInfo.cost:Math.round(pInfo.cost*m/5)*5;var costRatio=cost/C.moneySpentOverX;
 var pops=+popsIn.value||0,inc=+incIn.value||0;
-var p_pops=Math.min(Math.floor((pops+inc*4)/180),90000);
-var p_t5=Math.min((+t5In.value||0)*6000,50000);
-var p_tiers=Math.min((+tiersIn.value||0)*100,10000);
+var p_pops=Math.min(Math.floor((pops+inc*C.cashEarnedContributionModifier)/C.popsOverX),C.maxPowerFromPops);
+var p_t5=Math.min((+t5In.value||0)*C.tier5TowersMultByX,C.maxPowerFromTier5Count);
+var p_tiers=tiersIn?Math.min((+tiersIn.value||0)*C.nonTier5TowersMultByX,C.maxPowerFromNonTier5Count):0;
 var cashSpent=+cashIn.value||0,sliderCash=+sliderIn.value||0;
-var p_cash=Math.min(Math.floor(cashSpent/costRatio)+Math.floor(sliderCash/(costRatio*1.05)),60000);
+var p_cash=Math.min(Math.floor(cashSpent/costRatio)+Math.floor(sliderCash/(costRatio*(1+C.paidContributionPenalty))),C.maxPowerFromMoneySpent);
 var p_totems=(+totemsIn.value||0)*2000;
-var total=Math.min(p_pops+p_t5+p_tiers+p_cash+p_totems,200000);
+var total=Math.min(p_pops+p_t5+p_tiers+p_cash+p_totems,top);
 var deg=1;for(var i=0;i<reqs.length;i++){if(total>=reqs[i])deg=i+1;else break}
-degEl.textContent=deg;powerEl.textContent=total.toLocaleString('ru-RU')+' / 200 000 силы';
-barEl.style.width=(total/200000*100)+'%';
-if(deg<100){var rem=reqs[deg]-total;nextEl.textContent='Нужно '+rem.toLocaleString('ru-RU')+' силы до степени '+(deg+1)}
+degEl.textContent=deg;powerEl.textContent=ru(total)+' / '+ru(top)+' силы';
+barEl.style.width=(total/top*100)+'%';
+if(deg<reqs.length){var rem=reqs[deg]-total;nextEl.textContent='Нужно '+ru(rem)+' силы до степени '+(deg+1)}
 else{nextEl.textContent='Максимальная 100 степень!'}
-pbPops.textContent=p_pops.toLocaleString('ru-RU')+' / 90k';pbCash.textContent=p_cash.toLocaleString('ru-RU')+' / 60k';
-pbT5.textContent=p_t5.toLocaleString('ru-RU')+' / 50k';pbTiers.textContent=p_tiers.toLocaleString('ru-RU')+' / 10k';
+pbPops.textContent=ru(p_pops)+' / '+k(C.maxPowerFromPops);pbCash.textContent=ru(p_cash)+' / '+k(C.maxPowerFromMoneySpent);
+pbT5.textContent=ru(p_t5)+' / '+k(C.maxPowerFromTier5Count);if(pbTiers)pbTiers.textContent=ru(p_tiers)+' / '+k(C.maxPowerFromNonTier5Count);
 pbTotems.textContent='+'+p_totems.toLocaleString('ru-RU')}
 c._update=update;c.querySelectorAll('input,select').forEach(function(el){el.addEventListener('input',update);el.addEventListener('change',update)});
 update()}
@@ -447,7 +448,7 @@ def dual_line_chart(ys1, ys2, xticks, aria, ylabel1=fmt, ylabel2=fmt,
             f"{ticks}{yt1}{yt2}{hits}</svg></div>")
 
 
-def paragon_calc(req):
+def paragon_calc(req, d):
     paragons = []
     for p in sorted((DATA / "Towers").glob("*/*-Paragon.json")):
         tid = p.parent.name
@@ -456,28 +457,35 @@ def paragon_calc(req):
         paragons.append((tid, t(tid, fallback=tid), cost))
     pdata = {tid: {"name": name, "cost": cost} for tid, name, cost in paragons}
     options = "".join(f"<option value='{tid}'>{esc(name)} (${fmt(cost)})</option>" for tid, name, cost in paragons)
+    # formula constants straight from paragonDegreeData.json, so a game patch updates the calculator
+    cfg = {k: d.get(k, 0) for k in ("popsOverX", "cashEarnedContributionModifier", "maxPowerFromPops", "moneySpentOverX",
+                                    "paidContributionPenalty", "maxPowerFromMoneySpent", "tier5TowersMultByX",
+                                    "maxPowerFromTier5Count", "nonTier5TowersMultByX", "maxPowerFromNonTier5Count",
+                                    "MaxInvestment")}
+    k = lambda v: f"{v / 1000:g}k"
+    tiers = cfg["maxPowerFromNonTier5Count"] > 0
     return (
-        f"<div class='pcalc' data-reqs='{json.dumps(req)}' data-paragons='{json.dumps(pdata)}'>"
+        f"<div class='pcalc' data-reqs='{json.dumps(req)}' data-paragons='{json.dumps(pdata)}' data-cfg='{json.dumps(cfg)}'>"
         f"<div class='pcalc-fields'>"
         f"<div class='pcalc-field' style='grid-column:1/-1'><label>Башня с парагоном<select class='pcalc-tower'>{options}</select></label></div>"
-        f"<div class='pcalc-field'><label>Лопания (1 сила / 180)<input type='number' class='pcalc-pops' min='0' step='10000' value='0' placeholder='0'></label></div>"
-        f"<div class='pcalc-field'><label>Доход ($1 дохода = 4 лопания)<input type='number' class='pcalc-inc' min='0' step='10000' value='0' placeholder='0'></label></div>"
+        f"<div class='pcalc-field'><label>Лопания (1 сила / {fmt(cfg['popsOverX'])})<input type='number' class='pcalc-pops' min='0' step='10000' value='0' placeholder='0'></label></div>"
+        f"<div class='pcalc-field'><label>Доход ($1 дохода = {fmt(cfg['cashEarnedContributionModifier'])} лопания)<input type='number' class='pcalc-inc' min='0' step='10000' value='0' placeholder='0'></label></div>"
         f"<div class='pcalc-field'><label>Пожертвования в $<input type='number' class='pcalc-cash' min='0' step='5000' value='0' placeholder='0'></label></div>"
         f"<div class='pcalc-field'><label>Слайдер вложений ($)<input type='number' class='pcalc-slider' min='0' step='5000' value='0' placeholder='0'></label></div>"
         f"<div class='pcalc-field'><label>Доп. T5 башни (сверх 3-х)<input type='number' class='pcalc-t5' min='0' max='8' value='0'></label></div>"
-        f"<div class='pcalc-field'><label>Тиры non-T5 (макс. 100)<input type='number' class='pcalc-tiers' min='0' max='100' value='0'></label></div>"
+        + (f"<div class='pcalc-field'><label>Тиры non-T5<input type='number' class='pcalc-tiers' min='0' value='0'></label></div>" if tiers else "") +
         f"<div class='pcalc-field' style='grid-column:1/-1'><label>Тотемы Джеральдо (+2000 силы, без потолка)<input type='number' class='pcalc-totems' min='0' max='100' value='0'></label></div>"
         f"</div>"
         f"<div class='pcalc-result'>"
         f"<div class='pcalc-badge'><span class='pcalc-deg'>1</span><span class='pcalc-deg-lbl'>Степень</span></div>"
         f"<div class='pcalc-bar-wrap'><div class='pcalc-bar' style='width:0%'></div></div>"
-        f"<div class='pcalc-power'>0 / 200 000 силы</div>"
-        f"<div class='pcalc-next'>Нужно 2 000 силы до степени 2</div>"
+        f"<div class='pcalc-power'>0 / {fmt(cfg['MaxInvestment'])} силы</div>"
+        f"<div class='pcalc-next'>Нужно {fmt(req[1])} силы до степени 2</div>"
         f"<div class='pcalc-breakdown'>"
-        f"<div><span>Лопания:</span> <b class='pb-pops'>0 / 90k</b></div>"
-        f"<div><span>Деньги:</span> <b class='pb-cash'>0 / 60k</b></div>"
-        f"<div><span>Доп. T5:</span> <b class='pb-t5'>0 / 50k</b></div>"
-        f"<div><span>Тиры:</span> <b class='pb-tiers'>0 / 10k</b></div>"
+        f"<div><span>Лопания:</span> <b class='pb-pops'>0 / {k(cfg['maxPowerFromPops'])}</b></div>"
+        f"<div><span>Деньги:</span> <b class='pb-cash'>0 / {k(cfg['maxPowerFromMoneySpent'])}</b></div>"
+        f"<div><span>Доп. T5:</span> <b class='pb-t5'>0 / {k(cfg['maxPowerFromTier5Count'])}</b></div>"
+        + (f"<div><span>Тиры:</span> <b class='pb-tiers'>0 / {k(cfg['maxPowerFromNonTier5Count'])}</b></div>" if tiers else "") +
         f"<div style='grid-column:1/-1'><span>Тотемы Джеральдо:</span> <b class='pb-totems'>+0</b></div>"
         f"</div>"
         f"</div>"
@@ -539,7 +547,7 @@ def build_paragon():
     frows = [(f"<span class='id'>{esc(k)}</span>", esc(name), d[k]) for k, name in fields if k in d]
     body = (
         stats([("степеней", d.get("degreeCount")), ("сила для 100", top)])
-        + card("calc", "Калькулятор степени", paragon_calc(req), section="Парагон")
+        + card("calc", "Калькулятор степени", paragon_calc(req, d), section="Парагон")
         + card("pie", "Откуда берётся сила", donut, section="Парагон")
         + card("towers", "Башни с парагоном", "<div class='chips'>" + " ".join(
             f"<a class='badge' href='tower-{p.parent.name}.html#crosspath'><span>парагон</span><b>{icon('towers', p.parent.name, 18)}"
