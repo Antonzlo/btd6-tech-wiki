@@ -964,6 +964,19 @@ def label_mod(st):
     return re.sub(r"(?<=[a-z])(?=[A-Z])", " ", st.replace("DamageModifierFor", "").replace("Model", "")) or st
 
 
+def nested_towers(x, root=True):
+    """TowerModels inside a model (not descending into them; combat_stats recurses on its own)."""
+    if isinstance(x, dict):
+        if not root and short_type(x) == "TowerModel":
+            yield x
+            return
+        for v in x.values():
+            yield from nested_towers(v, False)
+    elif isinstance(x, list):
+        for v in x:
+            yield from nested_towers(v, False)
+
+
 def combat_stats(d, upgrade_costs):
     """Combat numbers of a tower (or sub-tower / hero) model as a flat list: attack -> projectile ->
     damage, pierce, attack rate, projectile count, range; each row also gets the damage per shot
@@ -1014,6 +1027,19 @@ def combat_stats(d, upgrade_costs):
                               "cooldown": num(b.get("cooldown"))})
         elif not any(s in st for s in ("Sound", "Effect", "Display")):
             other.append(label(st))
+    # sub-towers (sentries, drones, pets, totems) sit inside the model as whole TowerModels: their attacks
+    # join this tower's, prefixed with the sub-tower name
+    seen = set()
+    for sub in nested_towers(d):
+        sid = sub.get("baseId") or sub.get("name") or ""
+        if sid in seen:
+            continue
+        seen.add(sid)
+        s = combat_stats(sub, {})
+        for a in s["attacks"]:
+            a["name"] = f"{t(sid, fallback=sid)}: {a['name']}"
+        attacks.extend(s["attacks"])
+        projectiles.extend(s["projectiles"])
     parts = [d.get("cost", 0)] + [upgrade_costs.get(u, 0) for u in d.get("appliedUpgrades") or []]
     return {"cost": sum(parts), "parts": parts, "range": num(d.get("range")), "attacks": attacks,
             "projectiles": projectiles, "abilities": abilities, "other": sorted(set(other))}
