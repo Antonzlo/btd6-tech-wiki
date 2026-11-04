@@ -844,9 +844,8 @@ def hero_level_rows(folder, base, ucost):
         if lvl > 1 and not f.exists():
             continue
         s = tier_stats(combat_stats(base if lvl == 1 else load(f), ucost))
-        cur = (s["range"], s["rate"], s["damage"], s["pierce"], s["dps"])
-        rows.append((lvl, s, prev is not None and cur != prev))
-        prev = cur
+        rows.append((lvl, s, prev))
+        prev = s
     return rows
 
 
@@ -1110,33 +1109,28 @@ def tier_stats(d):
 
 
 def levels_table(rows, first_col="Тир", only_changed=False):
-    """Attack numbers per row: (label, stats, changed vs previous). With only_changed, only changed rows show."""
+    """Attack numbers per row: (label, stats, previous stats or None). Cells that differ from the previous
+    row's are highlighted; with only_changed, rows where nothing changed are left out."""
     head = f"<tr><th>{first_col}</th><th>Дальность</th><th>Перезарядка, с</th><th>Урон за выстрел</th><th>Пробив.</th><th>Примерный DPS</th><th>Не лопает</th></tr>"
+    keys = ("range", "rate", "damage", "pierce", "dps", "immune")
     body = ""
-    for i, (label, s, changed) in enumerate(rows):
-        if only_changed and i > 0 and not changed:
+    for label, s, prev in rows:
+        diff = {k for k in keys if prev is not None and s[k] != prev[k]}
+        if only_changed and prev is not None and not diff:
             continue
         immune = ", ".join(s["immune"]) if s["immune"] else "\u2013"
-        body += (("<tr class='tier-chg'>" if changed else "<tr>")
-                 + f"<td>{esc(label)}</td><td class='n'>{fmt(s['range'])}</td><td class='n'>{fmt(s['rate'])}</td>"
-                 f"<td class='n'>{fmt(s['damage'])}</td><td class='n'>{fmt(s['pierce'])}</td><td class='n'>{fmt(s['dps'])}</td>"
-                 f"<td>{esc(immune)}</td></tr>")
+        cells = "".join(f"<td class='n{' chg' if k in diff else ''}'>{fmt(s[k])}</td>" for k in keys[:-1])
+        body += (f"<tr><td>{esc(label)}</td>{cells}"
+                 f"<td{' class=chg' if 'immune' in diff else ''}>{esc(immune)}</td></tr>")
     return f"<div class='wrap'><table><thead>{head}</thead><tbody>{body}</tbody></table></div>"
 
 
 def tier_table(variants):
-    """Static per-tier numbers: base tower, then every tier of each upgrade path, then the paragon."""
-    rows, prev = [], None
-    for key in TIER_ROW_KEYS:
-        d = variants.get(key)
-        if not d:
-            continue
-        s = tier_stats(d)
-        cur = (num(s["range"]), num(s["damage"]), num(s["pierce"]), num(s["dps"]))
-        changed = prev is not None and cur != prev
-        prev = cur
-        rows.append((key, s, changed))
-    return levels_table(rows, first_col="Тир")
+    """Static per-tier numbers: base tower, then every tier of each upgrade path, then the paragon.
+    Each tier is compared with the tier below it on the same path (100 with 000, 200 with 100)."""
+    stats_of = {k: tier_stats(variants[k]) for k in TIER_ROW_KEYS if variants.get(k)}
+    below = lambda k: None if k in ("000", "Paragon") else re.sub(r"[1-5]", lambda m: str(int(m.group()) - 1), k)
+    return levels_table([(k, s, stats_of.get(below(k))) for k, s in stats_of.items()], first_col="Тир")
 
 
 def diff_selector():

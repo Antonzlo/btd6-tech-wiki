@@ -1,0 +1,471 @@
+- generic [active] [ref=f3e1]:
+  - banner [ref=f3e2]:
+    - link "BTD6 Tech Wiki57.4" [ref=f3e3] [cursor=pointer]:
+      - /url: index.html
+    - searchbox "Поиск по вики" [ref=f3e5]
+    - link "Язык" [ref=f3e6] [cursor=pointer]:
+      - /url: ../tower-DartMonkey.html
+      - text: EN
+  - generic [ref=f3e7]:
+    - complementary [ref=f3e8]:
+      - heading "Разделы" [level=4] [ref=f3e9]
+      - navigation [ref=f3e10]:
+        - link "Главная" [ref=f3e11] [cursor=pointer]:
+          - /url: index.html
+        - link "Башни" [ref=f3e12] [cursor=pointer]:
+          - /url: towers.html
+        - link "Герои" [ref=f3e13] [cursor=pointer]:
+          - /url: heroes.html
+        - link "Парагон" [ref=f3e14] [cursor=pointer]:
+          - /url: paragon.html
+        - link "Баффы" [ref=f3e15] [cursor=pointer]:
+          - /url: buffs.html
+        - link "Шары" [ref=f3e16] [cursor=pointer]:
+          - /url: bloons.html
+        - link "Раунды" [ref=f3e17] [cursor=pointer]:
+          - /url: rounds.html
+        - link "Боссы" [ref=f3e18] [cursor=pointer]:
+          - /url: bosses.html
+        - link "Режимы" [ref=f3e19] [cursor=pointer]:
+          - /url: modes.html
+        - link "Доход" [ref=f3e20] [cursor=pointer]:
+          - /url: income.html
+        - link "Обезьяньи знания" [ref=f3e21] [cursor=pointer]:
+          - /url: knowledge.html
+        - link "Силы" [ref=f3e22] [cursor=pointer]:
+          - /url: powers.html
+      - generic [ref=f3e23]:
+        - heading "На странице" [level=4] [ref=f3e24]
+        - link "Описание" [ref=f3e25] [cursor=pointer]:
+          - /url: "#about"
+        - link "Улучшения" [ref=f3e26] [cursor=pointer]:
+          - /url: "#upgrades"
+        - link "Способности" [ref=f3e27] [cursor=pointer]:
+          - /url: "#abilities"
+        - link "Кроссапгрейд" [ref=f3e28] [cursor=pointer]:
+          - /url: "#crosspath"
+        - link "Числа по тирам" [ref=f3e29] [cursor=pointer]:
+          - /url: "#tiers"
+    - main [ref=f3e30]:
+      - heading "Обезьяна с дротиками" [level=1] [ref=f3e31]
+      - paragraph [ref=f3e32]: Обычные. Все числа из моделей башни.
+      - paragraph [ref=f3e33]: "Данные: 57.4 (Mod Helper export, 2026-11-04)"
+      - group "Сложность" [ref=f3e34]:
+        - button "Легкий" [ref=f3e36] [cursor=pointer]
+        - button "Средний" [ref=f3e37] [cursor=pointer]
+        - button "Сложный" [ref=f3e38] [cursor=pointer]
+        - button "Как бы не лопнуть" [ref=f3e39] [cursor=pointer]
+      - paragraph [ref=f3e40]: Цены пересчитаны по множителю цены режима и округлены до 5 $, каждая покупка отдельно.
+      - generic [ref=f3e41]:
+        - generic [ref=f3e42]:
+          - heading "Обезьяна с дротиками" [level=2] [ref=f3e43]
+          - generic [ref=f3e44]: DartMonkey
+        - generic [ref=f3e46]:
+          - generic [ref=f3e47]: "В игре: Стреляет одним дротиком по шарам поблизости. Имеет малый радиус действия и низкую пробивающую способность, но стоит дёшево."
+          - generic [ref=f3e48]:
+            - generic [ref=f3e49]:
+              - generic [ref=f3e50]: $200
+              - text: цена
+            - generic [ref=f3e52]:
+              - generic [ref=f3e53]: "32"
+              - text: дальность
+            - generic [ref=f3e54]:
+              - generic [ref=f3e55]: "6"
+              - text: радиус места
+            - generic [ref=f3e56]:
+              - generic [ref=f3e57]: Обычные
+              - text: категория
+      - generic [ref=f3e58]:
+        - heading "Улучшения" [level=2] [ref=f3e60]
+        - generic [ref=f3e61]:
+          - generic [ref=f3e62]:
+            - heading "Путь 1" [level=3] [ref=f3e63]
+            - list [ref=f3e64]:
+              - listitem [ref=f3e65]:
+                - generic [ref=f3e66]:
+                  - generic [ref=f3e67]:
+                    - generic [ref=f3e68]: 1. Острые выстрелы
+                    - generic [ref=f3e69]:
+                      - generic [ref=f3e70]: $140
+                      - generic [ref=f3e71]: всего $140
+                  - paragraph [ref=f3e72]: Пробивает на 1 шар больше за выстрел.
+              - listitem [ref=f3e73]:
+                - generic [ref=f3e74]:
+                  - generic [ref=f3e75]:
+                    - generic [ref=f3e76]: 2. Дротики-бритвы
+                    - generic [ref=f3e77]:
+                      - generic [ref=f3e78]: $200
+                      - generic [ref=f3e79]: всего $340
+                  - paragraph [ref=f3e80]: Пробивает на 2 шара больше за выстрел.
+              - listitem [ref=f3e81]:
+                - generic [ref=f3e82]:
+                  - generic [ref=f3e83]:
+                    - generic [ref=f3e84]: 3. Шипопульта
+                    - generic [ref=f3e85]:
+                      - generic [ref=f3e86]: $320
+                      - generic [ref=f3e87]: всего $660
+                  - paragraph [ref=f3e88]: Превращает обезьяну с дротиками в шипопульту, медленно стреляющую большими колючими ядрами. Каждое ядро способно взорвать много шаров и отскакивает от препятствий.
+              - listitem [ref=f3e89]:
+                - generic [ref=f3e90]:
+                  - generic [ref=f3e91]:
+                    - generic [ref=f3e92]: 4. Джаггернаут
+                    - generic [ref=f3e93]:
+                      - generic [ref=f3e94]: $1 800
+                      - generic [ref=f3e95]: всего $2 460
+                  - paragraph [ref=f3e96]: Бросает гигантский шипастый шар, пробивающий свинцовые и особенно хорошо — керамические и укрепленные шары.
+              - listitem [ref=f3e97]:
+                - generic [ref=f3e98]:
+                  - generic [ref=f3e99]:
+                    - generic [ref=f3e100]: 5. Ультраджаггернаут
+                    - generic [ref=f3e101]:
+                      - generic [ref=f3e102]: $15 000
+                      - generic [ref=f3e103]: всего $17 460
+                  - paragraph [ref=f3e104]: Гигантское колючее ядро дважды разлетается на 6 джаггернаутовских ядер и наносит ещё больше урона керамическим, укреплённым и свинцовым шарам.
+          - generic [ref=f3e105]:
+            - heading "Путь 2" [level=3] [ref=f3e106]
+            - list [ref=f3e107]:
+              - listitem [ref=f3e108]:
+                - generic [ref=f3e109]:
+                  - generic [ref=f3e110]:
+                    - generic [ref=f3e111]: 1. Быстрые выстрелы
+                    - generic [ref=f3e112]:
+                      - generic [ref=f3e113]: $100
+                      - generic [ref=f3e114]: всего $100
+                  - paragraph [ref=f3e115]: Стреляют на 15% быстрее.
+              - listitem [ref=f3e116]:
+                - generic [ref=f3e117]:
+                  - generic [ref=f3e118]:
+                    - generic [ref=f3e119]: 2. Очень быстрые выстрелы
+                    - generic [ref=f3e120]:
+                      - generic [ref=f3e121]: $190
+                      - generic [ref=f3e122]: всего $290
+                  - paragraph [ref=f3e123]: Стреляет на 33% быстрее.
+              - listitem [ref=f3e124]:
+                - generic [ref=f3e125]:
+                  - generic [ref=f3e126]:
+                    - generic [ref=f3e127]: 3. Тройной выстрел
+                    - generic [ref=f3e128]:
+                      - generic [ref=f3e129]: $450
+                      - generic [ref=f3e130]: всего $740
+                  - paragraph [ref=f3e131]: Вместо одного дротика бросает три.
+              - listitem [ref=f3e132]:
+                - generic [ref=f3e133]:
+                  - generic [ref=f3e134]:
+                    - generic [ref=f3e135]: 4. Фан-клуб супер-обезьяны
+                    - generic [ref=f3e136]:
+                      - generic [ref=f3e137]: $7 200
+                      - generic [ref=f3e138]: всего $7 940
+                  - paragraph [ref=f3e139]: "Способность от фан-клуба Суперобезьяны: превращает в суперобезьян 10 ближайших обезьян с дротиками, включая себя, на 15 секунд и ускоряет обычные атаки."
+              - listitem [ref=f3e140]:
+                - generic [ref=f3e141]:
+                  - generic [ref=f3e142]:
+                    - generic [ref=f3e143]: 5. Фан-клуб плазма-обезьяны
+                    - generic [ref=f3e144]:
+                      - generic [ref=f3e145]: $45 000
+                      - generic [ref=f3e146]: всего $52 940
+                  - paragraph [ref=f3e147]: Членство в этом элитном клубе придаёт обезьянам с дротиками больше силы.
+          - generic [ref=f3e148]:
+            - heading "Путь 3" [level=3] [ref=f3e149]
+            - list [ref=f3e150]:
+              - listitem [ref=f3e151]:
+                - generic [ref=f3e152]:
+                  - generic [ref=f3e153]:
+                    - generic [ref=f3e154]: 1. Дальнобойные дротики
+                    - generic [ref=f3e155]:
+                      - generic [ref=f3e156]: $90
+                      - generic [ref=f3e157]: всего $90
+                  - paragraph [ref=f3e158]: Позволяет обезьяне метать дротики дальше обычного.
+              - listitem [ref=f3e159]:
+                - generic [ref=f3e160]:
+                  - generic [ref=f3e161]:
+                    - generic [ref=f3e162]: 2. Зоркий глаз
+                    - generic [ref=f3e163]:
+                      - generic [ref=f3e164]: $200
+                      - generic [ref=f3e165]: всего $290
+                  - paragraph [ref=f3e166]: Стреляет дальше и может демаскировать камуфляж.
+              - listitem [ref=f3e167]:
+                - generic [ref=f3e168]:
+                  - generic [ref=f3e169]:
+                    - generic [ref=f3e170]: 3. Арбалет
+                    - generic [ref=f3e171]:
+                      - generic [ref=f3e172]: $575
+                      - generic [ref=f3e173]: всего $865
+                  - paragraph [ref=f3e174]: Использует дальнобойный арбалет, способный пробивать 3 слоя шаров за выстрел.
+              - listitem [ref=f3e175]:
+                - generic [ref=f3e176]:
+                  - generic [ref=f3e177]:
+                    - generic [ref=f3e178]: 4. Меткий стрелок
+                    - generic [ref=f3e179]:
+                      - generic [ref=f3e180]: $2 050
+                      - generic [ref=f3e181]: всего $2 915
+                  - paragraph [ref=f3e182]: Меткий стрелок атакует быстрее и каждые несколько секунд делает мощные критические выстрелы, наносящие намного больше урона.
+              - listitem [ref=f3e183]:
+                - generic [ref=f3e184]:
+                  - generic [ref=f3e185]:
+                    - generic [ref=f3e186]: 5. Мастер арбалета
+                    - generic [ref=f3e187]:
+                      - generic [ref=f3e188]: $21 500
+                      - generic [ref=f3e189]: всего $24 415
+                  - paragraph [ref=f3e190]: Мастер арбалета быстро стреляет и легко уничтожает шары большинства видов.
+        - generic [ref=f3e191]:
+          - heading "Парагон" [level=3] [ref=f3e192]
+          - list [ref=f3e193]:
+            - listitem [ref=f3e194]:
+              - generic [ref=f3e195]:
+                - generic [ref=f3e196]:
+                  - generic [ref=f3e197]: Владыка плазмы
+                  - generic [ref=f3e198]: $150 000
+                - paragraph [ref=f3e200]: Заполните местность плазменными сферами-джаггернаутами, разрывающими шары и не оставляющими после себя ничего...
+      - generic [ref=f3e201]:
+        - heading "Способности" [level=2] [ref=f3e203]
+        - table [ref=f3e205]:
+          - rowgroup [ref=f3e206]:
+            - row [ref=f3e207]:
+              - columnheader "Способность" [ref=f3e208]
+              - columnheader "Откуда" [ref=f3e209]
+              - columnheader "Перезарядка" [ref=f3e210]
+              - columnheader "Эффект" [ref=f3e211]
+              - columnheader "Описание" [ref=f3e212]
+          - rowgroup [ref=f3e213]:
+            - row [ref=f3e214]:
+              - cell "Фан-клуб супер-обезьяны" [ref=f3e215]
+              - 'cell "путь 2, 4: Фан-клуб супер-обезьяны" [ref=f3e218]'
+              - cell "50 с" [ref=f3e219]
+              - cell "–" [ref=f3e220]
+              - cell "Превращает 10 ближайших обезьян с дротиками в суперобезьян на 10 секунд." [ref=f3e221]
+            - row [ref=f3e222]:
+              - cell "Фан-клуб плазма-обезьяны" [ref=f3e223]
+              - 'cell "путь 2, 5: Фан-клуб плазма-обезьяны" [ref=f3e226]'
+              - cell "50 с" [ref=f3e227]
+              - cell "–" [ref=f3e228]
+              - cell "Членство в этом элитном клубе придаёт обезьянам с дротиками больше силы." [ref=f3e229]
+      - generic [ref=f3e230]:
+        - heading "Кроссапгрейд" [level=2] [ref=f3e232]
+        - paragraph [ref=f3e233]: Выберите тиры путей, как в игре. Показаны цена со всеми улучшениями, атаки, перезарядка, урон и пробивание каждого снаряда, включая вложенные (взрывы, осколки).
+        - generic [ref=f3e234]:
+          - generic [ref=f3e235]:
+            - generic [ref=f3e236]: Путь 1
+            - button "0" [ref=f3e237] [cursor=pointer]
+            - button "1" [ref=f3e238] [cursor=pointer]
+            - button "2" [ref=f3e239] [cursor=pointer]
+            - button "3" [ref=f3e240] [cursor=pointer]
+            - button "4" [ref=f3e241] [cursor=pointer]
+            - button "5" [ref=f3e242] [cursor=pointer]
+          - generic [ref=f3e243]:
+            - generic [ref=f3e244]: Путь 2
+            - button "0" [ref=f3e245] [cursor=pointer]
+            - button "1" [ref=f3e246] [cursor=pointer]
+            - button "2" [ref=f3e247] [cursor=pointer]
+            - button "3" [ref=f3e248] [cursor=pointer]
+            - button "4" [ref=f3e249] [cursor=pointer]
+            - button "5" [ref=f3e250] [cursor=pointer]
+          - generic [ref=f3e251]:
+            - generic [ref=f3e252]: Путь 3
+            - button "0" [ref=f3e253] [cursor=pointer]
+            - button "1" [ref=f3e254] [cursor=pointer]
+            - button "2" [ref=f3e255] [cursor=pointer]
+            - button "3" [ref=f3e256] [cursor=pointer]
+            - button "4" [ref=f3e257] [cursor=pointer]
+            - button "5" [ref=f3e258] [cursor=pointer]
+          - generic [ref=f3e259]:
+            - generic [ref=f3e260]: Особые
+            - button "Paragon" [ref=f3e261] [cursor=pointer]
+          - generic [ref=f3e262]:
+            - generic [ref=f3e263]:
+              - generic [ref=f3e264]:
+                - generic [ref=f3e265]: $200
+                - text: цена 000
+              - generic [ref=f3e266]:
+                - generic [ref=f3e267]: "32"
+                - text: дальность
+            - heading "Атака дальность 32" [level=3] [ref=f3e268]
+            - table [ref=f3e270]:
+              - rowgroup [ref=f3e271]:
+                - row [ref=f3e272]:
+                  - columnheader "Оружие" [ref=f3e273]
+                  - columnheader "Перезарядка, с" [ref=f3e274]
+                  - columnheader "Атак/с" [ref=f3e275]
+                  - columnheader "Снаряд" [ref=f3e276]
+                  - columnheader "Кол-во" [ref=f3e277]
+                  - columnheader "Урон" [ref=f3e278]
+                  - columnheader "Урон за выстрел" [ref=f3e279]
+                  - columnheader "Пробив." [ref=f3e280]
+                  - columnheader "Примерный DPS" [ref=f3e281]
+                  - columnheader "Модификаторы и эффекты" [ref=f3e282]
+                  - columnheader "Не лопает" [ref=f3e283]
+              - rowgroup [ref=f3e284]:
+                - row [ref=f3e285]:
+                  - cell "1 Single Emission" [ref=f3e286]
+                  - cell "0,95" [ref=f3e287]
+                  - cell "1,053" [ref=f3e288]
+                  - cell "Снаряд" [ref=f3e289]
+                  - cell "1" [ref=f3e290]
+                  - cell "1" [ref=f3e291]
+                  - cell "1" [ref=f3e292]
+                  - cell "2" [ref=f3e293]
+                  - cell "1,053" [ref=f3e294]
+                  - cell [ref=f3e295]
+                  - cell "Свинец Заморожен" [ref=f3e296]
+            - paragraph [ref=f3e297]: "Примерный DPS: урон за выстрел / перезарядка. Без учёта баффов, пробивания и множителей режима."
+            - heading "Прочие поведения" [level=3] [ref=f3e298]
+            - generic [ref=f3e299]: Play Animation Index
+      - generic [ref=f3e301]:
+        - heading "Числа по тирам" [level=2] [ref=f3e303]
+        - table [ref=f3e305]:
+          - rowgroup [ref=f3e306]:
+            - row [ref=f3e307]:
+              - columnheader "Тир" [ref=f3e308]
+              - columnheader "Дальность" [ref=f3e309]
+              - columnheader "Перезарядка, с" [ref=f3e310]
+              - columnheader "Урон за выстрел" [ref=f3e311]
+              - columnheader "Пробив." [ref=f3e312]
+              - columnheader "Примерный DPS" [ref=f3e313]
+              - columnheader "Не лопает" [ref=f3e314]
+          - rowgroup [ref=f3e315]:
+            - row [ref=f3e316]:
+              - cell "000" [ref=f3e317]
+              - cell "32" [ref=f3e318]
+              - cell "0.95" [ref=f3e319]
+              - cell "1" [ref=f3e320]
+              - cell "2" [ref=f3e321]
+              - cell "1.0526" [ref=f3e322]
+              - cell "Свинец, Заморожен" [ref=f3e323]
+            - row [ref=f3e324]:
+              - cell "100" [ref=f3e325]
+              - cell "32" [ref=f3e326]
+              - cell "0.95" [ref=f3e327]
+              - cell "1" [ref=f3e328]
+              - cell "3" [ref=f3e329]
+              - cell "1.0526" [ref=f3e330]
+              - cell "Свинец, Заморожен" [ref=f3e331]
+            - row [ref=f3e332]:
+              - cell "200" [ref=f3e333]
+              - cell "32" [ref=f3e334]
+              - cell "0.95" [ref=f3e335]
+              - cell "1" [ref=f3e336]
+              - cell "5" [ref=f3e337]
+              - cell "1.0526" [ref=f3e338]
+              - cell "Свинец, Заморожен" [ref=f3e339]
+            - row [ref=f3e340]:
+              - cell "300" [ref=f3e341]
+              - cell "36.8" [ref=f3e342]
+              - cell "1.15" [ref=f3e343]
+              - cell "2" [ref=f3e344]
+              - cell "18" [ref=f3e345]
+              - cell "1.7391" [ref=f3e346]
+              - cell "Свинец" [ref=f3e347]
+            - row [ref=f3e348]:
+              - cell "400" [ref=f3e349]
+              - cell "36.8" [ref=f3e350]
+              - cell "1" [ref=f3e351]
+              - cell "2" [ref=f3e352]
+              - cell "60" [ref=f3e353]
+              - cell "2" [ref=f3e354]
+              - cell "–" [ref=f3e355]
+            - row [ref=f3e356]:
+              - cell "500" [ref=f3e357]
+              - cell "36.8" [ref=f3e358]
+              - cell "1" [ref=f3e359]
+              - cell "12" [ref=f3e360]
+              - cell "50" [ref=f3e361]
+              - cell "12" [ref=f3e362]
+              - cell "–" [ref=f3e363]
+            - row [ref=f3e364]:
+              - cell "010" [ref=f3e365]
+              - cell "32" [ref=f3e366]
+              - cell "0.8075" [ref=f3e367]
+              - cell "1" [ref=f3e368]
+              - cell "2" [ref=f3e369]
+              - cell "1.2384" [ref=f3e370]
+              - cell "Свинец, Заморожен" [ref=f3e371]
+            - row [ref=f3e372]:
+              - cell "020" [ref=f3e373]
+              - cell "32" [ref=f3e374]
+              - cell "0.6365" [ref=f3e375]
+              - cell "1" [ref=f3e376]
+              - cell "2" [ref=f3e377]
+              - cell "1.5711" [ref=f3e378]
+              - cell "Свинец, Заморожен" [ref=f3e379]
+            - row [ref=f3e380]:
+              - cell "030" [ref=f3e381]
+              - cell "32" [ref=f3e382]
+              - cell "0.4774" [ref=f3e383]
+              - cell "3" [ref=f3e384]
+              - cell "2" [ref=f3e385]
+              - cell "6.284" [ref=f3e386]
+              - cell "Свинец, Заморожен" [ref=f3e387]
+            - row [ref=f3e388]:
+              - cell "040" [ref=f3e389]
+              - cell "32" [ref=f3e390]
+              - cell "0.2387" [ref=f3e391]
+              - cell "3" [ref=f3e392]
+              - cell "2" [ref=f3e393]
+              - cell "12.5681" [ref=f3e394]
+              - cell "Свинец, Заморожен" [ref=f3e395]
+            - row [ref=f3e396]:
+              - cell "050" [ref=f3e397]
+              - cell "32" [ref=f3e398]
+              - cell "0.2387" [ref=f3e399]
+              - cell "3" [ref=f3e400]
+              - cell "2" [ref=f3e401]
+              - cell "12.5681" [ref=f3e402]
+              - cell "Свинец, Заморожен" [ref=f3e403]
+            - row [ref=f3e404]:
+              - cell "001" [ref=f3e405]
+              - cell "40" [ref=f3e406]
+              - cell "0.95" [ref=f3e407]
+              - cell "1" [ref=f3e408]
+              - cell "2" [ref=f3e409]
+              - cell "1.0526" [ref=f3e410]
+              - cell "Свинец, Заморожен" [ref=f3e411]
+            - row [ref=f3e412]:
+              - cell "002" [ref=f3e413]
+              - cell "48" [ref=f3e414]
+              - cell "0.95" [ref=f3e415]
+              - cell "1" [ref=f3e416]
+              - cell "2" [ref=f3e417]
+              - cell "1.0526" [ref=f3e418]
+              - cell "Свинец, Заморожен" [ref=f3e419]
+            - row [ref=f3e420]:
+              - cell "003" [ref=f3e421]
+              - cell "60" [ref=f3e422]
+              - cell "0.95" [ref=f3e423]
+              - cell "3" [ref=f3e424]
+              - cell "5" [ref=f3e425]
+              - cell "3.1579" [ref=f3e426]
+              - cell "Свинец, Заморожен" [ref=f3e427]
+            - row [ref=f3e428]:
+              - cell "004" [ref=f3e429]
+              - cell "60" [ref=f3e430]
+              - cell "0.475" [ref=f3e431]
+              - cell "6" [ref=f3e432]
+              - cell "5" [ref=f3e433]
+              - cell "12.6316" [ref=f3e434]
+              - cell "Свинец, Заморожен" [ref=f3e435]
+            - row [ref=f3e436]:
+              - cell "005" [ref=f3e437]
+              - cell "80" [ref=f3e438]
+              - cell "0.475" [ref=f3e439]
+              - cell "16" [ref=f3e440]
+              - cell "8" [ref=f3e441]
+              - cell "33.6842" [ref=f3e442]
+              - cell "–" [ref=f3e443]
+            - row [ref=f3e444]:
+              - cell "Paragon" [ref=f3e445]
+              - cell "85" [ref=f3e446]
+              - cell "0.5" [ref=f3e447]
+              - cell "150" [ref=f3e448]
+              - cell "200" [ref=f3e449]
+              - cell "300" [ref=f3e450]
+              - cell "–" [ref=f3e451]
+      - generic [ref=f3e452]:
+        - text: Неофициальная фанатская вики, без монетизации. Данные, названия, тексты и изображения принадлежат
+        - link "Ninja Kiwi" [ref=f3e453] [cursor=pointer]:
+          - /url: https://ninjakiwi.com
+        - text: . Данные выгружены через
+        - link "BTD6 Mod Helper" [ref=f3e454] [cursor=pointer]:
+          - /url: https://github.com/gurrenm3/BTD-Mod-Helper
+        - text: ", иконки из спрайтов игры."
+        - link "Исходный код" [ref=f3e455] [cursor=pointer]:
+          - /url: https://github.com/Antonzlo/btd6-tech-wiki
+        - text: .
