@@ -1693,6 +1693,61 @@ def price(parts, cls="cost"):
     return Raw(f"<span class='{cls}' data-parts='{','.join(str(p) for p in parts)}'>${fmt(sum(parts))}</span>")
 
 
+@functools.cache
+def knowledge_mods():
+    """{knowledge id: its mutator mods}, for every knowledge in the dump."""
+    return {f.stem: (load(f).get("mod") or {}).get("mutatorMods") or [] for f in (DATA / "Knowledge").rglob("*.json")}
+
+
+def tower_knowledge(tid, folder, paths):
+    """Knowledge that changes a tower, all from the dump: {id: [tier codes where it starts]}, "000" = from placement.
+    Sources: a tower model names the knowledge in a "mod" field; a knowledge names the tower (tower, baseTowerID,
+    towerBaseId, comma lists) or one of its upgrades (upgradeName)."""
+    known = knowledge_mods()
+    seen = collections.defaultdict(set)
+    for f in folder.glob(f"{tid}*.json"):
+        code = "000" if f.stem == tid else f.stem.split("-", 1)[1]
+        for k in re.findall(r'"mod":\s*"([^"]+)"', f.read_text(encoding="utf-8")):
+            if k in known:
+                seen[k].add(code)
+    up_code = {u: "".join(str(n) if j == i else "0" for j in range(3)) for i, path in enumerate(paths) for n, u in enumerate(path, 1)}
+    for k, mods in known.items():
+        for m in mods:
+            if tid in ",".join(str(m.get(f, "")) for f in ("tower", "baseTowerID", "towerBaseId")).split(","):
+                seen[k].add("000")
+            if m.get("upgradeName") in up_code:
+                seen[k].add(up_code[m["upgradeName"]])
+    out = {}
+    for k, codes in seen.items():
+        tiers = [c for c in codes if c.isdigit()]
+        first = [c for c in tiers if not any(d != c and all(x <= y for x, y in zip(d, c)) for d in tiers)]
+        out[k] = sorted(first) or sorted(codes)
+    return out
+
+
+@functools.cache
+def common_knowledge():
+    """Knowledge found on every tower (sell price, XP, ability cooldowns): listed once instead of in each table."""
+    sets = [set(tower_knowledge(f.name, f, [])) for f in (DATA / "Towers").iterdir() if f.is_dir()]
+    return set.intersection(*sets) if sets else set()
+
+
+def knowledge_card(found):
+    """Table linking to knowledge.html, ordered by the tier each knowledge starts working from."""
+    common = common_knowledge()
+    rows = []
+    for k, codes in sorted(((k, c) for k, c in found.items() if k not in common), key=lambda kv: (kv[1][0] != "000", kv[1], t(kv[0], fallback=kv[0]))):
+        when = "сразу" if codes == ["000"] else ", ".join("-".join(c) if c.isdigit() else c for c in codes[:4]) + (" …" if len(codes) > 4 else "")
+        rows.append((Raw(f"<a class='mod-name' href='knowledge.html#{esc(k)}'>{kicon(k, 32)}{esc(t(k, fallback=k))}</a>"),
+                     Raw(game_text(t(f"{k}Description", f"{k} Description"))), when))
+    shared = " ".join(f"<a class='badge' href='knowledge.html#{esc(k)}'><b>{kicon(k, 18)}{esc(t(k, fallback=k))}</b></a>"
+                      for k in sorted(common, key=lambda k: t(k, fallback=k)))
+    return (knowledge_symbols(set(found)) + (table(["Знание", "Что даёт", "Действует с"], rows) if rows else "")
+            + (f"<p class='note'>И общие для всех башен:</p><div class='chips'>{shared}</div>" if shared else "")
+            + "<p class='note'>Из данных игры: знание записано в модели башни, или башня либо её улучшение указаны в самом знании. "
+              "«Действует с» это первые тиры, в модели которых оно есть.</p>")
+
+
 def build_towers():
     global current_file
     upgrades = {load(f).get("name"): load(f) for f in json_files("Upgrades")}
@@ -1746,6 +1801,7 @@ def build_towers():
         where = {u: f"путь {i + 1}, {n}: {t(u, fallback=u)}" for i, path in enumerate(paths) for n, u in enumerate(path, 1)}
         if para:
             where[u] = f"{t('Paragon', fallback='Парагон')}: {t(u, fallback=u)}"
+        kn = tower_knowledge(tid, folder, paths)
         body = (
             selector
             + card("about", name,
@@ -1767,10 +1823,11 @@ def build_towers():
                    f"<script type='application/json' class='xp-data'>{json.dumps(variants, ensure_ascii=False).replace('</', '<\\/')}</script>",
                    section=name)
             + card("tiers", "Числа по тирам", tier_table(variants), section=name)
+            + (card("knowledge", "Знания", knowledge_card(kn), section=name) if kn else "")
         )
         page(file, name, esc(t(TOWER_SETS.get(base.get('towerSet')), fallback='')),
              body, toc=[("about", "Описание"), ("upgrades", "Улучшения")] + ([("abilities", "Способности")] if abils else [])
-             + [("crosspath", "Кроссапгрейд"), ("tiers", "Числа по тирам")])
+             + [("crosspath", "Кроссапгрейд"), ("tiers", "Числа по тирам")] + ([("knowledge", "Знания")] if kn else []))
         tiles.setdefault(base.get("towerSet"), []).append((tid, name, base.get("cost")))
     current_file = "towers.html"
     body = []

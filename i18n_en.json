@@ -430,5 +430,12 @@
 "опыт +": "XP +",
 "старт с ": "start at level ",
 " уровня, ": ", ",
-"Бонусы к опыту сложены. Другие бонусы к опыту: ": "XP bonuses are added together. Other XP bonuses: "
+"Бонусы к опыту сложены. Другие бонусы к опыту: ": "XP bonuses are added together. Other XP bonuses: ",
+"Действует с": "Works from",
+"Знание": "Knowledge",
+"Что даёт": "Effect",
+"сразу": "placement",
+"И общие для всех башен:": "Plus the ones every tower gets:",
+"Из данных игры: знание записано в модели башни, или башня либо её улучшение указаны в самом знании. ": "From game data: the tower model names the knowledge, or the knowledge names the tower or one of its upgrades. ",
+"«Действует с» это первые тиры, в модели которых оно есть.": "\"Works from\" lists the first tiers whose model has it."
 }
