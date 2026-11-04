@@ -29,6 +29,7 @@ document.querySelectorAll('.cost[data-parts]').forEach(function(el){var s=el.dat
 el.textContent='$'+s.toLocaleString('ru-RU')})}
 document.querySelectorAll('.diff button').forEach(function(b){b.addEventListener('click',function(){try{localStorage.setItem(DIFF_KEY,b.dataset.mult)}catch(x){}applyDiff()})});
 applyDiff();
+(function(){var top=document.querySelector('.top');if(!top)return;function h(){document.documentElement.style.setProperty('--top-h',top.offsetHeight+'px')}h();if(window.ResizeObserver)new ResizeObserver(h).observe(top)})();
 document.querySelectorAll('.xp').forEach(function(xp){var data=JSON.parse(xp.parentNode.querySelector('.xp-data').textContent),
 st=[0,0,0],variant=null,out=xp.querySelector('.xp-out');
 function e(s){return String(s==null?'–':s).replace(/[&<>"']/g,function(c){return'&#'+c.charCodeAt(0)+';'})}
