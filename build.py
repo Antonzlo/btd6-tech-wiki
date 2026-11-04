@@ -874,7 +874,7 @@ def build_heroes():
         inner = ((f"<div class='hero-row'>{pic}<div>" if pic else "<div><div>")
                  + f"<p><b>{esc(t(f'{hid} Short Description', fallback=''))}</b></p>"
                  + game_text(t(f"{hid} Description"))
-                 + stats([("цена (Средний)", Raw(f"${fmt(cost)}")), ("дальность", num(base.get("range"))),
+                 + stats([("цена", price([cost])), ("дальность", num(base.get("range"))),
                           ("XP до 20 уровня", total)])
                  + "</div></div>"
                  + table(["Уровень", "XP до уровня", "XP всего", "Что даёт"], [(a, b, c, Raw(d)) for a, b, c, d in rows])
@@ -888,7 +888,7 @@ def build_heroes():
     page("heroes.html", "Герои",
          "Все герои: цена, дальность и 20 уровней. XP до уровня взят из модели улучшения уровня, "
          "множитель опыта героя в нём уже учтён. Описания уровней из текстов игры.",
-         f"<div class='cards'>{''.join(cards)}</div>", [(h[2], h[1]) for h in sorted(heroes, key=lambda h: h[:3])])
+         diff_selector() + f"<div class='cards'>{''.join(cards)}</div>", [(h[2], h[1]) for h in sorted(heroes, key=lambda h: h[:3])])
 
 
 def build_index():
@@ -1139,27 +1139,33 @@ def tier_table(variants):
     return levels_table(rows, first_col="Тир")
 
 
+def diff_selector():
+    """Difficulty switch. Every price() on the page is recomputed in the browser (applyDiff in search.js)."""
+    diffs = {}
+    for mode in ("Easy", "Medium", "Hard", "Impoppable"):
+        mult = next((m.get("multiplier") for m in load(DATA / "Mods" / f"{mode}.json").get("mutatorMods") or []
+                     if short_type(m) == "GlobalCostModModel"), None)
+        diffs[mode] = mult if mult is not None else 1.0
+    # Impoppable is a mode played on Hard: the two cost bonuses add up (1 + 0.08 + 0.12 = 1.2; Quincy $650,
+    # Super Monkey $3000; multiplying them would give $655 and $3025)
+    diffs["Impoppable"] = round(diffs["Impoppable"] + diffs["Hard"] - 1, 6)
+    return ("<div class='diff' role='group' aria-label='Сложность'><span>Сложность</span>" + "".join(
+        f"<button type='button' data-mult='{m}'{' class=on' if m == 1 else ''}>{esc(t(n, fallback=n))}</button>"
+        for n, m in diffs.items())
+        + "</div><p class='note'>Цены пересчитаны по множителю цены режима и округлены до 5 $, "
+          "каждая покупка отдельно.</p>")
+
+
+def price(parts, cls="cost"):
+    """A price shown at Medium; diff_selector() on the page switches it, each part (purchase) rounded on its own."""
+    return Raw(f"<span class='{cls}' data-parts='{','.join(str(p) for p in parts)}'>${fmt(sum(parts))}</span>")
+
+
 def build_towers():
     global current_file
     upgrades = {load(f).get("name"): load(f) for f in json_files("Upgrades")}
     ucost = {k: v.get("cost", 0) for k, v in upgrades.items()}
-    diffs = {}
-    for mode in ("Easy", "Medium", "Hard", "Impoppable"):
-        f = DATA / "Mods" / f"{mode}.json"
-        mult = next((m.get("multiplier") for m in (load(f).get("mutatorMods") or [])
-                     if short_type(m) == "GlobalCostModModel"), None) if f.exists() else None
-        diffs[t(mode, fallback=mode)] = mult if mult is not None else 1.0
-    # Impoppable is a mode played on Hard, so both cost multipliers apply (1.08 * 1.12 = 1.2096)
-    diffs[t("Impoppable", fallback="Impoppable")] = round(diffs[t("Impoppable", fallback="Impoppable")] * diffs[t("Hard", fallback="Hard")], 6)
-    # difficulty switch: every .cost element is recomputed in the browser from its Medium parts
-    selector = ("<div class='diff' role='group' aria-label='Сложность'><span>Сложность</span>" + "".join(
-        f"<button type='button' data-mult='{m}'{' class=on' if m == 1 else ''}>{esc(n)}</button>" for n, m in diffs.items())
-        + "</div><p class='note'>Цены пересчитаны по множителю цены режима и округлены до 5 $, "
-          "каждая покупка отдельно.</p>")
-
-    def price(parts, cls="cost"):
-        return Raw(f"<span class='{cls}' data-parts='{','.join(str(p) for p in parts)}'>${fmt(sum(parts))}</span>")
-
+    selector = diff_selector()
     tiles = {}
     for folder in sorted(p for p in (DATA / "Towers").iterdir() if p.is_dir()):
         tid = folder.name
