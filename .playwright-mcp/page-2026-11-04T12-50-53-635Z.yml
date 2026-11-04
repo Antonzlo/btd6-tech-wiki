@@ -1,0 +1,451 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "BTD6 Tech Wiki57.4" [ref=e3] [cursor=pointer]:
+      - /url: index.html
+    - searchbox "Search the wiki" [ref=e5]
+    - link "Language" [ref=e6] [cursor=pointer]:
+      - /url: ru/tower-MonkeyAce.html
+      - text: RU
+  - generic [ref=e7]:
+    - complementary [ref=e8]:
+      - heading "Sections" [level=4] [ref=e9]
+      - navigation [ref=e10]:
+        - link "Home" [ref=e11] [cursor=pointer]:
+          - /url: index.html
+        - link "Towers" [ref=e12] [cursor=pointer]:
+          - /url: towers.html
+        - link "Heroes" [ref=e13] [cursor=pointer]:
+          - /url: heroes.html
+        - link "Paragon" [ref=e14] [cursor=pointer]:
+          - /url: paragon.html
+        - link "Buffs" [ref=e15] [cursor=pointer]:
+          - /url: buffs.html
+        - link "Bloons" [ref=e16] [cursor=pointer]:
+          - /url: bloons.html
+        - link "Rounds" [ref=e17] [cursor=pointer]:
+          - /url: rounds.html
+        - link "Bosses" [ref=e18] [cursor=pointer]:
+          - /url: bosses.html
+        - link "Modes" [ref=e19] [cursor=pointer]:
+          - /url: modes.html
+        - link "Income" [ref=e20] [cursor=pointer]:
+          - /url: income.html
+        - link "Monkey Knowledge" [ref=e21] [cursor=pointer]:
+          - /url: knowledge.html
+        - link "Powers" [ref=e22] [cursor=pointer]:
+          - /url: powers.html
+      - generic [ref=e23]:
+        - heading "On this page" [level=4] [ref=e24]
+        - link "Description" [ref=e25] [cursor=pointer]:
+          - /url: "#about"
+        - link "Upgrades" [ref=e26] [cursor=pointer]:
+          - /url: "#upgrades"
+        - link "Abilities" [ref=e27] [cursor=pointer]:
+          - /url: "#abilities"
+        - link "Crosspath" [ref=e28] [cursor=pointer]:
+          - /url: "#crosspath"
+        - link "Numbers by tier" [ref=e29] [cursor=pointer]:
+          - /url: "#tiers"
+    - main [ref=e30]:
+      - heading "Monkey Ace" [level=1] [ref=e31]
+      - paragraph [ref=e32]: Military. All numbers come from the tower models.
+      - paragraph [ref=e33]: "Data: 57.4 (Mod Helper export, 2026-11-04)"
+      - group "Difficulty" [ref=e34]:
+        - button "Easy" [ref=e36] [cursor=pointer]
+        - button "Medium" [ref=e37] [cursor=pointer]
+        - button "Hard" [ref=e38] [cursor=pointer]
+        - button "Impoppable" [ref=e39] [cursor=pointer]
+      - paragraph [ref=e40]: Prices use the mode's cost multiplier and are rounded to $5, each purchase separately.
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - heading "Monkey Ace" [level=2] [ref=e43]
+          - generic [ref=e44]: MonkeyAce
+        - generic [ref=e46]:
+          - generic [ref=e47]: "In game: Flies above the ground shooting volleys of high-pierce darts."
+          - generic [ref=e48]:
+            - generic [ref=e49]:
+              - generic [ref=e50]: $800
+              - text: cost
+            - generic [ref=e52]:
+              - generic [ref=e53]: "22"
+              - text: range
+            - generic [ref=e54]:
+              - generic [ref=e55]: "12"
+              - text: footprint radius
+            - generic [ref=e56]:
+              - generic [ref=e57]: Military
+              - text: category
+      - generic [ref=e58]:
+        - heading "Upgrades" [level=2] [ref=e60]
+        - generic [ref=e61]:
+          - generic [ref=e62]:
+            - heading "Path 1" [level=3] [ref=e63]
+            - list [ref=e64]:
+              - listitem [ref=e65]:
+                - generic [ref=e66]:
+                  - generic [ref=e67]:
+                    - generic [ref=e68]: 1. Rapid Fire
+                    - generic [ref=e69]:
+                      - generic [ref=e70]: $450
+                      - generic [ref=e71]: total $450
+                  - paragraph [ref=e72]: Shoots faster than normal.
+              - listitem [ref=e73]:
+                - generic [ref=e74]:
+                  - generic [ref=e75]:
+                    - generic [ref=e76]: 2. Lots More Darts
+                    - generic [ref=e77]:
+                      - generic [ref=e78]: $550
+                      - generic [ref=e79]: total $1 000
+                  - paragraph [ref=e80]: Shoots 12 darts at a time.
+              - listitem [ref=e81]:
+                - generic [ref=e82]:
+                  - generic [ref=e83]:
+                    - generic [ref=e84]: 3. Fighter Plane
+                    - generic [ref=e85]:
+                      - generic [ref=e86]: $1 000
+                      - generic [ref=e87]: total $2 000
+                  - paragraph [ref=e88]: Flies fast and launches anti-MOAB missiles.
+              - listitem [ref=e89]:
+                - generic [ref=e90]:
+                  - generic [ref=e91]:
+                    - generic [ref=e92]: "4. Operation: Dart Storm"
+                    - generic [ref=e93]:
+                      - generic [ref=e94]: $3 300
+                      - generic [ref=e95]: total $5 300
+                  - paragraph [ref=e96]: Shoots 16 darts per volley, and twice as fast.
+              - listitem [ref=e97]:
+                - generic [ref=e98]:
+                  - generic [ref=e99]:
+                    - generic [ref=e100]: 5. Sky Shredder
+                    - generic [ref=e101]:
+                      - generic [ref=e102]: $42 500
+                      - generic [ref=e103]: total $47 800
+                  - paragraph [ref=e104]: The Bloons will wish they had never come.
+          - generic [ref=e105]:
+            - heading "Path 2" [level=3] [ref=e106]
+            - list [ref=e107]:
+              - listitem [ref=e108]:
+                - generic [ref=e109]:
+                  - generic [ref=e110]:
+                    - generic [ref=e111]: 1. Exploding Pineapple
+                    - generic [ref=e112]:
+                      - generic [ref=e113]: $200
+                      - generic [ref=e114]: total $200
+                  - paragraph [ref=e115]: Drops pineapples to the ground that explode violently after a few seconds. Ace's explosive attacks are improved.
+              - listitem [ref=e116]:
+                - generic [ref=e117]:
+                  - generic [ref=e118]:
+                    - generic [ref=e119]: 2. Spy Plane
+                    - generic [ref=e120]:
+                      - generic [ref=e121]: $350
+                      - generic [ref=e122]: total $550
+                  - paragraph [ref=e123]: Allows Monkey Ace to hit Camo Bloons and do more damage to them.
+              - listitem [ref=e124]:
+                - generic [ref=e125]:
+                  - generic [ref=e126]:
+                    - generic [ref=e127]: 3. Bomber Ace
+                    - generic [ref=e128]:
+                      - generic [ref=e129]: $900
+                      - generic [ref=e130]: total $1 450
+                  - paragraph [ref=e131]: Drops a line of bombs when crossing the Bloon track.
+              - listitem [ref=e132]:
+                - generic [ref=e133]:
+                  - generic [ref=e134]:
+                    - generic [ref=e135]: 4. Ground Zero
+                    - generic [ref=e136]:
+                      - generic [ref=e137]: $16 000
+                      - generic [ref=e138]: total $17 450
+                  - paragraph [ref=e139]: "Bomb damage increased significantly. Ground Zero Ability: Drops a huge bomb that destroys most things on screen."
+              - listitem [ref=e140]:
+                - generic [ref=e141]:
+                  - generic [ref=e142]:
+                    - generic [ref=e143]: 5. Tsar Bomba
+                    - generic [ref=e144]:
+                      - generic [ref=e145]: $26 000
+                      - generic [ref=e146]: total $43 450
+                  - paragraph [ref=e147]: A very, very large bomb. Someone put a stop to this craziness!
+          - generic [ref=e148]:
+            - heading "Path 3" [level=3] [ref=e149]
+            - list [ref=e150]:
+              - listitem [ref=e151]:
+                - generic [ref=e152]:
+                  - generic [ref=e153]:
+                    - generic [ref=e154]: 1. Sharper Darts
+                    - generic [ref=e155]:
+                      - generic [ref=e156]: $500
+                      - generic [ref=e157]: total $500
+                  - paragraph [ref=e158]: Darts can pop 8 Bloons each.
+              - listitem [ref=e159]:
+                - generic [ref=e160]:
+                  - generic [ref=e161]:
+                    - generic [ref=e162]: 2. Centered Path
+                    - generic [ref=e163]:
+                      - generic [ref=e164]: $550
+                      - generic [ref=e165]: total $1 050
+                  - paragraph [ref=e166]: New central flight path for maximum map coverage.
+              - listitem [ref=e167]:
+                - generic [ref=e168]:
+                  - generic [ref=e169]:
+                    - generic [ref=e170]: 3. Neva-Miss Targeting
+                    - generic [ref=e171]:
+                      - generic [ref=e172]: $2 550
+                      - generic [ref=e173]: total $3 600
+                  - paragraph [ref=e174]: Darts automatically seek out and pop Bloons by themselves.
+              - listitem [ref=e175]:
+                - generic [ref=e176]:
+                  - generic [ref=e177]:
+                    - generic [ref=e178]: 4. Spectre
+                    - generic [ref=e179]:
+                      - generic [ref=e180]: $23 400
+                      - generic [ref=e181]: total $27 000
+                  - paragraph [ref=e182]: Rapidly fires darts and bombs, dominating most Bloon types easily.
+              - listitem [ref=e183]:
+                - generic [ref=e184]:
+                  - generic [ref=e185]:
+                    - generic [ref=e186]: 5. Flying Fortress
+                    - generic [ref=e187]:
+                      - generic [ref=e188]: $90 000
+                      - generic [ref=e189]: total $117 000
+                  - paragraph [ref=e190]: This is a BIG plane.
+        - generic [ref=e191]:
+          - heading "Paragon" [level=3] [ref=e192]
+          - list [ref=e193]:
+            - listitem [ref=e194]:
+              - generic [ref=e195]:
+                - generic [ref=e196]:
+                  - generic [ref=e197]: Goliath Doomship
+                  - generic [ref=e198]: $900 000
+                - paragraph [ref=e200]: A flying shadow of darkness spells Bloon obliteration.
+      - generic [ref=e201]:
+        - heading "Abilities" [level=2] [ref=e203]
+        - table [ref=e205]:
+          - rowgroup [ref=e206]:
+            - row [ref=e207]:
+              - columnheader "Ability" [ref=e208]
+              - columnheader "From" [ref=e209]
+              - columnheader "Cooldown" [ref=e210]
+              - columnheader "Effect" [ref=e211]
+              - columnheader "Description" [ref=e212]
+          - rowgroup [ref=e213]:
+            - row [ref=e214]:
+              - cell "Ground Zero" [ref=e215]
+              - 'cell "path 2, 4: Ground Zero" [ref=e218]'
+              - cell "35 s" [ref=e219]
+              - cell "radius 1" [ref=e220]
+              - 'cell "Increases effectiveness of bomb drops. Ground Zero Ability: drops a huge bomb that destroys most things on screen." [ref=e221]'
+            - row [ref=e222]:
+              - cell "Tsar Bomba" [ref=e223]
+              - 'cell "path 2, 5: Tsar Bomba" [ref=e226]'
+              - cell "35 s" [ref=e227]
+              - cell "radius 1" [ref=e228]
+              - cell "A very, very large bomb. Someone put a stop to this craziness!" [ref=e229]
+            - row [ref=e230]:
+              - cell "Carpet Bomb" [ref=e231]
+              - 'cell "Paragon: Goliath Doomship" [ref=e234]'
+              - cell "60 s" [ref=e235]
+              - cell "–" [ref=e236]
+              - cell "Carpet Bomb" [ref=e237]
+      - generic [ref=e238]:
+        - heading "Crosspath" [level=2] [ref=e240]
+        - paragraph [ref=e241]: "Pick the path tiers like in the game. Shown: the cost with all upgrades, attacks, cooldown, damage and pierce of every projectile, nested ones included (explosions, fragments)."
+        - generic [ref=e242]:
+          - generic [ref=e243]:
+            - generic [ref=e244]: Path 1
+            - button "0" [ref=e245] [cursor=pointer]
+            - button "1" [ref=e246] [cursor=pointer]
+            - button "2" [ref=e247] [cursor=pointer]
+            - button "3" [ref=e248] [cursor=pointer]
+            - button "4" [ref=e249] [cursor=pointer]
+            - button "5" [ref=e250] [cursor=pointer]
+          - generic [ref=e251]:
+            - generic [ref=e252]: Path 2
+            - button "0" [ref=e253] [cursor=pointer]
+            - button "1" [ref=e254] [cursor=pointer]
+            - button "2" [ref=e255] [cursor=pointer]
+            - button "3" [ref=e256] [cursor=pointer]
+            - button "4" [ref=e257] [cursor=pointer]
+            - button "5" [ref=e258] [cursor=pointer]
+          - generic [ref=e259]:
+            - generic [ref=e260]: Path 3
+            - button "0" [ref=e261] [cursor=pointer]
+            - button "1" [ref=e262] [cursor=pointer]
+            - button "2" [ref=e263] [cursor=pointer]
+            - button "3" [ref=e264] [cursor=pointer]
+            - button "4" [ref=e265] [cursor=pointer]
+            - button "5" [ref=e266] [cursor=pointer]
+          - generic [ref=e267]:
+            - generic [ref=e268]: Special
+            - button "Paragon" [ref=e269] [cursor=pointer]
+          - generic [ref=e270]:
+            - generic [ref=e271]:
+              - generic [ref=e272]:
+                - generic [ref=e273]: $800
+                - text: cost 000
+              - generic [ref=e274]:
+                - generic [ref=e275]: "22"
+                - text: range
+            - heading "Other behaviors" [level=3] [ref=e276]
+            - generic [ref=e277]:
+              - generic [ref=e278]: Air Unit
+              - generic [ref=e279]: Rectangle Footprint
+              - generic [ref=e280]: Air attack
+      - generic [ref=e281]:
+        - heading "Numbers by tier" [level=2] [ref=e283]
+        - table [ref=e285]:
+          - rowgroup [ref=e286]:
+            - row [ref=e287]:
+              - columnheader "Tier" [ref=e288]
+              - columnheader "Range" [ref=e289]
+              - columnheader "Cooldown, s" [ref=e290]
+              - columnheader "Damage per shot" [ref=e291]
+              - columnheader "Pierce" [ref=e292]
+              - columnheader "Rough DPS" [ref=e293]
+              - columnheader "Cannot pop" [ref=e294]
+          - rowgroup [ref=e295]:
+            - row [ref=e296]:
+              - cell "000" [ref=e297]
+              - cell "22" [ref=e298]
+              - cell "–" [ref=e299]
+              - cell "–" [ref=e300]
+              - cell "–" [ref=e301]
+              - cell "–" [ref=e302]
+              - cell "–" [ref=e303]
+            - row [ref=e304]:
+              - cell "100" [ref=e305]
+              - cell "22" [ref=e306]
+              - cell "–" [ref=e307]
+              - cell "–" [ref=e308]
+              - cell "–" [ref=e309]
+              - cell "–" [ref=e310]
+              - cell "–" [ref=e311]
+            - row [ref=e312]:
+              - cell "200" [ref=e313]
+              - cell "22" [ref=e314]
+              - cell "–" [ref=e315]
+              - cell "–" [ref=e316]
+              - cell "–" [ref=e317]
+              - cell "–" [ref=e318]
+              - cell "–" [ref=e319]
+            - row [ref=e320]:
+              - cell "300" [ref=e321]
+              - cell "22" [ref=e322]
+              - cell "–" [ref=e323]
+              - cell "–" [ref=e324]
+              - cell "–" [ref=e325]
+              - cell "–" [ref=e326]
+              - cell "–" [ref=e327]
+            - row [ref=e328]:
+              - cell "400" [ref=e329]
+              - cell "22" [ref=e330]
+              - cell "–" [ref=e331]
+              - cell "–" [ref=e332]
+              - cell "–" [ref=e333]
+              - cell "–" [ref=e334]
+              - cell "–" [ref=e335]
+            - row [ref=e336]:
+              - cell "500" [ref=e337]
+              - cell "22" [ref=e338]
+              - cell "–" [ref=e339]
+              - cell "–" [ref=e340]
+              - cell "–" [ref=e341]
+              - cell "–" [ref=e342]
+              - cell "–" [ref=e343]
+            - row [ref=e344]:
+              - cell "010" [ref=e345]
+              - cell "22" [ref=e346]
+              - cell "–" [ref=e347]
+              - cell "–" [ref=e348]
+              - cell "–" [ref=e349]
+              - cell "–" [ref=e350]
+              - cell "–" [ref=e351]
+            - row [ref=e352]:
+              - cell "020" [ref=e353]
+              - cell "22" [ref=e354]
+              - cell "–" [ref=e355]
+              - cell "–" [ref=e356]
+              - cell "–" [ref=e357]
+              - cell "–" [ref=e358]
+              - cell "–" [ref=e359]
+            - row [ref=e360]:
+              - cell "030" [ref=e361]
+              - cell "22" [ref=e362]
+              - cell "–" [ref=e363]
+              - cell "–" [ref=e364]
+              - cell "–" [ref=e365]
+              - cell "–" [ref=e366]
+              - cell "–" [ref=e367]
+            - row [ref=e368]:
+              - cell "040" [ref=e369]
+              - cell "22" [ref=e370]
+              - cell "–" [ref=e371]
+              - cell "–" [ref=e372]
+              - cell "–" [ref=e373]
+              - cell "–" [ref=e374]
+              - cell "–" [ref=e375]
+            - row [ref=e376]:
+              - cell "050" [ref=e377]
+              - cell "22" [ref=e378]
+              - cell "–" [ref=e379]
+              - cell "–" [ref=e380]
+              - cell "–" [ref=e381]
+              - cell "–" [ref=e382]
+              - cell "–" [ref=e383]
+            - row [ref=e384]:
+              - cell "001" [ref=e385]
+              - cell "22" [ref=e386]
+              - cell "–" [ref=e387]
+              - cell "–" [ref=e388]
+              - cell "–" [ref=e389]
+              - cell "–" [ref=e390]
+              - cell "–" [ref=e391]
+            - row [ref=e392]:
+              - cell "002" [ref=e393]
+              - cell "22" [ref=e394]
+              - cell "–" [ref=e395]
+              - cell "–" [ref=e396]
+              - cell "–" [ref=e397]
+              - cell "–" [ref=e398]
+              - cell "–" [ref=e399]
+            - row [ref=e400]:
+              - cell "003" [ref=e401]
+              - cell "22" [ref=e402]
+              - cell "–" [ref=e403]
+              - cell "–" [ref=e404]
+              - cell "–" [ref=e405]
+              - cell "–" [ref=e406]
+              - cell "–" [ref=e407]
+            - row [ref=e408]:
+              - cell "004" [ref=e409]
+              - cell "22" [ref=e410]
+              - cell "–" [ref=e411]
+              - cell "–" [ref=e412]
+              - cell "–" [ref=e413]
+              - cell "–" [ref=e414]
+              - cell "–" [ref=e415]
+            - row [ref=e416]:
+              - cell "005" [ref=e417]
+              - cell "22" [ref=e418]
+              - cell "–" [ref=e419]
+              - cell "–" [ref=e420]
+              - cell "–" [ref=e421]
+              - cell "–" [ref=e422]
+              - cell "–" [ref=e423]
+            - row [ref=e424]:
+              - cell "Paragon" [ref=e425]
+              - cell "22" [ref=e426]
+              - cell "–" [ref=e427]
+              - cell "–" [ref=e428]
+              - cell "–" [ref=e429]
+              - cell "–" [ref=e430]
+              - cell "–" [ref=e431]
+      - generic [ref=e432]:
+        - text: Unofficial fan wiki, not monetized. Game data, names, text and images belong to
+        - link "Ninja Kiwi" [ref=e433] [cursor=pointer]:
+          - /url: https://ninjakiwi.com
+        - text: . Data exported with
+        - link "BTD6 Mod Helper" [ref=e434] [cursor=pointer]:
+          - /url: https://github.com/gurrenm3/BTD-Mod-Helper
+        - text: ", icons from the game sprites."
+        - link "Source code" [ref=e435] [cursor=pointer]:
+          - /url: https://github.com/Antonzlo/btd6-tech-wiki
+        - text: .

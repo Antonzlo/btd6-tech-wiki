@@ -87,12 +87,12 @@ r.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',!varian
 xp.querySelectorAll('[data-variant]').forEach(function(b){b.classList.toggle('on',b.dataset.variant===variant)});
 if(!d){out.innerHTML='<p class="note">Нет данных для '+e(k)+'.</p>';return}
 var h='<div class="stats"><div class="stat"><b class="cost" data-parts="'+d.parts.join(',')+'">$'+f(d.cost)+'</b><small>цена '+e(k)+'</small></div><div class="stat"><b>'+f(d.range)+'</b><small>дальность</small></div></div>';
-d.attacks.forEach(function(a,ai){h+='<h3>'+e(a.name)+' <span class="id">дальность '+f(a.range)+'</span></h3><div class="wrap"><table><thead><tr><th>Оружие</th><th>Перезарядка, с</th><th>Атак/с</th><th>Снаряд</th><th>Кол-во</th><th>Урон</th><th>Пробив.</th><th>Модификаторы и эффекты</th></tr></thead><tbody>';
-a.weapons.forEach(function(w,wi){var n=Math.max(1,w.proj.length);w.proj.forEach(function(p,pi){h+='<tr>'+(pi===0?'<td rowspan="'+n+'">'+(wi+1)+(w.emission?' <span class="id">'+e(w.emission)+'</span>':'')+'</td><td class="n" rowspan="'+n+'">'+f(w.rate)+'</td><td class="n" rowspan="'+n+'">'+(w.rate?f(1/w.rate):'–')+'</td>':'')
-+'<td style="padding-left:'+(10+p.depth*16)+'px">'+(p.depth?'↳ ':'')+e(p.label)+'</td><td class="n">'+f(p.count)+'</td><td class="n">'+f(p.damage)+'</td><td class="n">'+f(p.pierce)+'</td><td>'
-+p.mods.concat(p.effects).map(function(m){return'<span class="chip">'+e(m)+'</span>'}).join(' ')+'</td></tr>'});
-if(!w.proj.length)h+='<tr><td>'+(wi+1)+'</td><td class="n">'+f(w.rate)+'</td><td class="n">'+(w.rate?f(1/w.rate):'–')+'</td><td colspan="5">–</td></tr>'});
-h+='</tbody></table></div>'});
+d.attacks.forEach(function(a,ai){h+='<h3>'+e(a.name)+' <span class="id">дальность '+f(a.range)+'</span></h3><div class="wrap"><table><thead><tr><th>Оружие</th><th>Перезарядка, с</th><th>Атак/с</th><th>Снаряд</th><th>Кол-во</th><th>Урон</th><th>Урон за выстрел</th><th>Пробив.</th><th>Примерный DPS</th><th>Модификаторы и эффекты</th><th>Не лопает</th></tr></thead><tbody>';
+a.weapons.forEach(function(w,wi){var n=Math.max(1,w.proj.length);w.proj.forEach(function(p,pi){h+='<tr>'+(pi===0?'<td rowspan="'+n+'">'+(wi+1)+(w.emission?' <span class="id">'+e(w.emission)+'</span>':'')+'</td><td class="n" rowspan="'+n+'">'+f(p.rate)+'</td><td class="n" rowspan="'+n+'">'+(p.rate?f(1/p.rate):'–')+'</td>':'')
++'<td style="padding-left:'+(10+p.depth*16)+'px">'+(p.depth?'↳ ':'')+e(p.projectile)+'</td><td class="n">'+f(p.count)+'</td><td class="n">'+f(p.damage)+'</td><td class="n">'+f(p.shotDamage)+'</td><td class="n">'+f(p.pierce)+'</td><td class="n">'+f(p.dps)+'</td><td>'
+ +p.mods.concat(p.effects).map(function(m){return'<span class="chip">'+e(m)+'</span>'}).join(' ')+'</td><td>'+((p.immune||[]).length?p.immune.map(function(x){return'<span class="chip">'+e(x)+'</span>'}).join(' '):'–')+'</td></tr>'});
+if(!w.proj.length)h+='<tr><td>'+(wi+1)+'</td><td class="n">'+f(w.rate)+'</td><td class="n">'+(w.rate?f(1/w.rate):'–')+'</td><td colspan="8">–</td></tr>'});
+h+='</tbody></table></div>'});if(d.attacks.length)h+='<p class="note">Примерный DPS: урон за выстрел / перезарядка. Без учёта баффов, пробивания и множителей режима.</p>';
 if(d.abilities.length)h+='<h3>Способности</h3><div class="chips">'+d.abilities.map(function(a){return'<span class="chip">'+e(a.name)+', перезарядка '+f(a.cooldown)+' с</span>'}).join('')+'</div>';
 if(d.other.length)h+='<h3>Прочие поведения</h3><div class="chips">'+d.other.map(function(o){return'<span class="chip">'+e(o)+'</span>'}).join('')+'</div>';
 out.innerHTML=h;applyDiff()}
@@ -836,8 +836,22 @@ def build_powers():
          [("powers", "Силы"), ("pro", "Powers Pro")])
 
 
+def hero_level_rows(base, top, ucost):
+    """Attack numbers of the hero levels the export carries: level 1 from the base model, level 20 from the top."""
+    rows, prev, first = [], None, True
+    for lvl, d in ((1, base), (20, top)):
+        s = tier_stats(combat_stats(d, ucost))
+        cur = (num(s["range"]), num(s["damage"]), num(s["pierce"]), num(s["dps"]))
+        changed = (not first) and cur != prev
+        prev = cur
+        first = False
+        rows.append((lvl, s, changed))
+    return rows
+
+
 def build_heroes():
     upgrades = {f.stem: load(f) for f in json_files("Upgrades")}
+    ucost = {u.get("name"): u.get("cost", 0) for u in upgrades.values()}
     heroes = []
     for folder in sorted(p for p in (DATA / "Heroes").iterdir() if p.is_dir()):
         hid = folder.name
@@ -846,15 +860,16 @@ def build_heroes():
         top = load(folder / f"{hid} 20.json")
         levels = sorted(((upgrades[u].get("tier", 0) + 1, upgrades[u].get("xpCost", 0))
                          for u in top.get("appliedUpgrades") or [] if u in upgrades))
-        heroes.append((base.get("cost", 0), t(hid, fallback=hid), hid, base, levels, abilities_of([(None, top)])))
+        heroes.append((base.get("cost", 0), t(hid, fallback=hid), hid, base, levels, abilities_of([(None, top)]), top))
     cards = []
-    for cost, name, hid, base, levels, abils in sorted(heroes, key=lambda h: h[:3]):
+    for cost, name, hid, base, levels, abils, top in sorted(heroes, key=lambda h: h[:3]):
         lvl_text = lambda n: esc(re.sub(r"</?(sup|sub|b|i|u)>|</?color[^>]*>", "", t(f"{hid} Level {n} Description", fallback="")))
         total, rows = 0, [(1, "–", 0, lvl_text(1))]
         for lvl, xp in levels:
             total += xp
             rows.append((lvl, xp, total, lvl_text(lvl)))
         pic = icon("heroes", hid, 84, "ic kicon")
+        lvl_rows = hero_level_rows(base, top, ucost)
         inner = ((f"<div class='hero-row'>{pic}<div>" if pic else "<div><div>")
                  + f"<p><b>{esc(t(f'{hid} Short Description', fallback=''))}</b></p>"
                  + game_text(t(f"{hid} Description"))
@@ -862,6 +877,10 @@ def build_heroes():
                           ("XP до 20 уровня", total)])
                  + "</div></div>"
                  + table(["Уровень", "XP до уровня", "XP всего", "Что даёт"], [(a, b, c, Raw(d)) for a, b, c, d in rows])
+                 + "<h3>Уровни</h3>"
+                 + levels_table(lvl_rows, first_col="Уровень", only_changed=True)
+                 + (f"<details><summary>Все уровни</summary>" + levels_table(lvl_rows, first_col="Уровень") + "</details>"
+                    if len(lvl_rows) > 2 else "")
                  + ("<h3>Способности</h3>" + abilities_table(abils, lambda up: f"уровень {upgrades[up].get('tier', 0) + 1}"
                                                               if up in upgrades else esc(up)) if abils else ""))
         cards.append(card(hid, name, inner, en_id=hid, section="Герои"))
@@ -928,46 +947,66 @@ def num(v):
     return round(v, 4) if isinstance(v, float) else v
 
 
-def proj_summary(p, lbl, count, depth, out):
-    beh = [b for b in p.get("behaviors") or [] if isinstance(b, dict)]
-    dmg = next((b for b in beh if short_type(b) == "DamageModel"), None)
-    mods, effects = [], []
-    for b in beh:
-        st = short_type(b)
-        if "DamageModifier" in st:
-            fields = {k: v for k, v in b.items() if scalar(v) and k not in ("$type", "name", "collisionPass") and v not in (0, 0.0, False, "")}
-            mods.append(label_mod(st) + ": " + ", ".join(f"{k} {fmt(v)}" for k, v in fields.items()))
-        elif any(w in st for w in EFFECT_WORDS):
-            effects.append(label(st))
-    out.append({"label": lbl, "depth": depth, "count": count,
-                "damage": num(dmg["damage"]) if dmg else None, "pierce": num(p.get("pierce")),
-                "mods": mods, "effects": sorted(set(effects))})
-    for b in beh:
-        for k, v in b.items():
-            if isinstance(v, dict) and "ProjectileModel" in v.get("$type", ""):
-                em = b.get("emission") or {}
-                proj_summary(v, label(short_type(b)), em.get("count") or 1, depth + 1, out)
+def mod_text(b):
+    """A damage-modifier or effect behavior as text: kind + its numeric fields."""
+    st = short_type(b)
+    if "DamageModifier" in st:
+        fields = {k: v for k, v in b.items() if scalar(v) and k not in ("$type", "name", "collisionPass") and v not in (0, 0.0, False, "")}
+        return label_mod(st) + ": " + ", ".join(f"{k} {fmt(v)}" for k, v in fields.items())
+    if any(w in st for w in EFFECT_WORDS):
+        nums = {k: v for k, v in b.items() if scalar(v) and not k.startswith("$") and k not in ("name",)}
+        return ", ".join([label(st)] + [f"{k} {fmt(v)}" for k, v in nums.items() if v not in (None, 0, 0.0, False, "")])
+    return label(st)
 
 
 def label_mod(st):
     return re.sub(r"(?<=[a-z])(?=[A-Z])", " ", st.replace("DamageModifierFor", "").replace("Model", "")) or st
 
 
-def tower_summary(d, upgrade_costs):
-    attacks, abilities, other = [], [], []
+def combat_stats(d, upgrade_costs):
+    """Combat numbers of a tower (or sub-tower / hero) model as a flat list: attack -> projectile ->
+    damage, pierce, attack rate, projectile count, range; each row also gets the damage per shot
+    (damage x count) and the simplified DPS (shot damage / reload), plus effects with numbers and the
+    bloon properties the projectile cannot pop (immuneBloonProperties)."""
+    attacks, projectiles, abilities, other = [], [], [], []
     for b in d.get("behaviors") or []:
         if not isinstance(b, dict) or skipped(b):
             continue
         st = short_type(b)
-        if st.startswith("AttackModel") or st.endswith("AttackModel"):
+        if st.startswith("AttackModel") or st.endswith("AttackModel") or st == "AttackAirUnitModel":  # Ace, Heli fly their attacks
             weapons = []
             for w in b.get("weapons") or []:
-                projs = []
                 em = w.get("emission") or {}
+                rate, count = num(w.get("rate")), em.get("count") or 1
+                projs = []
                 if isinstance(w.get("projectile"), dict):
-                    proj_summary(w["projectile"], "Снаряд", em.get("count") or 1, 0, projs)
-                weapons.append({"rate": num(w.get("rate")), "count": em.get("count") or 1,
-                                "emission": label(short_type(em)) if em else "", "proj": projs})
+                    projs = []
+                    stack = [(w["projectile"], "Снаряд", count, 0, rate, num(b.get("range")), projs)]
+                    while stack:
+                        p, lbl, cnt, depth, rt, rg, acc = stack.pop()
+                        beh = [x for x in p.get("behaviors") or [] if isinstance(x, dict)]
+                        mods, effects = [], []
+                        for x in beh:
+                            xs = short_type(x)
+                            if "DamageModifier" in xs:
+                                mods.append(mod_text(x))
+                            elif any(w2 in xs for w2 in EFFECT_WORDS):
+                                effects.append(mod_text(x))
+                        dmg = next((x for x in beh if short_type(x) == "DamageModel"), None)
+                        damage = num(dmg["damage"]) if dmg else None
+                        pierce = num(p.get("pierce"))
+                        mask = (dmg or {}).get("immuneBloonProperties") or 0
+                        shot = None if damage is None else damage * cnt
+                        acc.append({"attack": label(st), "weapon": len(weapons) + 1, "projectile": lbl, "depth": depth,
+                                    "count": cnt, "damage": damage, "pierce": pierce, "rate": rt, "range": rg,
+                                    "immune": [name for bit, name in BLOON_PROPS if mask & bit],
+                                    "shotDamage": shot, "dps": None if (shot is None or not rt) else shot / rt,
+                                    "mods": mods, "effects": sorted(set(effects))})
+                        kids = [(v, label(short_type(x)), (x.get("emission") or {}).get("count") or 1, depth + 1, rt, rg, acc)
+                                for x in beh for v in x.values() if isinstance(v, dict) and "ProjectileModel" in v.get("$type", "")]
+                        stack.extend(reversed(kids))  # popped in model order, children right after their parent
+                projectiles.extend(projs)
+                weapons.append({"rate": rate, "count": count, "emission": label(short_type(em)) if em else "", "proj": projs})
             attacks.append({"name": label(st), "range": num(b.get("range")), "weapons": weapons})
         elif st == "AbilityModel":
             abilities.append({"name": t(b.get("displayName") or "", fallback=b.get("displayName") or b.get("name", "")),
@@ -975,8 +1014,8 @@ def tower_summary(d, upgrade_costs):
         elif not any(s in st for s in ("Sound", "Effect", "Display")):
             other.append(label(st))
     parts = [d.get("cost", 0)] + [upgrade_costs.get(u, 0) for u in d.get("appliedUpgrades") or []]
-    return {"cost": sum(parts), "parts": parts, "range": num(d.get("range")), "attacks": attacks, "abilities": abilities,
-            "other": sorted(set(other))}
+    return {"cost": sum(parts), "parts": parts, "range": num(d.get("range")), "attacks": attacks,
+            "projectiles": projectiles, "abilities": abilities, "other": sorted(set(other))}
 
 
 def abilities_of(models):
@@ -991,16 +1030,86 @@ def abilities_of(models):
     return out
 
 
+def ability_effect(b):
+    """Effect numbers of an AbilityModel: speed-up, damage, radius from its sub-behaviors."""
+    bits = []
+    for sub in b.get("behaviors") or []:
+        if not isinstance(sub, dict):
+            continue
+        st = short_type(sub)
+        if st == "TurboModel":
+            bits.append(f"ускорение ×{fmt(sub.get('multiplier'))}")
+        elif st == "ActivateAttackModel":
+            for atk in sub.get("attacks") or []:
+                for w in atk.get("weapons") or []:
+                    proj = w.get("projectile") or {}
+                    radius = proj.get("radius")
+                    if radius is not None:
+                        bits.append(f"радиус {fmt(radius)}")
+                    for pbeh in proj.get("behaviors") or []:
+                        if isinstance(pbeh, dict) and short_type(pbeh) == "DamageModel":
+                            bits.append(f"урон {fmt(pbeh.get('damage'))}")
+    return "; ".join(bits) if bits else "–"
+
+
 def abilities_table(abils, source):
-    """Table of abilities: icon, name, where it comes from (source(upgrade name)), cooldown, game text."""
+    """Table of abilities: icon, name, where it comes from (source(upgrade name)), cooldown, effect, game text."""
     rows = []
     for key, b in abils.items():
         pic = icon("abilities", (b.get("icon") or {}).get("guidRef") or "", 40) or "<span class='mod-ic'></span>"
         text = t(f"{key} Ability Description", fallback=b.get("description") or "")
         rows.append((Raw(f"<span class='mod-name'>{pic}<b>{esc(t(f'{key} Ability', key, fallback=key))}</b></span>"),
                      Raw(source(b.get("addedViaUpgrade") or "")), Raw(f"{fmt(num(b.get('cooldown')))}&nbsp;с"),
+                     Raw(ability_effect(b)),
                      re.sub(r"</?(sup|sub|b|i|u)>|</?color[^>]*>", "", text)))
-    return table(["Способность", "Откуда", "Перезарядка", "Описание"], rows) if rows else ""
+    return table(["Способность", "Откуда", "Перезарядка", "Эффект", "Описание"], rows) if rows else ""
+
+
+TIER_ROW_KEYS = ["000"]
+for _i in range(3):
+    for _t in range(1, 6):
+        TIER_ROW_KEYS.append(("0" * _i) + str(_t) + ("0" * (2 - _i)))
+TIER_ROW_KEYS.append("Paragon")
+
+
+def tier_stats(d):
+    """Numbers of one tier model for its main projectile (highest simplified DPS over all attacks):
+    range, cooldown, damage per shot (× projectile count), pierce, DPS, properties it cannot pop."""
+    d = d or {}
+    projs = [p for p in d.get("projectiles") or [] if p.get("damage") is not None]
+    p = max(projs, key=lambda p: p.get("dps") or 0, default={})
+    return {"range": num(d.get("range")), "rate": p.get("rate"), "damage": p.get("shotDamage"), "pierce": p.get("pierce"),
+            "dps": num(p.get("dps")), "immune": p.get("immune") or []}
+
+
+def levels_table(rows, first_col="Тир", only_changed=False):
+    """Attack numbers per row: (label, stats, changed vs previous). With only_changed, only changed rows show."""
+    head = f"<tr><th>{first_col}</th><th>Дальность</th><th>Перезарядка, с</th><th>Урон за выстрел</th><th>Пробив.</th><th>Примерный DPS</th><th>Не лопает</th></tr>"
+    body = ""
+    for i, (label, s, changed) in enumerate(rows):
+        if only_changed and i > 0 and not changed:
+            continue
+        immune = ", ".join(s["immune"]) if s["immune"] else "\u2013"
+        body += (("<tr class='tier-chg'>" if changed else "<tr>")
+                 + f"<td>{esc(label)}</td><td class='n'>{fmt(s['range'])}</td><td class='n'>{fmt(s['rate'])}</td>"
+                 f"<td class='n'>{fmt(s['damage'])}</td><td class='n'>{fmt(s['pierce'])}</td><td class='n'>{fmt(s['dps'])}</td>"
+                 f"<td>{esc(immune)}</td></tr>")
+    return f"<div class='wrap'><table><thead>{head}</thead><tbody>{body}</tbody></table></div>"
+
+
+def tier_table(variants):
+    """Static per-tier numbers: base tower, then every tier of each upgrade path, then the paragon."""
+    rows, prev = [], None
+    for key in TIER_ROW_KEYS:
+        d = variants.get(key)
+        if not d:
+            continue
+        s = tier_stats(d)
+        cur = (num(s["range"]), num(s["damage"]), num(s["pierce"]), num(s["dps"]))
+        changed = prev is not None and cur != prev
+        prev = cur
+        rows.append((key, s, changed))
+    return levels_table(rows, first_col="Тир")
 
 
 def build_towers():
@@ -1031,8 +1140,8 @@ def build_towers():
         variants = {}
         for f in folder.glob(f"{tid}-*.json"):
             suffix = f.stem.split("-", 1)[1]
-            variants[suffix] = tower_summary(load(f), ucost)
-        variants["000"] = tower_summary(base, ucost)
+            variants[suffix] = combat_stats(load(f), ucost)
+        variants["000"] = combat_stats(base, ucost)
         # upgrade paths from the max-tier files of each single path
         paths = []
         for i in range(3):
@@ -1089,10 +1198,12 @@ def build_towers():
                        f"<button type='button' data-variant='{esc(k)}'>{esc(k)}</button>" for k in sorted(extra)) + "</div>" if extra else "")
                    + "<div class='xp-out'></div></div>"
                    f"<script type='application/json' class='xp-data'>{json.dumps(variants, ensure_ascii=False).replace('</', '<\\/')}</script>",
-                   section=name))
+                   section=name)
+            + card("tiers", "Числа по тирам", tier_table(variants), section=name)
+        )
         page(file, name, f"{esc(t(TOWER_SETS.get(base.get('towerSet')), fallback=''))}. Все числа из моделей башни.",
              body, toc=[("about", "Описание"), ("upgrades", "Улучшения")] + ([("abilities", "Способности")] if abils else [])
-             + [("crosspath", "Кроссапгрейд")])
+             + [("crosspath", "Кроссапгрейд"), ("tiers", "Числа по тирам")])
         tiles.setdefault(base.get("towerSet"), []).append((tid, name, base.get("cost")))
     current_file = "towers.html"
     body = []

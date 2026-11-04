@@ -288,5 +288,18 @@
 "Откуда": "From",
 "&nbsp;с": "&nbsp;s",
 "путь ": "path ",
-"уровень ": "level "
+"уровень ": "level ",
+"Примерный DPS: урон за выстрел / перезарядка. Без учёта баффов, пробивания и множителей режима.": "Rough DPS: damage per shot / cooldown. Without buffs, pierce and mode multipliers.",
+"Урон за выстрел": "Damage per shot",
+"Примерный DPS": "Rough DPS",
+"Не лопает": "Cannot pop",
+"Числа по тирам": "Numbers by tier",
+"Все уровни": "All levels",
+"Уровни": "Levels",
+"Дальность": "Range",
+"Эффект": "Effect",
+"Тир": "Tier",
+"ускорение ": "speed-up ",
+"радиус ": "radius ",
+"урон ": "damage "
 }
