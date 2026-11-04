@@ -63,7 +63,10 @@ document.querySelectorAll('[data-filter]').forEach(function(f){var rows=document
 f.addEventListener('input',function(){var q=norm(f.value);rows.forEach(function(r){r.dataset.th=q&&norm(r.textContent).indexOf(q)<0?'1':'';r.hidden=!!(r.dataset.th||r.dataset.gh)})})});
 document.querySelectorAll('.tagbar:not(.sortbar)').forEach(function(bar){var rows=document.querySelectorAll(bar.dataset.target+' tbody tr');bar.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){bar.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});var tag=b.dataset.tag;rows.forEach(function(r){r.dataset.gh=tag&&(' '+r.dataset.tags+' ').indexOf(' '+tag+' ')<0?'1':'';r.hidden=!!(r.dataset.th||r.dataset.gh)})})})});
 function hcalc(c){var reqs=JSON.parse(c.dataset.reqs),cash=JSON.parse(c.dataset.cash),map=+c.querySelector('select').value,
-start=Math.max(1,Math.min(140,+c.querySelector('input').value||1)),xp=0,r=start-1,rs=[];
+pin=c.querySelector('.hc-round'),st=Math.max(0,+c.querySelector('.hc-start').value||0),m=curMult(),
+cost=m===1?+c.dataset.cost:Math.round(c.dataset.cost*m/5)*5,have=st,ok=1;
+while(have<cost&&ok<=cash.length){have+=cash[ok-1];ok++}if(!c._touched)pin.value=Math.min(ok,140);
+var start=Math.max(1,Math.min(140,+pin.value||1)),xp=0,r=start-1,rs=[];
 reqs.forEach(function(q){while(xp<q&&r<500){r++;xp+=Math.round((r<=20?20*r+20:r<=50?40*r-380:90*r-2880)*map)}rs.push(r)});
 var W=640,H=230,P=30,L=36,R=12,X=function(v){return (L+(W-L-R)*(v-1)/139).toFixed(1)},Y=function(l){return (H-P-(H-2*P)*(l-1)/19).toFixed(1)},
 s='',pts=[X(start)+','+Y(1)],lv=1;
@@ -71,6 +74,7 @@ s='',pts=[X(start)+','+Y(1)],lv=1;
 [1,5,10,15,20].forEach(function(l){s+='<text x="'+(L-6)+'" y="'+(+Y(l)+4)+'" text-anchor="end">'+l+'</text>'});
 [1,20,40,60,80,100,120,140].forEach(function(v){s+='<text x="'+X(v)+'" y="'+(H-P+16)+'" text-anchor="middle">'+v+'</text>'});
 s+='<line class="paxis" x1="'+L+'" y1="'+(H-P)+'" x2="'+(W-R)+'" y2="'+(H-P)+'"/>';
+if(ok>start)s+='<rect class="pna" x="'+X(start)+'" y="'+P+'" width="'+(X(Math.min(ok,140))-X(start))+'" height="'+(H-2*P)+'"><title>денег ещё не хватает</title></rect>';
 var dots='';rs.forEach(function(v,i){if(v>140)return;pts.push(X(v)+','+Y(lv));lv=i+2;pts.push(X(v)+','+Y(lv));
 dots+='<circle class="pdot" cx="'+X(v)+'" cy="'+Y(lv)+'" r="3.5"><title>ур. '+lv+': раунд '+v+'</title></circle>'});
 pts.push(X(140)+','+Y(lv));s+='<polyline class="pline" points="'+pts.join(' ')+'"/>'+dots;
@@ -78,11 +82,12 @@ for(var v=start,k=0;v<=140;v++){while(k<rs.length&&rs[k]<=v)k++;
 s+='<rect class="phit" x="'+(X(v)-2)+'" y="'+P+'" width="4" height="'+(H-2*P)+'"><title>раунд '+v+': ур. '+(k+1)+'</title></rect>'}
 var last=rs[rs.length-1];c.querySelector('.hcalc-out').innerHTML='<div class="wrap"><svg class="pchart" viewBox="0 0 '+W+' '+H+'" width="'+W+'" role="img" aria-label="Уровень героя по раундам">'+s+'</svg></div>'
 +(last>140?'<p class="note">Ур. 20 на раунде '+last+'.</p>':'');
-var m=curMult(),cost=m===1?+c.dataset.cost:Math.round(c.dataset.cost*m/5)*5,have=+c.dataset.start,ok=1;
-while(have<cost&&ok<=cash.length){have+=cash[ok-1];ok++}
-c.querySelector('.hcalc-cash').textContent=ok>cash.length?'':'Денег хватит к началу раунда '+ok+' ($'+cost+', старт $'+c.dataset.start+', без других трат).'}
+c.querySelector('.hcalc-cash').textContent=ok>cash.length?'Денег не хватит до 140 раунда.':
+(start<ok?'Денег хватит только к началу раунда ':'Денег хватит к началу раунда ')+ok+' ($'+cost+', старт $'+st+', без других трат).'
++(start<ok?' Раньше можно на кастомной карте: укажите её стартовые деньги.':'')}
 document.querySelectorAll('.hcalc').forEach(function(c){var go=function(){hcalc(c)};c.querySelector('select').addEventListener('change',go);
-c.querySelector('input').addEventListener('input',go);go()});
+c.querySelector('.hc-start').addEventListener('input',go);
+c.querySelector('.hc-round').addEventListener('input',function(){c._touched=true;go()});go()});
 document.querySelectorAll('.sortbar').forEach(function(bar){var g=document.getElementById(bar.dataset.grid);bar.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){var k=b.dataset.sort;Array.prototype.slice.call(g.children).sort(function(x,y){return x.dataset[k]-y.dataset[k]}).forEach(function(c){g.appendChild(c)});g.classList.toggle('cols3',k==='order');bar.querySelectorAll('button').forEach(function(o){o.classList.toggle('on',o===b)})})})});
 document.querySelectorAll('table').forEach(function(t){var tb=t.tBodies[0];if(!tb||!t.tHead||t.querySelector('[rowspan]'))return;var ths=t.tHead.rows[0].cells;
 Array.prototype.forEach.call(ths,function(th,ci){th.classList.add('sortable');th.addEventListener('click',function(){var dir=th.dataset.dir==='1'?-1:1;Array.prototype.forEach.call(ths,function(x){delete x.dataset.dir});th.dataset.dir=dir===1?'1':'-1';
@@ -1085,10 +1090,11 @@ def hero_calc(totals, cost):
     times the map difficulty, rounded half up each round. hcalc() in search.js does the math."""
     cash = [round(p + b) for p, b in round_cash().values()]
     maps = [("Beginner", 1), ("Intermediate", 1.1), ("Advanced", 1.2), ("Expert", 1.3)]
-    return (f"<div class='hcalc' data-reqs='{json.dumps(totals)}' data-cost='{cost}' data-start='{START_CASH}' "
+    return (f"<div class='hcalc' data-reqs='{json.dumps(totals)}' data-cost='{cost}' "
             f"data-cash='{json.dumps(cash)}'><div class='hcalc-in'>"
             "<label>Карта <select>" + "".join(f"<option value='{m}'>{esc(t(n, fallback=n))}</option>" for n, m in maps)
-            + "</select></label><label>Ставлю на раунде <input type='number' min='1' max='140' value='1'></label></div>"
+            + "</select></label><label>Ставлю на раунде <input class='hc-round' type='number' min='1' max='140' value='1'></label>"
+            f"<label>Старт $ <input class='hc-start' type='number' min='0' step='50' value='{START_CASH}'></label></div>"
             "<p class='hcalc-cash'></p><div class='hcalc-out'></div>"
             "<p class='note'>Со знаниями и другими бонусами к опыту: <a href='https://svrng.github.io/BTD6-Hero-XP-Calculator/' "
             "rel='noopener'>BTD6 Hero XP Calculator</a>.</p></div>")

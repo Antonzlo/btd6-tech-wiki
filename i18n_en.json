@@ -396,5 +396,10 @@
 "Множитель дохода, %": "Income multiplier, %",
 " · множитель ": " · multiplier ",
 "Уровень героя по раундам": "Hero level by round",
-"Ур. 20 на раунде ": "Lv 20 at round "
+"Ур. 20 на раунде ": "Lv 20 at round ",
+"Денег не хватит до 140 раунда.": "Not affordable by round 140.",
+"Денег хватит только к началу раунда ": "Affordable only at the start of round ",
+" Раньше можно на кастомной карте: укажите её стартовые деньги.": " Earlier works on a custom map: enter its starting cash.",
+"денег ещё не хватает": "not affordable yet",
+"Старт $ ": "Start $ "
 }

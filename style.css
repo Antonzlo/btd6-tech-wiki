@@ -248,6 +248,7 @@ body:has(.diff) :is(.card,h2.group,.prop-row){scroll-margin-top:calc(var(--top-h
 .pchart .paxis{stroke:var(--soft);stroke-width:1}
 .pchart .pgrid{stroke:var(--rule);stroke-width:1}
 .pchart .phit{fill:transparent}
+.pchart .pna{fill:var(--rule);opacity:.6}
 .pchart .phit:hover{fill:var(--rule);opacity:.5}
 .chart-legend{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;margin:4px 0 6px}
 .chart-legend .leg-s1{color:var(--s1);font-weight:600}
