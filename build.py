@@ -318,13 +318,13 @@ def page(file, title, lead, body, toc=()):
             "&family=Roboto+Mono&display=swap\">"
             f"<style>{CSS}</style>")
     content = (
-        "<header class='top'><a class='brand' href='index.html'>BTD6 Tech Wiki<span>"
+        f"<header class='top'><a class='brand' href='index.html'>BTD6 Tech Wiki<span title='{esc(VERSION)}'>"
         f"{esc(VERSION.split(' ')[0])}</span></a>"
         "<div class='search'><input id='q' type='search' placeholder='Поиск: босс, режим, знание, сила…  ( / )' "
         "autocomplete='off' aria-label='Поиск по вики'><div class='results' id='qr' hidden></div></div>"
         f"{switch}</header>"
         f"<div class='layout'><aside class='side'><h4>Разделы</h4><nav>{side}</nav>{toc_html}</aside>"
-        f"<main class='page-{file.removesuffix('.html')}'><h1>{esc(title)}</h1><p class='lead'>{lead}</p><p class='ver'>Данные: {esc(VERSION)}</p>"
+        f"<main class='page-{file.removesuffix('.html')}'><h1>{esc(title)}</h1><p class='lead'>{lead}</p>"
         f"{body}<footer class='foot'>Неофициальная фанатская вики, без монетизации. Данные, названия, тексты и изображения "
         "принадлежат <a href='https://ninjakiwi.com' rel='noopener'>Ninja Kiwi</a>. Данные выгружены через "
         "<a href='https://github.com/gurrenm3/BTD-Mod-Helper' rel='noopener'>BTD6 Mod Helper</a>, иконки из спрайтов игры. "
@@ -429,7 +429,7 @@ def build_paragon():
                "<p class='note'>Значения взяты как есть. Русские подписи сделаны по названиям полей, точную формулу "
                "игра в данных не хранит.</p>" + table(["Поле", "Смысл", "Значение"], frows), section="Парагон"))
     page("paragon.html", "Парагон",
-         "Парагон получает степень от 1 до 100 по накопленной силе. Сила собирается из лопаний, потраченных денег "
+         "Степень парагона от 1 до 100 зависит от силы. Сила копится от лопаний, потраченных денег "
          "и пожертвованных улучшений, у каждого источника свой потолок.",
          body, toc=[("curve", "Сила на степень"), ("sources", "Параметры")])
 
@@ -510,8 +510,7 @@ def build_bosses():
         body.append(card(boss, name, inner, en_id=boss, tagline=tagline, section="Боссы"))
         toc.append((boss, name))
     page("bosses.html", "Боссы",
-         "Каждый босс есть в 5 обычных и 5 элитных тирах. Для каждого: описание из игры, HP по тирам "
-         "и все числовые параметры поведений, отдельно те, что растут с тиром.",
+         "5 обычных и 5 элитных тиров. HP по тирам и параметры, которые растут с тиром.",
          "".join(body), toc)
 
 
@@ -604,9 +603,8 @@ def build_modes():
             body.append(group(gid, title, cards))
             toc.append((gid, title))
     page("modes.html", "Режимы и сложности",
-         "Режим это набор модификаторов поверх обычной игры: множители денег, HP, цен, запреты. "
-         "Здесь все модификаторы каждого режима с точными значениями. Кооп-режимы CoopStandardCash и "
-         "CoopDeflationCash задают деньги для 2, 3 и 4 игроков.",
+         "Модификаторы каждого режима: деньги, HP, цены, запреты. CoopStandardCash и CoopDeflationCash "
+         "задают деньги для 2, 3 и 4 игроков в коопе.",
          "".join(body), toc)
 
 
@@ -624,8 +622,8 @@ def build_income():
         body.append(card(f.stem, f.stem, table(["Раунды", "Множитель", "От обычного"], rows), section="Доход"))
         toc.append((f.stem, f.stem))
     page("income.html", "Доход по раундам",
-         "Деньги за лопание шаров умножаются на коэффициент, который зависит от номера раунда. "
-         "DefaultIncomeSet используется в обычной игре, остальные в своих режимах.",
+         "Деньги за лопание умножаются на коэффициент раунда. DefaultIncomeSet работает в обычной игре, "
+         "остальные в своих режимах.",
          f"<div class='cards'>{''.join(body)}</div>", toc)
 
 
@@ -719,8 +717,7 @@ def build_buffs():
                  "data-filter='#buffs tbody tr'>"
                  + table(["Источник", "Бафф", "Стакинг"], rows).replace("<table>", "<table id='buffs'>", 1), section="Баффы"))
     page("buffs.html", "Баффы и стакинг",
-         "Каждый бафф в игре показывается иконкой над башней. В модели иконки записано, стакается ли он "
-         "и сколько раз. По этой таблице видно, какие синергии складываются.", body)
+         "Баффы, которые видно иконкой над башней: откуда бафф, стакается ли и до скольки раз.", body)
 
 
 LAYOUT_DIR = DATA / "KnowledgeLayout"
@@ -840,10 +837,8 @@ def build_knowledge():
                     + "".join(cards))
         toc.append((cat.name, t(cat.name, fallback=cat.name)))
     page("knowledge.html", t("Monkey Knowledge", fallback="Monkey Knowledge"),
-         "Пассивные улучшения за Monkey Money. Каждая ветка нарисована деревом: полосы это ряды, которые "
-         "открываются после N купленных знаний ветки, стрелки ведут от требуемого знания к следующему. "
-         "Наведите на узел, чтобы подсветить всю цепочку, нажмите, чтобы открыть карточку с числами. "
-         "Число в углу узла это цена в Monkey Money.",
+         "Деревья знаний как в игре. Наведите на знание, чтобы подсветить цепочку, нажмите, чтобы открыть "
+         "его карточку. Число в углу знания это цена в Monkey Money.",
          knowledge_symbols({p.stem for p in (DATA / "Knowledge").rglob("*.json")}) + "".join(body), toc)
 
 
@@ -862,8 +857,7 @@ def build_powers():
                  + f"<details><summary>Все числовые параметры ({len(nums)})</summary>{kv_table(nums)}</details></div></div>")
         groups["pro" if "Pro" in f.stem else "powers"].append(card(f.stem, name, inner, en_id=f.stem, section="Силы"))
     page("powers.html", "Силы",
-         "Силы (Powers) и Powers Pro. Описание из игры и все числовые параметры модели: урон, длительности, "
-         "радиусы, перезарядки.",
+         "Силы и Powers Pro: урон, длительность, радиус, перезарядка.",
          group("powers", "Силы", groups["powers"]) + group("pro", "Powers Pro", groups["pro"]),
          [("powers", "Силы"), ("pro", "Powers Pro")])
 
@@ -898,14 +892,19 @@ def build_heroes():
     heroes.sort(key=lambda h: h[:3])
     for cost, name, hid, base, levels, abils, top in heroes:
         current_file = f"hero-{hid}.html"
-        lvl_text = lambda n: esc(re.sub(r"</?(sup|sub|b|i|u)>|</?color[^>]*>", "", t(f"{hid} Level {n} Description", fallback="")))
+        # ability icon on the level that unlocks it (level upgrades have no icons of their own)
+        pics = {upgrades[b["addedViaUpgrade"]].get("tier", 0) + 1: icon("abilities", (b.get("icon") or {}).get("guidRef") or "", 32)
+                for b in abils.values() if b.get("addedViaUpgrade") in upgrades}
+
+        def lvl_text(n):
+            text = esc(re.sub(r"</?(sup|sub|b|i|u)>|</?color[^>]*>", "", t(f"{hid} Level {n} Description", fallback="")))
+            return f"<span class='mod-name'>{pics[n]}<span>{text}</span></span>" if pics.get(n) else text
         total, rows = 0, [(1, "–", 0, lvl_text(1))]
         for lvl, xp in levels:
             total += xp
             rows.append((lvl, xp, total, lvl_text(lvl)))
         lvl_rows = hero_level_rows(DATA / "Heroes" / hid, base, ucost)
         about = ("<div class='hero-row'>" + icon("heroes", hid, 120, "ic portrait") + "<div>"
-                 + f"<p><b>{esc(t(f'{hid} Short Description', fallback=''))}</b></p>"
                  + game_text(t(f"{hid} Description"))
                  + stats([("цена", price([cost])), ("дальность", num(base.get("range"))), ("XP до 20 уровня", total)])
                  + "</div></div>")
@@ -920,8 +919,7 @@ def build_heroes():
                 + (card("abilities", "Способности", abilities_table(
                     abils, lambda up: f"уровень {upgrades[up].get('tier', 0) + 1}" if up in upgrades else esc(up)), section=name)
                    if abils else ""))
-        page(current_file, name, "Герой. XP до уровня взят из модели улучшения уровня, множитель опыта героя в нём "
-             "уже учтён. Описания уровней из текстов игры.", body,
+        page(current_file, name, esc(t(f"{hid} Short Description", fallback="")), body,
              toc=[("about", "Описание"), ("levels", "Уровни и опыт"), ("numbers", "Числа по уровням")]
              + ([("abilities", "Способности")] if abils else []))
     current_file = "heroes.html"
@@ -929,19 +927,16 @@ def build_heroes():
                    f"<span><b>{esc(name)}</b>{price([cost], 'cost tile-price')}</span></a>"
                    for cost, name, hid, *_ in heroes)
     page("heroes.html", "Герои",
-         "Все герои по цене. На странице героя: описание, XP по уровням, числа атаки на каждом уровне и способности.",
+         "Герои по цене.",
          selector + f"<div class='grid'>{grid}</div>")
 
 
 def build_index():
     tiles = "".join(f"<a class='tile page-tile' href='{f}'>{page_icon(f, 56)}<span><b>{esc(t(n, fallback=n))}</b><small>{esc(s)}</small></span></a>" for f, n, s in PAGES[1:])
     page("index.html", "BTD6 Tech Wiki",
-         "Точные числа Bloons TD 6 прямо из моделей игры: HP боссов по тирам, модификаторы режимов, "
-         "множители дохода, стакинг баффов, формула парагона. Названия и описания взяты из текстов игры, "
-         "числа без округлений. Поиск по всему сайту: клавиша /.",
-         f"<div class='grid home-grid'>{tiles}</div>"
-         "<p class='note'>Источник: выгрузка Export Game Data из BTD6 Mod Helper. Подписи к полям, которых нет в "
-         "текстах игры, сделаны по названиям полей.</p>")
+         "Точные числа Bloons TD 6 из файлов игры: урон и цены башен, уровни героев, HP боссов, "
+         "режимы, доход, баффы. Поиск по сайту: клавиша /.",
+         f"<div class='grid home-grid'>{tiles}</div>")
 
 
 # ---------- icons (game sprites via tools/game_icons.sh: data/icons/web/<kind>/<id>.webp) ----------
@@ -1188,9 +1183,7 @@ def diff_selector():
     diffs["Impoppable"] = round(diffs["Impoppable"] + diffs["Hard"] - 1, 6)
     return ("<div class='diff' role='group' aria-label='Сложность'><span>Сложность</span>" + "".join(
         f"<button type='button' data-mult='{m}'{' class=on' if m == 1 else ''}>{esc(t(n, fallback=n))}</button>"
-        for n, m in diffs.items())
-        + "</div><p class='note'>Цены пересчитаны по множителю цены режима и округлены до 5 $, "
-          "каждая покупка отдельно.</p>")
+        for n, m in diffs.items()) + "</div>")
 
 
 def price(parts, cls="cost"):
@@ -1271,7 +1264,7 @@ def build_towers():
                    section=name)
             + card("tiers", "Числа по тирам", tier_table(variants), section=name)
         )
-        page(file, name, f"{esc(t(TOWER_SETS.get(base.get('towerSet')), fallback=''))}. Все числа из моделей башни.",
+        page(file, name, esc(t(TOWER_SETS.get(base.get('towerSet')), fallback='')),
              body, toc=[("about", "Описание"), ("upgrades", "Улучшения")] + ([("abilities", "Способности")] if abils else [])
              + [("crosspath", "Кроссапгрейд"), ("tiers", "Числа по тирам")])
         tiles.setdefault(base.get("towerSet"), []).append((tid, name, base.get("cost")))
@@ -1284,8 +1277,7 @@ def build_towers():
         for tid, n, c in tiles[ts]:
             INDEX.append([n, "Башни", f"tower-{tid}.html", tid])
     page("towers.html", "Башни",
-         "Все основные башни. На странице башни: описание, улучшения с ценами и выбор кроссапгрейда "
-         "с точными числами атак.", selector + "".join(body))
+         "Башни по категориям, в порядке магазина.", selector + "".join(body))
 
 
 # ---------- rounds ----------
@@ -1414,9 +1406,7 @@ def build_bloons():
             body.append(group(gid, title, cards))
             toc.append((gid, title))
     page("bloons.html", "Шары",
-         "Все шары из моделей игры: HP слоя, RBE (сумма HP всех слоёв), деньги за полное лопание, скорость, "
-         "свойства и из чего шар состоит. Свойство блокирует урон тех башен, у которых оно указано в "
-         "immuneBloonProperties снаряда: например, свинец у обычных дротиков.",
+         "HP слоя, RBE (сумма HP всех слоёв), деньги за полное лопание, скорость, свойства и дети каждого шара.",
          "".join(body), toc)
 
 
@@ -1485,10 +1475,8 @@ def build_rounds():
                              section="Раунды"))
         toc.append((rs, title))
     page("rounds.html", "Раунды",
-         "Состав каждого раунда и посчитанные по моделям шаров величины. RBE это сумма HP всех слоёв. "
-         "$ за лопание посчитан как 1 $ за каждый лопнутый слой, умноженный на множитель дохода раунда "
-         "(DefaultIncomeSet). Бонус за раунд 100 + номер раунда (BonusCashPerRoundModModel). "
-         "HP MOAB-класса в поздних раундах растёт, здесь показаны базовые значения.",
+         "Шары каждого раунда, RBE и деньги. За лопание 1 $ за слой с множителем дохода раунда, "
+         "бонус за раунд 100 $ + номер раунда. HP MOAB-класса в поздних раундах растёт, здесь базовые значения.",
          bloon_icon_style(set(bloons)) + "".join(sections), toc)
 
 

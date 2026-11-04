@@ -1,0 +1,375 @@
+- generic [active] [ref=f10e1]:
+  - banner [ref=f10e2]:
+    - link "BTD6 Tech Wiki57.4" [ref=f10e3] [cursor=pointer]:
+      - /url: index.html
+    - searchbox "Поиск по вики" [ref=f10e5]
+    - link "Язык" [ref=f10e6] [cursor=pointer]:
+      - /url: ../hero-Adora.html
+      - text: EN
+  - generic [ref=f10e7]:
+    - complementary [ref=f10e8]:
+      - heading "Разделы" [level=4] [ref=f10e9]
+      - navigation [ref=f10e10]:
+        - link "Главная" [ref=f10e11] [cursor=pointer]:
+          - /url: index.html
+        - link "Башни" [ref=f10e12] [cursor=pointer]:
+          - /url: towers.html
+        - link "Герои" [ref=f10e13] [cursor=pointer]:
+          - /url: heroes.html
+        - link "Парагон" [ref=f10e14] [cursor=pointer]:
+          - /url: paragon.html
+        - link "Баффы" [ref=f10e15] [cursor=pointer]:
+          - /url: buffs.html
+        - link "Шары" [ref=f10e16] [cursor=pointer]:
+          - /url: bloons.html
+        - link "Раунды" [ref=f10e17] [cursor=pointer]:
+          - /url: rounds.html
+        - link "Боссы" [ref=f10e18] [cursor=pointer]:
+          - /url: bosses.html
+        - link "Режимы" [ref=f10e19] [cursor=pointer]:
+          - /url: modes.html
+        - link "Доход" [ref=f10e20] [cursor=pointer]:
+          - /url: income.html
+        - link "Обезьяньи знания" [ref=f10e21] [cursor=pointer]:
+          - /url: knowledge.html
+        - link "Силы" [ref=f10e22] [cursor=pointer]:
+          - /url: powers.html
+      - generic [ref=f10e23]:
+        - heading "На странице" [level=4] [ref=f10e24]
+        - link "Описание" [ref=f10e25] [cursor=pointer]:
+          - /url: "#about"
+        - link "Уровни и опыт" [ref=f10e26] [cursor=pointer]:
+          - /url: "#levels"
+        - link "Числа по уровням" [ref=f10e27] [cursor=pointer]:
+          - /url: "#numbers"
+        - link "Способности" [ref=f10e28] [cursor=pointer]:
+          - /url: "#abilities"
+    - main [ref=f10e29]:
+      - heading "Адора" [level=1] [ref=f10e30]
+      - paragraph [ref=f10e31]: Верховная жрица
+      - group "Сложность" [ref=f10e32]:
+        - button "Легкий" [ref=f10e34] [cursor=pointer]
+        - button "Средний" [ref=f10e35] [cursor=pointer]
+        - button "Сложный" [ref=f10e36] [cursor=pointer]
+        - button "Как бы не лопнуть" [ref=f10e37] [cursor=pointer]
+      - generic [ref=f10e38]:
+        - generic [ref=f10e39]:
+          - heading "Адора" [level=2] [ref=f10e40]
+          - generic [ref=f10e41]: Adora
+        - generic [ref=f10e43]:
+          - generic [ref=f10e44]: Набожность Адоры побуждает её в праведном гневе разить шары.
+          - generic [ref=f10e45]:
+            - generic [ref=f10e46]:
+              - generic [ref=f10e47]: $1 000
+              - text: цена
+            - generic [ref=f10e49]:
+              - generic [ref=f10e50]: "45"
+              - text: дальность
+            - generic [ref=f10e51]:
+              - generic [ref=f10e52]: 365 190
+              - text: XP до 20 уровня
+      - generic [ref=f10e53]:
+        - heading "Уровни и опыт" [level=2] [ref=f10e55]
+        - table [ref=f10e57]:
+          - rowgroup [ref=f10e58]:
+            - row [ref=f10e59]:
+              - columnheader "Уровень" [ref=f10e60]
+              - columnheader "XP до уровня" [ref=f10e61]
+              - columnheader "XP всего" [ref=f10e62]
+              - columnheader "Что даёт" [ref=f10e63]
+          - rowgroup [ref=f10e64]:
+            - row [ref=f10e65]:
+              - cell "1" [ref=f10e66]
+              - cell "–" [ref=f10e67]
+              - cell "0" [ref=f10e68]
+              - cell "Божественная молния ищет и уничтожает." [ref=f10e69]
+            - row [ref=f10e70]:
+              - cell "2" [ref=f10e71]
+              - cell "308" [ref=f10e72]
+              - cell "308" [ref=f10e73]
+              - cell "Повышенная дальность." [ref=f10e74]
+            - row [ref=f10e75]:
+              - cell "3" [ref=f10e76]
+              - cell "787" [ref=f10e77]
+              - cell "1 095" [ref=f10e78]
+              - 'cell "Длинная рука света: ненадолго, но значительно повышает дальность и силу, а также повреждает все типы шаров." [ref=f10e79]'
+            - row [ref=f10e82]:
+              - cell "4" [ref=f10e83]
+              - cell "1 710" [ref=f10e84]
+              - cell "2 805" [ref=f10e85]
+              - cell "Стреляет двумя божественными молниями." [ref=f10e86]
+            - row [ref=f10e87]:
+              - cell "5" [ref=f10e88]
+              - cell "3 181" [ref=f10e89]
+              - cell "5 986" [ref=f10e90]
+              - cell "Божественные молнии пробивают больше шаров." [ref=f10e91]
+            - row [ref=f10e92]:
+              - cell "6" [ref=f10e93]
+              - cell "5 609" [ref=f10e94]
+              - cell "11 595" [ref=f10e95]
+              - cell "Стреляет 3 божественными молниями за раз." [ref=f10e96]
+            - row [ref=f10e97]:
+              - cell "7" [ref=f10e98]
+              - cell "8 858" [ref=f10e99]
+              - cell "20 453" [ref=f10e100]
+              - 'cell "Кровавая жертва: пожертвуйте выбранной башней, чтобы дать Адоре много опыта и ненадолго увеличить дальность её атаки и скорострельность." [ref=f10e101]'
+            - row [ref=f10e104]:
+              - cell "8" [ref=f10e105]
+              - cell "14 227" [ref=f10e106]
+              - cell "34 680" [ref=f10e107]
+              - cell "Стреляет 4 божественными молниями за раз." [ref=f10e108]
+            - row [ref=f10e109]:
+              - cell "9" [ref=f10e110]
+              - cell "16 040" [ref=f10e111]
+              - cell "50 720" [ref=f10e112]
+              - cell "Повышает дальность атаки и урон укреплённым шарам." [ref=f10e113]
+            - row [ref=f10e114]:
+              - cell "10" [ref=f10e115]
+              - cell "23 290" [ref=f10e116]
+              - cell "74 010" [ref=f10e117]
+              - 'cell "Световой шар: испускание мощного сгустка энергии, разящего шары." [ref=f10e118]'
+            - row [ref=f10e121]:
+              - cell "11" [ref=f10e122]
+              - cell "28 010" [ref=f10e123]
+              - cell "102 020" [ref=f10e124]
+              - cell "Адора атакует быстрее." [ref=f10e125]
+            - row [ref=f10e126]:
+              - cell "12" [ref=f10e127]
+              - cell "24 624" [ref=f10e128]
+              - cell "126 644" [ref=f10e129]
+              - cell "Стреляет 5 божественными молниями за раз." [ref=f10e130]
+            - row [ref=f10e131]:
+              - cell "13" [ref=f10e132]
+              - cell "28 472" [ref=f10e133]
+              - cell "155 116" [ref=f10e134]
+              - cell "Божественные молнии пробивают ещё больше шаров и наносят больше урона укреплённым шарам." [ref=f10e135]
+            - row [ref=f10e136]:
+              - cell "14" [ref=f10e137]
+              - cell "25 547" [ref=f10e138]
+              - cell "180 663" [ref=f10e139]
+              - cell "Стреляет 6 божественными молниями за раз." [ref=f10e140]
+            - row [ref=f10e141]:
+              - cell "15" [ref=f10e142]
+              - cell "28 010" [ref=f10e143]
+              - cell "208 673" [ref=f10e144]
+              - cell "Божественные молнии пробивают на 1 слой шара больше, а световой шар наносит больше урона." [ref=f10e145]
+            - row [ref=f10e146]:
+              - cell "16" [ref=f10e147]
+              - cell "30 472" [ref=f10e148]
+              - cell "239 145" [ref=f10e149]
+              - cell "Длинная рука света становится ещё смертоноснее." [ref=f10e150]
+            - row [ref=f10e151]:
+              - cell "17" [ref=f10e152]
+              - cell "32 935" [ref=f10e153]
+              - cell "272 080" [ref=f10e154]
+              - cell "Адора атакует ещё быстрее." [ref=f10e155]
+            - row [ref=f10e156]:
+              - cell "18" [ref=f10e157]
+              - cell "35 397" [ref=f10e158]
+              - cell "307 477" [ref=f10e159]
+              - cell "Стреляет 8 божественными молниями за раз." [ref=f10e160]
+            - row [ref=f10e161]:
+              - cell "19" [ref=f10e162]
+              - cell "28 164" [ref=f10e163]
+              - cell "335 641" [ref=f10e164]
+              - cell "Увеличенная дальность атаки. Увеличенный урон усиленным шарам." [ref=f10e165]
+            - row [ref=f10e166]:
+              - cell "20" [ref=f10e167]
+              - cell "29 549" [ref=f10e168]
+              - cell "365 190" [ref=f10e169]
+              - 'cell "Световой шар значительно улучшен: чаще и дальше стреляет, а усиления от жертвоприношений длятся дольше." [ref=f10e170]'
+      - generic [ref=f10e171]:
+        - heading "Числа по уровням" [level=2] [ref=f10e173]
+        - table [ref=f10e175]:
+          - rowgroup [ref=f10e176]:
+            - row [ref=f10e177]:
+              - columnheader "Уровень" [ref=f10e178]
+              - columnheader "Дальность" [ref=f10e179]
+              - columnheader "Перезарядка, с" [ref=f10e180]
+              - columnheader "Урон за выстрел" [ref=f10e181]
+              - columnheader "Пробив." [ref=f10e182]
+              - columnheader "Примерный DPS" [ref=f10e183]
+              - columnheader "Не лопает" [ref=f10e184]
+          - rowgroup [ref=f10e185]:
+            - row [ref=f10e186]:
+              - cell "1" [ref=f10e187]
+              - cell "45" [ref=f10e188]
+              - cell "1" [ref=f10e189]
+              - cell "1" [ref=f10e190]
+              - cell "5" [ref=f10e191]
+              - cell "1" [ref=f10e192]
+              - cell [ref=f10e193]:
+                - link "Фиолетовый" [ref=f10e194] [cursor=pointer]:
+                  - /url: bloons.html#prop-8
+                - link "Стекло" [ref=f10e195] [cursor=pointer]:
+                  - /url: bloons.html#prop-64
+            - row [ref=f10e196]:
+              - cell "2" [ref=f10e197]
+              - cell "49" [ref=f10e198]
+              - cell "1" [ref=f10e199]
+              - cell "1" [ref=f10e200]
+              - cell "5" [ref=f10e201]
+              - cell "1" [ref=f10e202]
+              - cell [ref=f10e203]:
+                - link "Фиолетовый" [ref=f10e204] [cursor=pointer]:
+                  - /url: bloons.html#prop-8
+                - link "Стекло" [ref=f10e205] [cursor=pointer]:
+                  - /url: bloons.html#prop-64
+            - row [ref=f10e206]:
+              - cell "4" [ref=f10e207]
+              - cell "49" [ref=f10e208]
+              - cell "1" [ref=f10e209]
+              - cell "2" [ref=f10e210]
+              - cell "5" [ref=f10e211]
+              - cell "2" [ref=f10e212]
+              - cell [ref=f10e213]:
+                - link "Фиолетовый" [ref=f10e214] [cursor=pointer]:
+                  - /url: bloons.html#prop-8
+                - link "Стекло" [ref=f10e215] [cursor=pointer]:
+                  - /url: bloons.html#prop-64
+            - row [ref=f10e216]:
+              - cell "5" [ref=f10e217]
+              - cell "49" [ref=f10e218]
+              - cell "1" [ref=f10e219]
+              - cell "2" [ref=f10e220]
+              - cell "8" [ref=f10e221]
+              - cell "2" [ref=f10e222]
+              - cell [ref=f10e223]:
+                - link "Фиолетовый" [ref=f10e224] [cursor=pointer]:
+                  - /url: bloons.html#prop-8
+                - link "Стекло" [ref=f10e225] [cursor=pointer]:
+                  - /url: bloons.html#prop-64
+            - row [ref=f10e226]:
+              - cell "6" [ref=f10e227]
+              - cell "49" [ref=f10e228]
+              - cell "1" [ref=f10e229]
+              - cell "3" [ref=f10e230]
+              - cell "8" [ref=f10e231]
+              - cell "3" [ref=f10e232]
+              - cell [ref=f10e233]:
+                - link "Фиолетовый" [ref=f10e234] [cursor=pointer]:
+                  - /url: bloons.html#prop-8
+                - link "Стекло" [ref=f10e235] [cursor=pointer]:
+                  - /url: bloons.html#prop-64
+            - row [ref=f10e236]:
+              - cell "8" [ref=f10e237]
+              - cell "49" [ref=f10e238]
+              - cell "1" [ref=f10e239]
+              - cell "4" [ref=f10e240]
+              - cell "8" [ref=f10e241]
+              - cell "4" [ref=f10e242]
+              - cell [ref=f10e243]:
+                - link "Фиолетовый" [ref=f10e244] [cursor=pointer]:
+                  - /url: bloons.html#prop-8
+                - link "Стекло" [ref=f10e245] [cursor=pointer]:
+                  - /url: bloons.html#prop-64
+            - row [ref=f10e246]:
+              - cell "9" [ref=f10e247]
+              - cell "54" [ref=f10e248]
+              - cell "1" [ref=f10e249]
+              - cell "4" [ref=f10e250]
+              - cell "8" [ref=f10e251]
+              - cell "4" [ref=f10e252]
+              - cell [ref=f10e253]:
+                - link "Фиолетовый" [ref=f10e254] [cursor=pointer]:
+                  - /url: bloons.html#prop-8
+                - link "Стекло" [ref=f10e255] [cursor=pointer]:
+                  - /url: bloons.html#prop-64
+            - row [ref=f10e256]:
+              - cell "10" [ref=f10e257]
+              - cell "54" [ref=f10e258]
+              - cell "0.05" [ref=f10e259]
+              - cell "3" [ref=f10e260]
+              - cell "8" [ref=f10e261]
+              - cell "60" [ref=f10e262]
+              - cell [ref=f10e263]:
+                - link "Фиолетовый" [ref=f10e264] [cursor=pointer]:
+                  - /url: bloons.html#prop-8
+                - link "Стекло" [ref=f10e265] [cursor=pointer]:
+                  - /url: bloons.html#prop-64
+            - row [ref=f10e266]:
+              - cell "13" [ref=f10e267]
+              - cell "54" [ref=f10e268]
+              - cell "0.05" [ref=f10e269]
+              - cell "3" [ref=f10e270]
+              - cell "11" [ref=f10e271]
+              - cell "60" [ref=f10e272]
+              - cell [ref=f10e273]:
+                - link "Фиолетовый" [ref=f10e274] [cursor=pointer]:
+                  - /url: bloons.html#prop-8
+                - link "Стекло" [ref=f10e275] [cursor=pointer]:
+                  - /url: bloons.html#prop-64
+            - row [ref=f10e276]:
+              - cell "15" [ref=f10e277]
+              - cell "54" [ref=f10e278]
+              - cell "0.05" [ref=f10e279]
+              - cell "5" [ref=f10e280]
+              - cell "11" [ref=f10e281]
+              - cell "100" [ref=f10e282]
+              - cell [ref=f10e283]:
+                - link "Фиолетовый" [ref=f10e284] [cursor=pointer]:
+                  - /url: bloons.html#prop-8
+                - link "Стекло" [ref=f10e285] [cursor=pointer]:
+                  - /url: bloons.html#prop-64
+            - row [ref=f10e286]:
+              - cell "19" [ref=f10e287]
+              - cell "59" [ref=f10e288]
+              - cell "0.05" [ref=f10e289]
+              - cell "5" [ref=f10e290]
+              - cell "11" [ref=f10e291]
+              - cell "100" [ref=f10e292]
+              - cell [ref=f10e293]:
+                - link "Фиолетовый" [ref=f10e294] [cursor=pointer]:
+                  - /url: bloons.html#prop-8
+                - link "Стекло" [ref=f10e295] [cursor=pointer]:
+                  - /url: bloons.html#prop-64
+            - row [ref=f10e296]:
+              - cell "20" [ref=f10e297]
+              - cell "59" [ref=f10e298]
+              - cell "0.05" [ref=f10e299]
+              - cell "20" [ref=f10e300]
+              - cell "11" [ref=f10e301]
+              - cell "400" [ref=f10e302]
+              - cell "–" [ref=f10e303]
+        - group [ref=f10e304]:
+          - generic "Все уровни" [ref=f10e305] [cursor=pointer]
+      - generic [ref=f10e306]:
+        - heading "Способности" [level=2] [ref=f10e308]
+        - table [ref=f10e310]:
+          - rowgroup [ref=f10e311]:
+            - row [ref=f10e312]:
+              - columnheader "Способность" [ref=f10e313]
+              - columnheader "Откуда" [ref=f10e314]
+              - columnheader "Перезарядка" [ref=f10e315]
+              - columnheader "Эффект" [ref=f10e316]
+              - columnheader "Описание" [ref=f10e317]
+          - rowgroup [ref=f10e318]:
+            - row [ref=f10e319]:
+              - cell "Длинная рука света" [ref=f10e320]
+              - cell "уровень 3" [ref=f10e323]
+              - cell "45 с" [ref=f10e324]
+              - cell "–" [ref=f10e325]
+              - cell "Ненадолго, но значительно повышает дальность и силу, а также повреждает все типы шаров." [ref=f10e326]
+            - row [ref=f10e327]:
+              - cell "Кровавая жертва" [ref=f10e328]
+              - cell "уровень 7" [ref=f10e331]
+              - cell "30 с" [ref=f10e332]
+              - cell "–" [ref=f10e333]
+              - cell "Пожертвуйте выбранной башней, чтобы дать Адоре много опыта и ненадолго увеличить дальность её атаки и скорострельность." [ref=f10e334]
+            - row [ref=f10e335]:
+              - cell "Световой шар" [ref=f10e336]
+              - cell "уровень 10" [ref=f10e339]
+              - cell "60 с" [ref=f10e340]
+              - cell "–" [ref=f10e341]
+              - cell "Стреляет мощным энергетическим шаром, сбивающим шары." [ref=f10e342]
+      - generic [ref=f10e343]:
+        - text: Неофициальная фанатская вики, без монетизации. Данные, названия, тексты и изображения принадлежат
+        - link "Ninja Kiwi" [ref=f10e344] [cursor=pointer]:
+          - /url: https://ninjakiwi.com
+        - text: . Данные выгружены через
+        - link "BTD6 Mod Helper" [ref=f10e345] [cursor=pointer]:
+          - /url: https://github.com/gurrenm3/BTD-Mod-Helper
+        - text: ", иконки из спрайтов игры."
+        - link "Исходный код" [ref=f10e346] [cursor=pointer]:
+          - /url: https://github.com/Antonzlo/btd6-tech-wiki
+        - text: .

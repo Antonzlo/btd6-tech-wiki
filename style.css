@@ -80,7 +80,6 @@ h3{font-size:15px;font-weight:600;margin:20px 0 8px}
 .tag{color:var(--soft);font-style:italic}
 .game{position:relative;background:var(--sky);border:2px solid var(--rule);border-radius:14px;padding:10px 14px 10px 14px;
   margin:12px 0;max-width:70ch;white-space:pre-line}
-.game::before{content:"В игре:";display:block;font-size:12px;font-weight:600;color:var(--blue);margin-bottom:2px}
 .note{color:var(--soft);font-size:13.5px;max-width:70ch}
 
 .stats{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
