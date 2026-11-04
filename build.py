@@ -724,6 +724,88 @@ def mod_table(mods):
     return table(["Модификатор", "Параметры"], rows) if rows else "<p class='note'>Без модификаторов.</p>"
 
 
+# The game stacks a mode on the difficulty it is picked under; that link is not in the export (the in-game menu).
+MODE_BASE = {"Impoppable": "Hard", "Clicks": "Hard", "HalfCash": "Hard", "DoubleMoabHealth": "Hard",
+             "AlternateBloonsRounds": "Hard", "MagicOnly": "Hard", "MilitaryOnly": "Medium", "Apopalypse": "Medium",
+             "Reverse": "Medium", "PrimaryOnly": "Easy", "Deflation": "Easy"}
+
+
+def mode_total(stem, files):
+    """Effective values of a mode: its base difficulty's modifiers, then its own, with where each value comes from.
+    Stacking (inferred, matches in-game prices and lives): multipliers multiply, changeBase/round/set replace,
+    addition adds; a multiplier of 0 next to an addition or changeBase means "not used"."""
+    chain = [s for s in (MODE_BASE.get(stem), stem) if s and s in files]
+    name = lambda s: t(f"Mode {s}", s, fallback=s)
+    v, src = {}, collections.defaultdict(list)
+    for s in chain:
+        who = name(s)
+        for m in load(files[s]).get("mutatorMods") or []:
+            ty = short_type(m)
+            if ty == "StartingCashModModel":
+                if m.get("changeBase"):
+                    v["cash"], src["cash"] = m["changeBase"], [f"{who} ={fmt(m['changeBase'])}"]
+                if m.get("multiplier"):
+                    v["cash"] = v.get("cash", 0) * m["multiplier"]; src["cash"].append(f"{who} ×{m['multiplier']:g}")
+                if m.get("addition"):
+                    v["cash"] = v.get("cash", 0) + m["addition"]; src["cash"].append(f"{who} +{fmt(m['addition'])}")
+            elif ty == "StartingHealthModModel":
+                v["lives"] = v.get("lives", 0) * m.get("multiplier", 0) + m.get("addition", 0)
+                src["lives"] = [f"{who} ={fmt(v['lives'])}"]
+            elif ty == "MaxHealthModModel" and m.get("set"):
+                v["maxlives"], src["maxlives"] = m["set"], [f"{who} ={fmt(m['set'])}"]
+            elif ty in ("GlobalCostModModel", "GlobalSpeedModModel", "ModifyAllCashModModel"):
+                k = {"GlobalCostModModel": "cost", "GlobalSpeedModModel": "speed", "ModifyAllCashModModel": "allcash"}[ty]
+                v[k] = v.get(k, 1) * m.get("multiplier", 1); src[k].append(f"{who} ×{m.get('multiplier', 1):g}")
+            elif ty == "SellMultiplierModModel":
+                v["sell"] = v.get("sell", 0) * m.get("multiplier", 0) + m.get("addition", 0)
+                src["sell"] = [f"{who} ={v['sell'] * 100:g}%"]
+            elif ty == "BonusCashPerRoundModModel":
+                v["bonus"] = (m.get("baseCash", 0), m.get("roundMultiple", 0)); src["bonus"] = [who]
+            elif ty in ("StartingRoundModModel", "EndRoundModModel"):
+                k = "start" if ty == "StartingRoundModModel" else "end"
+                v[k], src[k] = m.get("round"), [f"{who}: {'начало с раунда' if k == 'start' else 'конец на раунде'} {m.get('round')}"]
+            elif ty == "MonkeyMoneyModModel":
+                if m.get("changeBase"):
+                    v["mm"], src["mm"] = m["changeBase"], [f"{who} ={fmt(m['changeBase'])}"]
+                if m.get("multiplier", 1) != 1:
+                    v["mm"] = v.get("mm", 0) * m["multiplier"]; src["mm"].append(f"{who} ×{m['multiplier']:g}")
+            elif ty == "RoundSetModModel":
+                v["rounds"], src["rounds"] = m.get("roundsetName"), [who]
+    if "maxlives" in v and v.get("lives", 0) > v["maxlives"]:
+        v["lives"] = v["maxlives"]
+        src["lives"].append(src["maxlives"][0].replace("=", "максимум "))
+    cm = v.get("allcash", 1)
+    one = "×1" if chain[0] in ("Easy", "Medium", "Hard") else None  # coop, sandbox, tutorial: no difficulty under them
+    rows = [
+        ("Стартовые деньги", f"${fmt(round(v['cash']))}" if "cash" in v else None, "cash"),
+        ("Жизни", fmt(v.get("lives")) if "lives" in v else None, "lives"),
+        ("Цены", f"×{v['cost']:.4g}" if "cost" in v else one, "cost"),
+        ("Скорость шаров", f"×{v['speed']:.4g}" if "speed" in v else one, "speed"),
+        ("Деньги за лопание", f"×{cm:g}" if "allcash" in v else None, "allcash"),
+        ("Бонус за раунд", (f"${fmt(v['bonus'][0] * cm)} + {v['bonus'][1] * cm:g} × раунд" if "bonus" in v else None), "bonus"),
+        ("Продажа", f"{v['sell'] * 100:g}%" if "sell" in v else None, "sell"),
+        ("Раунды", f"{v.get('start', 1)}–{v['end']}" if "end" in v else None, "end"),
+        ("Набор раундов", v.get("rounds"), "rounds"),
+        ("Monkey Money за победу", fmt(round(v["mm"])) if "mm" in v else None, "mm"),
+    ]
+    out = []
+    for lbl, val, k in rows:
+        if val is None:
+            continue
+        s = src.get(k) or []
+        if k == "end" and "start" in v:
+            s = src["start"] + s
+        if k == "bonus" and "allcash" in v:
+            s = s + src["allcash"]
+        out.append((lbl, val, ", ".join(s) or "по умолчанию"))
+    if not out:
+        return ""
+    base = f" База: {name(chain[0])}." if len(chain) > 1 else ""
+    return ("<h3>Итог</h3>" + table(["Параметр", "Значение", "Откуда"], out)
+            + f"<p class='note'>Сложено из модификаторов сложности и режима.{base} Monkey Money это база, "
+            "в игре она ещё зависит от сложности карты.</p>")
+
+
 MODE_GROUPS = [
     ("difficulty", "Сложности", ["Easy", "Medium", "Hard", "Impoppable"]),
     ("modes", "Режимы игры", None),  # everything not listed elsewhere
@@ -753,7 +835,7 @@ def build_modes():
                 vals = {short_type(m): m for m in mods}
                 desc = desc.replace("{0}", fmt(vals.get("StartingRoundModModel", {}).get("round", "?"))).replace(
                     "{1}", fmt(vals.get("StartingCashModModel", {}).get("changeBase", "?")))
-            inner = (f"<div class='hero-row'>{pic}<div>" if pic else "<div><div>") + game_text(desc) + mod_table(mods) + "</div></div>"
+            inner = (f"<div class='hero-row'>{pic}<div>" if pic else "<div><div>") + game_text(desc) + mode_total(stem, files) + mod_table(mods) + "</div></div>"
             cards.append(card(stem, name, inner, en_id=stem, section="Режимы"))
         if cards:
             body.append(group(gid, title, cards))
