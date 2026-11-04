@@ -328,7 +328,7 @@ def page(file, title, lead, body, toc=()):
         f"{body}<footer class='foot'>Неофициальная фанатская вики, без монетизации. Данные, названия, тексты и изображения "
         "принадлежат <a href='https://ninjakiwi.com' rel='noopener'>Ninja Kiwi</a>. Данные выгружены через "
         "<a href='https://github.com/gurrenm3/BTD-Mod-Helper' rel='noopener'>BTD6 Mod Helper</a>, иконки из спрайтов игры. "
-        "<a href='https://github.com/Antonzlo/btd6-tech-wiki' rel='noopener'>Исходный код</a>.</footer>"
+        "<a href='https://github.com/Antonzlo/btd6-tech-wiki' rel='noopener'>Исходный код</a>. Сделано с ♥ <a href='https://github.com/Antonzlo' rel='noopener'>Antonzlo</a>.</footer>"
         f"</main></div><script src='search.js?v={JS_VER}'></script>")
     # the artifact page itself is a fragment (the host adds the skeleton); --pages builds plain files for GitHub Pages
     if file == "index.html" and LANG == MAIN_LANG and "--pages" not in sys.argv:
@@ -1182,7 +1182,7 @@ def diff_selector():
     # Super Monkey $3000; multiplying them would give $655 and $3025)
     diffs["Impoppable"] = round(diffs["Impoppable"] + diffs["Hard"] - 1, 6)
     return ("<div class='diff' role='group' aria-label='Сложность'><span>Сложность</span>" + "".join(
-        f"<button type='button' data-mult='{m}'{' class=on' if m == 1 else ''}>{esc(t(n, fallback=n))}</button>"
+        f"<button type='button' data-mult='{m}'{' class=on' if m == 1 else ''}>{icon('ui', f'mode-{n}', 22)}{esc(t(n, fallback=n))}</button>"
         for n, m in diffs.items()) + "</div>")
 
 
