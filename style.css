@@ -193,7 +193,9 @@ a.chip:hover{filter:brightness(1.15);text-decoration:underline}
 .up-head>.id{margin-left:auto;white-space:nowrap;text-align:right}
 
 /* Difficulty switch and prices */
-.diff{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0 2px}
+.diff{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0 2px;
+  position:sticky;top:var(--top-h,66px);z-index:4;background:var(--sky);padding:8px 0}
+body:has(.diff) :is(.card,h2.group,.prop-row){scroll-margin-top:calc(var(--top-h,66px) + 70px)}
 .diff>span{color:var(--soft);font-size:13.5px;margin-right:4px}
 .diff button{font:600 14px var(--body);padding:6px 14px;border:2px solid var(--edge);border-radius:10px;background:var(--panel);
   color:var(--ink);box-shadow:0 3px 0 var(--edge);cursor:pointer}
