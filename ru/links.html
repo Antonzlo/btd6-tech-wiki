@@ -1,0 +1,309 @@
+<!doctype html><html lang="ru"><head><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta charset="utf-8"><title>Ссылки · BTD6 Tech Wiki</title><meta name="claude:viewport-fit-sides" content="cover"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Roboto+Mono&display=swap"><style>/* Layout: the game's HUD language. Chunky outlined panels with a hard drop shadow, cartoon display face
+   for titles only, quiet sans for data. Top bar with search, left rail nav, cards in one column.
+   Boldness lives in one place: titles with an ink outline, and the boss HP bars with skull ticks. */
+:root{
+  --sky:#e8f1fb;      /* page ground, cool menu blue */
+  --panel:#ffffff;
+  --ink:#1b2a44;      /* outlines, text */
+  --soft:#5a6b86;     /* secondary text */
+  --rule:#cfdcec;
+  --gold:#f5b821;     /* monkey money: highlights, active nav */
+  --gold-ink:#5b4200;
+  --blue:#1f6fd6;     /* links */
+  --red:#d93a36;      /* elite / not stackable */
+  --red-soft:#fde3e1;
+  --hero:#6b35b8;--hero-soft:#ede2fb;--buff:#1a5fb8;--buff-soft:#dde9fb;--power:#0b7a5c;--power-soft:#d8f1e8; /* link badge kinds */
+  --green:#3f9b3a;    /* normal tier / stackable */
+  --green-soft:#e1f3dc;
+  --hp:#5cc24f;
+  --display:"Rubik",system-ui,sans-serif;
+  --edge:#1b2a44;     /* outlines and hard shadows */
+  --body:"Rubik",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --code:"Roboto Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --sky:#0e1726;--panel:#16233a;--ink:#e6eefb;--soft:#9fb0cb;--rule:#26354f;--gold:#f5b821;--gold-ink:#2a1e00;
+  --blue:#7db3ff;--red:#ff7a72;--red-soft:#3a1d22;--green:#7fd36f;--green-soft:#17301b;--hp:#55b948;--edge:#050a14;
+  --hero:#cfa8ff;--hero-soft:#2c2142;--buff:#8fbcff;--buff-soft:#172a4a;--power:#6fdcb9;--power-soft:#123029;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --sky:#0e1726;--panel:#16233a;--ink:#e6eefb;--soft:#9fb0cb;--rule:#26354f;--gold:#f5b821;--gold-ink:#2a1e00;
+  --blue:#7db3ff;--red:#ff7a72;--red-soft:#3a1d22;--green:#7fd36f;--green-soft:#17301b;--hp:#55b948;--edge:#050a14;
+  --hero:#cfa8ff;--hero-soft:#2c2142;--buff:#8fbcff;--buff-soft:#172a4a;--power:#6fdcb9;--power-soft:#123029;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--sky);color:var(--ink);font:15px/1.55 var(--body)}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:3px solid var(--edge);
+  padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.brand{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:.01em;color:var(--ink);white-space:nowrap}
+.brand:hover{text-decoration:none}
+.brand span{font-family:var(--body);font-size:12px;font-weight:500;color:var(--gold-ink);background:var(--gold);
+  border:2px solid var(--edge);border-radius:999px;padding:0 8px;margin-left:8px;vertical-align:4px}
+.search{position:relative;flex:1 1 260px;max-width:480px}
+.search input{width:100%;font:inherit;padding:8px 14px;border:2px solid var(--edge);border-radius:12px;background:var(--sky);color:var(--ink)}
+.results{position:absolute;left:0;right:0;top:calc(100% + 6px);background:var(--panel);border:2px solid var(--edge);border-radius:12px;
+  box-shadow:0 4px 0 var(--edge);max-height:60vh;overflow:auto;padding:4px}
+.results a{display:flex;justify-content:space-between;gap:12px;padding:7px 10px;border-radius:8px;color:var(--ink)}
+.results a:hover,.results a.sel{background:var(--gold);color:var(--gold-ink);text-decoration:none}
+.results small{color:var(--soft);white-space:nowrap}
+.results a.sel small,.results a:hover small{color:var(--gold-ink)}
+
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px;max-width:1760px;margin:0 auto;
+  padding-block:24px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px);align-self:start;max-height:calc(100vh - 100px);overflow:auto;font-size:14px}
+.side h4{margin:20px 0 6px 10px;font-size:13px;font-weight:500;color:var(--soft)}
+.side nav{display:flex;flex-direction:column;gap:2px}
+.side a{display:block;padding:5px 10px;border-radius:10px;color:var(--ink);border:2px solid transparent}
+.side a:hover{background:var(--panel);text-decoration:none}
+.side nav a.on{background:var(--gold);color:var(--gold-ink);border-color:var(--edge);font-weight:600}
+.side .toc a{color:var(--soft);padding-block:3px}
+main{min-width:0}
+
+/* The one loud thing: outlined cartoon titles */
+h1{font-family:var(--display);font-weight:800;font-size:44px;line-height:1.05;margin:0 0 10px;text-wrap:balance;
+  color:var(--gold);-webkit-text-stroke:7px var(--edge);paint-order:stroke fill;letter-spacing:.01em}
+h2{font-family:var(--display);font-weight:700;font-size:26px;line-height:1.15;margin:0;text-wrap:balance;letter-spacing:.01em}
+h3{font-size:15px;font-weight:600;margin:20px 0 8px}
+.lead{max-width:66ch;margin:0 0 6px;font-size:16px}
+.ver{font-size:13px;color:var(--soft);margin:0 0 8px}
+
+.card{background:var(--panel);border:3px solid var(--edge);border-radius:18px;box-shadow:0 5px 0 var(--edge);
+  padding:20px 22px;margin:22px 0;scroll-margin-top:90px}
+.card-head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.id{font-family:var(--code);font-size:12px;color:var(--soft)}
+.tag{color:var(--soft);font-style:italic}
+.game{position:relative;background:var(--sky);border:2px solid var(--rule);border-radius:14px;padding:10px 14px 10px 14px;
+  margin:12px 0;max-width:70ch;white-space:pre-line}
+.note{color:var(--soft);font-size:13.5px;max-width:70ch}
+
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.stat{background:var(--sky);border-radius:12px;padding:8px 14px;min-width:120px}
+.stat b{display:block;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums}
+.stat small{color:var(--soft);font-size:12.5px}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12.5px;padding:2px 10px;border-radius:999px;background:var(--green-soft);color:var(--green);font-weight:500;white-space:nowrap}
+.chip.no{background:var(--red-soft);color:var(--red)}
+
+.wrap{overflow-x:auto;margin:8px 0}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:14px}
+th,td{border-bottom:1px solid var(--rule);padding:6px 12px;text-align:left;vertical-align:top}
+thead th{font-size:12.5px;color:var(--soft);font-weight:500;background:var(--panel);border-bottom:2px solid var(--edge)}
+td.n{text-align:right;white-space:nowrap;font-weight:500}
+td.k{font-family:var(--code);font-size:12.5px;color:var(--soft)}
+tbody tr:hover td{background:var(--sky)}
+details{margin:10px 0}
+summary{cursor:pointer;color:var(--blue);font-size:14px;font-weight:500}
+
+/* Boss HP: one in-game style capsule per tier, skull ticks at the trigger thresholds */
+.hp{display:grid;grid-template-columns:2.6em minmax(0,1fr) auto;gap:8px 12px;align-items:center;margin:12px 0;max-width:720px}
+.hp .t{font-family:var(--display);font-weight:700;font-size:15px;text-align:center;border-radius:8px;border:2px solid var(--edge);line-height:1.3}
+.hp .t.n{background:var(--green-soft);color:var(--green)}
+.hp .t.e{background:var(--red-soft);color:var(--red)}
+.hp .bar{position:relative;height:18px;border:2px solid var(--edge);border-radius:999px;background:var(--rule);overflow:hidden}
+.hp .fill{position:absolute;inset:0 auto 0 0;background:var(--hp);border-radius:999px}
+.hp .e .fill,.hp .bar.e .fill{background:var(--red)}
+.hp .skull{position:absolute;top:-2px;bottom:-2px;width:3px;background:var(--edge);transform:translateX(-1.5px)}
+.hp .v{font-weight:600;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.hp .v small{display:block;font-weight:400;font-size:12px;color:var(--soft)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:22px 0}
+/* game select screen layout: 3 rows filled column by column, scrolls sideways when it does not fit */
+.grid.cols3{grid-auto-flow:column;grid-template:repeat(3,auto)/none;grid-auto-columns:minmax(250px,1fr);overflow-x:auto;padding-bottom:6px}
+th.sortable{cursor:pointer;user-select:none}
+th.sortable:hover{color:var(--ink)}
+th[data-dir="1"]::after{content:" ▲"}
+th[data-dir="-1"]::after{content:" ▼"}
+.tile{background:var(--panel);border:3px solid var(--edge);border-radius:16px;box-shadow:0 4px 0 var(--edge);padding:14px 16px;color:var(--ink);
+  transition:transform .12s ease,box-shadow .12s ease}
+.tile:hover{text-decoration:none;transform:translateY(-2px);box-shadow:0 6px 0 var(--edge)}
+.tile:active{transform:translateY(3px);box-shadow:0 1px 0 var(--edge)}
+.tile b{display:block;font-family:var(--display);font-weight:700;font-size:21px}
+.tile small{color:var(--soft)}
+.filter{font:inherit;padding:7px 12px;border:2px solid var(--edge);border-radius:12px;background:var(--sky);color:var(--ink);width:min(100%,340px);margin:6px 0}
+svg text{fill:var(--soft);font:11px var(--body)}
+
+@media (max-width:860px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:8px}
+  .side{position:static;max-height:none}.side .toc,.side h4{display:none}
+  .side nav{flex-direction:row;flex-wrap:wrap;gap:6px}
+  h1{font-size:34px;-webkit-text-stroke-width:6px}
+  .card{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tile{transition:none}}
+
+/* Knowledge tree */
+.kgraph svg{display:block}
+.kgraph .band0{fill:var(--sky)}
+.kgraph .band1{fill:var(--panel);stroke:var(--rule)}
+.kgraph .bandlbl{fill:var(--soft);font:600 13px var(--body)}
+.kgraph .kn .nm{fill:var(--ink);font:500 13px var(--body)}
+.card:target{box-shadow:0 5px 0 var(--edge),0 0 0 4px var(--gold)}
+
+/* Knowledge tree in the game's own layout */
+.kgame{position:relative}
+.kgame .piece{fill:var(--soft);opacity:.75}
+.kgame .ring{fill:var(--panel);stroke:transparent;stroke-width:5}
+.kgame .kn:hover .ring,.kgame .kn:focus-visible .ring,.kgame .kn.lit .ring{stroke:var(--gold)}
+.kgame .cost{font:600 11px var(--body);fill:var(--gold-ink);paint-order:stroke;stroke:var(--gold);stroke-width:6px;stroke-linejoin:round}
+.kgame.dim .kn:not(.lit){opacity:.35}
+.ktip{position:fixed;pointer-events:none;background:var(--panel);border:2px solid var(--edge);border-radius:10px;
+  box-shadow:0 3px 0 var(--edge);padding:5px 10px;font-size:13px;white-space:nowrap;z-index:2}
+.ktip{max-width:300px;white-space:normal}
+.ktip b{display:block}.ktip p{margin:3px 0 4px;line-height:1.4}.ktip small{color:var(--soft)}
+
+/* Wide screens: card content side by side */
+.split{display:grid;grid-template-columns:minmax(0,1fr);gap:8px 40px}
+@media (min-width:1280px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.split>div>h3:first-child{margin-top:12px}}
+.hp{max-width:none}
+
+/* Towers */
+.paths{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px 28px}
+.path ol{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.path li{border-top:1px solid var(--rule);padding-top:8px}
+.path p{margin:2px 0 0;font-size:13.5px;color:var(--soft)}
+.up-head{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.xp-row{display:flex;align-items:center;gap:6px;margin:6px 0;flex-wrap:wrap}
+.xp-row span{min-width:72px;color:var(--soft);font-size:13.5px}
+.xp-row button{font:600 15px var(--body);min-width:40px;padding:5px 0;border:2px solid var(--edge);border-radius:10px;
+  background:var(--sky);color:var(--ink);box-shadow:0 3px 0 var(--edge);cursor:pointer}
+.xp-row button.on{background:var(--gold);color:var(--gold-ink)}
+.xp-row button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--edge)}
+.xp-out{margin-top:12px}
+.lang{margin-left:auto;font-weight:700;font-size:14px;color:var(--ink);border:2px solid var(--edge);border-radius:10px;
+  padding:4px 10px;background:var(--sky);box-shadow:0 3px 0 var(--edge)}
+.lang:hover{text-decoration:none;background:var(--gold);color:var(--gold-ink)}
+
+/* Icons */
+.ic{display:block;flex:none;object-fit:contain}
+.hero-row{display:flex;gap:18px;align-items:flex-start}
+.hero-row>div{min-width:0}
+.portrait{width:120px;height:120px;filter:drop-shadow(0 3px 0 var(--edge))}
+.path li{display:flex;gap:12px;align-items:flex-start}
+.path li>div{min-width:0;flex:1}
+.up-ic{width:56px;height:56px}
+.tower-tile{display:flex;gap:12px;align-items:center}
+.tower-tile .ic{width:72px;height:72px}
+.bchip{display:inline-flex;align-items:center;gap:4px;padding-left:4px}
+.bchip .ic{width:22px;height:22px}
+a.chip{text-decoration:none}
+a.chip:hover{filter:brightness(1.15);text-decoration:underline}
+@media (max-width:600px){.hero-row{flex-direction:column}}
+.bi{display:inline-block;width:22px;height:22px;background:center/contain no-repeat;flex:none}
+.tower-tile>span{min-width:0}
+.tower-tile b{font-size:17px;overflow-wrap:anywhere;hyphens:auto}
+.up-head>.id{margin-left:auto;white-space:nowrap;text-align:right}
+
+/* Difficulty switch and prices */
+.diff{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0 2px;
+  position:sticky;top:var(--top-h,66px);z-index:4;background:var(--sky);padding:8px 0}
+body:has(.diff) :is(.card,h2.group,.prop-row){scroll-margin-top:calc(var(--top-h,66px) + 70px)}
+.diff>span{color:var(--soft);font-size:13.5px;margin-right:4px}
+.diff button{font:600 14px var(--body);padding:6px 14px;border:2px solid var(--edge);border-radius:10px;background:var(--panel);
+  color:var(--ink);box-shadow:0 3px 0 var(--edge);cursor:pointer}
+.diff button.on{background:var(--gold);color:var(--gold-ink)}
+.diff button{display:inline-flex;align-items:center;gap:6px}
+.diff button .ic{width:22px;height:22px}
+.diff button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--edge)}
+.price{margin-left:auto;text-align:right;white-space:nowrap;display:flex;flex-direction:column;align-items:flex-end;line-height:1.2}
+.price .big{font:700 17px var(--body);color:var(--gold)}
+.price small{font-size:12px;color:var(--soft)}
+.price small .cost{font-weight:600;color:var(--ink)}
+.tile-price{display:block;font-weight:700;font-size:15px;color:var(--gold)}
+.stat .cost{color:var(--gold)}
+
+/* Paragon charts (series colors validated with the dataviz validator, light on #fff, dark on #16233a) */
+:root{--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--s1:#3987e5;--s2:#d95926;--s3:#199e70}}
+:root[data-theme="dark"]{--s1:#3987e5;--s2:#d95926;--s3:#199e70}
+.pchart .pline{fill:none;stroke:var(--s1);stroke-width:2.5;stroke-linejoin:round}
+.pchart .paxis{stroke:var(--soft);stroke-width:1}
+.pchart .pgrid{stroke:var(--rule);stroke-width:1}
+.pchart .phit{fill:transparent}
+.pchart .phit:hover{fill:var(--rule);opacity:.5}
+.donut-row{display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.donut .seg{fill:none;stroke-linecap:butt}
+.donut .s1{stroke:var(--s1)}.donut .s2{stroke:var(--s2)}.donut .s3{stroke:var(--s3)}
+.donut .seg:hover{stroke-width:32}
+.donut .dc-v{font:700 20px var(--body);fill:var(--ink)}
+.donut .dc-l{font:12px var(--body);fill:var(--soft)}
+.legend{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.legend li{display:grid;grid-template-columns:14px 150px 80px 50px;gap:10px;align-items:center}
+.legend .sw{width:14px;height:14px;border-radius:4px}
+.legend .sw.s1{background:var(--s1)}.legend .sw.s2{background:var(--s2)}.legend .sw.s3{background:var(--s3)}
+.legend b{font-variant-numeric:tabular-nums;text-align:right}
+.legend small{color:var(--soft);font-variant-numeric:tabular-nums}
+.foot{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);font-size:13px;color:var(--soft);max-width:80ch}
+
+/* Groups of small cards, round mechanics */
+h2.group{font-size:28px;margin:34px 0 0;scroll-margin-top:90px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,560px),1fr));gap:0 22px;align-items:stretch}
+.tagbar{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+.tagbar button{font:600 13px var(--body);padding:5px 12px;border:2px solid var(--edge);border-radius:999px;background:var(--sky);
+  color:var(--ink);box-shadow:0 2px 0 var(--edge);cursor:pointer}
+.tagbar button.on{background:var(--gold);color:var(--gold-ink)}
+.chip.new{background:var(--gold);color:var(--gold-ink);font-weight:700}
+tr.newrow td:first-child{box-shadow:inset 4px 0 0 var(--gold)}
+td.chg{background:color-mix(in srgb,var(--gold) 28%,transparent);color:var(--ink);font-weight:800}
+
+/* Parameter badges (shields style) */
+.badge{display:inline-flex;margin:2px 4px 2px 0;border-radius:6px;overflow:hidden;font-size:12.5px;line-height:1.7;
+  border:1.5px solid var(--edge);vertical-align:middle;white-space:nowrap}
+.badge span{background:var(--edge);color:#e6eefb;padding:0 7px;font-family:var(--code);font-size:11.5px}
+.badge b{background:var(--sky);color:var(--ink);padding:0 8px;font-weight:600}
+a.badge b{background:var(--gold);color:var(--gold-ink)}
+a.badge:hover{text-decoration:none}
+/* link badges and chips coloured by what they open: towers gold (default), heroes, bloons, buffs, powers */
+a.badge[href^="hero"] b,a.chip:not(.new)[href^="hero"]{background:var(--hero-soft);color:var(--hero)}
+a.badge[href^="bloons.html"] b,a.chip:not(.new)[href^="bloons.html"]{background:var(--red-soft);color:var(--red)}
+a.badge[href^="buffs.html"] b,a.chip:not(.new)[href^="buffs.html"]{background:var(--buff-soft);color:var(--buff)}
+a.badge[href^="powers.html"] b,a.chip:not(.new)[href^="powers.html"]{background:var(--power-soft);color:var(--power)}
+a.badge:hover b{filter:brightness(1.08)}
+.mod-name{display:inline-flex;align-items:center;gap:8px}
+.mod-ic{width:22px;height:22px;flex:none;display:inline-block}
+.badge b{display:inline-flex;align-items:center;gap:5px}
+.badge b .ic{width:18px;height:18px}
+.stat b{display:flex;align-items:center;gap:6px}
+.stat b .ic{width:22px;height:22px}
+.kicon{width:84px;height:84px;filter:drop-shadow(0 3px 0 var(--edge))}
+.mode-ic{width:96px;height:96px;filter:drop-shadow(0 3px 0 var(--edge))}
+.page-tile{display:flex;gap:14px;align-items:center}
+.page-tile .ic{width:56px;height:56px}
+.page-tile>span{min-width:0}
+
+/* Upgrade tiers line up across the three paths (subgrid rows) */
+.paths{grid-template-rows:auto repeat(5,auto);gap:0 28px}
+.path{display:grid;grid-row:span 6;grid-template-rows:subgrid}
+.path ol{display:contents}
+.path li{padding-block:8px}
+.paragon{margin-top:14px;border-top:2px solid var(--gold);padding-top:4px}
+.paragon ol{list-style:none;margin:0;padding:0}
+.paragon li{display:flex;gap:14px;align-items:flex-start;padding-block:8px}
+.paragon li>div{flex:1;min-width:0}
+.para-ic{width:72px;height:72px}
+.home-grid{grid-template-columns:repeat(5,minmax(0,1fr));max-width:1400px}
+@media (max-width:1500px){.home-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.home-grid{grid-template-columns:minmax(0,1fr)}}
+.page-index>.lead,.page-index>.note,.page-index>.foot{max-width:1400px}
+.buff-ic{width:32px;height:32px;flex:none;display:inline-block}
+.badge.yes b{background:var(--green-soft);color:var(--green)}
+.badge.no b{background:var(--red-soft);color:var(--red)}
+.page-bloons .stat{min-width:0;padding:6px 12px}
+.page-bloons .wrap table{width:100%}
+.stackgrid{display:grid;grid-template-columns:150px 170px 160px;gap:6px}
+.stackgrid .badge{margin:0;display:flex}
+.stackgrid .badge span{flex:1}
+.stackgrid .badge b{min-width:46px;justify-content:center}
+.prop-row{display:grid;grid-template-columns:200px minmax(0,1fr);gap:14px;padding:10px 0;border-top:1px solid var(--rule);scroll-margin-top:90px}
+.prop-row p{margin:2px 0 6px}
+.prop-row:target{background:var(--sky)}
+@media (max-width:700px){.prop-row{grid-template-columns:minmax(0,1fr)}}
+.prop-row>.badge{align-self:start;justify-self:start}
+.fold>summary{font-size:15px;margin:4px 0}
+</style></head><body><header class='top'><a class='brand' href='index.html'>BTD6 Tech Wiki<span title='57.4 (Mod Helper export, 2026-11-04)'>57.4</span></a><div class='search'><input id='q' type='search' placeholder='Поиск: босс, режим, знание, сила…  ( / )' autocomplete='off' aria-label='Поиск по вики'><div class='results' id='qr' hidden></div></div><a class='lang' href='../links.html' aria-label='Язык'>EN</a></header><div class='layout'><aside class='side'><h4>Разделы</h4><nav><a href='index.html'>Главная</a><a href='towers.html'>Башни</a><a href='heroes.html'>Герои</a><a href='paragon.html'>Парагон</a><a href='buffs.html'>Баффы</a><a href='bloons.html'>Шары</a><a href='rounds.html'>Раунды</a><a href='bosses.html'>Боссы</a><a href='modes.html'>Режимы</a><a href='income.html'>Доход</a><a href='knowledge.html'>Обезьяньи знания</a><a href='powers.html'>Силы</a><a href='links.html' class=on>Ссылки</a></nav></aside><main class='page-links'><h1>Ссылки</h1><p class='lead'></p><div class='wrap'><table><thead><tr><th>Сайт</th><th>Что там</th></tr></thead><tbody><tr><td><a href='https://www.bloonswiki.com' rel='noopener'><b>Blooncyclopedia</b></a></td><td>Большая вики по всем играм Bloons: тексты, история изменений, стратегии.</td></tr><tr><td><a href='https://www.reddit.com/r/btd6/' rel='noopener'><b>r/btd6</b></a></td><td>Сообщество игры на Reddit.</td></tr><tr><td><a href='https://ninjakiwi.com' rel='noopener'><b>Ninja Kiwi</b></a></td><td>Разработчики игры: новости и патчноуты.</td></tr><tr><td><a href='https://github.com/gurrenm3/BTD-Mod-Helper' rel='noopener'><b>BTD6 Mod Helper</b></a></td><td>Библиотека для модов, через неё выгружены данные этого сайта.</td></tr><tr><td><a href='https://github.com/Antonzlo/btd6-tech-wiki' rel='noopener'><b>BTD6 Tech Wiki</b></a></td><td>Исходный код этого сайта.</td></tr></tbody></table></div><footer class='foot'>Неофициальная фанатская вики, без монетизации. Данные, названия, тексты и изображения принадлежат <a href='https://ninjakiwi.com' rel='noopener'>Ninja Kiwi</a>. Данные выгружены через <a href='https://github.com/gurrenm3/BTD-Mod-Helper' rel='noopener'>BTD6 Mod Helper</a>, иконки из спрайтов игры. <a href='https://github.com/Antonzlo/btd6-tech-wiki' rel='noopener'>Исходный код</a>. Сделано с ♥ <a href='https://github.com/Antonzlo' rel='noopener'>Antonzlo</a>.</footer></main></div><script src='search.js?v=7b7dc0d0'></script></body></html>
