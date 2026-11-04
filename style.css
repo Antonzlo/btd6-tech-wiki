@@ -131,8 +131,9 @@ summary{cursor:pointer;color:var(--blue);font-size:14px;font-weight:500}
 @media (max-width:700px){.grid.cols3{grid-template-columns:1fr}}
 th.sortable{cursor:pointer;user-select:none}
 th.sortable:hover{color:var(--ink)}
-th[data-dir="1"]::after{content:" ▲"}
-th[data-dir="-1"]::after{content:" ▼"}
+th.sortable::after{content:" ↕";opacity:.35}
+th[data-dir="1"]::after{content:" ▲";opacity:1}
+th[data-dir="-1"]::after{content:" ▼";opacity:1}
 .tile{background:var(--panel);border:3px solid var(--edge);border-radius:16px;box-shadow:0 4px 0 var(--edge);padding:14px 16px;color:var(--ink);
   transition:transform .12s ease,box-shadow .12s ease}
 .tile:hover{text-decoration:none;transform:translateY(-2px);box-shadow:0 6px 0 var(--edge)}

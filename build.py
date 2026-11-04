@@ -100,10 +100,11 @@ document.querySelectorAll('.hcalc').forEach(function(c){var go=function(){hcalc(
 c.querySelector('.hc-start').addEventListener('input',go);
 c.querySelector('.hc-round').addEventListener('input',function(){c._touched=true;go()});go()});
 document.querySelectorAll('.sortbar').forEach(function(bar){var g=document.getElementById(bar.dataset.grid);bar.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){var k=b.dataset.sort;Array.prototype.slice.call(g.children).sort(function(x,y){return x.dataset[k]-y.dataset[k]}).forEach(function(c){g.appendChild(c)});g.classList.toggle('cols3',k==='order');bar.querySelectorAll('button').forEach(function(o){o.classList.toggle('on',o===b)})})})});
-document.querySelectorAll('table').forEach(function(t){var tb=t.tBodies[0];if(!tb||!t.tHead||t.querySelector('[rowspan]'))return;var ths=t.tHead.rows[0].cells;
-Array.prototype.forEach.call(ths,function(th,ci){th.classList.add('sortable');th.addEventListener('click',function(){var dir=th.dataset.dir==='1'?-1:1;Array.prototype.forEach.call(ths,function(x){delete x.dataset.dir});th.dataset.dir=dir===1?'1':'-1';
-var val=function(r){var s=r.cells[ci]?r.cells[ci].textContent.trim():'';var n=parseFloat(s.replace(/[   $]/g,'').replace(',','.'));return isNaN(n)?s:n};
-Array.prototype.slice.call(tb.rows).sort(function(a,b){var x=val(a),y=val(b);return(typeof x==='number'&&typeof y==='number'?x-y:String(x).localeCompare(String(y)))*dir}).forEach(function(r){tb.appendChild(r)})})})});
+document.querySelectorAll('table').forEach(function(t){var tb=t.tBodies[0];if(!tb||!t.tHead||t.classList.contains('nosort')||tb.rows.length<3||t.querySelector('[rowspan]'))return;var ths=t.tHead.rows[0].cells;
+Array.prototype.forEach.call(ths,function(th,ci){th.classList.add('sortable');th.tabIndex=0;var go=function(){var dir=th.dataset.dir==='1'?-1:1;Array.prototype.forEach.call(ths,function(x){delete x.dataset.dir;x.removeAttribute('aria-sort')});th.dataset.dir=dir===1?'1':'-1';th.setAttribute('aria-sort',dir===1?'ascending':'descending');
+var val=function(r){var s=r.cells[ci]?r.cells[ci].textContent.trim():'';if(s===''||s==='–')return null;var n=parseFloat(s.replace(/[\\s$×x%]/g,'').replace('−','-').replace(',','.'));return isNaN(n)?s:n};
+Array.prototype.slice.call(tb.rows).sort(function(a,b){var x=val(a),y=val(b);if(x===null||y===null)return(x===null)-(y===null);return(typeof x==='number'&&typeof y==='number'?x-y:String(x).localeCompare(String(y)))*dir}).forEach(function(r){tb.appendChild(r)})};
+th.addEventListener('click',go);th.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}})})});
 document.querySelectorAll('.kgraph').forEach(function(g){var nodes={};g.querySelectorAll('.kn').forEach(function(n){nodes[n.dataset.id]=n});
 function chain(id,acc){if(acc[id]||!nodes[id])return acc;acc[id]=1;(nodes[id].dataset.req||'').split(' ').filter(Boolean).forEach(function(p){chain(p,acc)});return acc}
 function clear(){g.classList.remove('dim');g.querySelectorAll('.lit').forEach(function(e){e.classList.remove('lit')})}
@@ -831,7 +832,7 @@ def mod_table(mods):
     """Mutator models as rows: icon + readable name, then their parameters as badges."""
     rows = [(Raw(f"<span class='mod-name'>{mod_icon(short_type(m))}{esc(label(short_type(m)))}</span>"),
              Raw(f"<div class='mod-params'>{' '.join(param(k, v) for k, v in flatten(m).items() if v != '') or '–'}</div>")) for m in mods]
-    return table(["Модификатор", "Параметры"], rows) if rows else "<p class='note'>Без модификаторов.</p>"
+    return table(["Модификатор", "Параметры"], rows).replace("<table>", "<table class='nosort'>", 1) if rows else "<p class='note'>Без модификаторов.</p>"
 
 
 # The game stacks a mode on the difficulty it is picked under; that link is not in the export (the in-game menu).
@@ -911,7 +912,7 @@ def mode_total(stem, files):
     if not out:
         return ""
     base = f" База: {name(chain[0])}." if len(chain) > 1 else ""
-    return ("<h3>Итог</h3>" + table(["Параметр", "Значение", "Откуда"], out)
+    return ("<h3>Итог</h3>" + table(["Параметр", "Значение", "Откуда"], out).replace("<table>", "<table class='nosort'>", 1)
             + f"<p class='note'>Сложено из модификаторов сложности и режима.{base} Monkey Money это база, "
             "в игре она ещё зависит от сложности карты.</p>")
 
