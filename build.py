@@ -1382,7 +1382,7 @@ def build_bloons():
                              for bit, p in BLOON_PROPS if (m.get("bloonProperties") or 0) & bit)
             kids = collections.Counter(children(b))
             kid_badges = " ".join(
-                f"<a class='badge' href='#{esc(BLOONS[c].get('baseId', c))}'><span>дети</span>"
+                f"<a class='badge' href='bloons.html#{esc(BLOONS[c].get('baseId', c))}'><span>дети</span>"
                 f"<b>{icon('bloons', c, 18)}{n}× {esc(bloon_name(c))}</b></a>" for c, n in kids.items() if c in BLOONS)
             variants = sorted((f.stem for f in (DATA / "Bloons" / b).glob("*.json") if f.stem != b),
                               key=lambda v: (rbe(v), v))
