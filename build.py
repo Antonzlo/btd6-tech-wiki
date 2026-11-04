@@ -76,7 +76,7 @@ document.querySelectorAll('.tagbar:not(.sortbar)').forEach(function(bar){var row
 function hcalc(c){var reqs=JSON.parse(c.dataset.reqs),cash=JSON.parse(c.dataset.cash),map=+c.querySelector('select').value,
 pin=c.querySelector('.hc-round'),st=Math.max(0,+c.querySelector('.hc-start').value||0),m=curMult(),
 K=c.querySelector('.hc-mk').checked?JSON.parse(c.dataset.mk):{xp:0,levels:0,discount:0},base=c.dataset.cost*(1-K.discount),
-cost=m===1&&!K.discount?+c.dataset.cost:Math.round(base*m/5)*5,have=st,ok=1;
+cost=Math.round(base*m/5)*5,have=st,ok=1;
 while(have<cost&&ok<=cash.length){have+=cash[ok-1];ok++}if(!c._touched)pin.value=Math.min(ok,140);
 var start=Math.max(1,Math.min(140,+pin.value||1)),xp=K.levels?reqs[K.levels-1]:0,r=start-1,rs=[];
 reqs.forEach(function(q){while(xp<q&&r<500){r++;xp+=Math.round((r<=20?20*r+20:r<=50?40*r-380:90*r-2880)*map*(1+K.xp))}rs.push(Math.max(r,start))});
@@ -1309,9 +1309,8 @@ def hero_calc(totals, cost):
     times the map difficulty, rounded half up each round. hcalc() in search.js does the math."""
     cash = [round(p + b) for p, b in round_cash().values()]
     maps = [("Beginner", 1), ("Intermediate", 1.1), ("Advanced", 1.2), ("Expert", 1.3)]
-    mods = {n: (load(DATA / "Knowledge" / g / f"{n}.json").get("mod") or {}).get("mutatorMods", [{}])[0]
-            for g, n in (("Support", "MonkeyEducation"), ("Heroes", "SelfTaughtHeroes"),
-                         ("Heroes", "EmpoweredHeroes"), ("Heroes", "HeroFavors"))}
+    km = knowledge_mods()
+    mods = {n: (km.get(n) or [{}])[0] for n in ("MonkeyEducation", "SelfTaughtHeroes", "EmpoweredHeroes", "HeroFavors")}
     # ponytail: XP bonuses assumed additive (1 + 0.08 + 0.10); Monkeys Together Strong left out, it needs a second hero
     mk = {"xp": mods["MonkeyEducation"].get("multiplier", 0) + mods["SelfTaughtHeroes"].get("multiplier", 0),
           "levels": mods["EmpoweredHeroes"].get("levels", 0), "discount": mods["HeroFavors"].get("multiplier", 0)}
@@ -1704,7 +1703,7 @@ def knowledge_mods():
     return {f.stem: (load(f).get("mod") or {}).get("mutatorMods") or [] for f in (DATA / "Knowledge").rglob("*.json")}
 
 
-def tower_knowledge(tid, folder, paths):
+def tower_knowledge(tid, folder, up_code):
     """Knowledge that changes a tower, all from the dump: {id: [tier codes where it starts]}, "000" = from placement.
     Sources: a tower model names the knowledge in a "mod" field; a knowledge names the tower (tower, baseTowerID,
     towerBaseId, comma lists) or one of its upgrades (upgradeName)."""
@@ -1715,7 +1714,6 @@ def tower_knowledge(tid, folder, paths):
         for k in re.findall(r'"mod":\s*"([^"]+)"', f.read_text(encoding="utf-8")):
             if k in known:
                 seen[k].add(code)
-    up_code = {u: "".join(str(n) if j == i else "0" for j in range(3)) for i, path in enumerate(paths) for n, u in enumerate(path, 1)}
     for k, mods in known.items():
         for m in mods:
             if tid in ",".join(str(m.get(f, "")) for f in ("tower", "baseTowerID", "towerBaseId")).split(","):
@@ -1733,8 +1731,8 @@ def tower_knowledge(tid, folder, paths):
 @functools.cache
 def common_knowledge():
     """Knowledge found on every tower (sell price, XP, ability cooldowns): listed once instead of in each table."""
-    sets = [set(tower_knowledge(f.name, f, [])) for f in (DATA / "Towers").iterdir() if f.is_dir()]
-    return set.intersection(*sets) if sets else set()
+    sets = [set(tower_knowledge(f.name, f, {})) for f in (DATA / "Towers").iterdir() if f.is_dir()]
+    return set.intersection(*sets)
 
 
 def knowledge_card(found):
@@ -1803,10 +1801,11 @@ def build_towers():
         codes = ["".join(str(n) if j == i else "0" for j in range(3)) for n in range(1, 6) for i in range(3)] + ["Paragon"]
         models = [load(folder / f"{tid}-{c}.json") for c in codes if (folder / f"{tid}-{c}.json").exists()]
         abils = abilities_of(((m.get("appliedUpgrades") or [None])[-1], m) for m in models)
-        where = {u: f"{'-'.join(str(n) if j == i else '0' for j in range(3))}: {t(u, fallback=u)}" for i, path in enumerate(paths) for n, u in enumerate(path, 1)}
+        up_code = {u: "".join(str(n) if j == i else "0" for j in range(3)) for i, path in enumerate(paths) for n, u in enumerate(path, 1)}
+        where = {u: f"{'-'.join(c)}: {t(u, fallback=u)}" for u, c in up_code.items()}
         if para:
             where[u] = f"{t('Paragon', fallback='Парагон')}: {t(u, fallback=u)}"
-        kn = tower_knowledge(tid, folder, paths)
+        kn = tower_knowledge(tid, folder, up_code)
         body = (
             selector
             + card("about", name,
