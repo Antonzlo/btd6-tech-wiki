@@ -1,0 +1,279 @@
+- generic [active] [ref=f16e1]:
+  - banner [ref=f16e2]:
+    - link "BTD6 Tech Wiki57.4" [ref=f16e3] [cursor=pointer]:
+      - /url: index.html
+    - searchbox "Поиск по вики" [ref=f16e5]
+    - link "Язык" [ref=f16e6] [cursor=pointer]:
+      - /url: ../hero-Benjamin.html
+      - text: EN
+  - generic [ref=f16e7]:
+    - complementary [ref=f16e8]:
+      - heading "Разделы" [level=4] [ref=f16e9]
+      - navigation [ref=f16e10]:
+        - link "Главная" [ref=f16e11] [cursor=pointer]:
+          - /url: index.html
+        - link "Башни" [ref=f16e12] [cursor=pointer]:
+          - /url: towers.html
+        - link "Герои" [ref=f16e13] [cursor=pointer]:
+          - /url: heroes.html
+        - link "Парагон" [ref=f16e14] [cursor=pointer]:
+          - /url: paragon.html
+        - link "Баффы" [ref=f16e15] [cursor=pointer]:
+          - /url: buffs.html
+        - link "Шары" [ref=f16e16] [cursor=pointer]:
+          - /url: bloons.html
+        - link "Раунды" [ref=f16e17] [cursor=pointer]:
+          - /url: rounds.html
+        - link "Боссы" [ref=f16e18] [cursor=pointer]:
+          - /url: bosses.html
+        - link "Режимы" [ref=f16e19] [cursor=pointer]:
+          - /url: modes.html
+        - link "Доход" [ref=f16e20] [cursor=pointer]:
+          - /url: income.html
+        - link "Обезьяньи знания" [ref=f16e21] [cursor=pointer]:
+          - /url: knowledge.html
+        - link "Силы" [ref=f16e22] [cursor=pointer]:
+          - /url: powers.html
+        - link "Ссылки" [ref=f16e23] [cursor=pointer]:
+          - /url: links.html
+      - generic [ref=f16e24]:
+        - heading "На странице" [level=4] [ref=f16e25]
+        - link "Описание" [ref=f16e26] [cursor=pointer]:
+          - /url: "#about"
+        - link "Уровни и опыт" [ref=f16e27] [cursor=pointer]:
+          - /url: "#levels"
+        - link "Калькулятор" [ref=f16e28] [cursor=pointer]:
+          - /url: "#calc"
+        - link "Числа по уровням" [ref=f16e29] [cursor=pointer]:
+          - /url: "#numbers"
+        - link "Способности" [ref=f16e30] [cursor=pointer]:
+          - /url: "#abilities"
+    - main [ref=f16e31]:
+      - heading "Бенджамин" [level=1] [ref=f16e32]
+      - paragraph [ref=f16e33]: Обезьяна-кодер
+      - group "Сложность" [ref=f16e34]:
+        - button "Легкий" [ref=f16e36] [cursor=pointer]
+        - button "Средний" [ref=f16e37] [cursor=pointer]
+        - button "Сложный" [ref=f16e38] [cursor=pointer]
+        - button "Как бы не лопнуть" [ref=f16e39] [cursor=pointer]
+      - generic [ref=f16e40]:
+        - generic [ref=f16e41]:
+          - heading "Бенджамин" [level=2] [ref=f16e42]
+          - generic [ref=f16e43]: Benjamin
+        - generic [ref=f16e45]:
+          - generic [ref=f16e46]: Бенджамин — хакер, и может добывать больше денег для достижения общей цели.
+          - generic [ref=f16e47]:
+            - generic [ref=f16e48]:
+              - generic [ref=f16e49]: $1 200
+              - text: цена
+            - generic [ref=f16e51]:
+              - generic [ref=f16e52]: "20"
+              - text: дальность
+            - generic [ref=f16e53]:
+              - generic [ref=f16e54]: 320 340
+              - text: XP до 20 уровня
+      - generic [ref=f16e55]:
+        - heading "Уровни и опыт" [level=2] [ref=f16e57]
+        - table [ref=f16e59]:
+          - rowgroup [ref=f16e60]:
+            - row [ref=f16e61]:
+              - columnheader "Уровень" [ref=f16e62] [cursor=pointer]
+              - columnheader "XP до уровня" [ref=f16e63] [cursor=pointer]
+              - columnheader "XP всего" [ref=f16e64] [cursor=pointer]
+              - columnheader "Что даёт" [ref=f16e65] [cursor=pointer]
+          - rowgroup [ref=f16e66]:
+            - row [ref=f16e67]:
+              - cell "1" [ref=f16e68]
+              - cell "–" [ref=f16e69]
+              - cell "0" [ref=f16e70]
+              - cell "Хакает по $90 за раунд." [ref=f16e71]
+            - row [ref=f16e72]:
+              - cell "2" [ref=f16e73]
+              - cell "270" [ref=f16e74]
+              - cell "270" [ref=f16e75]
+              - cell "Дает $140 за раунд вместо $90." [ref=f16e76]
+            - row [ref=f16e77]:
+              - cell "3" [ref=f16e78]
+              - cell "690" [ref=f16e79]
+              - cell "960" [ref=f16e80]
+              - 'cell "Биохак: 4 ближайших обезьяны взрывают дополнительно один слой с шаров за каждую атаку в течение 6 секунд. Затронутые обезьяны не могут атаковать в течение 2-х секунд по окончании эффекта." [ref=f16e81]'
+            - row [ref=f16e84]:
+              - cell "4" [ref=f16e85]
+              - cell "1 500" [ref=f16e86]
+              - cell "2 460" [ref=f16e87]
+              - 'cell "Кибербезопасность: восстанавливает до 5 жизней в конце каждого раунда." [ref=f16e88]'
+            - row [ref=f16e89]:
+              - cell "5" [ref=f16e90]
+              - cell "2 790" [ref=f16e91]
+              - cell "5 250" [ref=f16e92]
+              - 'cell "Взлом банка: все банки приносят на 5% больше прибыли." [ref=f16e93]'
+            - row [ref=f16e94]:
+              - cell "6" [ref=f16e95]
+              - cell "4 920" [ref=f16e96]
+              - cell "10 170" [ref=f16e97]
+              - 'cell "Сбор: приносит +$1 за каждый новый шар." [ref=f16e98]'
+            - row [ref=f16e99]:
+              - cell "7" [ref=f16e100]
+              - cell "7 770" [ref=f16e101]
+              - cell "17 940" [ref=f16e102]
+              - 'cell "Шаровой троян: каждые несколько секунд программа-троян заражает случайный шар. Заражённый шар не размножается при уничтожении и даёт на 1 ед. больше денег за каждый слой." [ref=f16e103]'
+            - row [ref=f16e104]:
+              - cell "8" [ref=f16e105]
+              - cell "12 480" [ref=f16e106]
+              - cell "30 420" [ref=f16e107]
+              - cell "Прибыль увеличивается до $250 за раунд." [ref=f16e108]
+            - row [ref=f16e109]:
+              - cell "9" [ref=f16e110]
+              - cell "14 070" [ref=f16e111]
+              - cell "44 490" [ref=f16e112]
+              - cell "Взлом банка приносит 12% прибыли." [ref=f16e113]
+            - row [ref=f16e114]:
+              - cell "10" [ref=f16e115]
+              - cell "20 430" [ref=f16e116]
+              - cell "64 920" [ref=f16e117]
+              - 'cell "Сифон-финансирование: снижает ранг большинства новых шаров на 1 пункт. Каждый взрыв шара приносит вдвое больше прибыли. Действие длится 10 секунд." [ref=f16e118]'
+            - row [ref=f16e121]:
+              - cell "11" [ref=f16e122]
+              - cell "24 570" [ref=f16e123]
+              - cell "89 490" [ref=f16e124]
+              - cell "Прибыль увеличивается до $1000 за раунд." [ref=f16e125]
+            - row [ref=f16e126]:
+              - cell "12" [ref=f16e127]
+              - cell "21 600" [ref=f16e128]
+              - cell "111 090" [ref=f16e129]
+              - cell "Сбор приносит по $2 за каждый шар." [ref=f16e130]
+            - row [ref=f16e131]:
+              - cell "13" [ref=f16e132]
+              - cell "24 975" [ref=f16e133]
+              - cell "136 065" [ref=f16e134]
+              - cell "Биохак увеличивает дополнительный урон и поражает 6 обезьян на 8 секунд." [ref=f16e135]
+            - row [ref=f16e136]:
+              - cell "14" [ref=f16e137]
+              - cell "22 410" [ref=f16e138]
+              - cell "158 475" [ref=f16e139]
+              - cell "Кибербезопасность даёт 10 жизней за раунд и может достичь 100 начальных жизней." [ref=f16e140]
+            - row [ref=f16e141]:
+              - cell "15" [ref=f16e142]
+              - cell "24 570" [ref=f16e143]
+              - cell "183 045" [ref=f16e144]
+              - cell "Прибыль увеличивается до $2500 за раунд." [ref=f16e145]
+            - row [ref=f16e146]:
+              - cell "16" [ref=f16e147]
+              - cell "26 730" [ref=f16e148]
+              - cell "209 775" [ref=f16e149]
+              - cell "Шаровой троян запускается чаще и зарабатывает больше денег." [ref=f16e150]
+            - row [ref=f16e151]:
+              - cell "17" [ref=f16e152]
+              - cell "28 890" [ref=f16e153]
+              - cell "238 665" [ref=f16e154]
+              - cell "Прибыль увеличивается до $5000 за раунд." [ref=f16e155]
+            - row [ref=f16e156]:
+              - cell "18" [ref=f16e157]
+              - cell "31 050" [ref=f16e158]
+              - cell "269 715" [ref=f16e159]
+              - cell "Шаровой троян способен поражать шары BFB и DDT." [ref=f16e160]
+            - row [ref=f16e161]:
+              - cell "19" [ref=f16e162]
+              - cell "24 705" [ref=f16e163]
+              - cell "294 420" [ref=f16e164]
+              - cell "Биохак длится 9 секунд и затронутые обезьяны взрывают 3 дополнительных слоя вместо двое." [ref=f16e165]
+            - row [ref=f16e166]:
+              - cell "20" [ref=f16e167]
+              - cell "25 920" [ref=f16e168]
+              - cell "320 340" [ref=f16e169]
+              - cell "Утечка финансирования длится 20 секунд и приносит втрое больше прибыли за пробитие обычных шаров." [ref=f16e170]
+      - generic [ref=f16e171]:
+        - heading "Калькулятор" [level=2] [ref=f16e173]
+        - generic [ref=f16e174]:
+          - generic [ref=f16e175]:
+            - generic [ref=f16e176]:
+              - text: Карта
+              - combobox "Карта" [ref=f16e177]:
+                - option "Beginner" [selected]
+                - option "Intermediate"
+                - option "Advanced"
+                - option "Экспертные"
+            - generic [ref=f16e178]:
+              - text: Ставлю на раунде
+              - spinbutton "Ставлю на раунде" [ref=f16e179]: "1"
+          - paragraph [ref=f16e180]: Денег хватит к началу раунда 5 ($1200, старт $650, без других трат).
+          - generic [ref=f16e182]:
+            - generic [ref=f16e183]: "ур. 2: раунд 4"
+            - generic [ref=f16e184]: "ур. 3: раунд 9"
+            - generic [ref=f16e185]: "ур. 4: раунд 15"
+            - generic [ref=f16e186]: "ур. 5: раунд 22"
+            - generic [ref=f16e187]: "ур. 6: раунд 29"
+            - generic [ref=f16e188]: "ур. 7: раунд 38"
+            - generic [ref=f16e189]: "ур. 8: раунд 47"
+            - generic [ref=f16e190]: "ур. 9: раунд 55"
+            - generic [ref=f16e191]: "ур. 10: раунд 63"
+            - generic [ref=f16e192]: "ур. 11: раунд 71"
+            - generic [ref=f16e193]: "ур. 12: раунд 77"
+            - generic [ref=f16e194]: "ур. 13: раунд 83"
+            - generic [ref=f16e195]: "ур. 14: раунд 87"
+            - generic [ref=f16e196]: "ур. 15: раунд 92"
+            - generic [ref=f16e197]: "ур. 16: раунд 97"
+            - generic [ref=f16e198]: "ур. 17: раунд 102"
+            - generic [ref=f16e199]: "ур. 18: раунд 106"
+            - generic [ref=f16e200]: "ур. 19: раунд 110"
+            - generic [ref=f16e201]: "ур. 20: раунд 114"
+      - generic [ref=f16e202]:
+        - heading "Числа по уровням" [level=2] [ref=f16e204]
+        - table [ref=f16e206]:
+          - rowgroup [ref=f16e207]:
+            - row [ref=f16e208]:
+              - columnheader "Уровень" [ref=f16e209] [cursor=pointer]
+              - columnheader "Дальность" [ref=f16e210] [cursor=pointer]
+              - columnheader "Перезарядка, с" [ref=f16e211] [cursor=pointer]
+              - columnheader "Урон за выстрел" [ref=f16e212] [cursor=pointer]
+              - columnheader "Пробив." [ref=f16e213] [cursor=pointer]
+              - columnheader "Примерный DPS" [ref=f16e214] [cursor=pointer]
+              - columnheader "Не лопает" [ref=f16e215] [cursor=pointer]
+          - rowgroup [ref=f16e216]:
+            - row [ref=f16e217]:
+              - cell "1" [ref=f16e218]
+              - cell "20" [ref=f16e219]
+              - cell "–" [ref=f16e220]
+              - cell "–" [ref=f16e221]
+              - cell "–" [ref=f16e222]
+              - cell "–" [ref=f16e223]
+              - cell "–" [ref=f16e224]
+        - group [ref=f16e225]:
+          - generic "Все уровни" [ref=f16e226] [cursor=pointer]
+      - generic [ref=f16e227]:
+        - heading "Способности" [level=2] [ref=f16e229]
+        - table [ref=f16e231]:
+          - rowgroup [ref=f16e232]:
+            - row [ref=f16e233]:
+              - columnheader "Способность" [ref=f16e234] [cursor=pointer]
+              - columnheader "Откуда" [ref=f16e235] [cursor=pointer]
+              - columnheader "Перезарядка" [ref=f16e236] [cursor=pointer]
+              - columnheader "Эффект" [ref=f16e237] [cursor=pointer]
+              - columnheader "Описание" [ref=f16e238] [cursor=pointer]
+          - rowgroup [ref=f16e239]:
+            - row [ref=f16e240]:
+              - cell "Биохак" [ref=f16e241]
+              - cell "уровень 3" [ref=f16e244]
+              - cell "30 с" [ref=f16e245]
+              - cell "–" [ref=f16e246]
+              - cell "Атаки 4 ближайших обезьян пробивают ещё 1 слой в течение 6 сек. По окончании эффекта обезьяны что подверглись ему не могут атаковать в течение 2 сек." [ref=f16e247]
+            - row [ref=f16e248]:
+              - cell "Утечка финансирования" [ref=f16e249]
+              - cell "уровень 10" [ref=f16e252]
+              - cell "65 с" [ref=f16e253]
+              - cell "–" [ref=f16e254]
+              - cell "Понижает ранг новых шаров на 1. Пробивание затронутых шаров приносит вдвое больше денег. Эффект длится 10 сек." [ref=f16e255]
+      - generic [ref=f16e256]:
+        - text: Неофициальная фанатская вики, без монетизации. Данные, названия, тексты и изображения принадлежат
+        - link "Ninja Kiwi" [ref=f16e257] [cursor=pointer]:
+          - /url: https://ninjakiwi.com
+        - text: . Данные выгружены через
+        - link "BTD6 Mod Helper" [ref=f16e258] [cursor=pointer]:
+          - /url: https://github.com/gurrenm3/BTD-Mod-Helper
+        - text: ", иконки из спрайтов игры."
+        - link "Исходный код" [ref=f16e259] [cursor=pointer]:
+          - /url: https://github.com/Antonzlo/btd6-tech-wiki
+        - text: . Сделано с ♥
+        - link "Antonzlo" [ref=f16e260] [cursor=pointer]:
+          - /url: https://github.com/Antonzlo
+        - text: .
