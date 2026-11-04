@@ -65,6 +65,17 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .side .toc a{color:var(--soft);padding-block:3px}
 main{min-width:0}
 
+/* Sticky knowledge category nav */
+.knav{display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:var(--top-h,66px);z-index:4;
+  background:var(--sky);padding:8px 0;margin:-4px 0 8px}
+.knav a{font:600 14px var(--body);padding:6px 14px;border:2px solid var(--edge);border-radius:10px;
+  background:var(--panel);color:var(--ink);box-shadow:0 3px 0 var(--edge);white-space:nowrap}
+.knav a:hover{background:var(--gold);color:var(--gold-ink);text-decoration:none}
+.knav a.on{background:var(--gold);color:var(--gold-ink)}
+.page-knowledge :is(.card,h2){scroll-margin-top:calc(var(--top-h,66px) + 56px)}
+@media (max-width:860px){.knav{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .knav::-webkit-scrollbar{display:none}}
+
 /* The one loud thing: outlined cartoon titles */
 h1{font-family:var(--display);font-weight:800;font-size:44px;line-height:1.05;margin:0 0 10px;text-wrap:balance;
   color:var(--gold);-webkit-text-stroke:7px var(--edge);paint-order:stroke fill;letter-spacing:.01em}
@@ -158,6 +169,7 @@ svg text{fill:var(--soft);font:11px var(--body)}
   box-shadow:0 3px 0 var(--edge);padding:5px 10px;font-size:13px;white-space:nowrap;z-index:2}
 .ktip{max-width:300px;white-space:normal}
 .ktip b{display:block}.ktip p{margin:3px 0 4px;line-height:1.4}.ktip small{color:var(--soft)}
+.ktip .kchain{display:block;margin-top:3px;color:var(--gold-ink);font-weight:600}
 
 /* Wide screens: card content side by side */
 .split{display:grid;grid-template-columns:minmax(0,1fr);gap:8px 40px}
@@ -226,11 +238,38 @@ body:has(.diff) :is(.card,h2.group,.prop-row){scroll-margin-top:calc(var(--top-h
 :root{--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--s1:#3987e5;--s2:#d95926;--s3:#199e70}}
 :root[data-theme="dark"]{--s1:#3987e5;--s2:#d95926;--s3:#199e70}
+.pchart{max-width:100%;height:auto;display:block}
 .pchart .pline{fill:none;stroke:var(--s1);stroke-width:2.5;stroke-linejoin:round}
+.pchart .pline.pline2{stroke:var(--s2)}
+.pchart .yt1{fill:var(--s1);font-weight:600}
+.pchart .yt2{fill:var(--s2);font-weight:600}
 .pchart .paxis{stroke:var(--soft);stroke-width:1}
 .pchart .pgrid{stroke:var(--rule);stroke-width:1}
 .pchart .phit{fill:transparent}
 .pchart .phit:hover{fill:var(--rule);opacity:.5}
+.chart-legend{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;margin:4px 0 6px}
+.chart-legend .leg-s1{color:var(--s1);font-weight:600}
+.chart-legend .leg-s2{color:var(--s2);font-weight:600}
+
+/* Paragon degree calculator */
+.pcalc{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,0.75fr);gap:24px;align-items:start;margin:10px 0}
+@media (max-width:760px){.pcalc{grid-template-columns:1fr}}
+.pcalc-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+@media (max-width:520px){.pcalc-fields{grid-template-columns:1fr}}
+.pcalc-field{display:flex;flex-direction:column;gap:4px}
+.pcalc-field label{font-size:13px;font-weight:600;color:var(--soft)}
+.pcalc-field select,.pcalc-field input{font:inherit;padding:6px 10px;border:2px solid var(--edge);border-radius:8px;background:var(--panel);color:var(--ink)}
+.pcalc-result{background:var(--sky);border:2px solid var(--edge);border-radius:14px;padding:16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;box-shadow:0 3px 0 var(--edge)}
+.pcalc-badge{display:flex;flex-direction:column;align-items:center}
+.pcalc-deg{font:800 48px var(--display);color:var(--gold-ink);background:var(--gold);width:90px;height:90px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:3px solid var(--edge);box-shadow:0 3px 0 var(--edge)}
+.pcalc-deg-lbl{font:700 16px var(--body);color:var(--ink);margin-top:6px}
+.pcalc-power{font:700 15px var(--body);color:var(--ink)}
+.pcalc-next{font-size:13px;color:var(--soft)}
+.pcalc-bar-wrap{width:100%;height:12px;background:var(--panel);border:2px solid var(--edge);border-radius:6px;overflow:hidden}
+.pcalc-bar{height:100%;background:var(--gold);transition:width .15s ease}
+.pcalc-breakdown{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:6px 8px;font-size:12px;text-align:left;margin-top:6px}
+.pcalc-breakdown span{color:var(--soft)}
+.pcalc-breakdown b{color:var(--ink);float:right}
 .donut-row{display:flex;flex-wrap:wrap;gap:24px;align-items:center}
 .donut .seg{fill:none;stroke-linecap:butt}
 .donut .s1{stroke:var(--s1)}.donut .s2{stroke:var(--s2)}.donut .s3{stroke:var(--s3)}
@@ -271,6 +310,11 @@ a.badge[href^="powers.html"] b,a.chip:not(.new)[href^="powers.html"]{background:
 a.badge:hover b{filter:brightness(1.08)}
 .mod-name{display:inline-flex;align-items:center;gap:8px}
 .mod-ic{width:22px;height:22px;flex:none;display:inline-block}
+.mod-params{max-height:60px;overflow:hidden}
+.mod-params.overflowing{cursor:pointer;position:relative}
+.mod-params.overflowing:not(.open)::after{content:'';position:absolute;bottom:0;left:0;right:0;height:18px;background:linear-gradient(transparent,var(--panel));pointer-events:none}
+tbody tr:hover .mod-params.overflowing:not(.open)::after{background:linear-gradient(transparent,var(--sky))}
+.mod-params.open{max-height:none}
 .badge b{display:inline-flex;align-items:center;gap:5px}
 .badge b .ic{width:18px;height:18px}
 .stat b{display:flex;align-items:center;gap:6px}

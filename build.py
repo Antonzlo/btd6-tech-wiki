@@ -82,14 +82,50 @@ function clear(){g.classList.remove('dim');g.querySelectorAll('.lit').forEach(fu
 function light(id){clear();var on=chain(id,{});g.classList.add('dim');Object.keys(on).forEach(function(k){nodes[k].classList.add('lit')});
 g.querySelectorAll('.edge').forEach(function(e){if(on[e.dataset.from]&&on[e.dataset.to])e.classList.add('lit')})}
 Object.keys(nodes).forEach(function(id){var n=nodes[id];n.addEventListener('mouseenter',function(){light(id)});
-n.addEventListener('focus',function(){light(id)});n.addEventListener('mouseleave',clear);n.addEventListener('blur',clear)});var tip=g.querySelector('.ktip');if(tip)Object.keys(nodes).forEach(function(id){var n=nodes[id];n.addEventListener('mouseenter',function(){var b=n.getBoundingClientRect();tip.innerHTML='';var t=document.createElement('b');t.textContent=n.dataset.name;var c=document.createElement('small');c.textContent=n.dataset.cost+' MM';tip.appendChild(t);if(n.dataset.desc){var p=document.createElement('p');p.textContent=n.dataset.desc;tip.appendChild(p)}tip.appendChild(c);tip.hidden=false;var top=b.top-tip.offsetHeight-6;if(top<70)top=b.bottom+6;tip.style.left=Math.max(8,Math.min(innerWidth-tip.offsetWidth-8,b.left+b.width/2-tip.offsetWidth/2))+'px';tip.style.top=top+'px'});n.addEventListener('mouseleave',function(){tip.hidden=true})})});
+n.addEventListener('focus',function(){light(id)});n.addEventListener('mouseleave',clear);n.addEventListener('blur',clear)});var tip=g.querySelector('.ktip');if(tip)Object.keys(nodes).forEach(function(id){var n=nodes[id];n.addEventListener('mouseenter',function(){var b=n.getBoundingClientRect();tip.innerHTML='';var t=document.createElement('b');t.textContent=n.dataset.name;var c=document.createElement('small');c.textContent=n.dataset.cost+' MM';tip.appendChild(t);if(n.dataset.desc){var p=document.createElement('p');p.textContent=n.dataset.desc;tip.appendChild(p)}tip.appendChild(c);if(+n.dataset.ancPts>0||parseInt(n.dataset.ancMm)>0){var ch=document.createElement('small');ch.className='kchain';ch.textContent='Всего в ветке: '+n.dataset.ancPts+' знаний, '+n.dataset.ancMm+' MM';tip.appendChild(ch)}tip.hidden=false;var top=b.top-tip.offsetHeight-6;if(top<70)top=b.bottom+6;tip.style.left=Math.max(8,Math.min(innerWidth-tip.offsetWidth-8,b.left+b.width/2-tip.offsetWidth/2))+'px';tip.style.top=top+'px'});n.addEventListener('mouseleave',function(){tip.hidden=true})})});
 
 var DIFF_KEY='btd6-diff';function curMult(){try{return +localStorage.getItem(DIFF_KEY)||1}catch(x){return 1}}
 function applyDiff(){var m=curMult();document.querySelectorAll('.diff button').forEach(function(b){b.classList.toggle('on',+b.dataset.mult===m)});
 document.querySelectorAll('.cost[data-parts]').forEach(function(el){var s=el.dataset.parts.split(',').reduce(function(a,p){return a+(m===1?+p:Math.round(p*m/5)*5)},0);
-el.textContent='$'+s.toLocaleString('ru-RU')});document.querySelectorAll('.hcalc').forEach(hcalc)}
+el.textContent='$'+s.toLocaleString('ru-RU')});document.querySelectorAll('.hcalc').forEach(hcalc);
+document.querySelectorAll('.pcalc').forEach(function(c){if(c._update)c._update()})}
 document.querySelectorAll('.diff button').forEach(function(b){b.addEventListener('click',function(){try{localStorage.setItem(DIFF_KEY,b.dataset.mult)}catch(x){}applyDiff()})});
+function pcalc(c){var reqs=JSON.parse(c.dataset.reqs),paragons=JSON.parse(c.dataset.paragons);
+var towerSel=c.querySelector('.pcalc-tower'),popsIn=c.querySelector('.pcalc-pops'),incIn=c.querySelector('.pcalc-inc'),
+cashIn=c.querySelector('.pcalc-cash'),sliderIn=c.querySelector('.pcalc-slider'),t5In=c.querySelector('.pcalc-t5'),
+tiersIn=c.querySelector('.pcalc-tiers'),totemsIn=c.querySelector('.pcalc-totems');
+var degEl=c.querySelector('.pcalc-deg'),barEl=c.querySelector('.pcalc-bar'),powerEl=c.querySelector('.pcalc-power'),
+nextEl=c.querySelector('.pcalc-next'),pbPops=c.querySelector('.pb-pops'),pbCash=c.querySelector('.pb-cash'),
+pbT5=c.querySelector('.pb-t5'),pbTiers=c.querySelector('.pb-tiers'),pbTotems=c.querySelector('.pb-totems');
+function update(){var pInfo=paragons[towerSel.value]||{cost:300000};var m=curMult();
+var cost=Math.round((pInfo.cost||300000)*m);var costRatio=cost/20000;
+var pops=+popsIn.value||0,inc=+incIn.value||0;
+var p_pops=Math.min(Math.floor((pops+inc*4)/180),90000);
+var p_t5=Math.min((+t5In.value||0)*6000,50000);
+var p_tiers=Math.min((+tiersIn.value||0)*100,10000);
+var cashSpent=+cashIn.value||0,sliderCash=+sliderIn.value||0;
+var p_cash=Math.min(Math.floor(cashSpent/costRatio)+Math.floor(sliderCash/(costRatio*1.05)),60000);
+var p_totems=(+totemsIn.value||0)*2000;
+var total=Math.min(p_pops+p_t5+p_tiers+p_cash+p_totems,200000);
+var deg=1;for(var i=0;i<reqs.length;i++){if(total>=reqs[i])deg=i+1;else break}
+degEl.textContent=deg;powerEl.textContent=total.toLocaleString('ru-RU')+' / 200 000 силы';
+barEl.style.width=(total/200000*100)+'%';
+if(deg<100){var rem=reqs[deg]-total;nextEl.textContent='Нужно '+rem.toLocaleString('ru-RU')+' силы до степени '+(deg+1)}
+else{nextEl.textContent='Максимальная 100 степень!'}
+pbPops.textContent=p_pops.toLocaleString('ru-RU')+' / 90k';pbCash.textContent=p_cash.toLocaleString('ru-RU')+' / 60k';
+pbT5.textContent=p_t5.toLocaleString('ru-RU')+' / 50k';pbTiers.textContent=p_tiers.toLocaleString('ru-RU')+' / 10k';
+pbTotems.textContent='+'+p_totems.toLocaleString('ru-RU')}
+c._update=update;c.querySelectorAll('input,select').forEach(function(el){el.addEventListener('input',update);el.addEventListener('change',update)});
+update()}
+document.querySelectorAll('.pcalc').forEach(pcalc);
+document.querySelectorAll('.mod-params').forEach(function(el){if(el.scrollHeight>68){el.classList.add('overflowing');el.title='Нажмите, чтобы показать все параметры';el.addEventListener('click',function(){el.classList.toggle('open')})}});
 applyDiff();
+(function(){var kn=document.querySelector('.knav');if(!kn)return;var links=kn.querySelectorAll('a'),secs=[];
+links.forEach(function(a){var id=a.getAttribute('href').slice(1),el=document.getElementById(id);if(el)secs.push({el:el,a:a})});
+function up(){var off=kn.offsetHeight+kn.getBoundingClientRect().top+20,cur=null;
+secs.forEach(function(s){if(s.el.getBoundingClientRect().top<=off)cur=s});
+links.forEach(function(a){a.classList.remove('on')});if(cur)cur.a.classList.add('on')}
+window.addEventListener('scroll',up,{passive:true});up()})();
 (function(){var top=document.querySelector('.top');if(!top)return;function h(){document.documentElement.style.setProperty('--top-h',top.offsetHeight+'px')}h();if(window.ResizeObserver)new ResizeObserver(h).observe(top)})();
 document.querySelectorAll('.xp').forEach(function(xp){var data=JSON.parse(xp.parentNode.querySelector('.xp-data').textContent),
 st=[0,0,0],variant=null,out=xp.querySelector('.xp-out');
@@ -380,6 +416,77 @@ def line_chart(ys, xticks, aria, ylabel=fmt, tip=lambda x, y: f"{x}: {fmt(y)}"):
             f"<polyline class='pline' points='{pts}'/>{ticks}{yt}{hits}</svg></div>")
 
 
+def dual_line_chart(ys1, ys2, xticks, aria, ylabel1=fmt, ylabel2=fmt,
+                    tip=lambda x, y1, y2: f"{x}: {fmt(y1)} · {fmt(y2)}",
+                    legend=("За раунд (слева)", "Всего с 1-го раунда (справа)")):
+    """Two-series line chart with dual Y axes (left for ys1, right for ys2); x is 1..len(ys1)."""
+    w, h, pad, left, right = 640, 230, 36, 54, 54
+    top1 = max(ys1) or 1
+    top2 = max(ys2) or 1
+    x = lambda i: left + (w - left - right) * i / (len(ys1) - 1)
+    y1 = lambda v: h - pad - (h - 2 * pad) * v / top1
+    y2 = lambda v: h - pad - (h - 2 * pad) * v / top2
+    pts1 = " ".join(f"{x(i):.1f},{y1(v):.1f}" for i, v in enumerate(ys1))
+    pts2 = " ".join(f"{x(i):.1f},{y2(v):.1f}" for i, v in enumerate(ys2))
+    ticks = "".join(f"<text x='{x(n - 1):.1f}' y='{h - pad + 16}' text-anchor='middle'>{n}</text>" for n in xticks)
+    yt1 = "".join(f"<text class='yt1' x='{left - 6}' y='{y1(v) + 4:.1f}' text-anchor='end'>{ylabel1(v)}</text>"
+                  for v in (0, top1 / 2, top1))
+    yt2 = "".join(f"<text class='yt2' x='{w - right + 6}' y='{y2(v) + 4:.1f}' text-anchor='start'>{ylabel2(v)}</text>"
+                  for v in (0, top2 / 2, top2))
+    grid = "".join(f"<line class='pgrid' x1='{left}' y1='{y1(v):.1f}' x2='{w - right}' y2='{y1(v):.1f}'/>"
+                   for v in (top1 / 2, top1))
+    step = (w - left - right) / (len(ys1) - 1)
+    hits = "".join(f"<rect class='phit' x='{x(i) - step / 2:.1f}' y='{pad}' width='{step:.1f}' height='{h - 2 * pad}'>"
+                   f"<title>{tip(i + 1, ys1[i], ys2[i])}</title></rect>" for i in range(len(ys1)))
+    leg = (f"<div class='chart-legend'><span class='leg-s1'>● {esc(legend[0])}</span> "
+           f"<span class='leg-s2'>● {esc(legend[1])}</span></div>")
+    return (f"<div class='wrap'>{leg}<svg class='pchart' viewBox='0 0 {w} {h}' width='{w}' role='img' aria-label='{esc(aria)}'>"
+            f"{grid}<line class='paxis' x1='{left}' y1='{h - pad}' x2='{w - right}' y2='{h - pad}'/>"
+            f"<polyline class='pline pline2' points='{pts2}'/>"
+            f"<polyline class='pline' points='{pts1}'/>"
+            f"{ticks}{yt1}{yt2}{hits}</svg></div>")
+
+
+def paragon_calc(req):
+    paragons = []
+    for p in sorted((DATA / "Towers").glob("*/*-Paragon.json")):
+        tid = p.parent.name
+        up_f = DATA / "Upgrades" / f"{tid} Paragon.json"
+        cost = load(up_f).get("cost", 0) if up_f.exists() else 0
+        paragons.append((tid, t(tid, fallback=tid), cost))
+    pdata = {tid: {"name": name, "cost": cost} for tid, name, cost in paragons}
+    options = "".join(f"<option value='{tid}'>{esc(name)} (${fmt(cost)})</option>" for tid, name, cost in paragons)
+    return (
+        f"<div class='pcalc' data-reqs='{json.dumps(req)}' data-paragons='{json.dumps(pdata)}'>"
+        f"<div class='pcalc-fields'>"
+        f"<div class='pcalc-field' style='grid-column:1/-1'><label>Башня с парагоном<select class='pcalc-tower'>{options}</select></label></div>"
+        f"<div class='pcalc-field'><label>Лопания (1 сила / 180)<input type='number' class='pcalc-pops' min='0' step='10000' value='0' placeholder='0'></label></div>"
+        f"<div class='pcalc-field'><label>Доход ($1 дохода = 4 лопания)<input type='number' class='pcalc-inc' min='0' step='10000' value='0' placeholder='0'></label></div>"
+        f"<div class='pcalc-field'><label>Пожертвования в $<input type='number' class='pcalc-cash' min='0' step='5000' value='0' placeholder='0'></label></div>"
+        f"<div class='pcalc-field'><label>Слайдер вложений ($)<input type='number' class='pcalc-slider' min='0' step='5000' value='0' placeholder='0'></label></div>"
+        f"<div class='pcalc-field'><label>Доп. T5 башни (сверх 3-х)<input type='number' class='pcalc-t5' min='0' max='8' value='0'></label></div>"
+        f"<div class='pcalc-field'><label>Тиры non-T5 (макс. 100)<input type='number' class='pcalc-tiers' min='0' max='100' value='0'></label></div>"
+        f"<div class='pcalc-field' style='grid-column:1/-1'><label>Тотемы Джеральдо (+2000 силы, без потолка)<input type='number' class='pcalc-totems' min='0' max='100' value='0'></label></div>"
+        f"</div>"
+        f"<div class='pcalc-result'>"
+        f"<div class='pcalc-badge'><span class='pcalc-deg'>1</span><span class='pcalc-deg-lbl'>Степень</span></div>"
+        f"<div class='pcalc-bar-wrap'><div class='pcalc-bar' style='width:0%'></div></div>"
+        f"<div class='pcalc-power'>0 / 200 000 силы</div>"
+        f"<div class='pcalc-next'>Нужно 2 000 силы до степени 2</div>"
+        f"<div class='pcalc-breakdown'>"
+        f"<div><span>Лопания:</span> <b class='pb-pops'>0 / 90k</b></div>"
+        f"<div><span>Деньги:</span> <b class='pb-cash'>0 / 60k</b></div>"
+        f"<div><span>Доп. T5:</span> <b class='pb-t5'>0 / 50k</b></div>"
+        f"<div><span>Тиры:</span> <b class='pb-tiers'>0 / 10k</b></div>"
+        f"<div style='grid-column:1/-1'><span>Тотемы Джеральдо:</span> <b class='pb-totems'>+0</b></div>"
+        f"</div>"
+        f"</div>"
+        f"</div>"
+        f"<p class='note'>Внешние калькуляторы: <a href='https://btd6data.com/tools/paragon' rel='noopener'>BTD6 Open Data</a>, "
+        f"<a href='https://kaister300.github.io/BTD6ParagonCalculator/' rel='noopener'>BTD6 Paragon Calculator</a>.</p>"
+    )
+
+
 def build_paragon():
     d = load(DATA / "paragonDegreeData.json")
     req = d["powerDegreeRequirements"]
@@ -432,6 +539,7 @@ def build_paragon():
     frows = [(f"<span class='id'>{esc(k)}</span>", esc(name), d[k]) for k, name in fields if k in d]
     body = (
         stats([("степеней", d.get("degreeCount")), ("сила для 100", top)])
+        + card("calc", "Калькулятор степени", paragon_calc(req), section="Парагон")
         + card("pie", "Откуда берётся сила", donut, section="Парагон")
         + card("towers", "Башни с парагоном", "<div class='chips'>" + " ".join(
             f"<a class='badge' href='tower-{p.parent.name}.html#crosspath'><span>парагон</span><b>{icon('towers', p.parent.name, 18)}"
@@ -447,8 +555,7 @@ def build_paragon():
     page("paragon.html", "Парагон",
          "Степень парагона от 1 до 100 зависит от силы. Сила копится от лопаний, потраченных денег "
          "и пожертвованных улучшений, у каждого источника свой потолок.",
-         "<p>Посчитать степень: <a href='https://btd6portal.com/calculators/paragondegree' rel='noopener'>BTD6 Portal</a>, "
-         "<a href='https://kaister300.github.io/BTD6ParagonCalculator/' rel='noopener'>BTD6 Paragon Calculator</a>.</p>" + body, toc=[("curve", "Сила на степень"), ("sources", "Параметры")])
+         body, toc=[("calc", "Калькулятор степени"), ("pie", "Откуда берётся сила"), ("towers", "Башни с парагоном"), ("curve", "Сила на степень"), ("sources", "Параметры")])
 
 
 def skulls(boss_model):
@@ -581,7 +688,7 @@ def param(k, v):
 def mod_table(mods):
     """Mutator models as rows: icon + readable name, then their parameters as badges."""
     rows = [(Raw(f"<span class='mod-name'>{mod_icon(short_type(m))}{esc(label(short_type(m)))}</span>"),
-             " ".join(param(k, v) for k, v in flatten(m).items() if v != "") or "–") for m in mods]
+             Raw(f"<div class='mod-params'>{' '.join(param(k, v) for k, v in flatten(m).items() if v != '') or '–'}</div>")) for m in mods]
     return table(["Модификатор", "Параметры"], rows) if rows else "<p class='note'>Без модификаторов.</p>"
 
 
@@ -627,31 +734,46 @@ def build_modes():
 
 def build_income():
     body, toc = [], []
-    # the normal game first, the rest alphabetically
+    raw = raw_round_pops("DefaultRoundSet")
+    bmod = bonus_cash_mod()
+    base_b = bmod.get("baseCash", 100)
+    mult_b = bmod.get("roundMultiple", 1)
+    ticks = (1, 20, 40, 60, 80, 100, 120, 140)
+    k = lambda v: f"{round(v / 1000, 1):g}k" if v >= 1000 else fmt(round(v))
+    tip = lambda r, c, s: f"раунд {r}: ${fmt(round(c))} за раунд · всего ${fmt(round(s))}"
+
     for f in sorted(json_files("IncomeSets"), key=lambda f: (f.stem != "DefaultIncomeSet", f.stem)):
         d = load(f)
+        thresholds = d.get("thresholds") or []
+        final_mult = d.get("finalMultiplier", 1)
+
+        def inc_mult(r, ths=thresholds, fm=final_mult):
+            for th in ths:
+                if r <= th["threshold"]:
+                    return th["multiplier"]
+            return fm
+
+        cash = [raw.get(r, 0) * inc_mult(r) + base_b + r * mult_b for r in range(1, 141)]
+        total = [sum(cash[:i + 1]) for i in range(len(cash))]
+
         rows, start = [], 1
-        for th in d.get("thresholds") or []:
+        for th in thresholds:
             rows.append((f"{start}–{th['threshold']}", th["multiplier"], f"{th['multiplier'] * 100:g}%"))
             start = th["threshold"] + 1
-        final = d.get("finalMultiplier")
-        rows.append((f"{start}+", final, f"{final * 100:g}%" if final is not None else "–"))
-        body.append(card(f.stem, f.stem, table(["Раунды", "Множитель", "От обычного"], rows), section="Доход"))
+        rows.append((f"{start}+", final_mult, f"{final_mult * 100:g}%" if final_mult is not None else "–"))
+
+        chart = dual_line_chart(cash, total, ticks, f"{f.stem} 1–140", k, k, tip)
+        st = stats([("всего 1–80", f"${fmt(round(sum(cash[:80])))}"),
+                    ("всего 1–100", f"${fmt(round(sum(cash[:100])))}"),
+                    ("всего 1–140", f"${fmt(round(sum(cash)))}")])
+        inner = st + chart + table(["Раунды", "Множитель", "От обычного"], rows)
+        body.append(card(f.stem, f.stem, inner, section="Доход"))
         toc.append((f.stem, f.stem))
-    cash = [p + b for p, b in round_cash().values()]
-    total = [sum(cash[:i + 1]) for i in range(len(cash))]
-    ticks = (1, 20, 40, 60, 80, 100, 120, len(cash))
-    k = lambda v: f"{round(v / 1000, 1):g}k" if v >= 1000 else fmt(round(v))
-    charts = card("cash", "Деньги по раундам",
-                  "<h3>За раунд (лопание и бонус)</h3>"
-                  + line_chart(cash, ticks, "Деньги за раунд", k, lambda r, v: f"раунд {r}: ${fmt(round(v))}")
-                  + "<h3>Всего с 1-го раунда</h3>"
-                  + line_chart(total, ticks, "Деньги с 1-го раунда", k, lambda r, v: f"раунд {r}: ${fmt(round(v))}"),
-                  section="Доход")
+
     page("income.html", "Доход по раундам",
-         "Деньги за лопание умножаются на коэффициент раунда. DefaultIncomeSet работает в обычной игре, "
-         "остальные в своих режимах.",
-         charts + f"<div class='cards'>{''.join(body)}</div>", [("cash", "Деньги по раундам")] + toc)
+         "Деньги за лопание умножаются на коэффициент раунда. Для каждого набора показан график 1–140 "
+         "с падением дохода за раунд (слева) и накопленной суммой денег (справа).",
+         f"<div class='cards'>{''.join(body)}</div>", toc)
 
 
 
@@ -785,7 +907,7 @@ def knowledge_symbols(ids):
     return f"<svg width='0' height='0' style='position:absolute' aria-hidden='true'><defs>{defs}</defs></svg>"
 
 
-def knowledge_game_graph(entries, nodes):
+def knowledge_game_graph(entries, nodes, get_ancestors=None):
     """The tree exactly as the game lays it out: icon buttons, stem/arrow/elbow pieces, tier bands."""
     S, pad_l, pad = 0.5, 70, 16
     boxes = [e["rect"] for e in entries] + [a["rect"] for e in entries for a in e["arrows"]]
@@ -826,9 +948,14 @@ def knowledge_game_graph(entries, nodes):
         reqs = " ".join(p for p in d.get("prerequisiteIds") or [] if p in nodes)
         uri = icon_uri(kid)
         cost = d.get("monkeyMoneyCost")
+        anc = get_ancestors(kid) if get_ancestors else set()
+        branch_pts = len(anc) + 1
+        branch_mm = sum(nodes[a].get("monkeyMoneyCost") or 0 for a in anc) + (d.get("monkeyMoneyCost") or 0)
+        anc_attrs = f" data-anc-pts='{branch_pts}' data-anc-mm='{fmt(branch_mm)}'"
         btns.append(
             f"<a href='#{esc(kid)}' class='kn' data-id='{esc(kid)}' data-req='{esc(reqs)}' "
-            f"data-name='{esc(t(kid, fallback=kid))}' data-cost='{fmt(cost)}' data-desc='{esc(t(kid + 'Description', kid + ' Description'))}'>"
+            f"data-name='{esc(t(kid, fallback=kid))}' data-cost='{fmt(cost)}' data-desc='{esc(t(kid + 'Description', kid + ' Description'))}'"
+            f"{anc_attrs}>"
             f"<circle class='ring' cx='{cx:.1f}' cy='{cy:.1f}' r='{size / 2 - 2:.1f}'/>"
             + (f"<use href='#k-{esc(kid)}' x='{cx - size / 2:.1f}' y='{cy - size / 2:.1f}' width='{size:.1f}' height='{size:.1f}'/>" if uri else
                f"<text class='nm' x='{cx:.1f}' y='{cy:.1f}' text-anchor='middle'>{esc(t(kid, fallback=kid))[:10]}</text>")
@@ -843,30 +970,48 @@ def build_knowledge():
     body, toc = [], []
     GAME_LAYOUT = load_game_layout()
     for cat in sorted(p for p in (DATA / "Knowledge").iterdir() if p.is_dir()):
+        nodes = {f.stem: load(f) for f in cat.glob("*.json")}
+
+        def get_ancestors(kid):
+            res = set()
+            stack = list(nodes[kid].get("prerequisiteIds") or [])
+            while stack:
+                curr = stack.pop()
+                if curr not in res and curr in nodes:
+                    res.add(curr)
+                    stack.extend(nodes[curr].get("prerequisiteIds") or [])
+            return res
+
         cards = []
         for f in sorted(cat.glob("*.json"), key=lambda f: load(f).get("idx", 0)):
-            d = load(f)
+            d = nodes[f.stem]
             name = t(f.stem, fallback=f.stem)
             prereq = " ".join(f"<a class='badge' href='#{esc(p)}'><span>требует</span><b>"
                               f"{kicon(p, 18)}{esc(t(p, fallback=p))}</b></a>"
                               for p in d.get("prerequisiteIds") or [])
+            anc = get_ancestors(f.stem)
+            branch_pts = len(anc) + 1
+            branch_mm = sum(nodes[a].get("monkeyMoneyCost") or 0 for a in anc) + (d.get("monkeyMoneyCost") or 0)
             inner = ("<div class='split'><div><div class='hero-row'>"
                      + kicon(f.stem, 84, "ic kicon")
                      + "<div>" + game_text(t(f"{f.stem}Description", f"{f.stem} Description"))
                      + stats([("Monkey Money", Raw(icon("ui", "mm", 22) + fmt(d.get("monkeyMoneyCost")))),
-                              ("вложено в ветку", Raw(icon("ui", "knowledge", 22) + fmt(d.get("investmentRequired"))))])
+                              ("вложено в ветку", Raw(icon("ui", "knowledge", 22) + fmt(d.get("investmentRequired")))),
+                              ("всего в ветке", Raw(icon("ui", "knowledge", 22) + str(branch_pts))),
+                              ("сумма MM ветки", Raw(icon("ui", "mm", 22) + fmt(branch_mm)))])
                      + (f"<div class='chips'>{prereq}</div>" if prereq else "")
                      + "</div></div></div><div>" + mod_table((d.get("mod") or {}).get("mutatorMods") or []) + "</div></div>")
             cards.append(card(f.stem, name, inner, en_id=f.stem, section=f"Знания · {cat.name}"))
-        nodes = {f.stem: load(f) for f in cat.glob("*.json")}
         body.append(f"<h2 id='{esc(cat.name)}' style='margin-top:32px'>{esc(t(cat.name, fallback=cat.name))}</h2>"
-                    + (knowledge_game_graph(GAME_LAYOUT[cat.name], nodes) if cat.name in GAME_LAYOUT else "<p class='note'>Нет раскладки: запустите KnowledgeDumper (F6).</p>")
+                    + (knowledge_game_graph(GAME_LAYOUT[cat.name], nodes, get_ancestors) if cat.name in GAME_LAYOUT else "<p class='note'>Нет раскладки: запустите KnowledgeDumper (F6).</p>")
                     + "".join(cards))
         toc.append((cat.name, t(cat.name, fallback=cat.name)))
+    knav = "<nav class='knav'>" + "".join(
+        f"<a href='#{esc(a)}'>{esc(n)}</a>" for a, n in toc) + "</nav>"
     page("knowledge.html", t("Monkey Knowledge", fallback="Monkey Knowledge"),
          "Деревья знаний как в игре. Наведите на знание, чтобы подсветить цепочку, нажмите, чтобы открыть "
          "его карточку. Число в углу знания это цена в Monkey Money.",
-         knowledge_symbols({p.stem for p in (DATA / "Knowledge").rglob("*.json")}) + "".join(body), toc)
+         knav + knowledge_symbols({p.stem for p in (DATA / "Knowledge").rglob("*.json")}) + "".join(body), toc)
 
 
 def build_powers():
@@ -982,21 +1127,45 @@ def build_heroes():
          + f"<div class='grid cols3' id='hero-grid'>{grid}</div>")
 
 
-LINKS = [  # (title, url, what it is)
-    ("Blooncyclopedia", "https://www.bloonswiki.com", "Большая вики по всем играм Bloons: тексты, история изменений, стратегии."),
-    ("r/btd6", "https://www.reddit.com/r/btd6/", "Сообщество игры на Reddit."),
-    ("Ninja Kiwi", "https://ninjakiwi.com", "Разработчики игры: новости и патчноуты."),
-    ("BTD6 Portal", "https://btd6portal.com/calculators/paragondegree", "Калькуляторы: степень парагона и много других."),
-    ("BTD6 Paragon Calculator", "https://kaister300.github.io/BTD6ParagonCalculator/", "Калькулятор степени парагона."),
-    ("BTD6 Hero XP Calculator", "https://svrng.github.io/BTD6-Hero-XP-Calculator/", "Калькулятор опыта героев."),
-    ("BTD6 Mod Helper", "https://github.com/gurrenm3/BTD-Mod-Helper", "Библиотека для модов, через неё выгружены данные этого сайта."),
-    ("BTD6 Tech Wiki", "https://github.com/Antonzlo/btd6-tech-wiki", "Исходный код этого сайта."),
+LINK_SECTIONS = [  # (anchor, section_title, [(title, url, what_it_is), ...])
+    ("tools", "Калькуляторы и инструменты", [
+        ("BTD6 Open Data", "https://btd6data.com", "Инструменты и лидерборды по API: боссы, гонки, тайминги ферм, профили по OAK."),
+        ("BTD6 Portal", "https://btd6portal.com", "Калькуляторы степени парагона, калькулятор фарма и испытания сообщества."),
+        ("BTD6 Paragon Calculator", "https://kaister300.github.io/BTD6ParagonCalculator/", "Калькулятор степени парагона."),
+        ("BTD6 Hero XP Calculator", "https://svrng.github.io/BTD6-Hero-XP-Calculator/", "Калькулятор опыта героев."),
+    ]),
+    ("wikis", "Вики и базы знаний", [
+        ("Blooncyclopedia", "https://www.bloonswiki.com", "Большая вики по всем играм Bloons: тексты, история изменений, стратегии."),
+        ("Bloons Wiki (Fandom)", "https://bloons.fandom.com/wiki/Bloons_Wiki", "Старейшая вики сообщества: подробные статьи по механикам, башням, обновлениям и лору."),
+        ("The BTD6 Index", "https://btd6index.win", "База соревновательных рекордов сообщества: 2TC (2 башни CHIMPS), 2MPC (2 млн урона одной башней), Least Cash."),
+        ("BTD6 Maplist", "https://btd6maplist.sarto.dev/", "Рейтинг сложнейших пользовательских карт, пройденных на CHIMPS, по аналогии с Demon List."),
+    ]),
+    ("mods", "Моддинг и разработка", [
+        ("BTD6 Mod Helper", "https://github.com/gurrenm3/BTD-Mod-Helper", "Библиотека для модов, через неё выгружены данные этого сайта."),
+        ("BTD6 Mod Manager", "https://github.com/TDToolbox/BTD6-Mod-Manager", "Удобный менеджер модов для BTD6: установка и управление модами и MelonLoader в один клик."),
+        ("BTD6 API Explorer", "https://btd6apiexplorer.github.io/", "Веб-интерфейс для просмотра данных официального Ninja Kiwi Open Data API."),
+        ("BTD6 Tech Wiki", "https://github.com/Antonzlo/btd6-tech-wiki", "Исходный код этого сайта."),
+    ]),
+    ("community", "Сообщество и разработчики", [
+        ("Ninja Kiwi", "https://ninjakiwi.com", "Разработчики игры: новости и патчноуты."),
+        ("Ninja Kiwi Discord", "https://discord.gg/ninjakiwi", "Официальный Discord-сервер разработчиков: анонсы, общение и поиск напарников для Co-op."),
+        ("r/btd6", "https://www.reddit.com/r/btd6/", "Сообщество игры на Reddit."),
+        ("Cyber Quincy", "https://github.com/hemisemidemipresent/cyberquincy", "Discord-бот сообщества для поиска точных характеристик башен (Popology), кривых опыта героев и дохода."),
+    ]),
 ]
 
 
 def build_links():
-    rows = [(Raw(f"<a href='{u}' rel='noopener'><b>{esc(n)}</b></a>"), d) for n, u, d in LINKS]
-    page("links.html", "Ссылки", "", table(["Сайт", "Что там"], rows))
+    cards = []
+    toc = []
+    for anchor, title, links in LINK_SECTIONS:
+        rows = []
+        for n, u, d in links:
+            rows.append((Raw(f"<a href='{u}' rel='noopener'><b>{esc(n)}</b></a>"), d))
+            INDEX.append([n, title, f"{current_file}#{anchor}", d])
+        cards.append(card(anchor, title, table(["Сайт", "Что там"], rows), section="Ссылки"))
+        toc.append((anchor, title))
+    page("links.html", "Ссылки", "", "".join(cards), toc=toc)
 
 
 def sort_bar(grid_id, options):
@@ -1487,6 +1656,21 @@ def build_bloons():
 
 
 @functools.cache
+def raw_round_pops(rs="DefaultRoundSet"):
+    out = {}
+    for f in (DATA / "Rounds" / rs).glob("*.json"):
+        r = int(f.stem)
+        out[r] = sum(g["count"] * pops(g["bloon"]) for g in load(f).get("groups") or [])
+    return dict(sorted(out.items()))
+
+
+@functools.cache
+def bonus_cash_mod():
+    return next((m for m in load(DATA / "Mods" / "Medium.json").get("mutatorMods") or []
+                 if short_type(m) == "BonusCashPerRoundModModel"), {})
+
+
+@functools.cache
 def round_cash(rs="DefaultRoundSet"):
     """{round: (pop cash, end of round bonus)}: 1 $ per layer popped times the DefaultIncomeSet multiplier of the round,
     bonus from the Medium mode model (BonusCashPerRoundModModel: baseCash + round * roundMultiple)."""
@@ -1495,14 +1679,11 @@ def round_cash(rs="DefaultRoundSet"):
     def income_mult(r):
         return next((th["multiplier"] for th in income.get("thresholds") or [] if r <= th["threshold"]),
                     income.get("finalMultiplier", 1))
-    bonus_mod = next((m for m in load(DATA / "Mods" / "Medium.json").get("mutatorMods") or []
-                      if short_type(m) == "BonusCashPerRoundModModel"), {})
-    out = {}
-    for f in (DATA / "Rounds" / rs).glob("*.json"):
-        r = int(f.stem)
-        pop = sum(g["count"] * pops(g["bloon"]) for g in load(f).get("groups") or []) * income_mult(r)
-        out[r] = (pop, bonus_mod.get("baseCash", 100) + r * bonus_mod.get("roundMultiple", 1))
-    return dict(sorted(out.items()))
+    raw = raw_round_pops(rs)
+    bmod = bonus_cash_mod()
+    base_b = bmod.get("baseCash", 100)
+    mult_b = bmod.get("roundMultiple", 1)
+    return {r: (p * income_mult(r), base_b + r * mult_b) for r, p in raw.items()}
 
 
 def build_rounds():
