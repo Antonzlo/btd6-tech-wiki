@@ -23,7 +23,7 @@ var m=curMult(),cost=m===1?+c.dataset.cost:Math.round(c.dataset.cost*m/5)*5,have
 while(have<cost&&ok<=cash.length){have+=cash[ok-1];ok++}
 c.querySelector('.hcalc-cash').textContent=ok>cash.length?'':'Денег хватит к началу раунда '+ok+' ($'+cost+', старт $'+c.dataset.start+', без других трат).'}
 document.querySelectorAll('.hcalc').forEach(function(c){var go=function(){hcalc(c)};c.querySelector('select').addEventListener('change',go);
-c.querySelector('input').addEventListener('input',go);document.querySelectorAll('.diff button').forEach(function(b){b.addEventListener('click',go)});go()});
+c.querySelector('input').addEventListener('input',go);go()});
 document.querySelectorAll('.sortbar').forEach(function(bar){var g=document.getElementById(bar.dataset.grid);bar.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){var k=b.dataset.sort;Array.prototype.slice.call(g.children).sort(function(x,y){return x.dataset[k]-y.dataset[k]}).forEach(function(c){g.appendChild(c)});g.classList.toggle('cols3',k==='order');bar.querySelectorAll('button').forEach(function(o){o.classList.toggle('on',o===b)})})})});
 document.querySelectorAll('table').forEach(function(t){var tb=t.tBodies[0];if(!tb||!t.tHead||t.querySelector('[rowspan]'))return;var ths=t.tHead.rows[0].cells;
 Array.prototype.forEach.call(ths,function(th,ci){th.classList.add('sortable');th.addEventListener('click',function(){var dir=th.dataset.dir==='1'?-1:1;Array.prototype.forEach.call(ths,function(x){delete x.dataset.dir});th.dataset.dir=dir===1?'1':'-1';
@@ -40,7 +40,7 @@ n.addEventListener('focus',function(){light(id)});n.addEventListener('mouseleave
 var DIFF_KEY='btd6-diff';function curMult(){try{return +localStorage.getItem(DIFF_KEY)||1}catch(x){return 1}}
 function applyDiff(){var m=curMult();document.querySelectorAll('.diff button').forEach(function(b){b.classList.toggle('on',+b.dataset.mult===m)});
 document.querySelectorAll('.cost[data-parts]').forEach(function(el){var s=el.dataset.parts.split(',').reduce(function(a,p){return a+(m===1?+p:Math.round(p*m/5)*5)},0);
-el.textContent='$'+s.toLocaleString('ru-RU')})}
+el.textContent='$'+s.toLocaleString('ru-RU')});document.querySelectorAll('.hcalc').forEach(hcalc)}
 document.querySelectorAll('.diff button').forEach(function(b){b.addEventListener('click',function(){try{localStorage.setItem(DIFF_KEY,b.dataset.mult)}catch(x){}applyDiff()})});
 applyDiff();
 (function(){var top=document.querySelector('.top');if(!top)return;function h(){document.documentElement.style.setProperty('--top-h',top.offsetHeight+'px')}h();if(window.ResizeObserver)new ResizeObserver(h).observe(top)})();
