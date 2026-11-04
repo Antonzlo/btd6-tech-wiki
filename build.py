@@ -91,10 +91,10 @@ var h='<div class="stats"><div class="stat"><b class="cost" data-parts="'+d.part
 d.attacks.forEach(function(a,ai){h+='<h3>'+e(a.name)+' <span class="id">дальность '+f(a.range)+'</span></h3><div class="wrap"><table><thead><tr><th>Оружие</th><th>Перезарядка, с</th><th>Атак/с</th><th>Снаряд</th><th>Кол-во</th><th>Урон</th><th>Урон за выстрел</th><th>Пробив.</th><th>Примерный DPS</th><th>Модификаторы и эффекты</th><th>Не лопает</th></tr></thead><tbody>';
 a.weapons.forEach(function(w,wi){var n=Math.max(1,w.proj.length);w.proj.forEach(function(p,pi){h+='<tr>'+(pi===0?'<td rowspan="'+n+'">'+(wi+1)+(w.emission?' <span class="id">'+e(w.emission)+'</span>':'')+'</td><td class="n" rowspan="'+n+'">'+f(p.rate)+'</td><td class="n" rowspan="'+n+'">'+(p.rate?f(1/p.rate):'–')+'</td>':'')
 +'<td style="padding-left:'+(10+p.depth*16)+'px">'+(p.depth?'↳ ':'')+e(p.projectile)+'</td><td class="n">'+f(p.count)+'</td><td class="n">'+f(p.damage)+'</td><td class="n">'+f(p.shotDamage)+'</td><td class="n">'+f(p.pierce)+'</td><td class="n">'+f(p.dps)+'</td><td>'
- +p.mods.concat(p.effects).map(function(m){return'<span class="chip">'+e(m)+'</span>'}).join(' ')+'</td><td>'+((p.immune||[]).length?p.immune.map(function(x){return'<span class="chip">'+e(x)+'</span>'}).join(' '):'–')+'</td></tr>'});
+ +p.mods.concat(p.effects).map(function(m){return'<span class="chip">'+e(m)+'</span>'}).join(' ')+'</td><td>'+((p.immune||[]).length?p.immune.map(function(x){return'<a class="chip no" href="bloons.html#prop-'+x[0]+'">'+e(x[1])+'</a>'}).join(' '):'–')+'</td></tr>'});
 if(!w.proj.length)h+='<tr><td>'+(wi+1)+'</td><td class="n">'+f(w.rate)+'</td><td class="n">'+(w.rate?f(1/w.rate):'–')+'</td><td colspan="8">–</td></tr>'});
 h+='</tbody></table></div>'});if(d.attacks.length)h+='<p class="note">Примерный DPS: урон за выстрел / перезарядка. Без учёта баффов, пробивания и множителей режима.</p>';
-if(d.abilities.length)h+='<h3>Способности</h3><div class="chips">'+d.abilities.map(function(a){return'<span class="chip">'+e(a.name)+', перезарядка '+f(a.cooldown)+' с</span>'}).join('')+'</div>';
+if(d.abilities.length)h+='<h3>Способности</h3><div class="chips">'+d.abilities.map(function(a){return'<a class="chip" href="#abilities">'+e(a.name)+', перезарядка '+f(a.cooldown)+' с</a>'}).join('')+'</div>';
 if(d.other.length)h+='<h3>Прочие поведения</h3><div class="chips">'+d.other.map(function(o){return'<span class="chip">'+e(o)+'</span>'}).join('')+'</div>';
 out.innerHTML=h;applyDiff()}
 xp.querySelectorAll('.xp-row[data-path] button').forEach(function(b){b.addEventListener('click',function(){var p=+b.parentNode.dataset.path;variant=null;st[p]=+b.dataset.tier;fix(p);draw()})});
@@ -646,18 +646,49 @@ def tower_badge(tid):
             f"<b>{icon('towers', tid, 18)}{esc(TEXT.get(tid, tid))}</b></a>")
 
 
+@functools.cache
+def buff_icon_owners():
+    """Buff icon name -> heroes and powers whose models carry it: {(kind, id)}."""
+    out = {}
+    files = [("hero", f.parent.name, f) for f in (DATA / "Heroes").glob("*/*.json")] + \
+            [("power", f.stem, f) for f in (DATA / "Powers").glob("*.json")]
+    for kind, oid, f in files:
+        for name in set(re.findall(r'"(?:buff|)(?:Icon|Locs|icon)Name": "([^"]+)"', f.read_text(encoding="utf-8"))):
+            out.setdefault(name, set()).add((kind, oid))
+    return out
+
+
+def source_badge(kind, oid):
+    """Link badge to a buff source: tower page, hero card or power card."""
+    if kind == "tower":
+        return tower_badge(oid)
+    href, pic = (f"heroes.html#{oid}", icon("heroes", oid, 18)) if kind == "hero" else \
+                (f"powers.html#{oid}", icon("ui", f"power-{oid}", 18))
+    return (f"<a class='badge' href='{href}'><span>{'герой' if kind == 'hero' else 'сила'}</span>"
+            f"<b>{pic}{esc(t(oid, fallback=oid))}</b></a>")
+
+
 def tower_of(icon_name, buff_name=""):
-    """Source of a buff: towers whose data carry its icon, else a guess from the icon name (BuffIconAlchemist3xx),
-    else towers carrying its buff name (checked last: heroes reuse tower buff names, e.g. BiggerRadiusBuff)."""
+    """Source of a buff: towers, then heroes and powers whose data carry its icon; else a guess from the icon name
+    (BuffIconAlchemist3xx); else towers carrying its buff name (last: heroes reuse tower buff names, BiggerRadiusBuff)."""
     found = buff_towers().get(icon_name)
     if found:
         return "".join(tower_badge(tid) for tid in sorted(found, key=lambda x: SHOP_ORDER.index(x) if x in SHOP_ORDER else 99))
+    owners = buff_icon_owners().get(icon_name)
+    if owners:
+        return "".join(source_badge(k, o) for k, o in sorted(owners))
     rest = icon_name.removeprefix("BuffIcon")
     for end in range(len(rest), 3, -1):
         word = rest[:end]
         if word[0].isupper() and (end == len(rest) or not rest[end].islower()) and isinstance(TEXT.get(word), str):
-            if (DATA / "Towers" / word).is_dir():
-                return tower_badge(word)
+            word_tower = {"Gyrfalcon": "BeastHandler", "Microraptor": "BeastHandler", "Piranha": "BeastHandler",
+                          "Sheriff": "Desperado"}.get(word, word)  # pets and the old Desperado id
+            if (DATA / "Towers" / word_tower).is_dir():
+                return tower_badge(word_tower)
+            if (DATA / "Powers" / f"{word}.json").exists():
+                return source_badge("power", word)
+            if (DATA / "Heroes" / word).is_dir():
+                return source_badge("hero", word)
             return f"<span class='badge'><span>источник</span><b>{esc(TEXT[word])}</b></span>"
     return "".join(tower_badge(tid) for tid in sorted(buff_towers().get(buff_name, ())))
 
@@ -1013,7 +1044,7 @@ def combat_stats(d, upgrade_costs):
                         shot = None if damage is None else damage * cnt
                         acc.append({"attack": label(st), "weapon": len(weapons) + 1, "projectile": lbl, "depth": depth,
                                     "count": cnt, "damage": damage, "pierce": pierce, "rate": rt, "range": rg,
-                                    "immune": [name for bit, name in BLOON_PROPS if mask & bit],
+                                    "immune": [[bit, name] for bit, name in BLOON_PROPS if mask & bit],
                                     "shotDamage": shot, "dps": None if (shot is None or not rt) else shot / rt,
                                     "mods": mods, "effects": sorted(set(effects))})
                         kids = [(v, label(short_type(x)), (x.get("emission") or {}).get("count") or 1, depth + 1, rt, rg, acc)
@@ -1119,10 +1150,10 @@ def levels_table(rows, first_col="Тир", only_changed=False):
         diff = {k for k in keys if prev is not None and s[k] != prev[k]}
         if only_changed and prev is not None and not diff:
             continue
-        immune = ", ".join(s["immune"]) if s["immune"] else "\u2013"
+        immune = "".join(f"<a class='chip no' href='bloons.html#prop-{bit}'>{esc(n)}</a> " for bit, n in s["immune"]) or "\u2013"
         cells = "".join(f"<td class='n{' chg' if k in diff else ''}'>{fmt(s[k])}</td>" for k in keys[:-1])
         body += (f"<tr><td>{esc(label)}</td>{cells}"
-                 f"<td{' class=chg' if 'immune' in diff else ''}>{esc(immune)}</td></tr>")
+                 f"<td{' class=chg' if 'immune' in diff else ''}>{immune}</td></tr>")
     return f"<div class='wrap'><table><thead>{head}</thead><tbody>{body}</tbody></table></div>"
 
 
