@@ -48,17 +48,28 @@ CSS = (ROOT / "style.css").read_text(encoding="utf-8")
 SEARCH_JS = """
 (function(){
 var box=document.getElementById('q'),out=document.getElementById('qr');if(!box)return;var sel=0,hits=[];
-function norm(s){return s.toLowerCase().replace(/ё/g,'е')}
+var empty=false;
+function norm(s){return s.toLowerCase().replace(/ё/g,'е').replace(/[\\s\\-]+/g,' ')}
+function rank(e,q,ws){var t=norm(e[0]),x=t+' '+norm(e[3]||'');
+for(var i=0;i<ws.length;i++)if(x.indexOf(ws[i])<0)return -1;
+return t===q?0:t.indexOf(q+' ')===0?1:t.indexOf(q)===0?2:(' '+t).indexOf(' '+q)>=0?3:t.indexOf(q)>=0?4:5}
 function draw(){out.innerHTML='';hits.forEach(function(h,i){var a=document.createElement('a');a.href=h[2];
 if(i===sel)a.className='sel';var s=document.createElement('span');s.textContent=h[0];var m=document.createElement('small');
-m.textContent=h[1];a.appendChild(s);a.appendChild(m);out.appendChild(a)});out.hidden=!hits.length}
-box.addEventListener('input',function(){var q=norm(box.value.trim());sel=0;
-hits=q?WIKI_INDEX.filter(function(e){return norm(e[0]+' '+e[3]).indexOf(q)>=0}).slice(0,14):[];draw()});
-box.addEventListener('keydown',function(e){if(!hits.length)return;if(e.key==='ArrowDown'){sel=Math.min(sel+1,hits.length-1);draw();e.preventDefault()}
-else if(e.key==='ArrowUp'){sel=Math.max(sel-1,0);draw();e.preventDefault()}else if(e.key==='Enter'){location.href=hits[sel][2]}
-else if(e.key==='Escape'){hits=[];draw()}});
-document.addEventListener('click',function(e){if(!e.target.closest('.search')){hits=[];draw()}});
-document.addEventListener('keydown',function(e){if(e.key==='/'&&document.activeElement!==box&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){box.focus();e.preventDefault()}});
+m.textContent=h[1];a.appendChild(s);a.appendChild(m);a.addEventListener('mouseenter',function(){sel=i;out.querySelectorAll('a').forEach(function(o,j){o.classList.toggle('sel',j===i)})});
+out.appendChild(a);if(i===sel)a.scrollIntoView({block:'nearest'})});
+if(empty){var n=document.createElement('div');n.className='empty';n.textContent='Ничего не найдено';out.appendChild(n)}
+out.hidden=!hits.length&&!empty}
+function close(){hits=[];empty=false;draw()}
+box.addEventListener('input',function(){var q=norm(box.value.trim()),ws=q.split(' ');sel=0;
+hits=q?WIKI_INDEX.map(function(e){return[rank(e,q,ws),e]}).filter(function(p){return p[0]>=0})
+.sort(function(a,b){return a[0]-b[0]||a[1][0].length-b[1][0].length}).slice(0,14).map(function(p){return p[1]}):[];
+empty=!!q&&!hits.length;draw()});
+box.addEventListener('focus',function(){if(box.value.trim())box.dispatchEvent(new Event('input'))});
+box.addEventListener('keydown',function(e){if(e.key==='Escape'){if(hits.length||empty)close();else{box.value='';box.blur()}return}
+if(!hits.length)return;if(e.key==='ArrowDown'){sel=Math.min(sel+1,hits.length-1);draw();e.preventDefault()}
+else if(e.key==='ArrowUp'){sel=Math.max(sel-1,0);draw();e.preventDefault()}else if(e.key==='Enter'){location.href=hits[sel][2]}});
+document.addEventListener('click',function(e){if(!e.target.closest('.search'))close()});
+document.addEventListener('keydown',function(e){if(e.key==='/'&&document.activeElement!==box&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){box.focus();e.preventDefault()}});
 document.querySelectorAll('[data-filter]').forEach(function(f){var rows=document.querySelectorAll(f.dataset.filter);
 f.addEventListener('input',function(){var q=norm(f.value);rows.forEach(function(r){r.dataset.th=q&&norm(r.textContent).indexOf(q)<0?'1':'';r.hidden=!!(r.dataset.th||r.dataset.gh)})})});
 document.querySelectorAll('.tagbar:not(.sortbar)').forEach(function(bar){var rows=document.querySelectorAll(bar.dataset.target+' tbody tr');bar.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){bar.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});var tag=b.dataset.tag;rows.forEach(function(r){r.dataset.gh=tag&&(' '+r.dataset.tags+' ').indexOf(' '+tag+' ')<0?'1':'';r.hidden=!!(r.dataset.th||r.dataset.gh)})})})});
@@ -265,7 +276,7 @@ def t(*keys, fallback=""):
     for key in keys:
         value = TEXT.get(key)
         if isinstance(value, str) and value.strip():
-            return value.strip()
+            return value.strip().replace("-\n", "-")  # game wraps some names: "Супер-\nобезьяна"
     return fallback
 
 
@@ -1066,12 +1077,16 @@ def build_buffs():
         d = load(f)
         name = d.get("iconName", "")
         pic = icon("buffs", name, 32, "ic buff-ic") or "<span class='buff-ic'></span>"
-        buff = (f"<span class='mod-name'>{pic}"
+        buff = (f"<span class='mod-name' id='buff-{esc(name)}'>{pic}"
                 f"<span><span class='id'>{esc(d.get('buffName'))}</span><br><small class='note'>{esc(name)}</small></span></span>")
         stack = "<div class='stackgrid'>" + "".join([flag("stackable", d.get("stackable")), param("maxStackSize", "∞" if (d.get("maxStackSize") or 0) >= 2**31 - 1 else d.get("maxStackSize")),
                           flag("globalRange", d.get("globalRange"))]) + "</div>"
-        rows.append((Raw(tower_of(name, d.get("buffName", ""))) or "–", Raw(buff), Raw(stack)))
-        INDEX.append([d.get("buffName", ""), "Баффы", "buffs.html", name])
+        src = tower_of(name, d.get("buffName", ""))
+        rows.append((Raw(src) or "–", Raw(buff), Raw(stack)))
+        who = ", ".join(re.sub("<[^>]+>", "", b) for b in re.findall("<b>(.*?)</b>", src))
+        entry = [d.get("buffName", ""), "Баффы" + (" · " + who if who else ""), f"buffs.html#buff-{name}", name]
+        if not any(e[:2] == entry[:2] for e in INDEX):  # one buff granted by several tiers: first tier only
+            INDEX.append(entry)
     rows.sort(key=lambda r: (re.sub("<[^>]+>", "", r[0]), r[1]))  # by visible source name
     body = (card("table", "Все индикаторы баффов",
                  "<p class='note'>stackable показывает, складывается ли бафф с тем же именем от второго источника. "
@@ -1680,6 +1695,7 @@ def build_towers():
             for tier, u in enumerate(path, 1):
                 c = ucost.get(u, 0)
                 done.append(c)
+                INDEX.append([t(u, fallback=u), name, f"{file}#upgrades", u])
                 rows.append(f"<li>{icon('upgrades', u, 56, 'ic up-ic')}<div><div class='up-head'><b>{tier}. {esc(t(u, fallback=u))}</b>"
                             f"<span class='price'>{price([c], 'cost big')}<small>всего {price(done)}</small></span></div>"
                             f"<p>{esc(t(u + ' Description'))}</p></div></li>")
@@ -1687,6 +1703,7 @@ def build_towers():
         para = ""
         if (folder / f"{tid}-Paragon.json").exists():
             u = (load(folder / f"{tid}-Paragon.json").get("appliedUpgrades") or [""])[-1]
+            INDEX.append([t(u, fallback=u), name, f"{file}#upgrades", u])
             para = (f"<div class='paragon'><h3>Парагон</h3><ol><li>{icon('upgrades', u, 72, 'ic up-ic para-ic')}<div>"
                     f"<div class='up-head'><b>{esc(t(u, fallback=u))}</b><span class='price'>{price([ucost.get(u, 0)], 'cost big')}</span></div>"
                     f"<p>{esc(t(u + ' Description'))}</p></div></li></ol></div>")
@@ -1734,8 +1751,6 @@ def build_towers():
         grid = "".join(f"<a class='tile tower-tile' href='tower-{esc(tid)}.html'>{icon('towers', tid, 72)}<span><b>{esc(n)}</b>{price([c], 'cost tile-price')}</span></a>"
                        for tid, n, c in sorted(tiles[ts], key=lambda x: (SHOP_ORDER.index(x[0]) if x[0] in SHOP_ORDER else 99, x[2])))
         body.append(f"<h2 class='group' id='set-{TOWER_SETS.get(ts)}'>{esc(t(TOWER_SETS.get(ts), fallback=''))}</h2><div class='grid'>{grid}</div>")
-        for tid, n, c in tiles[ts]:
-            INDEX.append([n, "Башни", f"tower-{tid}.html", tid])
     page("towers.html", "Башни",
          "Башни по категориям, в порядке магазина.", selector + "".join(body))
 
@@ -1971,6 +1986,7 @@ def main():
                             ("links.html", build_links), ("index.html", build_index)):
             current_file = file
             build()
+        INDEX = list({(e[0], e[2]): e for e in INDEX if e[0]}.values())  # same title and link once
         (OUT / "search.js").write_text(
             translate("var WIKI_INDEX=" + json.dumps(INDEX, ensure_ascii=False) + ";" + SEARCH_JS), encoding="utf-8")
         left = sorted(set(re.findall(r"[А-Яа-яЁё][А-Яа-яЁё .,:()/-]*", "".join(

@@ -52,6 +52,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .results a{display:flex;justify-content:space-between;gap:12px;padding:7px 10px;border-radius:8px;color:var(--ink)}
 .results a:hover,.results a.sel{background:var(--gold);color:var(--gold-ink);text-decoration:none}
 .results small{color:var(--soft);white-space:nowrap}
+.results .empty{padding:7px 10px;color:var(--soft)}
 .results a.sel small,.results a:hover small{color:var(--gold-ink)}
 
 .layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px;max-width:1760px;margin:0 auto;
