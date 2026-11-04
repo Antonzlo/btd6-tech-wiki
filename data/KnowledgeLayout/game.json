@@ -184,6 +184,26 @@
       "index": 17
     }
   ],
+  "heroScreen": [
+    "Quincy",
+    "Gwendolin",
+    "StrikerJones",
+    "ObynGreenfoot",
+    "DanDMonke",
+    "Benjamin",
+    "PatFusty",
+    "CaptainChurchill",
+    "Ezili",
+    "Silas",
+    "Etienne",
+    "Sauda",
+    "Rosalia",
+    "Adora",
+    "AdmiralBrickell",
+    "Psi",
+    "Geraldo",
+    "Corvus"
+  ],
   "bloonProperties": {
     "None": 0,
     "Lead": 1,
