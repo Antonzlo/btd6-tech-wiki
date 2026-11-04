@@ -86,8 +86,9 @@ h3{font-size:15px;font-weight:600;margin:20px 0 8px}
 .ver{font-size:13px;color:var(--soft);margin:0 0 8px}
 
 .card{background:var(--panel);border:3px solid var(--edge);border-radius:18px;box-shadow:0 5px 0 var(--edge);
-  padding:20px 22px;margin:22px 0;scroll-margin-top:90px}
+  padding:20px 22px;margin:22px 0;scroll-margin-top:calc(var(--top-h,66px) + 16px)}
 .card-head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.card-head h2{overflow-wrap:anywhere;min-width:0}
 .id{font-family:var(--code);font-size:12px;color:var(--soft)}
 .tag{color:var(--soft);font-style:italic}
 .game{position:relative;background:var(--sky);border:2px solid var(--rule);border-radius:14px;padding:10px 14px 10px 14px;
@@ -209,7 +210,7 @@ svg text{fill:var(--soft);font:11px var(--body)}
 .bchip .ic{width:22px;height:22px}
 a.chip{text-decoration:none}
 a.chip:hover{filter:brightness(1.15);text-decoration:underline}
-@media (max-width:600px){.hero-row{flex-direction:column}}
+@media (max-width:600px){.hero-row{flex-direction:column}.hero-row>div{align-self:stretch}}
 .bi{display:inline-block;width:22px;height:22px;background:center/contain no-repeat;flex:none}
 .tower-tile>span{min-width:0}
 .tower-tile b{font-size:17px;overflow-wrap:anywhere;hyphens:auto}
@@ -219,6 +220,8 @@ a.chip:hover{filter:brightness(1.15);text-decoration:underline}
 .diff{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0 2px;
   position:sticky;top:var(--top-h,66px);z-index:4;background:var(--sky);padding:8px 0}
 body:has(.diff) :is(.card,h2.group,.prop-row){scroll-margin-top:calc(var(--top-h,66px) + 70px)}
+/* phones: the wrapped difficulty bar would eat a quarter of the screen, so it scrolls away */
+@media (max-width:600px){.diff{position:static}body:has(.diff) :is(.card,h2.group,.prop-row){scroll-margin-top:calc(var(--top-h,66px) + 16px)}}
 .hcalc-in{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
 .hcalc select,.hcalc input{font:inherit;padding:4px 8px;border:2px solid var(--edge);border-radius:8px;background:var(--panel);color:var(--ink);margin-left:6px}
 .hcalc input{width:80px}
@@ -291,7 +294,7 @@ body:has(.diff) :is(.card,h2.group,.prop-row){scroll-margin-top:calc(var(--top-h
 .foot{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);font-size:13px;color:var(--soft);max-width:80ch}
 
 /* Groups of small cards, round mechanics */
-h2.group{font-size:28px;margin:34px 0 0;scroll-margin-top:90px}
+h2.group{font-size:28px;margin:34px 0 0;scroll-margin-top:calc(var(--top-h,66px) + 16px)}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,560px),1fr));gap:0 22px;align-items:stretch}
 .tagbar{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
 .tagbar button{font:600 13px var(--body);padding:5px 12px;border:2px solid var(--edge);border-radius:999px;background:var(--sky);
@@ -358,7 +361,7 @@ tbody tr:hover .mod-params.overflowing:not(.open)::after{background:linear-gradi
 .stackgrid .badge{margin:0;display:flex}
 .stackgrid .badge span{flex:1}
 .stackgrid .badge b{min-width:46px;justify-content:center}
-.prop-row{display:grid;grid-template-columns:200px minmax(0,1fr);gap:14px;padding:10px 0;border-top:1px solid var(--rule);scroll-margin-top:90px}
+.prop-row{display:grid;grid-template-columns:200px minmax(0,1fr);gap:14px;padding:10px 0;border-top:1px solid var(--rule);scroll-margin-top:calc(var(--top-h,66px) + 16px)}
 .prop-row p{margin:2px 0 6px}
 .prop-row:target{background:var(--sky)}
 @media (max-width:700px){.prop-row{grid-template-columns:minmax(0,1fr)}}
