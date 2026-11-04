@@ -662,7 +662,7 @@ def source_badge(kind, oid):
     """Link badge to a buff source: tower page, hero card or power card."""
     if kind == "tower":
         return tower_badge(oid)
-    href, pic = (f"heroes.html#{oid}", icon("heroes", oid, 18)) if kind == "hero" else \
+    href, pic = (f"hero-{oid}.html", icon("heroes", oid, 18)) if kind == "hero" else \
                 (f"powers.html#{oid}", icon("ui", f"power-{oid}", 18))
     return (f"<a class='badge' href='{href}'><span>{'герой' if kind == 'hero' else 'сила'}</span>"
             f"<b>{pic}{esc(t(oid, fallback=oid))}</b></a>")
@@ -893,33 +893,44 @@ def build_heroes():
         levels = sorted(((upgrades[u].get("tier", 0) + 1, upgrades[u].get("xpCost", 0))
                          for u in top.get("appliedUpgrades") or [] if u in upgrades))
         heroes.append((base.get("cost", 0), t(hid, fallback=hid), hid, base, levels, abilities_of([(None, top)]), top))
-    cards = []
-    for cost, name, hid, base, levels, abils, top in sorted(heroes, key=lambda h: h[:3]):
+    global current_file
+    selector = diff_selector()
+    heroes.sort(key=lambda h: h[:3])
+    for cost, name, hid, base, levels, abils, top in heroes:
+        current_file = f"hero-{hid}.html"
         lvl_text = lambda n: esc(re.sub(r"</?(sup|sub|b|i|u)>|</?color[^>]*>", "", t(f"{hid} Level {n} Description", fallback="")))
         total, rows = 0, [(1, "–", 0, lvl_text(1))]
         for lvl, xp in levels:
             total += xp
             rows.append((lvl, xp, total, lvl_text(lvl)))
-        pic = icon("heroes", hid, 84, "ic kicon")
         lvl_rows = hero_level_rows(DATA / "Heroes" / hid, base, ucost)
-        inner = ((f"<div class='hero-row'>{pic}<div>" if pic else "<div><div>")
+        about = ("<div class='hero-row'>" + icon("heroes", hid, 120, "ic portrait") + "<div>"
                  + f"<p><b>{esc(t(f'{hid} Short Description', fallback=''))}</b></p>"
                  + game_text(t(f"{hid} Description"))
-                 + stats([("цена", price([cost])), ("дальность", num(base.get("range"))),
-                          ("XP до 20 уровня", total)])
-                 + "</div></div>"
-                 + table(["Уровень", "XP до уровня", "XP всего", "Что даёт"], [(a, b, c, Raw(d)) for a, b, c, d in rows])
-                 + "<h3>Уровни</h3>"
-                 + levels_table(lvl_rows, first_col="Уровень", only_changed=True)
-                 + (f"<details><summary>Все уровни</summary>" + levels_table(lvl_rows, first_col="Уровень") + "</details>"
-                    if len(lvl_rows) > 2 else "")
-                 + ("<h3>Способности</h3>" + abilities_table(abils, lambda up: f"уровень {upgrades[up].get('tier', 0) + 1}"
-                                                              if up in upgrades else esc(up)) if abils else ""))
-        cards.append(card(hid, name, inner, en_id=hid, section="Герои"))
+                 + stats([("цена", price([cost])), ("дальность", num(base.get("range"))), ("XP до 20 уровня", total)])
+                 + "</div></div>")
+        numbers = (levels_table(lvl_rows, first_col="Уровень", only_changed=True)
+                   + (f"<details><summary>Все уровни</summary>" + levels_table(lvl_rows, first_col="Уровень") + "</details>"
+                      if len(lvl_rows) > 2 else ""))
+        body = (selector
+                + card("about", name, about, en_id=hid, section="Герои")
+                + card("levels", "Уровни и опыт", table(["Уровень", "XP до уровня", "XP всего", "Что даёт"],
+                                                        [(a, b, c, Raw(d)) for a, b, c, d in rows]), section=name)
+                + card("numbers", "Числа по уровням", numbers, section=name)
+                + (card("abilities", "Способности", abilities_table(
+                    abils, lambda up: f"уровень {upgrades[up].get('tier', 0) + 1}" if up in upgrades else esc(up)), section=name)
+                   if abils else ""))
+        page(current_file, name, "Герой. XP до уровня взят из модели улучшения уровня, множитель опыта героя в нём "
+             "уже учтён. Описания уровней из текстов игры.", body,
+             toc=[("about", "Описание"), ("levels", "Уровни и опыт"), ("numbers", "Числа по уровням")]
+             + ([("abilities", "Способности")] if abils else []))
+    current_file = "heroes.html"
+    grid = "".join(f"<a class='tile tower-tile' href='hero-{esc(hid)}.html'>{icon('heroes', hid, 72)}"
+                   f"<span><b>{esc(name)}</b>{price([cost], 'cost tile-price')}</span></a>"
+                   for cost, name, hid, *_ in heroes)
     page("heroes.html", "Герои",
-         "Все герои: цена, дальность и 20 уровней. XP до уровня взят из модели улучшения уровня, "
-         "множитель опыта героя в нём уже учтён. Описания уровней из текстов игры.",
-         diff_selector() + f"<div class='cards'>{''.join(cards)}</div>", [(h[2], h[1]) for h in sorted(heroes, key=lambda h: h[:3])])
+         "Все герои по цене. На странице героя: описание, XP по уровням, числа атаки на каждом уровне и способности.",
+         selector + f"<div class='grid'>{grid}</div>")
 
 
 def build_index():

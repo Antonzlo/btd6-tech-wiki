@@ -1,0 +1,148 @@
+- generic [active] [ref=f8e1]:
+  - banner [ref=f8e2]:
+    - link "BTD6 Tech Wiki57.4" [ref=f8e3] [cursor=pointer]:
+      - /url: index.html
+    - searchbox "Поиск по вики" [ref=f8e5]
+    - link "Язык" [ref=f8e6] [cursor=pointer]:
+      - /url: ../heroes.html
+      - text: EN
+  - generic [ref=f8e7]:
+    - complementary [ref=f8e8]:
+      - heading "Разделы" [level=4] [ref=f8e9]
+      - navigation [ref=f8e10]:
+        - link "Главная" [ref=f8e11] [cursor=pointer]:
+          - /url: index.html
+        - link "Башни" [ref=f8e12] [cursor=pointer]:
+          - /url: towers.html
+        - link "Герои" [ref=f8e13] [cursor=pointer]:
+          - /url: heroes.html
+        - link "Парагон" [ref=f8e14] [cursor=pointer]:
+          - /url: paragon.html
+        - link "Баффы" [ref=f8e15] [cursor=pointer]:
+          - /url: buffs.html
+        - link "Шары" [ref=f8e16] [cursor=pointer]:
+          - /url: bloons.html
+        - link "Раунды" [ref=f8e17] [cursor=pointer]:
+          - /url: rounds.html
+        - link "Боссы" [ref=f8e18] [cursor=pointer]:
+          - /url: bosses.html
+        - link "Режимы" [ref=f8e19] [cursor=pointer]:
+          - /url: modes.html
+        - link "Доход" [ref=f8e20] [cursor=pointer]:
+          - /url: income.html
+        - link "Обезьяньи знания" [ref=f8e21] [cursor=pointer]:
+          - /url: knowledge.html
+        - link "Силы" [ref=f8e22] [cursor=pointer]:
+          - /url: powers.html
+    - main [ref=f8e23]:
+      - heading "Герои" [level=1] [ref=f8e24]
+      - paragraph [ref=f8e25]: "Все герои по цене. На странице героя: описание, XP по уровням, числа атаки на каждом уровне и способности."
+      - paragraph [ref=f8e26]: "Данные: 57.4 (Mod Helper export, 2026-11-04)"
+      - group "Сложность" [ref=f8e27]:
+        - button "Легкий" [ref=f8e29] [cursor=pointer]
+        - button "Средний" [ref=f8e30] [cursor=pointer]
+        - button "Сложный" [ref=f8e31] [cursor=pointer]
+        - button "Как бы не лопнуть" [ref=f8e32] [cursor=pointer]
+      - paragraph [ref=f8e33]: Цены пересчитаны по множителю цены режима и округлены до 5 $, каждая покупка отдельно.
+      - generic [ref=f8e34]:
+        - link "Квинси $540" [ref=f8e35] [cursor=pointer]:
+          - /url: hero-Quincy.html
+          - generic [ref=f8e36]:
+            - generic [ref=f8e37]: Квинси
+            - generic [ref=f8e38]: $540
+        - link "Эзили $550" [ref=f8e39] [cursor=pointer]:
+          - /url: hero-Ezili.html
+          - generic [ref=f8e40]:
+            - generic [ref=f8e41]: Эзили
+            - generic [ref=f8e42]: $550
+        - link "Сауда $600" [ref=f8e43] [cursor=pointer]:
+          - /url: hero-Sauda.html
+          - generic [ref=f8e44]:
+            - generic [ref=f8e45]: Сауда
+            - generic [ref=f8e46]: $600
+        - link "Дэн Д’Монке $650" [ref=f8e47] [cursor=pointer]:
+          - /url: hero-DanDMonke.html
+          - generic [ref=f8e48]:
+            - generic [ref=f8e49]: Дэн Д’Монке
+            - generic [ref=f8e50]: $650
+        - link "Обин Зеленоног $650" [ref=f8e51] [cursor=pointer]:
+          - /url: hero-ObynGreenfoot.html
+          - generic [ref=f8e52]:
+            - generic [ref=f8e53]: Обин Зеленоног
+            - generic [ref=f8e54]: $650
+        - link "Этьен $650" [ref=f8e55] [cursor=pointer]:
+          - /url: hero-Etienne.html
+          - generic [ref=f8e56]:
+            - generic [ref=f8e57]: Этьен
+            - generic [ref=f8e58]: $650
+        - link "Ударник Джонс $700" [ref=f8e59] [cursor=pointer]:
+          - /url: hero-StrikerJones.html
+          - generic [ref=f8e60]:
+            - generic [ref=f8e61]: Ударник Джонс
+            - generic [ref=f8e62]: $700
+        - link "Гвендолин $725" [ref=f8e63] [cursor=pointer]:
+          - /url: hero-Gwendolin.html
+          - generic [ref=f8e64]:
+            - generic [ref=f8e65]: Гвендолин
+            - generic [ref=f8e66]: $725
+        - link "Джеральдо $750" [ref=f8e67] [cursor=pointer]:
+          - /url: hero-Geraldo.html
+          - generic [ref=f8e68]:
+            - generic [ref=f8e69]: Джеральдо
+            - generic [ref=f8e70]: $750
+        - link "Пэт Фасти $800" [ref=f8e71] [cursor=pointer]:
+          - /url: hero-PatFusty.html
+          - generic [ref=f8e72]:
+            - generic [ref=f8e73]: Пэт Фасти
+            - generic [ref=f8e74]: $800
+        - link "Силас $850" [ref=f8e75] [cursor=pointer]:
+          - /url: hero-Silas.html
+          - generic [ref=f8e76]:
+            - generic [ref=f8e77]: Силас
+            - generic [ref=f8e78]: $850
+        - link "Розалия $875" [ref=f8e79] [cursor=pointer]:
+          - /url: hero-Rosalia.html
+          - generic [ref=f8e80]:
+            - generic [ref=f8e81]: Розалия
+            - generic [ref=f8e82]: $875
+        - link "Адмирал Брикелл $900" [ref=f8e83] [cursor=pointer]:
+          - /url: hero-AdmiralBrickell.html
+          - generic [ref=f8e84]:
+            - generic [ref=f8e85]: Адмирал Брикелл
+            - generic [ref=f8e86]: $900
+        - link "Адора $1 000" [ref=f8e87] [cursor=pointer]:
+          - /url: hero-Adora.html
+          - generic [ref=f8e88]:
+            - generic [ref=f8e89]: Адора
+            - generic [ref=f8e90]: $1 000
+        - link "Пси $1 000" [ref=f8e91] [cursor=pointer]:
+          - /url: hero-Psi.html
+          - generic [ref=f8e92]:
+            - generic [ref=f8e93]: Пси
+            - generic [ref=f8e94]: $1 000
+        - link "Бенджамин $1 200" [ref=f8e95] [cursor=pointer]:
+          - /url: hero-Benjamin.html
+          - generic [ref=f8e96]:
+            - generic [ref=f8e97]: Бенджамин
+            - generic [ref=f8e98]: $1 200
+        - link "Корвус $1 325" [ref=f8e99] [cursor=pointer]:
+          - /url: hero-Corvus.html
+          - generic [ref=f8e100]:
+            - generic [ref=f8e101]: Корвус
+            - generic [ref=f8e102]: $1 325
+        - link "Капитан Черчилль $2 000" [ref=f8e103] [cursor=pointer]:
+          - /url: hero-CaptainChurchill.html
+          - generic [ref=f8e104]:
+            - generic [ref=f8e105]: Капитан Черчилль
+            - generic [ref=f8e106]: $2 000
+      - generic [ref=f8e107]:
+        - text: Неофициальная фанатская вики, без монетизации. Данные, названия, тексты и изображения принадлежат
+        - link "Ninja Kiwi" [ref=f8e108] [cursor=pointer]:
+          - /url: https://ninjakiwi.com
+        - text: . Данные выгружены через
+        - link "BTD6 Mod Helper" [ref=f8e109] [cursor=pointer]:
+          - /url: https://github.com/gurrenm3/BTD-Mod-Helper
+        - text: ", иконки из спрайтов игры."
+        - link "Исходный код" [ref=f8e110] [cursor=pointer]:
+          - /url: https://github.com/Antonzlo/btd6-tech-wiki
+        - text: .

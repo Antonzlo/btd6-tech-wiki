@@ -1,0 +1,376 @@
+- generic [active] [ref=f9e1]:
+  - banner [ref=f9e2]:
+    - link "BTD6 Tech Wiki57.4" [ref=f9e3] [cursor=pointer]:
+      - /url: index.html
+    - searchbox "Поиск по вики" [ref=f9e5]
+    - link "Язык" [ref=f9e6] [cursor=pointer]:
+      - /url: ../hero-Quincy.html
+      - text: EN
+  - generic [ref=f9e7]:
+    - complementary [ref=f9e8]:
+      - heading "Разделы" [level=4] [ref=f9e9]
+      - navigation [ref=f9e10]:
+        - link "Главная" [ref=f9e11] [cursor=pointer]:
+          - /url: index.html
+        - link "Башни" [ref=f9e12] [cursor=pointer]:
+          - /url: towers.html
+        - link "Герои" [ref=f9e13] [cursor=pointer]:
+          - /url: heroes.html
+        - link "Парагон" [ref=f9e14] [cursor=pointer]:
+          - /url: paragon.html
+        - link "Баффы" [ref=f9e15] [cursor=pointer]:
+          - /url: buffs.html
+        - link "Шары" [ref=f9e16] [cursor=pointer]:
+          - /url: bloons.html
+        - link "Раунды" [ref=f9e17] [cursor=pointer]:
+          - /url: rounds.html
+        - link "Боссы" [ref=f9e18] [cursor=pointer]:
+          - /url: bosses.html
+        - link "Режимы" [ref=f9e19] [cursor=pointer]:
+          - /url: modes.html
+        - link "Доход" [ref=f9e20] [cursor=pointer]:
+          - /url: income.html
+        - link "Обезьяньи знания" [ref=f9e21] [cursor=pointer]:
+          - /url: knowledge.html
+        - link "Силы" [ref=f9e22] [cursor=pointer]:
+          - /url: powers.html
+      - generic [ref=f9e23]:
+        - heading "На странице" [level=4] [ref=f9e24]
+        - link "Описание" [ref=f9e25] [cursor=pointer]:
+          - /url: "#about"
+        - link "Уровни и опыт" [ref=f9e26] [cursor=pointer]:
+          - /url: "#levels"
+        - link "Числа по уровням" [ref=f9e27] [cursor=pointer]:
+          - /url: "#numbers"
+        - link "Способности" [ref=f9e28] [cursor=pointer]:
+          - /url: "#abilities"
+    - main [ref=f9e29]:
+      - heading "Квинси" [level=1] [ref=f9e30]
+      - paragraph [ref=f9e31]: Герой. XP до уровня взят из модели улучшения уровня, множитель опыта героя в нём уже учтён. Описания уровней из текстов игры.
+      - paragraph [ref=f9e32]: "Данные: 57.4 (Mod Helper export, 2026-11-04)"
+      - group "Сложность" [ref=f9e33]:
+        - button "Легкий" [ref=f9e35] [cursor=pointer]
+        - button "Средний" [ref=f9e36] [cursor=pointer]
+        - button "Сложный" [ref=f9e37] [cursor=pointer]
+        - button "Как бы не лопнуть" [ref=f9e38] [cursor=pointer]
+      - paragraph [ref=f9e39]: Цены пересчитаны по множителю цены режима и округлены до 5 $, каждая покупка отдельно.
+      - generic [ref=f9e40]:
+        - generic [ref=f9e41]:
+          - heading "Квинси" [level=2] [ref=f9e42]
+          - generic [ref=f9e43]: Quincy
+        - generic [ref=f9e45]:
+          - paragraph [ref=f9e46]: Стрелок
+          - generic [ref=f9e47]: "В игре: Квинси горд, силён, умён, и потрясающе владеет луком."
+          - generic [ref=f9e48]:
+            - generic [ref=f9e49]:
+              - generic [ref=f9e50]: $540
+              - text: цена
+            - generic [ref=f9e52]:
+              - generic [ref=f9e53]: "50"
+              - text: дальность
+            - generic [ref=f9e54]:
+              - generic [ref=f9e55]: 213 560
+              - text: XP до 20 уровня
+      - generic [ref=f9e56]:
+        - heading "Уровни и опыт" [level=2] [ref=f9e58]
+        - table [ref=f9e60]:
+          - rowgroup [ref=f9e61]:
+            - row [ref=f9e62]:
+              - columnheader "Уровень" [ref=f9e63]
+              - columnheader "XP до уровня" [ref=f9e64]
+              - columnheader "XP всего" [ref=f9e65]
+              - columnheader "Что даёт" [ref=f9e66]
+          - rowgroup [ref=f9e67]:
+            - row [ref=f9e68]:
+              - cell "1" [ref=f9e69]
+              - cell "–" [ref=f9e70]
+              - cell "0" [ref=f9e71]
+              - cell "Стрелы Квинси поражают до 3-х разных целей." [ref=f9e72]
+            - row [ref=f9e73]:
+              - cell "2" [ref=f9e74]
+              - cell "180" [ref=f9e75]
+              - cell "180" [ref=f9e76]
+              - cell "Базовая атака поражает до 4-х целей." [ref=f9e77]
+            - row [ref=f9e78]:
+              - cell "3" [ref=f9e79]
+              - cell "460" [ref=f9e80]
+              - cell "640" [ref=f9e81]
+              - 'cell "Быстрый выстрел: тройная скорость атаки на короткое время." [ref=f9e82]'
+            - row [ref=f9e83]:
+              - cell "4" [ref=f9e84]
+              - cell "1 000" [ref=f9e85]
+              - cell "1 640" [ref=f9e86]
+              - cell "Увеличенная дальность стрельбы." [ref=f9e87]
+            - row [ref=f9e88]:
+              - cell "5" [ref=f9e89]
+              - cell "1 860" [ref=f9e90]
+              - cell "3 500" [ref=f9e91]
+              - cell "С помощью отличного зрения ведёт огонь по камуфлированным шарам." [ref=f9e92]
+            - row [ref=f9e93]:
+              - cell "6" [ref=f9e94]
+              - cell "3 280" [ref=f9e95]
+              - cell "6 780" [ref=f9e96]
+              - cell "Пускает две стрелы одновременно." [ref=f9e97]
+            - row [ref=f9e98]:
+              - cell "7" [ref=f9e99]
+              - cell "5 180" [ref=f9e100]
+              - cell "11 960" [ref=f9e101]
+              - cell "Каждый 3-й выстрел стреляет взрывными стрелами." [ref=f9e102]
+            - row [ref=f9e103]:
+              - cell "8" [ref=f9e104]
+              - cell "8 320" [ref=f9e105]
+              - cell "20 280" [ref=f9e106]
+              - cell "Стрелы наносят тройной урон шарам класса MOAB." [ref=f9e107]
+            - row [ref=f9e108]:
+              - cell "9" [ref=f9e109]
+              - cell "9 380" [ref=f9e110]
+              - cell "29 660" [ref=f9e111]
+              - cell "Базовая атака поражает до 6-ти целей." [ref=f9e112]
+            - row [ref=f9e113]:
+              - cell "10" [ref=f9e114]
+              - cell "13 620" [ref=f9e115]
+              - cell "43 280" [ref=f9e116]
+              - 'cell "Дождь из стрел: обрушивает на большую площадь смертоносные стрелы." [ref=f9e117]'
+            - row [ref=f9e118]:
+              - cell "11" [ref=f9e119]
+              - cell "16 380" [ref=f9e120]
+              - cell "59 660" [ref=f9e121]
+              - cell "Ускорена атака." [ref=f9e122]
+            - row [ref=f9e123]:
+              - cell "12" [ref=f9e124]
+              - cell "14 400" [ref=f9e125]
+              - cell "74 060" [ref=f9e126]
+              - cell "Стрелы имеют большую пробивную способность." [ref=f9e127]
+            - row [ref=f9e128]:
+              - cell "13" [ref=f9e129]
+              - cell "16 650" [ref=f9e130]
+              - cell "90 710" [ref=f9e131]
+              - cell "Небольшое увеличение дальности стрельбы; «Быстрый выстрел» дольше действует." [ref=f9e132]
+            - row [ref=f9e133]:
+              - cell "14" [ref=f9e134]
+              - cell "14 940" [ref=f9e135]
+              - cell "105 650" [ref=f9e136]
+              - cell "Стрелы наносят четверной урон шарам класса MOAB." [ref=f9e137]
+            - row [ref=f9e138]:
+              - cell "15" [ref=f9e139]
+              - cell "16 380" [ref=f9e140]
+              - cell "122 030" [ref=f9e141]
+              - cell "Быстрый выстрел ускоряется в 4 раза, а время отката сокращается." [ref=f9e142]
+            - row [ref=f9e143]:
+              - cell "16" [ref=f9e144]
+              - cell "17 820" [ref=f9e145]
+              - cell "139 850" [ref=f9e146]
+              - cell "Скорость атаки увеличивается еще больше." [ref=f9e147]
+            - row [ref=f9e148]:
+              - cell "17" [ref=f9e149]
+              - cell "19 260" [ref=f9e150]
+              - cell "159 110" [ref=f9e151]
+              - cell "Стрелы живут на 25% дольше" [ref=f9e152]
+            - row [ref=f9e153]:
+              - cell "18" [ref=f9e154]
+              - cell "20 700" [ref=f9e155]
+              - cell "179 810" [ref=f9e156]
+              - cell "Квинси атакует быстрее, а «Дождь из стрел» значительно усилен." [ref=f9e157]
+            - row [ref=f9e158]:
+              - cell "19" [ref=f9e159]
+              - cell "16 470" [ref=f9e160]
+              - cell "196 280" [ref=f9e161]
+              - cell "Выпускает 3 стрелы за раз, и каждая из них получает ещё большую пробивную способность." [ref=f9e162]
+            - row [ref=f9e163]:
+              - cell "20" [ref=f9e164]
+              - cell "17 280" [ref=f9e165]
+              - cell "213 560" [ref=f9e166]
+              - cell "Квинси атакует ещё быстрее, а дождь из стрел наносит ещё больше урона каждой стрелой и выпускает ещё больше стрел." [ref=f9e167]
+      - generic [ref=f9e168]:
+        - heading "Числа по уровням" [level=2] [ref=f9e170]
+        - table [ref=f9e172]:
+          - rowgroup [ref=f9e173]:
+            - row [ref=f9e174]:
+              - columnheader "Уровень" [ref=f9e175]
+              - columnheader "Дальность" [ref=f9e176]
+              - columnheader "Перезарядка, с" [ref=f9e177]
+              - columnheader "Урон за выстрел" [ref=f9e178]
+              - columnheader "Пробив." [ref=f9e179]
+              - columnheader "Примерный DPS" [ref=f9e180]
+              - columnheader "Не лопает" [ref=f9e181]
+          - rowgroup [ref=f9e182]:
+            - row [ref=f9e183]:
+              - cell "1" [ref=f9e184]
+              - cell "50" [ref=f9e185]
+              - cell "0.95" [ref=f9e186]
+              - cell "1" [ref=f9e187]
+              - cell "3" [ref=f9e188]
+              - cell "1.0526" [ref=f9e189]
+              - cell [ref=f9e190]:
+                - link "Свинец" [ref=f9e191] [cursor=pointer]:
+                  - /url: bloons.html#prop-1
+                - link "Заморожен" [ref=f9e192] [cursor=pointer]:
+                  - /url: bloons.html#prop-16
+            - row [ref=f9e193]:
+              - cell "2" [ref=f9e194]
+              - cell "50" [ref=f9e195]
+              - cell "0.95" [ref=f9e196]
+              - cell "1" [ref=f9e197]
+              - cell "4" [ref=f9e198]
+              - cell "1.0526" [ref=f9e199]
+              - cell [ref=f9e200]:
+                - link "Свинец" [ref=f9e201] [cursor=pointer]:
+                  - /url: bloons.html#prop-1
+                - link "Заморожен" [ref=f9e202] [cursor=pointer]:
+                  - /url: bloons.html#prop-16
+            - row [ref=f9e203]:
+              - cell "4" [ref=f9e204]
+              - cell "52" [ref=f9e205]
+              - cell "0.95" [ref=f9e206]
+              - cell "1" [ref=f9e207]
+              - cell "4" [ref=f9e208]
+              - cell "1.0526" [ref=f9e209]
+              - cell [ref=f9e210]:
+                - link "Свинец" [ref=f9e211] [cursor=pointer]:
+                  - /url: bloons.html#prop-1
+                - link "Заморожен" [ref=f9e212] [cursor=pointer]:
+                  - /url: bloons.html#prop-16
+            - row [ref=f9e213]:
+              - cell "6" [ref=f9e214]
+              - cell "52" [ref=f9e215]
+              - cell "0.95" [ref=f9e216]
+              - cell "2" [ref=f9e217]
+              - cell "4" [ref=f9e218]
+              - cell "2.1053" [ref=f9e219]
+              - cell [ref=f9e220]:
+                - link "Свинец" [ref=f9e221] [cursor=pointer]:
+                  - /url: bloons.html#prop-1
+                - link "Заморожен" [ref=f9e222] [cursor=pointer]:
+                  - /url: bloons.html#prop-16
+            - row [ref=f9e223]:
+              - cell "9" [ref=f9e224]
+              - cell "52" [ref=f9e225]
+              - cell "0.95" [ref=f9e226]
+              - cell "2" [ref=f9e227]
+              - cell "6" [ref=f9e228]
+              - cell "2.1053" [ref=f9e229]
+              - cell [ref=f9e230]:
+                - link "Свинец" [ref=f9e231] [cursor=pointer]:
+                  - /url: bloons.html#prop-1
+                - link "Заморожен" [ref=f9e232] [cursor=pointer]:
+                  - /url: bloons.html#prop-16
+            - row [ref=f9e233]:
+              - cell "11" [ref=f9e234]
+              - cell "52" [ref=f9e235]
+              - cell "0.6" [ref=f9e236]
+              - cell "2" [ref=f9e237]
+              - cell "6" [ref=f9e238]
+              - cell "3.3333" [ref=f9e239]
+              - cell [ref=f9e240]:
+                - link "Свинец" [ref=f9e241] [cursor=pointer]:
+                  - /url: bloons.html#prop-1
+                - link "Заморожен" [ref=f9e242] [cursor=pointer]:
+                  - /url: bloons.html#prop-16
+            - row [ref=f9e243]:
+              - cell "12" [ref=f9e244]
+              - cell "52" [ref=f9e245]
+              - cell "0.6" [ref=f9e246]
+              - cell "2" [ref=f9e247]
+              - cell "7" [ref=f9e248]
+              - cell "3.3333" [ref=f9e249]
+              - cell [ref=f9e250]:
+                - link "Свинец" [ref=f9e251] [cursor=pointer]:
+                  - /url: bloons.html#prop-1
+                - link "Заморожен" [ref=f9e252] [cursor=pointer]:
+                  - /url: bloons.html#prop-16
+            - row [ref=f9e253]:
+              - cell "13" [ref=f9e254]
+              - cell "54" [ref=f9e255]
+              - cell "0.6" [ref=f9e256]
+              - cell "2" [ref=f9e257]
+              - cell "7" [ref=f9e258]
+              - cell "3.3333" [ref=f9e259]
+              - cell [ref=f9e260]:
+                - link "Свинец" [ref=f9e261] [cursor=pointer]:
+                  - /url: bloons.html#prop-1
+                - link "Заморожен" [ref=f9e262] [cursor=pointer]:
+                  - /url: bloons.html#prop-16
+            - row [ref=f9e263]:
+              - cell "16" [ref=f9e264]
+              - cell "54" [ref=f9e265]
+              - cell "0.4" [ref=f9e266]
+              - cell "2" [ref=f9e267]
+              - cell "7" [ref=f9e268]
+              - cell "5" [ref=f9e269]
+              - cell [ref=f9e270]:
+                - link "Свинец" [ref=f9e271] [cursor=pointer]:
+                  - /url: bloons.html#prop-1
+                - link "Заморожен" [ref=f9e272] [cursor=pointer]:
+                  - /url: bloons.html#prop-16
+            - row [ref=f9e273]:
+              - cell "18" [ref=f9e274]
+              - cell "54" [ref=f9e275]
+              - cell "0.25" [ref=f9e276]
+              - cell "2" [ref=f9e277]
+              - cell "7" [ref=f9e278]
+              - cell "8" [ref=f9e279]
+              - cell [ref=f9e280]:
+                - link "Свинец" [ref=f9e281] [cursor=pointer]:
+                  - /url: bloons.html#prop-1
+                - link "Заморожен" [ref=f9e282] [cursor=pointer]:
+                  - /url: bloons.html#prop-16
+            - row [ref=f9e283]:
+              - cell "19" [ref=f9e284]
+              - cell "54" [ref=f9e285]
+              - cell "0.25" [ref=f9e286]
+              - cell "3" [ref=f9e287]
+              - cell "9" [ref=f9e288]
+              - cell "12" [ref=f9e289]
+              - cell [ref=f9e290]:
+                - link "Свинец" [ref=f9e291] [cursor=pointer]:
+                  - /url: bloons.html#prop-1
+                - link "Заморожен" [ref=f9e292] [cursor=pointer]:
+                  - /url: bloons.html#prop-16
+            - row [ref=f9e293]:
+              - cell "20" [ref=f9e294]
+              - cell "54" [ref=f9e295]
+              - cell "0.2" [ref=f9e296]
+              - cell "3" [ref=f9e297]
+              - cell "9" [ref=f9e298]
+              - cell "15" [ref=f9e299]
+              - cell [ref=f9e300]:
+                - link "Свинец" [ref=f9e301] [cursor=pointer]:
+                  - /url: bloons.html#prop-1
+                - link "Заморожен" [ref=f9e302] [cursor=pointer]:
+                  - /url: bloons.html#prop-16
+        - group [ref=f9e303]:
+          - generic "Все уровни" [ref=f9e304] [cursor=pointer]
+      - generic [ref=f9e305]:
+        - heading "Способности" [level=2] [ref=f9e307]
+        - table [ref=f9e309]:
+          - rowgroup [ref=f9e310]:
+            - row [ref=f9e311]:
+              - columnheader "Способность" [ref=f9e312]
+              - columnheader "Откуда" [ref=f9e313]
+              - columnheader "Перезарядка" [ref=f9e314]
+              - columnheader "Эффект" [ref=f9e315]
+              - columnheader "Описание" [ref=f9e316]
+          - rowgroup [ref=f9e317]:
+            - row [ref=f9e318]:
+              - cell "Быстрый выстрел" [ref=f9e319]
+              - cell "уровень 3" [ref=f9e322]
+              - cell "45 с" [ref=f9e323]
+              - cell "ускорение ×0.25" [ref=f9e324]
+              - cell "Тройная скорость атаки на кроткое время." [ref=f9e325]
+            - row [ref=f9e326]:
+              - cell "Дождь из стрел" [ref=f9e327]
+              - cell "уровень 10" [ref=f9e330]
+              - cell "55 с" [ref=f9e331]
+              - cell "радиус 2" [ref=f9e332]
+              - cell "Обрушивает на большую площадь смертоносные стрелы." [ref=f9e333]
+      - generic [ref=f9e334]:
+        - text: Неофициальная фанатская вики, без монетизации. Данные, названия, тексты и изображения принадлежат
+        - link "Ninja Kiwi" [ref=f9e335] [cursor=pointer]:
+          - /url: https://ninjakiwi.com
+        - text: . Данные выгружены через
+        - link "BTD6 Mod Helper" [ref=f9e336] [cursor=pointer]:
+          - /url: https://github.com/gurrenm3/BTD-Mod-Helper
+        - text: ", иконки из спрайтов игры."
+        - link "Исходный код" [ref=f9e337] [cursor=pointer]:
+          - /url: https://github.com/Antonzlo/btd6-tech-wiki
+        - text: .
