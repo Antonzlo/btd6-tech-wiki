@@ -321,6 +321,10 @@ tbody tr:hover .mod-params.overflowing:not(.open)::after{background:linear-gradi
 .mod-params.open{max-height:none}
 .badge b{display:inline-flex;align-items:center;gap:5px}
 .badge b .ic{width:18px;height:18px}
+.badge.multi{max-width:100%}
+.badge.multi b{flex-wrap:wrap;gap:2px 10px;padding:2px 8px}
+.badge.multi b a{display:inline-flex;align-items:center;gap:4px;color:var(--ink);white-space:nowrap}
+.badge.multi b a:hover{color:var(--gold-ink);text-decoration:underline}
 .stat b{display:flex;align-items:center;gap:6px}
 .stat b .ic{width:22px;height:22px}
 .kicon{width:84px;height:84px;filter:drop-shadow(0 3px 0 var(--edge))}

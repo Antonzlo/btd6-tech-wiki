@@ -278,9 +278,38 @@ def short_type(obj):
     return full.split(",")[0].split(".")[-1] if full else ""
 
 
+MOD_LABELS_RU = {  # generic knowledge/mode modifiers; RU pages only, EN falls back to the split type name
+    "AbilityCooldownPercentageModModel": "Перезарядка способностей, %", "AbilityCooldownTimeModModel": "Перезарядка способностей",
+    "ActivateAttackModModel": "Включает атаку", "AddAbilityToTowerModModel": "Добавляет способность",
+    "BloonHealthModModel": "HP шаров", "CashIncreaseModModel": "Больше денег", "CashModModel": "Деньги",
+    "CashPerRoundModModel": "Деньги за раунд", "ChimpsModModel": "Правила CHIMPS", "DeflationModel": "Правила Deflation",
+    "ImpoppableModel": "Правила Impoppable", "ReverseModel": "Обратный путь",
+    "DamageModifierForBloonTypeModModel": "Урон по типу шаров", "DamageModifierForTagModModel": "Урон по тегу",
+    "DamageOverTimeModModel": "Урон со временем", "DamageTypeModModel": "Тип урона", "FreeTowerModModel": "Бесплатная башня",
+    "FreezeModifierModModel": "Заморозка", "GrantCamoDetectForAbilityModModel": "Видит камуфляж в способности",
+    "HeroCostToLevelModModel": "Цена прокачки героя", "HeroXPBonusModModel": "Бонус опыта героя",
+    "HeroXpInjectionModModel": "Опыт герою", "IgnoreBlockersModModel": "Сквозь препятствия",
+    "IgnoreImmunityForBloonTypeModModel": "Без иммунитета шаров", "IncreaseRangeModModel": "Дальность",
+    "KnockbackModModel": "Отбрасывание", "LivesModModel": "Жизни",
+    "OnMonkeyKnowledgePurchaseModModel": "При покупке знания", "PowerModModel": "Сила",
+    "ProjectilePierceModModel": "Пробивание снарядов", "ProjectileRadiusModModel": "Радиус снарядов",
+    "ProjectileRangePercentageModModel": "Дальность снарядов, %", "ProjectileSpeedModModel": "Скорость снарядов",
+    "ProjectileTrackTargetModModel": "Самонаведение", "PushBackIncreaseModModel": "Сильнее отбрасывание",
+    "RangeModModel": "Дальность", "RetargetIncreaseModModel": "Перенацеливание", "SimTowerDiscountModModel": "Скидка на башни",
+    "SlowModifierForTagModModel": "Замедление по тегу", "SlowModifierModModel": "Замедление",
+    "StartingShieldModModel": "Стартовый щит", "SupportMaxRangeModModel": "Дальность поддержки",
+    "TierFiveCountModModel": "Число башен 5-го тира", "TowerExpireModModel": "Время жизни башни",
+    "TowerSellModModel": "Продажа башни", "TowerXpModModel": "Опыт башен", "UpgradeCostModModel": "Цена улучшений",
+    "WeaponReloadPercentageModModel": "Перезарядка, %", "WeaponReloadPercentageOnTargetPrioModModel": "Перезарядка по приоритету",
+    "WeaponReloadReductionModModel": "Быстрее перезарядка", "EmissionArcCountModModel": "Число снарядов в дуге",
+}
+
+
 def label(type_name):
     if type_name in TYPE_LABELS:
         return TYPE_LABELS[type_name]
+    if LANG == "ru" and type_name in MOD_LABELS_RU:
+        return MOD_LABELS_RU[type_name]
     return re.sub(r"(?<=[a-z])(?=[A-Z])", " ", re.sub(r"Model$", "", type_name))
 
 
@@ -701,20 +730,90 @@ def mod_icon(type_name):
     return icon(spec[0], spec[1], 22, "ic mod-ic") if spec else "<span class='mod-ic'></span>"
 
 
-def param(k, v):
-    """A model parameter as a two-part badge; ids that have a page here link to it."""
-    href, text, pic = None, fmt(v), ""
+PARAM_RU = {  # model field -> words; fields not listed fall back to their camelCase split into words
+    "addative": "прибавка", "addition": "прибавка", "additional": "прибавка", "additionalAmount": "доп. количество",
+    "additionalCapacity": "доп. вместимость", "additionalCount": "доп. количество", "additionalFrames": "доп. кадры",
+    "additionalLifespan": "доп. время жизни", "additionalLoanAmount": "доп. сумма займа", "additionalMoney": "доп. деньги",
+    "additionalMultiplier": "доп. множитель", "additionalTime": "доп. время", "additionalTrapAmount": "доп. ёмкость ловушки",
+    "additive": "прибавка", "additiveAmount": "прибавка", "additiveBonus": "прибавка к бонусу",
+    "aditionalTimeBonus": "доп. бонус времени", "amount": "количество", "amountReduced": "уменьшение",
+    "baseCash": "базовые деньги", "baseTowerID": "башня", "bloonId": "шар", "bloonProperties": "свойства шара",
+    "bloonTag": "тег шара", "bloonTags": "теги шаров", "bonusMultiplierBuff": "множитель бонуса",
+    "canHitbloonProperties": "может бить свойства", "cashMultiplierIncrease": "рост множителя денег",
+    "centralMarketLives": "жизни от рынка", "chance": "шанс", "chanceIncrease": "рост шанса", "changeBase": "задать базу",
+    "charges": "заряды", "cooldown": "перезарядка", "cooldownPercentageReduction": "сокращение перезарядки, %",
+    "cooldownTimeReduction": "сокращение перезарядки", "costDecrease": "снижение цены", "costMultiplier": "множитель цены",
+    "count": "количество", "damage": "урон", "damageBossIncrease": "рост урона по боссам", "damageIncrease": "рост урона",
+    "damageIncreaseAmount": "рост урона", "depositPercent": "процент вклада", "discountMultiplier": "множитель скидки",
+    "displayLifespan": "время показа", "displayLifetime": "время показа", "distFromEdgeOfMap": "отступ от края карты",
+    "duration": "длительность", "durationAdd": "доп. длительность", "durationIncrease": "рост длительности",
+    "durationModifier": "множитель длительности", "gameMode": "режим", "healthMod": "множитель HP",
+    "healthMultiplier": "множитель HP", "id": "id", "increase": "рост", "interestRateDecreaseAmount": "снижение процента",
+    "interval": "интервал", "layers": "слои", "levels": "уровни", "lifespan": "время жизни",
+    "lifespanFrames": "время жизни, кадры", "marketplaceLives": "жизни от рынка", "maxCountAdditive": "доп. максимум",
+    "maxShield": "максимум щита", "minTier": "мин. тир", "multiplier": "множитель", "multiplierAdditive": "прибавка к множителю",
+    "multiplierAmount": "множитель", "multiplierTurnRate": "множитель поворота", "mutltiplier": "множитель",
+    "path": "путь", "path1TierMax": "верхний путь, макс. тир", "path1TierMin": "верхний путь, мин. тир",
+    "path2TierMax": "средний путь, макс. тир", "path2TierMin": "средний путь, мин. тир",
+    "path3TierMax": "нижний путь, макс. тир", "path3TierMin": "нижний путь, мин. тир", "percentBonus": "бонус, %",
+    "percentIncrease": "рост, %", "percentMultiplier": "множитель, %", "percentMultiplierAdded": "прибавка к множителю, %",
+    "percentMultiplierOverride": "замена множителя, %", "percentageHealthReduced": "снижение HP, %",
+    "percentageReduced": "снижение, %", "pierce": "пробивание", "pierceIncrease": "рост пробивания", "priority": "приоритет",
+    "radius": "радиус", "range": "дальность", "rangeMultiplier": "множитель дальности", "rate": "скорость атаки",
+    "rateFrames": "скорость атаки, кадры", "rateMultiplier": "множитель скорости атаки", "reductionAmount": "снижение",
+    "round": "раунд", "roundMultiple": "за номер раунда", "rounds": "раунды", "roundsetName": "набор раундов",
+    "set": "задать", "shieldPerRound": "щит за раунд", "shotCount": "выстрелы", "slowModifier": "множитель замедления",
+    "speed": "скорость", "speedMultiplier": "множитель скорости", "startingShield": "стартовый щит",
+    "subtractHeroCost": "минус цена героя", "subtraction": "вычет", "tag": "тег", "targetType": "тип цели",
+    "tier": "тир", "timeReductionAmount": "сокращение времени", "tower": "башня", "towerBaseId": "башня",
+    "towerSetToLock": "запрет класса", "towerToLock": "запрет башни", "towers": "башни", "upgradeName": "улучшение",
+    "useAbilityDuration": "длительность способности", "useAllHeroes": "все герои", "withTag": "с тегом", "tagFilter": "фильтр тегов",
+    "xpToAdd": "доп. опыт", "maxActivationsPerRound": "макс. за раунд", "maxActivationsPerGame": "макс. за игру",
+    "livesCost": "цена в жизнях", "maxDamage": "макс. урон", "maxPierce": "макс. пробивание", "glueLevel": "уровень клея",
+    "maxStackSize": "макс. стак",
+}
+
+
+def param_name(k):
+    """Readable name of a (possibly nested a.b.c) model field; the raw id stays in the badge tooltip."""
+    leaf = k.split(".")[-1].split("#")[0]
+    if LANG == "ru" and leaf in PARAM_RU:
+        return PARAM_RU[leaf]
+    return re.sub(r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Za-z])(?=[0-9])", " ", leaf).lower()
+
+
+def ref(k, v):
+    """(href, html) for a value that names something with a page here (tower, hero, bloon, ...), else None."""
+    s = str(v)
     if k == "towerSetToLock" and v in TOWER_SETS:
-        href, text = f"towers.html#set-{TOWER_SETS[v]}", esc(t(TOWER_SETS[v], fallback=TOWER_SETS[v]))
-        pic = icon("ui", TOWER_SETS[v], 18)
-    elif k == "towerToLock" and (DATA / "Towers" / str(v)).is_dir():
-        href, text, pic = f"tower-{v}.html", esc(t(v, fallback=v)), icon("towers", v, 18)
-    elif k == "roundsetName" and (DATA / "Rounds" / str(v)).is_dir():
-        href = f"rounds.html#{v}"
-    elif k == "bloonId":
-        text, pic = esc(t(v, fallback=v)), icon("bloons", v, 18)
-    inner = f"<span>{esc(k)}</span><b>{pic}{text}</b>"
-    return f"<a class='badge' href='{href}'>{inner}</a>" if href else f"<span class='badge'>{inner}</span>"
+        return f"towers.html#set-{TOWER_SETS[v]}", icon("ui", TOWER_SETS[v], 18) + esc(t(TOWER_SETS[v], fallback=TOWER_SETS[v]))
+    if k == "roundsetName" and (DATA / "Rounds" / s).is_dir():
+        return f"rounds.html#{s}", esc(s)
+    if not re.fullmatch(r"[A-Za-z][\w-]*", s) or s in ("True", "False"):
+        return None
+    if (DATA / "Towers" / s).is_dir():
+        return f"tower-{s}.html", icon("towers", s, 18) + esc(t(s, fallback=s))
+    if (DATA / "Heroes" / s).is_dir():
+        return f"hero-{s}.html", icon("heroes", s, 18) + esc(t(s, fallback=s))
+    if s in BLOONS:
+        return f"bloons.html#{BLOONS[s].get('baseId', s)}", icon("bloons", s, 18) + esc(t(s, fallback=s))
+    return None
+
+
+def param(k, v):
+    """A model parameter as a two-part badge; values naming a tower, hero or bloon link to its page,
+    and a comma-separated list of them becomes one linked chip per item."""
+    items = re.split(r"\s*,\s*", v.strip(", ")) if isinstance(v, str) and "," in v else [v]
+    refs = [ref(k, x) for x in items]
+    title = f" title='{esc(k)}'"
+    name = f"<span>{esc(param_name(k))}</span>"
+    if len(items) > 1 and all(refs):
+        chips = "".join(f"<a href='{h}'>{body}</a>" for h, body in refs)
+        return f"<span class='badge multi'{title}>{name}<b>{chips}</b></span>"
+    if refs[0]:
+        h, body = refs[0]
+        return f"<a class='badge' href='{h}'{title}>{name}<b>{body}</b></a>"
+    return f"<span class='badge'{title}>{name}<b>{fmt(v)}</b></span>"
 
 
 def mod_table(mods):
