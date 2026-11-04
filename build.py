@@ -916,7 +916,9 @@ def hero_calc(totals, cost):
             f"data-cash='{json.dumps(cash)}'><div class='hcalc-in'>"
             "<label>Карта <select>" + "".join(f"<option value='{m}'>{esc(t(n, fallback=n))}</option>" for n, m in maps)
             + "</select></label><label>Ставлю на раунде <input type='number' min='1' max='140' value='1'></label></div>"
-            "<p class='hcalc-cash'></p><div class='hcalc-out'></div></div>")
+            "<p class='hcalc-cash'></p><div class='hcalc-out'></div>"
+            "<p class='note'>Со знаниями и другими бонусами к опыту: <a href='https://svrng.github.io/BTD6-Hero-XP-Calculator/' "
+            "rel='noopener'>BTD6 Hero XP Calculator</a>.</p></div>")
 
 
 def build_heroes():
@@ -986,6 +988,7 @@ LINKS = [  # (title, url, what it is)
     ("Ninja Kiwi", "https://ninjakiwi.com", "Разработчики игры: новости и патчноуты."),
     ("BTD6 Portal", "https://btd6portal.com/calculators/paragondegree", "Калькуляторы: степень парагона и много других."),
     ("BTD6 Paragon Calculator", "https://kaister300.github.io/BTD6ParagonCalculator/", "Калькулятор степени парагона."),
+    ("BTD6 Hero XP Calculator", "https://svrng.github.io/BTD6-Hero-XP-Calculator/", "Калькулятор опыта героев."),
     ("BTD6 Mod Helper", "https://github.com/gurrenm3/BTD-Mod-Helper", "Библиотека для модов, через неё выгружены данные этого сайта."),
     ("BTD6 Tech Wiki", "https://github.com/Antonzlo/btd6-tech-wiki", "Исходный код этого сайта."),
 ]
