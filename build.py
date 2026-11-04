@@ -836,16 +836,17 @@ def build_powers():
          [("powers", "Силы"), ("pro", "Powers Pro")])
 
 
-def hero_level_rows(base, top, ucost):
-    """Attack numbers of the hero levels the export carries: level 1 from the base model, level 20 from the top."""
-    rows, prev, first = [], None, True
-    for lvl, d in ((1, base), (20, top)):
-        s = tier_stats(combat_stats(d, ucost))
-        cur = (num(s["range"]), num(s["damage"]), num(s["pierce"]), num(s["dps"]))
-        changed = (not first) and cur != prev
+def hero_level_rows(folder, base, ucost):
+    """Attack numbers per hero level: level 1 is the base model, level N the "<Hero> N.json" model."""
+    rows, prev = [], None
+    for lvl in range(1, 21):
+        f = folder / f"{folder.name} {lvl}.json"
+        if lvl > 1 and not f.exists():
+            continue
+        s = tier_stats(combat_stats(base if lvl == 1 else load(f), ucost))
+        cur = (s["range"], s["rate"], s["damage"], s["pierce"], s["dps"])
+        rows.append((lvl, s, prev is not None and cur != prev))
         prev = cur
-        first = False
-        rows.append((lvl, s, changed))
     return rows
 
 
@@ -869,7 +870,7 @@ def build_heroes():
             total += xp
             rows.append((lvl, xp, total, lvl_text(lvl)))
         pic = icon("heroes", hid, 84, "ic kicon")
-        lvl_rows = hero_level_rows(base, top, ucost)
+        lvl_rows = hero_level_rows(DATA / "Heroes" / hid, base, ucost)
         inner = ((f"<div class='hero-row'>{pic}<div>" if pic else "<div><div>")
                  + f"<p><b>{esc(t(f'{hid} Short Description', fallback=''))}</b></p>"
                  + game_text(t(f"{hid} Description"))
