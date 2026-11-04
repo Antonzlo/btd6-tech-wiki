@@ -756,7 +756,7 @@ PARAM_RU = {  # model field -> words; fields not listed fall back to their camel
     "canHitbloonProperties": "может бить свойства", "cashMultiplierIncrease": "рост множителя денег",
     "centralMarketLives": "жизни от рынка", "chance": "шанс", "chanceIncrease": "рост шанса", "changeBase": "задать базу",
     "charges": "заряды", "cooldown": "перезарядка", "cooldownPercentageReduction": "сокращение перезарядки, %",
-    "cooldownTimeReduction": "сокращение перезарядки", "costDecrease": "снижение цены", "costMultiplier": "множитель цены",
+    "cooldownTimeReduction": "сокращение перезарядки, с", "costDecrease": "снижение цены", "costMultiplier": "множитель цены",
     "count": "количество", "damage": "урон", "damageBossIncrease": "рост урона по боссам", "damageIncrease": "рост урона",
     "damageIncreaseAmount": "рост урона", "depositPercent": "процент вклада", "discountMultiplier": "множитель скидки",
     "displayLifespan": "время показа", "displayLifetime": "время показа", "distFromEdgeOfMap": "отступ от края карты",
@@ -769,7 +769,7 @@ PARAM_RU = {  # model field -> words; fields not listed fall back to their camel
     "multiplierAmount": "множитель", "multiplierTurnRate": "множитель поворота", "mutltiplier": "множитель",
     "path": "путь", "path1TierMax": "верхний путь, макс. тир", "path1TierMin": "верхний путь, мин. тир",
     "path2TierMax": "средний путь, макс. тир", "path2TierMin": "средний путь, мин. тир",
-    "path3TierMax": "нижний путь, макс. тир", "path3TierMin": "нижний путь, мин. тир", "percentBonus": "бонус, %",
+    "path3TierMax": "нижний путь, макс. тир", "path3TierMin": "нижний путь, мин. тир", "percentBonus": "бонус, %", "percentChanceToFreeze": "шанс заморозки, %",
     "percentIncrease": "рост, %", "percentMultiplier": "множитель, %", "percentMultiplierAdded": "прибавка к множителю, %",
     "percentMultiplierOverride": "замена множителя, %", "percentageHealthReduced": "снижение HP, %",
     "percentageReduced": "снижение, %", "pierce": "пробивание", "pierceIncrease": "рост пробивания", "priority": "приоритет",
@@ -827,6 +827,11 @@ def param(k, v):
     if refs[0]:
         h, body = refs[0]
         return f"<a class='badge' href='{h}'{title}>{name}<b>{body}</b></a>"
+    if "percent" in k.lower() and isinstance(v, (int, float)) and not isinstance(v, bool) and abs(v) < 1e6:
+        # the game stores most percentages as fractions (0.03 = 3%); a value above 1 is already in percent
+        pct = v * 100 if abs(v) <= 1 else v
+        name = f"<span>{esc(param_name(k).removesuffix(', %'))}</span>"
+        return f"<span class='badge'{title}>{name}<b>{fmt(round(pct, 4))}%</b></span>"
     return f"<span class='badge'{title}>{name}<b>{fmt(v)}</b></span>"
 
 
