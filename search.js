@@ -50,23 +50,24 @@ tiersIn=c.querySelector('.pcalc-tiers'),totemsIn=c.querySelector('.pcalc-totems'
 var degEl=c.querySelector('.pcalc-deg'),barEl=c.querySelector('.pcalc-bar'),powerEl=c.querySelector('.pcalc-power'),
 nextEl=c.querySelector('.pcalc-next'),pbPops=c.querySelector('.pb-pops'),pbCash=c.querySelector('.pb-cash'),
 pbT5=c.querySelector('.pb-t5'),pbTiers=c.querySelector('.pb-tiers'),pbTotems=c.querySelector('.pb-totems');
+var C=JSON.parse(c.dataset.cfg),top=C.MaxInvestment,ru=function(v){return v.toLocaleString('ru-RU')},k=function(v){return v/1000+'k'};
 function update(){var pInfo=paragons[towerSel.value]||{cost:300000};var m=curMult();
-var cost=Math.round((pInfo.cost||300000)*m);var costRatio=cost/20000;
+var cost=m===1?pInfo.cost:Math.round(pInfo.cost*m/5)*5;var costRatio=cost/C.moneySpentOverX;
 var pops=+popsIn.value||0,inc=+incIn.value||0;
-var p_pops=Math.min(Math.floor((pops+inc*4)/180),90000);
-var p_t5=Math.min((+t5In.value||0)*6000,50000);
-var p_tiers=Math.min((+tiersIn.value||0)*100,10000);
+var p_pops=Math.min(Math.floor((pops+inc*C.cashEarnedContributionModifier)/C.popsOverX),C.maxPowerFromPops);
+var p_t5=Math.min((+t5In.value||0)*C.tier5TowersMultByX,C.maxPowerFromTier5Count);
+var p_tiers=tiersIn?Math.min((+tiersIn.value||0)*C.nonTier5TowersMultByX,C.maxPowerFromNonTier5Count):0;
 var cashSpent=+cashIn.value||0,sliderCash=+sliderIn.value||0;
-var p_cash=Math.min(Math.floor(cashSpent/costRatio)+Math.floor(sliderCash/(costRatio*1.05)),60000);
+var p_cash=Math.min(Math.floor(cashSpent/costRatio)+Math.floor(sliderCash/(costRatio*(1+C.paidContributionPenalty))),C.maxPowerFromMoneySpent);
 var p_totems=(+totemsIn.value||0)*2000;
-var total=Math.min(p_pops+p_t5+p_tiers+p_cash+p_totems,200000);
+var total=Math.min(p_pops+p_t5+p_tiers+p_cash+p_totems,top);
 var deg=1;for(var i=0;i<reqs.length;i++){if(total>=reqs[i])deg=i+1;else break}
-degEl.textContent=deg;powerEl.textContent=total.toLocaleString('ru-RU')+' / 200 000 power';
-barEl.style.width=(total/200000*100)+'%';
-if(deg<100){var rem=reqs[deg]-total;nextEl.textContent='Needs '+rem.toLocaleString('ru-RU')+' power to degree '+(deg+1)}
+degEl.textContent=deg;powerEl.textContent=ru(total)+' / '+ru(top)+' power';
+barEl.style.width=(total/top*100)+'%';
+if(deg<reqs.length){var rem=reqs[deg]-total;nextEl.textContent='Needs '+ru(rem)+' power to degree '+(deg+1)}
 else{nextEl.textContent='Maximum degree 100!'}
-pbPops.textContent=p_pops.toLocaleString('ru-RU')+' / 90k';pbCash.textContent=p_cash.toLocaleString('ru-RU')+' / 60k';
-pbT5.textContent=p_t5.toLocaleString('ru-RU')+' / 50k';pbTiers.textContent=p_tiers.toLocaleString('ru-RU')+' / 10k';
+pbPops.textContent=ru(p_pops)+' / '+k(C.maxPowerFromPops);pbCash.textContent=ru(p_cash)+' / '+k(C.maxPowerFromMoneySpent);
+pbT5.textContent=ru(p_t5)+' / '+k(C.maxPowerFromTier5Count);if(pbTiers)pbTiers.textContent=ru(p_tiers)+' / '+k(C.maxPowerFromNonTier5Count);
 pbTotems.textContent='+'+p_totems.toLocaleString('ru-RU')}
 c._update=update;c.querySelectorAll('input,select').forEach(function(el){el.addEventListener('input',update);el.addEventListener('change',update)});
 update()}
