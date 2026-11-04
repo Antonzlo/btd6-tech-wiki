@@ -169,7 +169,7 @@ function draw(){var k=variant||key(),d=data[k];xp.querySelectorAll('.xp-row[data
 r.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',!variant&&+b.dataset.tier===st[p])})});
 xp.querySelectorAll('[data-variant]').forEach(function(b){b.classList.toggle('on',b.dataset.variant===variant)});
 if(!d){out.innerHTML='<p class="note">Нет данных для '+e(k)+'.</p>';return}
-var h='<div class="stats"><div class="stat"><b class="cost" data-parts="'+d.parts.join(',')+'">$'+f(d.cost)+'</b><small>цена '+e(k)+'</small></div><div class="stat"><b>'+f(d.range)+'</b><small>дальность</small></div></div>';
+var h='<div class="stats"><div class="stat"><b class="cost" data-parts="'+d.parts.join(',')+'">$'+f(d.cost)+'</b><small>цена '+e(/^\\d{3}$/.test(k)?k.split('').join('-'):k)+'</small></div><div class="stat"><b>'+f(d.range)+'</b><small>дальность</small></div></div>';
 d.attacks.forEach(function(a,ai){h+='<h3>'+e(a.name)+' <span class="id">дальность '+f(a.range)+'</span></h3><div class="wrap"><table><thead><tr><th>Оружие</th><th>Перезарядка, с</th><th>Атак/с</th><th>Снаряд</th><th>Кол-во</th><th>Урон</th><th>Урон за выстрел</th><th>Пробив.</th><th>Примерный DPS</th><th>Модификаторы и эффекты</th><th>Не лопает</th></tr></thead><tbody>';
 a.weapons.forEach(function(w,wi){var n=Math.max(1,w.proj.length);w.proj.forEach(function(p,pi){h+='<tr>'+(pi===0?'<td rowspan="'+n+'">'+(wi+1)+(w.emission?' <span class="id">'+e(w.emission)+'</span>':'')+'</td><td class="n" rowspan="'+n+'">'+f(p.rate)+'</td><td class="n" rowspan="'+n+'">'+(p.rate?f(1/p.rate):'–')+'</td>':'')
 +'<td style="padding-left:'+(10+p.depth*16)+'px">'+(p.depth?'↳ ':'')+e(p.projectile)+'</td><td class="n">'+f(p.count)+'</td><td class="n">'+f(p.damage)+'</td><td class="n">'+f(p.shotDamage)+'</td><td class="n">'+f(p.pierce)+'</td><td class="n">'+f(p.dps)+'</td><td>'
@@ -1803,7 +1803,7 @@ def build_towers():
         codes = ["".join(str(n) if j == i else "0" for j in range(3)) for n in range(1, 6) for i in range(3)] + ["Paragon"]
         models = [load(folder / f"{tid}-{c}.json") for c in codes if (folder / f"{tid}-{c}.json").exists()]
         abils = abilities_of(((m.get("appliedUpgrades") or [None])[-1], m) for m in models)
-        where = {u: f"путь {i + 1}, {n}: {t(u, fallback=u)}" for i, path in enumerate(paths) for n, u in enumerate(path, 1)}
+        where = {u: f"{'-'.join(str(n) if j == i else '0' for j in range(3))}: {t(u, fallback=u)}" for i, path in enumerate(paths) for n, u in enumerate(path, 1)}
         if para:
             where[u] = f"{t('Paragon', fallback='Парагон')}: {t(u, fallback=u)}"
         kn = tower_knowledge(tid, folder, paths)
