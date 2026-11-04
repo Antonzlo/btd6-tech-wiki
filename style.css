@@ -241,6 +241,8 @@ body:has(.diff) :is(.card,h2.group,.prop-row){scroll-margin-top:calc(var(--top-h
 .pchart{max-width:100%;height:auto;display:block}
 .pchart .pline{fill:none;stroke:var(--s1);stroke-width:2.5;stroke-linejoin:round}
 .pchart .pline.pline2{stroke:var(--s2)}
+.pchart .pline.pline3{stroke:var(--s3);stroke-width:2;stroke-dasharray:5 4}
+.pchart .pdot{fill:var(--s1);stroke:var(--panel);stroke-width:1.5}
 .pchart .yt1{fill:var(--s1);font-weight:600}
 .pchart .yt2{fill:var(--s2);font-weight:600}
 .pchart .paxis{stroke:var(--soft);stroke-width:1}
@@ -250,6 +252,7 @@ body:has(.diff) :is(.card,h2.group,.prop-row){scroll-margin-top:calc(var(--top-h
 .chart-legend{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;margin:4px 0 6px}
 .chart-legend .leg-s1{color:var(--s1);font-weight:600}
 .chart-legend .leg-s2{color:var(--s2);font-weight:600}
+.chart-legend .leg-s3{color:var(--s3);font-weight:600}
 
 /* Paragon degree calculator */
 .pcalc{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,0.75fr);gap:24px;align-items:start;margin:10px 0}

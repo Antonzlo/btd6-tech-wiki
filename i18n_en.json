@@ -392,5 +392,9 @@
 "Тир": "Tier",
 "ускорение ": "speed-up ",
 "радиус ": "radius ",
-"урон ": "damage "
+"урон ": "damage ",
+"Множитель дохода, %": "Income multiplier, %",
+" · множитель ": " · multiplier ",
+"Уровень героя по раундам": "Hero level by round",
+"Ур. 20 на раунде ": "Lv 20 at round "
 }
