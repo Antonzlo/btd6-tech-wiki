@@ -62,6 +62,15 @@ document.addEventListener('keydown',function(e){if(e.key==='/'&&document.activeE
 document.querySelectorAll('[data-filter]').forEach(function(f){var rows=document.querySelectorAll(f.dataset.filter);
 f.addEventListener('input',function(){var q=norm(f.value);rows.forEach(function(r){r.dataset.th=q&&norm(r.textContent).indexOf(q)<0?'1':'';r.hidden=!!(r.dataset.th||r.dataset.gh)})})});
 document.querySelectorAll('.tagbar:not(.sortbar)').forEach(function(bar){var rows=document.querySelectorAll(bar.dataset.target+' tbody tr');bar.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){bar.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});var tag=b.dataset.tag;rows.forEach(function(r){r.dataset.gh=tag&&(' '+r.dataset.tags+' ').indexOf(' '+tag+' ')<0?'1':'';r.hidden=!!(r.dataset.th||r.dataset.gh)})})})});
+function hcalc(c){var reqs=JSON.parse(c.dataset.reqs),cash=JSON.parse(c.dataset.cash),map=+c.querySelector('select').value,
+start=Math.max(1,Math.min(140,+c.querySelector('input').value||1)),xp=0,r=start-1,h='<div class="chips">';
+reqs.forEach(function(q,i){while(xp<q&&r<500){r++;xp+=Math.round((r<=20?20*r+20:r<=50?40*r-380:90*r-2880)*map)}
+h+='<span class="chip">ур. '+(i+2)+': раунд '+r+'</span>'});c.querySelector('.hcalc-out').innerHTML=h+'</div>';
+var m=curMult(),cost=m===1?+c.dataset.cost:Math.round(c.dataset.cost*m/5)*5,have=+c.dataset.start,ok=1;
+while(have<cost&&ok<=cash.length){have+=cash[ok-1];ok++}
+c.querySelector('.hcalc-cash').textContent=ok>cash.length?'':'Денег хватит к началу раунда '+ok+' ($'+cost+', старт $'+c.dataset.start+', без других трат).'}
+document.querySelectorAll('.hcalc').forEach(function(c){var go=function(){hcalc(c)};c.querySelector('select').addEventListener('change',go);
+c.querySelector('input').addEventListener('input',go);document.querySelectorAll('.diff button').forEach(function(b){b.addEventListener('click',go)});go()});
 document.querySelectorAll('.sortbar').forEach(function(bar){var g=document.getElementById(bar.dataset.grid);bar.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){var k=b.dataset.sort;Array.prototype.slice.call(g.children).sort(function(x,y){return x.dataset[k]-y.dataset[k]}).forEach(function(c){g.appendChild(c)});g.classList.toggle('cols3',k==='order');bar.querySelectorAll('button').forEach(function(o){o.classList.toggle('on',o===b)})})})});
 document.querySelectorAll('table').forEach(function(t){var tb=t.tBodies[0];if(!tb||!t.tHead||t.querySelector('[rowspan]'))return;var ths=t.tHead.rows[0].cells;
 Array.prototype.forEach.call(ths,function(th,ci){th.classList.add('sortable');th.addEventListener('click',function(){var dir=th.dataset.dir==='1'?-1:1;Array.prototype.forEach.call(ths,function(x){delete x.dataset.dir});th.dataset.dir=dir===1?'1':'-1';
@@ -353,28 +362,29 @@ def json_files(folder):
 
 # ---------- pages ----------
 
+def line_chart(ys, xticks, aria, ylabel=fmt, tip=lambda x, y: f"{x}: {fmt(y)}"):
+    """One-series line chart; x is 1..len(ys), each point has a hover tooltip (tip(x, y))."""
+    w, h, pad, left = 640, 220, 36, 54
+    top = max(ys) or 1
+    x = lambda i: left + (w - left - pad) * i / (len(ys) - 1)
+    y = lambda v: h - pad - (h - 2 * pad) * v / top
+    pts = " ".join(f"{x(i):.1f},{y(v):.1f}" for i, v in enumerate(ys))
+    ticks = "".join(f"<text x='{x(n - 1):.1f}' y='{h - pad + 16}' text-anchor='middle'>{n}</text>" for n in xticks)
+    yt = "".join(f"<text x='{left - 6}' y='{y(v) + 4:.1f}' text-anchor='end'>{ylabel(v)}</text>" for v in (0, top / 2, top))
+    grid = "".join(f"<line class='pgrid' x1='{left}' y1='{y(v):.1f}' x2='{w - pad}' y2='{y(v):.1f}'/>" for v in (top / 2, top))
+    step = (w - left - pad) / (len(ys) - 1)  # hover targets wider than the line
+    hits = "".join(f"<rect class='phit' x='{x(i) - step / 2:.1f}' y='{pad}' width='{step:.1f}' height='{h - 2 * pad}'>"
+                   f"<title>{tip(i + 1, v)}</title></rect>" for i, v in enumerate(ys))
+    return (f"<div class='wrap'><svg class='pchart' viewBox='0 0 {w} {h}' width='{w}' role='img' aria-label='{esc(aria)}'>"
+            f"{grid}<line class='paxis' x1='{left}' y1='{h - pad}' x2='{w - pad}' y2='{h - pad}'/>"
+            f"<polyline class='pline' points='{pts}'/>{ticks}{yt}{hits}</svg></div>")
+
+
 def build_paragon():
     d = load(DATA / "paragonDegreeData.json")
     req = d["powerDegreeRequirements"]
     top = req[-1]
-    # line chart: power needed per degree
-    w, h, pad = 640, 220, 36
-    pts = " ".join(f"{pad + (w - 2 * pad) * i / (len(req) - 1):.1f},{h - pad - (h - 2 * pad) * p / top:.1f}"
-                   for i, p in enumerate(req))
-    ticks = "".join(
-        f"<text x='{pad + (w - 2 * pad) * (deg - 1) / (len(req) - 1):.1f}' y='{h - pad + 16}' text-anchor='middle'>{deg}</text>"
-        for deg in (1, 25, 50, 75, 100))
-    yt = "".join(f"<text x='{pad - 6}' y='{h - pad - (h - 2 * pad) * v / top + 4:.1f}' text-anchor='end'>{v // 1000}k</text>"
-                 for v in (0, top // 2, top))
-    grid = "".join(f"<line class='pgrid' x1='{pad}' y1='{h - pad - (h - 2 * pad) * v / top:.1f}' x2='{w - pad}' "
-                   f"y2='{h - pad - (h - 2 * pad) * v / top:.1f}'/>" for v in (top // 2, top))
-    # one hover target per degree, wider than the line
-    step = (w - 2 * pad) / (len(req) - 1)
-    hits = "".join(f"<rect class='phit' x='{pad + step * i - step / 2:.1f}' y='{pad}' width='{step:.1f}' height='{h - 2 * pad}'>"
-                   f"<title>{i + 1}: {fmt(p)}</title></rect>" for i, p in enumerate(req))
-    chart = (f"<div class='wrap'><svg class='pchart' viewBox='0 0 {w} {h}' width='{w}' role='img' aria-label='Сила по степеням'>"
-             f"{grid}<line class='paxis' x1='{pad}' y1='{h - pad}' x2='{w - pad}' y2='{h - pad}'/>"
-             f"<polyline class='pline' points='{pts}'/>{ticks}{yt}{hits}</svg></div>")
+    chart = line_chart(req, (1, 25, 50, 75, 100), "Сила по степеням", lambda v: f"{int(v) // 1000}k")
 
     # donut: share of each power source cap
     srcs = [("макс. от лопаний", d.get("maxPowerFromPops", 0)), ("макс. от денег", d.get("maxPowerFromMoneySpent", 0)),
@@ -627,10 +637,20 @@ def build_income():
         rows.append((f"{start}+", final, f"{final * 100:g}%" if final is not None else "–"))
         body.append(card(f.stem, f.stem, table(["Раунды", "Множитель", "От обычного"], rows), section="Доход"))
         toc.append((f.stem, f.stem))
+    cash = [p + b for p, b in round_cash().values()]
+    total = [sum(cash[:i + 1]) for i in range(len(cash))]
+    ticks = (1, 20, 40, 60, 80, 100, 120, len(cash))
+    k = lambda v: f"{round(v / 1000, 1):g}k" if v >= 1000 else fmt(round(v))
+    charts = card("cash", "Деньги по раундам",
+                  "<h3>За раунд (лопание и бонус)</h3>"
+                  + line_chart(cash, ticks, "Деньги за раунд", k, lambda r, v: f"раунд {r}: ${fmt(round(v))}")
+                  + "<h3>Всего с 1-го раунда</h3>"
+                  + line_chart(total, ticks, "Деньги с 1-го раунда", k, lambda r, v: f"раунд {r}: ${fmt(round(v))}"),
+                  section="Доход")
     page("income.html", "Доход по раундам",
          "Деньги за лопание умножаются на коэффициент раунда. DefaultIncomeSet работает в обычной игре, "
          "остальные в своих режимах.",
-         f"<div class='cards'>{''.join(body)}</div>", toc)
+         charts + f"<div class='cards'>{''.join(body)}</div>", [("cash", "Деньги по раундам")] + toc)
 
 
 
@@ -881,6 +901,23 @@ def hero_level_rows(folder, base, ucost):
     return rows
 
 
+START_CASH = 650  # standard starting cash; not in the export (the game model default, not a mode modifier)
+
+
+def hero_calc(totals, cost):
+    """Hero calculator: round each level is reached for a placement round and map difficulty, and the round the
+    hero becomes affordable. totals = cumulative XP for levels 2..20. The XP per round is the game's formula
+    (not in the export, see Blooncyclopedia "Hero XP"): 20r+20 up to round 20, 40r-380 up to 50, 90r-2880 after,
+    times the map difficulty, rounded half up each round. hcalc() in search.js does the math."""
+    cash = [round(p + b) for p, b in round_cash().values()]
+    maps = [("Beginner", 1), ("Intermediate", 1.1), ("Advanced", 1.2), ("Expert", 1.3)]
+    return (f"<div class='hcalc' data-reqs='{json.dumps(totals)}' data-cost='{cost}' data-start='{START_CASH}' "
+            f"data-cash='{json.dumps(cash)}'><div class='hcalc-in'>"
+            "<label>Карта <select>" + "".join(f"<option value='{m}'>{esc(t(n, fallback=n))}</option>" for n, m in maps)
+            + "</select></label><label>Ставлю на раунде <input type='number' min='1' max='140' value='1'></label></div>"
+            "<p class='hcalc-cash'></p><div class='hcalc-out'></div></div>")
+
+
 def build_heroes():
     upgrades = {f.stem: load(f) for f in json_files("Upgrades")}
     ucost = {u.get("name"): u.get("cost", 0) for u in upgrades.values()}
@@ -921,12 +958,13 @@ def build_heroes():
                 + card("about", name, about, en_id=hid, section="Герои")
                 + card("levels", "Уровни и опыт", table(["Уровень", "XP до уровня", "XP всего", "Что даёт"],
                                                         [(a, b, c, Raw(d)) for a, b, c, d in rows]), section=name)
+                + card("calc", "Калькулятор", hero_calc([r[2] for r in rows[1:]], cost), section=name)
                 + card("numbers", "Числа по уровням", numbers, section=name)
                 + (card("abilities", "Способности", abilities_table(
                     abils, lambda up: f"уровень {upgrades[up].get('tier', 0) + 1}" if up in upgrades else esc(up)), section=name)
                    if abils else ""))
         page(current_file, name, esc(t(f"{hid} Short Description", fallback="")), body,
-             toc=[("about", "Описание"), ("levels", "Уровни и опыт"), ("numbers", "Числа по уровням")]
+             toc=[("about", "Описание"), ("levels", "Уровни и опыт"), ("calc", "Калькулятор"), ("numbers", "Числа по уровням")]
              + ([("abilities", "Способности")] if abils else []))
     current_file = "heroes.html"
     # hero select screen order from game.json (btd6-knowledge-dumper F6 on that screen); heroSet index, then cost, as fallbacks
@@ -1442,16 +1480,27 @@ def build_bloons():
          "".join(body), toc)
 
 
-def build_rounds():
-    bloons = BLOONS
-
+@functools.cache
+def round_cash(rs="DefaultRoundSet"):
+    """{round: (pop cash, end of round bonus)}: 1 $ per layer popped times the DefaultIncomeSet multiplier of the round,
+    bonus from the Medium mode model (BonusCashPerRoundModModel: baseCash + round * roundMultiple)."""
     income = load(DATA / "IncomeSets" / "DefaultIncomeSet.json")
 
     def income_mult(r):
-        for th in income.get("thresholds") or []:
-            if r <= th["threshold"]:
-                return th["multiplier"]
-        return income.get("finalMultiplier", 1)
+        return next((th["multiplier"] for th in income.get("thresholds") or [] if r <= th["threshold"]),
+                    income.get("finalMultiplier", 1))
+    bonus_mod = next((m for m in load(DATA / "Mods" / "Medium.json").get("mutatorMods") or []
+                      if short_type(m) == "BonusCashPerRoundModModel"), {})
+    out = {}
+    for f in (DATA / "Rounds" / rs).glob("*.json"):
+        r = int(f.stem)
+        pop = sum(g["count"] * pops(g["bloon"]) for g in load(f).get("groups") or []) * income_mult(r)
+        out[r] = (pop, bonus_mod.get("baseCash", 100) + r * bonus_mod.get("roundMultiple", 1))
+    return dict(sorted(out.items()))
+
+
+def build_rounds():
+    bloons = BLOONS
 
     def tags(b):
         m = bloons[b]
@@ -1463,10 +1512,6 @@ def build_rounds():
     filters = [("", "Все"), ("new", "С новым"), ("camo", t("Camo")), ("regrow", t("Regrow")), ("fortified", "Укреплённые"),
                ("lead", t("Lead")), ("ceramic", t("Ceramic")), ("moab", "MOAB-класс")]
 
-    # end of round bonus from the Medium mode model (BonusCashPerRoundModModel: baseCash + round * roundMultiple)
-    bonus_mod = next((m for m in load(DATA / "Mods" / "Medium.json").get("mutatorMods") or []
-                      if short_type(m) == "BonusCashPerRoundModModel"), {})
-    bonus_base, bonus_per_round = bonus_mod.get("baseCash", 100), bonus_mod.get("roundMultiple", 1)
     sections, toc = [], []
     for rs, title in (("DefaultRoundSet", "Обычные раунды"), ("AlternateRoundSet", "Альтернативные раунды (ABR)")):
         folder = DATA / "Rounds" / rs
@@ -1477,9 +1522,7 @@ def build_rounds():
             chips = "".join(f"<a class='chip bchip' href='bloons.html#{esc(bloons[g['bloon']].get('baseId', g['bloon']))}'>"
                             f"<i class='bi bi-{bloon_css(g["bloon"])}'></i>{g['count']}× {esc(bloon_name(g['bloon']))}</a>" for g in groups)
             r_rbe = sum(g["count"] * rbe(g["bloon"]) for g in groups)
-            r_pops = sum(g["count"] * pops(g["bloon"]) for g in groups)
-            cash = r_pops * income_mult(r)
-            bonus = bonus_base + r * bonus_per_round
+            cash, bonus = round_cash(rs)[r]
             total += cash + bonus
             dur = max((g["end"] for g in groups), default=0) / 60
             # first appearance of a bloon type or a property (camo, regrow, fortified)

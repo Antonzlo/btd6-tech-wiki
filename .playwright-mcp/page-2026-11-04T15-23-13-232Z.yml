@@ -1,0 +1,713 @@
+- generic [active] [ref=f14e1]:
+  - banner [ref=f14e2]:
+    - link "BTD6 Tech Wiki57.4" [ref=f14e3] [cursor=pointer]:
+      - /url: index.html
+    - searchbox "Поиск по вики" [ref=f14e5]
+    - link "Язык" [ref=f14e6] [cursor=pointer]:
+      - /url: ../income.html
+      - text: EN
+  - generic [ref=f14e7]:
+    - complementary [ref=f14e8]:
+      - heading "Разделы" [level=4] [ref=f14e9]
+      - navigation [ref=f14e10]:
+        - link "Главная" [ref=f14e11] [cursor=pointer]:
+          - /url: index.html
+        - link "Башни" [ref=f14e12] [cursor=pointer]:
+          - /url: towers.html
+        - link "Герои" [ref=f14e13] [cursor=pointer]:
+          - /url: heroes.html
+        - link "Парагон" [ref=f14e14] [cursor=pointer]:
+          - /url: paragon.html
+        - link "Баффы" [ref=f14e15] [cursor=pointer]:
+          - /url: buffs.html
+        - link "Шары" [ref=f14e16] [cursor=pointer]:
+          - /url: bloons.html
+        - link "Раунды" [ref=f14e17] [cursor=pointer]:
+          - /url: rounds.html
+        - link "Боссы" [ref=f14e18] [cursor=pointer]:
+          - /url: bosses.html
+        - link "Режимы" [ref=f14e19] [cursor=pointer]:
+          - /url: modes.html
+        - link "Доход" [ref=f14e20] [cursor=pointer]:
+          - /url: income.html
+        - link "Обезьяньи знания" [ref=f14e21] [cursor=pointer]:
+          - /url: knowledge.html
+        - link "Силы" [ref=f14e22] [cursor=pointer]:
+          - /url: powers.html
+        - link "Ссылки" [ref=f14e23] [cursor=pointer]:
+          - /url: links.html
+      - generic [ref=f14e24]:
+        - heading "На странице" [level=4] [ref=f14e25]
+        - link "Деньги по раундам" [ref=f14e26] [cursor=pointer]:
+          - /url: "#cash"
+        - link "DefaultIncomeSet" [ref=f14e27] [cursor=pointer]:
+          - /url: "#DefaultIncomeSet"
+        - link "AcceleratedIncomeSet" [ref=f14e28] [cursor=pointer]:
+          - /url: "#AcceleratedIncomeSet"
+        - link "EnduranceIncomeSet" [ref=f14e29] [cursor=pointer]:
+          - /url: "#EnduranceIncomeSet"
+        - link "FrontierIncomeSet" [ref=f14e30] [cursor=pointer]:
+          - /url: "#FrontierIncomeSet"
+        - link "FrontierReducedIncomeSet" [ref=f14e31] [cursor=pointer]:
+          - /url: "#FrontierReducedIncomeSet"
+        - link "MOABMadnessIncomeSet" [ref=f14e32] [cursor=pointer]:
+          - /url: "#MOABMadnessIncomeSet"
+        - link "RogueIncomeSet" [ref=f14e33] [cursor=pointer]:
+          - /url: "#RogueIncomeSet"
+    - main [ref=f14e34]:
+      - heading "Доход по раундам" [level=1] [ref=f14e35]
+      - paragraph [ref=f14e36]: Деньги за лопание умножаются на коэффициент раунда. DefaultIncomeSet работает в обычной игре, остальные в своих режимах.
+      - generic [ref=f14e37]:
+        - heading "Деньги по раундам" [level=2] [ref=f14e39]
+        - heading "За раунд (лопание и бонус)" [level=3] [ref=f14e40]
+        - img "Деньги за раунд" [ref=f14e42]:
+          - generic [ref=f14e44]: "1"
+          - generic [ref=f14e45]: "20"
+          - generic [ref=f14e46]: "40"
+          - generic [ref=f14e47]: "60"
+          - generic [ref=f14e48]: "80"
+          - generic [ref=f14e49]: "100"
+          - generic [ref=f14e50]: "120"
+          - generic [ref=f14e51]: "140"
+          - generic [ref=f14e52]: "0"
+          - generic [ref=f14e53]: 4.9778k
+          - generic [ref=f14e54]: 9.9556k
+          - 'generic "раунд 1: $121" [ref=f14e55]'
+          - 'generic "раунд 2: $137" [ref=f14e56]'
+          - 'generic "раунд 3: $138" [ref=f14e57]'
+          - 'generic "раунд 4: $175" [ref=f14e58]'
+          - 'generic "раунд 5: $164" [ref=f14e59]'
+          - 'generic "раунд 6: $163" [ref=f14e60]'
+          - 'generic "раунд 7: $182" [ref=f14e61]'
+          - 'generic "раунд 8: $200" [ref=f14e62]'
+          - 'generic "раунд 9: $199" [ref=f14e63]'
+          - 'generic "раунд 10: $314" [ref=f14e64]'
+          - 'generic "раунд 11: $189" [ref=f14e65]'
+          - 'generic "раунд 12: $192" [ref=f14e66]'
+          - 'generic "раунд 13: $282" [ref=f14e67]'
+          - 'generic "раунд 14: $259" [ref=f14e68]'
+          - 'generic "раунд 15: $266" [ref=f14e69]'
+          - 'generic "раунд 16: $268" [ref=f14e70]'
+          - 'generic "раунд 17: $165" [ref=f14e71]'
+          - 'generic "раунд 18: $358" [ref=f14e72]'
+          - 'generic "раунд 19: $260" [ref=f14e73]'
+          - 'generic "раунд 20: $186" [ref=f14e74]'
+          - 'generic "раунд 21: $351" [ref=f14e75]'
+          - 'generic "раунд 22: $298" [ref=f14e76]'
+          - 'generic "раунд 23: $277" [ref=f14e77]'
+          - 'generic "раунд 24: $167" [ref=f14e78]'
+          - 'generic "раунд 25: $335" [ref=f14e79]'
+          - 'generic "раунд 26: $333" [ref=f14e80]'
+          - 'generic "раунд 27: $662" [ref=f14e81]'
+          - 'generic "раунд 28: $266" [ref=f14e82]'
+          - 'generic "раунд 29: $389" [ref=f14e83]'
+          - 'generic "раунд 30: $337" [ref=f14e84]'
+          - 'generic "раунд 31: $537" [ref=f14e85]'
+          - 'generic "раунд 32: $627" [ref=f14e86]'
+          - 'generic "раунд 33: $205" [ref=f14e87]'
+          - 'generic "раунд 34: $912" [ref=f14e88]'
+          - 'generic "раунд 35: $1 150" [ref=f14e89]'
+          - 'generic "раунд 36: $896" [ref=f14e90]'
+          - 'generic "раунд 37: $1 339" [ref=f14e91]'
+          - 'generic "раунд 38: $1 277" [ref=f14e92]'
+          - 'generic "раунд 39: $1 759" [ref=f14e93]'
+          - 'generic "раунд 40: $521" [ref=f14e94]'
+          - 'generic "раунд 41: $2 181" [ref=f14e95]'
+          - 'generic "раунд 42: $659" [ref=f14e96]'
+          - 'generic "раунд 43: $1 278" [ref=f14e97]'
+          - 'generic "раунд 44: $1 294" [ref=f14e98]'
+          - 'generic "раунд 45: $2 422" [ref=f14e99]'
+          - 'generic "раунд 46: $716" [ref=f14e100]'
+          - 'generic "раунд 47: $1 637" [ref=f14e101]'
+          - 'generic "раунд 48: $2 843" [ref=f14e102]'
+          - 'generic "раунд 49: $4 758" [ref=f14e103]'
+          - 'generic "раунд 50: $3 016" [ref=f14e104]'
+          - 'generic "раунд 51: $1 098" [ref=f14e105]'
+          - 'generic "раунд 52: $1 596" [ref=f14e106]'
+          - 'generic "раунд 53: $924" [ref=f14e107]'
+          - 'generic "раунд 54: $2 198" [ref=f14e108]'
+          - 'generic "раунд 55: $2 483" [ref=f14e109]'
+          - 'generic "раунд 56: $1 286" [ref=f14e110]'
+          - 'generic "раунд 57: $1 859" [ref=f14e111]'
+          - 'generic "раунд 58: $2 298" [ref=f14e112]'
+          - 'generic "раунд 59: $2 159" [ref=f14e113]'
+          - 'generic "раунд 60: $922" [ref=f14e114]'
+          - 'generic "раунд 61: $1 232" [ref=f14e115]'
+          - 'generic "раунд 62: $1 386" [ref=f14e116]'
+          - 'generic "раунд 63: $2 826" [ref=f14e117]'
+          - 'generic "раунд 64: $850" [ref=f14e118]'
+          - 'generic "раунд 65: $3 072" [ref=f14e119]'
+          - 'generic "раунд 66: $1 004" [ref=f14e120]'
+          - 'generic "раунд 67: $1 024" [ref=f14e121]'
+          - 'generic "раунд 68: $778" [ref=f14e122]'
+          - 'generic "раунд 69: $1 391" [ref=f14e123]'
+          - 'generic "раунд 70: $2 619" [ref=f14e124]'
+          - 'generic "раунд 71: $1 503" [ref=f14e125]'
+          - 'generic "раунд 72: $1 504" [ref=f14e126]'
+          - 'generic "раунд 73: $1 393" [ref=f14e127]'
+          - 'generic "раунд 74: $3 044" [ref=f14e128]'
+          - 'generic "раунд 75: $2 667" [ref=f14e129]'
+          - 'generic "раунд 76: $1 316" [ref=f14e130]'
+          - 'generic "раунд 77: $2 540" [ref=f14e131]'
+          - 'generic "раунд 78: $4 862" [ref=f14e132]'
+          - 'generic "раунд 79: $6 709" [ref=f14e133]'
+          - 'generic "раунд 80: $1 400" [ref=f14e134]'
+          - 'generic "раунд 81: $5 366" [ref=f14e135]'
+          - 'generic "раунд 82: $4 757" [ref=f14e136]'
+          - 'generic "раунд 83: $4 749" [ref=f14e137]'
+          - 'generic "раунд 84: $7 044" [ref=f14e138]'
+          - 'generic "раунд 85: $2 625" [ref=f14e139]'
+          - 'generic "раунд 86: $948" [ref=f14e140]'
+          - 'generic "раунд 87: $2 627" [ref=f14e141]'
+          - 'generic "раунд 88: $3 314" [ref=f14e142]'
+          - 'generic "раунд 89: $2 171" [ref=f14e143]'
+          - 'generic "раунд 90: $419" [ref=f14e144]'
+          - 'generic "раунд 91: $4 191" [ref=f14e145]'
+          - 'generic "раунд 92: $4 537" [ref=f14e146]'
+          - 'generic "раунд 93: $1 947" [ref=f14e147]'
+          - 'generic "раунд 94: $7 667" [ref=f14e148]'
+          - 'generic "раунд 95: $4 368" [ref=f14e149]'
+          - 'generic "раунд 96: $9 956" [ref=f14e150]'
+          - 'generic "раунд 97: $1 417" [ref=f14e151]'
+          - 'generic "раунд 98: $9 654" [ref=f14e152]'
+          - 'generic "раунд 99: $2 828" [ref=f14e153]'
+          - 'generic "раунд 100: $1 535" [ref=f14e154]'
+          - 'generic "раунд 101: $876" [ref=f14e155]'
+          - 'generic "раунд 102: $2 451" [ref=f14e156]'
+          - 'generic "раунд 103: $6 220" [ref=f14e157]'
+          - 'generic "раунд 104: $7 802" [ref=f14e158]'
+          - 'generic "раунд 105: $4 421" [ref=f14e159]'
+          - 'generic "раунд 106: $1 978" [ref=f14e160]'
+          - 'generic "раунд 107: $3 977" [ref=f14e161]'
+          - 'generic "раунд 108: $6 004" [ref=f14e162]'
+          - 'generic "раунд 109: $7 652" [ref=f14e163]'
+          - 'generic "раунд 110: $2 688" [ref=f14e164]'
+          - 'generic "раунд 111: $9 668" [ref=f14e165]'
+          - 'generic "раунд 112: $2 671" [ref=f14e166]'
+          - 'generic "раунд 113: $3 184" [ref=f14e167]'
+          - 'generic "раунд 114: $5 608" [ref=f14e168]'
+          - 'generic "раунд 115: $5 609" [ref=f14e169]'
+          - 'generic "раунд 116: $4 249" [ref=f14e170]'
+          - 'generic "раунд 117: $1 362" [ref=f14e171]'
+          - 'generic "раунд 118: $4 450" [ref=f14e172]'
+          - 'generic "раунд 119: $2 221" [ref=f14e173]'
+          - 'generic "раунд 120: $5 253" [ref=f14e174]'
+          - 'generic "раунд 121: $2 966" [ref=f14e175]'
+          - 'generic "раунд 122: $4 089" [ref=f14e176]'
+          - 'generic "раунд 123: $5 223" [ref=f14e177]'
+          - 'generic "раунд 124: $4 799" [ref=f14e178]'
+          - 'generic "раунд 125: $8 872" [ref=f14e179]'
+          - 'generic "раунд 126: $1 736" [ref=f14e180]'
+          - 'generic "раунд 127: $2 423" [ref=f14e181]'
+          - 'generic "раунд 128: $3 412" [ref=f14e182]'
+          - 'generic "раунд 129: $4 317" [ref=f14e183]'
+          - 'generic "раунд 130: $3 339" [ref=f14e184]'
+          - 'generic "раунд 131: $4 624" [ref=f14e185]'
+          - 'generic "раунд 132: $6 177" [ref=f14e186]'
+          - 'generic "раунд 133: $6 379" [ref=f14e187]'
+          - 'generic "раунд 134: $2 674" [ref=f14e188]'
+          - 'generic "раунд 135: $3 972" [ref=f14e189]'
+          - 'generic "раунд 136: $3 163" [ref=f14e190]'
+          - 'generic "раунд 137: $6 825" [ref=f14e191]'
+          - 'generic "раунд 138: $2 158" [ref=f14e192]'
+          - 'generic "раунд 139: $4 095" [ref=f14e193]'
+          - 'generic "раунд 140: $1 308" [ref=f14e194]'
+        - heading "Всего с 1-го раунда" [level=3] [ref=f14e195]
+        - img "Деньги с 1-го раунда" [ref=f14e197]:
+          - generic [ref=f14e199]: "1"
+          - generic [ref=f14e200]: "20"
+          - generic [ref=f14e201]: "40"
+          - generic [ref=f14e202]: "60"
+          - generic [ref=f14e203]: "80"
+          - generic [ref=f14e204]: "100"
+          - generic [ref=f14e205]: "120"
+          - generic [ref=f14e206]: "140"
+          - generic [ref=f14e207]: "0"
+          - generic [ref=f14e208]: 175.309k
+          - generic [ref=f14e209]: 350.617k
+          - 'generic "раунд 1: $121" [ref=f14e210]'
+          - 'generic "раунд 2: $258" [ref=f14e211]'
+          - 'generic "раунд 3: $396" [ref=f14e212]'
+          - 'generic "раунд 4: $571" [ref=f14e213]'
+          - 'generic "раунд 5: $735" [ref=f14e214]'
+          - 'generic "раунд 6: $898" [ref=f14e215]'
+          - 'generic "раунд 7: $1 080" [ref=f14e216]'
+          - 'generic "раунд 8: $1 280" [ref=f14e217]'
+          - 'generic "раунд 9: $1 479" [ref=f14e218]'
+          - 'generic "раунд 10: $1 793" [ref=f14e219]'
+          - 'generic "раунд 11: $1 982" [ref=f14e220]'
+          - 'generic "раунд 12: $2 174" [ref=f14e221]'
+          - 'generic "раунд 13: $2 456" [ref=f14e222]'
+          - 'generic "раунд 14: $2 715" [ref=f14e223]'
+          - 'generic "раунд 15: $2 981" [ref=f14e224]'
+          - 'generic "раунд 16: $3 249" [ref=f14e225]'
+          - 'generic "раунд 17: $3 414" [ref=f14e226]'
+          - 'generic "раунд 18: $3 772" [ref=f14e227]'
+          - 'generic "раунд 19: $4 032" [ref=f14e228]'
+          - 'generic "раунд 20: $4 218" [ref=f14e229]'
+          - 'generic "раунд 21: $4 569" [ref=f14e230]'
+          - 'generic "раунд 22: $4 867" [ref=f14e231]'
+          - 'generic "раунд 23: $5 144" [ref=f14e232]'
+          - 'generic "раунд 24: $5 311" [ref=f14e233]'
+          - 'generic "раунд 25: $5 646" [ref=f14e234]'
+          - 'generic "раунд 26: $5 979" [ref=f14e235]'
+          - 'generic "раунд 27: $6 641" [ref=f14e236]'
+          - 'generic "раунд 28: $6 907" [ref=f14e237]'
+          - 'generic "раунд 29: $7 296" [ref=f14e238]'
+          - 'generic "раунд 30: $7 633" [ref=f14e239]'
+          - 'generic "раунд 31: $8 170" [ref=f14e240]'
+          - 'generic "раунд 32: $8 797" [ref=f14e241]'
+          - 'generic "раунд 33: $9 002" [ref=f14e242]'
+          - 'generic "раунд 34: $9 914" [ref=f14e243]'
+          - 'generic "раунд 35: $11 064" [ref=f14e244]'
+          - 'generic "раунд 36: $11 960" [ref=f14e245]'
+          - 'generic "раунд 37: $13 299" [ref=f14e246]'
+          - 'generic "раунд 38: $14 576" [ref=f14e247]'
+          - 'generic "раунд 39: $16 335" [ref=f14e248]'
+          - 'generic "раунд 40: $16 856" [ref=f14e249]'
+          - 'generic "раунд 41: $19 037" [ref=f14e250]'
+          - 'generic "раунд 42: $19 696" [ref=f14e251]'
+          - 'generic "раунд 43: $20 974" [ref=f14e252]'
+          - 'generic "раунд 44: $22 268" [ref=f14e253]'
+          - 'generic "раунд 45: $24 690" [ref=f14e254]'
+          - 'generic "раунд 46: $25 406" [ref=f14e255]'
+          - 'generic "раунд 47: $27 043" [ref=f14e256]'
+          - 'generic "раунд 48: $29 886" [ref=f14e257]'
+          - 'generic "раунд 49: $34 644" [ref=f14e258]'
+          - 'generic "раунд 50: $37 660" [ref=f14e259]'
+          - 'generic "раунд 51: $38 758" [ref=f14e260]'
+          - 'generic "раунд 52: $40 354" [ref=f14e261]'
+          - 'generic "раунд 53: $41 278" [ref=f14e262]'
+          - 'generic "раунд 54: $43 476" [ref=f14e263]'
+          - 'generic "раунд 55: $45 959" [ref=f14e264]'
+          - 'generic "раунд 56: $47 246" [ref=f14e265]'
+          - 'generic "раунд 57: $49 104" [ref=f14e266]'
+          - 'generic "раунд 58: $51 402" [ref=f14e267]'
+          - 'generic "раунд 59: $53 562" [ref=f14e268]'
+          - 'generic "раунд 60: $54 484" [ref=f14e269]'
+          - 'generic "раунд 61: $55 716" [ref=f14e270]'
+          - 'generic "раунд 62: $57 102" [ref=f14e271]'
+          - 'generic "раунд 63: $59 928" [ref=f14e272]'
+          - 'generic "раунд 64: $60 778" [ref=f14e273]'
+          - 'generic "раунд 65: $63 850" [ref=f14e274]'
+          - 'generic "раунд 66: $64 854" [ref=f14e275]'
+          - 'generic "раунд 67: $65 878" [ref=f14e276]'
+          - 'generic "раунд 68: $66 655" [ref=f14e277]'
+          - 'generic "раунд 69: $68 046" [ref=f14e278]'
+          - 'generic "раунд 70: $70 665" [ref=f14e279]'
+          - 'generic "раунд 71: $72 168" [ref=f14e280]'
+          - 'generic "раунд 72: $73 672" [ref=f14e281]'
+          - 'generic "раунд 73: $75 065" [ref=f14e282]'
+          - 'generic "раунд 74: $78 109" [ref=f14e283]'
+          - 'generic "раунд 75: $80 776" [ref=f14e284]'
+          - 'generic "раунд 76: $82 092" [ref=f14e285]'
+          - 'generic "раунд 77: $84 632" [ref=f14e286]'
+          - 'generic "раунд 78: $89 494" [ref=f14e287]'
+          - 'generic "раунд 79: $96 203" [ref=f14e288]'
+          - 'generic "раунд 80: $97 604" [ref=f14e289]'
+          - 'generic "раунд 81: $102 970" [ref=f14e290]'
+          - 'generic "раунд 82: $107 727" [ref=f14e291]'
+          - 'generic "раунд 83: $112 476" [ref=f14e292]'
+          - 'generic "раунд 84: $119 520" [ref=f14e293]'
+          - 'generic "раунд 85: $122 145" [ref=f14e294]'
+          - 'generic "раунд 86: $123 094" [ref=f14e295]'
+          - 'generic "раунд 87: $125 721" [ref=f14e296]'
+          - 'generic "раунд 88: $129 035" [ref=f14e297]'
+          - 'generic "раунд 89: $131 206" [ref=f14e298]'
+          - 'generic "раунд 90: $131 625" [ref=f14e299]'
+          - 'generic "раунд 91: $135 816" [ref=f14e300]'
+          - 'generic "раунд 92: $140 354" [ref=f14e301]'
+          - 'generic "раунд 93: $142 300" [ref=f14e302]'
+          - 'generic "раунд 94: $149 967" [ref=f14e303]'
+          - 'generic "раунд 95: $154 335" [ref=f14e304]'
+          - 'generic "раунд 96: $164 291" [ref=f14e305]'
+          - 'generic "раунд 97: $165 708" [ref=f14e306]'
+          - 'generic "раунд 98: $175 362" [ref=f14e307]'
+          - 'generic "раунд 99: $178 190" [ref=f14e308]'
+          - 'generic "раунд 100: $179 724" [ref=f14e309]'
+          - 'generic "раунд 101: $180 601" [ref=f14e310]'
+          - 'generic "раунд 102: $183 052" [ref=f14e311]'
+          - 'generic "раунд 103: $189 272" [ref=f14e312]'
+          - 'generic "раунд 104: $197 074" [ref=f14e313]'
+          - 'generic "раунд 105: $201 495" [ref=f14e314]'
+          - 'generic "раунд 106: $203 472" [ref=f14e315]'
+          - 'generic "раунд 107: $207 449" [ref=f14e316]'
+          - 'generic "раунд 108: $213 453" [ref=f14e317]'
+          - 'generic "раунд 109: $221 105" [ref=f14e318]'
+          - 'generic "раунд 110: $223 793" [ref=f14e319]'
+          - 'generic "раунд 111: $233 460" [ref=f14e320]'
+          - 'generic "раунд 112: $236 131" [ref=f14e321]'
+          - 'generic "раунд 113: $239 316" [ref=f14e322]'
+          - 'generic "раунд 114: $244 924" [ref=f14e323]'
+          - 'generic "раунд 115: $250 533" [ref=f14e324]'
+          - 'generic "раунд 116: $254 782" [ref=f14e325]'
+          - 'generic "раунд 117: $256 144" [ref=f14e326]'
+          - 'generic "раунд 118: $260 594" [ref=f14e327]'
+          - 'generic "раунд 119: $262 815" [ref=f14e328]'
+          - 'generic "раунд 120: $268 067" [ref=f14e329]'
+          - 'generic "раунд 121: $271 033" [ref=f14e330]'
+          - 'generic "раунд 122: $275 122" [ref=f14e331]'
+          - 'generic "раунд 123: $280 346" [ref=f14e332]'
+          - 'generic "раунд 124: $285 145" [ref=f14e333]'
+          - 'generic "раунд 125: $294 017" [ref=f14e334]'
+          - 'generic "раунд 126: $295 752" [ref=f14e335]'
+          - 'generic "раунд 127: $298 175" [ref=f14e336]'
+          - 'generic "раунд 128: $301 587" [ref=f14e337]'
+          - 'generic "раунд 129: $305 904" [ref=f14e338]'
+          - 'generic "раунд 130: $309 243" [ref=f14e339]'
+          - 'generic "раунд 131: $313 867" [ref=f14e340]'
+          - 'generic "раунд 132: $320 044" [ref=f14e341]'
+          - 'generic "раунд 133: $326 423" [ref=f14e342]'
+          - 'generic "раунд 134: $329 097" [ref=f14e343]'
+          - 'generic "раунд 135: $333 069" [ref=f14e344]'
+          - 'generic "раунд 136: $336 232" [ref=f14e345]'
+          - 'generic "раунд 137: $343 057" [ref=f14e346]'
+          - 'generic "раунд 138: $345 215" [ref=f14e347]'
+          - 'generic "раунд 139: $349 310" [ref=f14e348]'
+          - 'generic "раунд 140: $350 617" [ref=f14e349]'
+      - generic [ref=f14e350]:
+        - generic [ref=f14e351]:
+          - heading "DefaultIncomeSet" [level=2] [ref=f14e353]
+          - table [ref=f14e355]:
+            - rowgroup [ref=f14e356]:
+              - row [ref=f14e357]:
+                - columnheader "Раунды" [ref=f14e358] [cursor=pointer]
+                - columnheader "Множитель" [ref=f14e359] [cursor=pointer]
+                - columnheader "От обычного" [ref=f14e360] [cursor=pointer]
+            - rowgroup [ref=f14e361]:
+              - row [ref=f14e362]:
+                - cell "1–50" [ref=f14e363]
+                - cell "1" [ref=f14e364]
+                - cell "100%" [ref=f14e365]
+              - row [ref=f14e366]:
+                - cell "51–60" [ref=f14e367]
+                - cell "0.5" [ref=f14e368]
+                - cell "50%" [ref=f14e369]
+              - row [ref=f14e370]:
+                - cell "61–85" [ref=f14e371]
+                - cell "0.2" [ref=f14e372]
+                - cell "20%" [ref=f14e373]
+              - row [ref=f14e374]:
+                - cell "86–100" [ref=f14e375]
+                - cell "0.1" [ref=f14e376]
+                - cell "10%" [ref=f14e377]
+              - row [ref=f14e378]:
+                - cell "101–120" [ref=f14e379]
+                - cell "0.05" [ref=f14e380]
+                - cell "5%" [ref=f14e381]
+              - row [ref=f14e382]:
+                - cell "121–140" [ref=f14e383]
+                - cell "0.04" [ref=f14e384]
+                - cell "4%" [ref=f14e385]
+              - row [ref=f14e386]:
+                - cell "141+" [ref=f14e387]
+                - cell "0.02" [ref=f14e388]
+                - cell "2%" [ref=f14e389]
+        - generic [ref=f14e390]:
+          - heading "AcceleratedIncomeSet" [level=2] [ref=f14e392]
+          - table [ref=f14e394]:
+            - rowgroup [ref=f14e395]:
+              - row [ref=f14e396]:
+                - columnheader "Раунды" [ref=f14e397] [cursor=pointer]
+                - columnheader "Множитель" [ref=f14e398] [cursor=pointer]
+                - columnheader "От обычного" [ref=f14e399] [cursor=pointer]
+            - rowgroup [ref=f14e400]:
+              - row [ref=f14e401]:
+                - cell "1–5" [ref=f14e402]
+                - cell "1.2" [ref=f14e403]
+                - cell "120%" [ref=f14e404]
+              - row [ref=f14e405]:
+                - cell "6–10" [ref=f14e406]
+                - cell "0.7" [ref=f14e407]
+                - cell "70%" [ref=f14e408]
+              - row [ref=f14e409]:
+                - cell "11–15" [ref=f14e410]
+                - cell "0.35" [ref=f14e411]
+                - cell "35%" [ref=f14e412]
+              - row [ref=f14e413]:
+                - cell "16–20" [ref=f14e414]
+                - cell "0.2" [ref=f14e415]
+                - cell "20%" [ref=f14e416]
+              - row [ref=f14e417]:
+                - cell "21–25" [ref=f14e418]
+                - cell "0.05" [ref=f14e419]
+                - cell "5%" [ref=f14e420]
+              - row [ref=f14e421]:
+                - cell "26–30" [ref=f14e422]
+                - cell "0.05" [ref=f14e423]
+                - cell "5%" [ref=f14e424]
+              - row [ref=f14e425]:
+                - cell "31+" [ref=f14e426]
+                - cell "0.02" [ref=f14e427]
+                - cell "2%" [ref=f14e428]
+        - generic [ref=f14e429]:
+          - heading "EnduranceIncomeSet" [level=2] [ref=f14e431]
+          - table [ref=f14e433]:
+            - rowgroup [ref=f14e434]:
+              - row [ref=f14e435]:
+                - columnheader "Раунды" [ref=f14e436] [cursor=pointer]
+                - columnheader "Множитель" [ref=f14e437] [cursor=pointer]
+                - columnheader "От обычного" [ref=f14e438] [cursor=pointer]
+            - rowgroup [ref=f14e439]:
+              - row [ref=f14e440]:
+                - cell "1–40" [ref=f14e441]
+                - cell "1" [ref=f14e442]
+                - cell "100%" [ref=f14e443]
+              - row [ref=f14e444]:
+                - cell "41–50" [ref=f14e445]
+                - cell "0.5" [ref=f14e446]
+                - cell "50%" [ref=f14e447]
+              - row [ref=f14e448]:
+                - cell "51–60" [ref=f14e449]
+                - cell "0.2" [ref=f14e450]
+                - cell "20%" [ref=f14e451]
+              - row [ref=f14e452]:
+                - cell "61–80" [ref=f14e453]
+                - cell "0.1" [ref=f14e454]
+                - cell "10%" [ref=f14e455]
+              - row [ref=f14e456]:
+                - cell "81–100" [ref=f14e457]
+                - cell "0.05" [ref=f14e458]
+                - cell "5%" [ref=f14e459]
+              - row [ref=f14e460]:
+                - cell "101+" [ref=f14e461]
+                - cell "0.02" [ref=f14e462]
+                - cell "2%" [ref=f14e463]
+        - generic [ref=f14e464]:
+          - heading "FrontierIncomeSet" [level=2] [ref=f14e466]
+          - table [ref=f14e468]:
+            - rowgroup [ref=f14e469]:
+              - row [ref=f14e470]:
+                - columnheader "Раунды" [ref=f14e471] [cursor=pointer]
+                - columnheader "Множитель" [ref=f14e472] [cursor=pointer]
+                - columnheader "От обычного" [ref=f14e473] [cursor=pointer]
+            - rowgroup [ref=f14e474]:
+              - row [ref=f14e475]:
+                - cell "1–5" [ref=f14e476]
+                - cell "1.1" [ref=f14e477]
+                - cell "110%" [ref=f14e478]
+              - row [ref=f14e479]:
+                - cell "6–10" [ref=f14e480]
+                - cell "1" [ref=f14e481]
+                - cell "100%" [ref=f14e482]
+              - row [ref=f14e483]:
+                - cell "11–15" [ref=f14e484]
+                - cell "0.65" [ref=f14e485]
+                - cell "65%" [ref=f14e486]
+              - row [ref=f14e487]:
+                - cell "16–20" [ref=f14e488]
+                - cell "0.55" [ref=f14e489]
+                - cell "55%" [ref=f14e490]
+              - row [ref=f14e491]:
+                - cell "21–25" [ref=f14e492]
+                - cell "0.4" [ref=f14e493]
+                - cell "40%" [ref=f14e494]
+              - row [ref=f14e495]:
+                - cell "26–30" [ref=f14e496]
+                - cell "0.22" [ref=f14e497]
+                - cell "22%" [ref=f14e498]
+              - row [ref=f14e499]:
+                - cell "31–35" [ref=f14e500]
+                - cell "0.14" [ref=f14e501]
+                - cell "14%" [ref=f14e502]
+              - row [ref=f14e503]:
+                - cell "36–40" [ref=f14e504]
+                - cell "0.11" [ref=f14e505]
+                - cell "11%" [ref=f14e506]
+              - row [ref=f14e507]:
+                - cell "41–45" [ref=f14e508]
+                - cell "0.09" [ref=f14e509]
+                - cell "9%" [ref=f14e510]
+              - row [ref=f14e511]:
+                - cell "46–55" [ref=f14e512]
+                - cell "0.07" [ref=f14e513]
+                - cell "7%" [ref=f14e514]
+              - row [ref=f14e515]:
+                - cell "56–60" [ref=f14e516]
+                - cell "0.05" [ref=f14e517]
+                - cell "5%" [ref=f14e518]
+              - row [ref=f14e519]:
+                - cell "61–65" [ref=f14e520]
+                - cell "0.04" [ref=f14e521]
+                - cell "4%" [ref=f14e522]
+              - row [ref=f14e523]:
+                - cell "66–70" [ref=f14e524]
+                - cell "0.03" [ref=f14e525]
+                - cell "3%" [ref=f14e526]
+              - row [ref=f14e527]:
+                - cell "71+" [ref=f14e528]
+                - cell "0.02" [ref=f14e529]
+                - cell "2%" [ref=f14e530]
+        - generic [ref=f14e531]:
+          - heading "FrontierReducedIncomeSet" [level=2] [ref=f14e533]
+          - table [ref=f14e535]:
+            - rowgroup [ref=f14e536]:
+              - row [ref=f14e537]:
+                - columnheader "Раунды" [ref=f14e538] [cursor=pointer]
+                - columnheader "Множитель" [ref=f14e539] [cursor=pointer]
+                - columnheader "От обычного" [ref=f14e540] [cursor=pointer]
+            - rowgroup [ref=f14e541]:
+              - row [ref=f14e542]:
+                - cell "1–5" [ref=f14e543]
+                - cell "0.001" [ref=f14e544]
+                - cell "0.1%" [ref=f14e545]
+              - row [ref=f14e546]:
+                - cell "6–10" [ref=f14e547]
+                - cell "0.00075" [ref=f14e548]
+                - cell "0.075%" [ref=f14e549]
+              - row [ref=f14e550]:
+                - cell "11–15" [ref=f14e551]
+                - cell "0.0005" [ref=f14e552]
+                - cell "0.05%" [ref=f14e553]
+              - row [ref=f14e554]:
+                - cell "16–20" [ref=f14e555]
+                - cell "0.0004" [ref=f14e556]
+                - cell "0.04%" [ref=f14e557]
+              - row [ref=f14e558]:
+                - cell "21–25" [ref=f14e559]
+                - cell "0.0003" [ref=f14e560]
+                - cell "0.03%" [ref=f14e561]
+              - row [ref=f14e562]:
+                - cell "26–30" [ref=f14e563]
+                - cell "0.0002" [ref=f14e564]
+                - cell "0.02%" [ref=f14e565]
+              - row [ref=f14e566]:
+                - cell "31–35" [ref=f14e567]
+                - cell "0.0001" [ref=f14e568]
+                - cell "0.01%" [ref=f14e569]
+              - row [ref=f14e570]:
+                - cell "36–40" [ref=f14e571]
+                - cell "9e-05" [ref=f14e572]
+                - cell "0.009%" [ref=f14e573]
+              - row [ref=f14e574]:
+                - cell "41–45" [ref=f14e575]
+                - cell "8e-05" [ref=f14e576]
+                - cell "0.008%" [ref=f14e577]
+              - row [ref=f14e578]:
+                - cell "46–55" [ref=f14e579]
+                - cell "7e-05" [ref=f14e580]
+                - cell "0.007%" [ref=f14e581]
+              - row [ref=f14e582]:
+                - cell "56–60" [ref=f14e583]
+                - cell "5e-05" [ref=f14e584]
+                - cell "0.005%" [ref=f14e585]
+              - row [ref=f14e586]:
+                - cell "61–65" [ref=f14e587]
+                - cell "4e-05" [ref=f14e588]
+                - cell "0.004%" [ref=f14e589]
+              - row [ref=f14e590]:
+                - cell "66–70" [ref=f14e591]
+                - cell "3e-05" [ref=f14e592]
+                - cell "0.003%" [ref=f14e593]
+              - row [ref=f14e594]:
+                - cell "71+" [ref=f14e595]
+                - cell "2e-05" [ref=f14e596]
+                - cell "0.002%" [ref=f14e597]
+        - generic [ref=f14e598]:
+          - heading "MOABMadnessIncomeSet" [level=2] [ref=f14e600]
+          - table [ref=f14e602]:
+            - rowgroup [ref=f14e603]:
+              - row [ref=f14e604]:
+                - columnheader "Раунды" [ref=f14e605] [cursor=pointer]
+                - columnheader "Множитель" [ref=f14e606] [cursor=pointer]
+                - columnheader "От обычного" [ref=f14e607] [cursor=pointer]
+            - rowgroup [ref=f14e608]:
+              - row [ref=f14e609]:
+                - cell "1–1" [ref=f14e610]
+                - cell "0.5" [ref=f14e611]
+                - cell "50%" [ref=f14e612]
+              - row [ref=f14e613]:
+                - cell "2–2" [ref=f14e614]
+                - cell "0.4" [ref=f14e615]
+                - cell "40%" [ref=f14e616]
+              - row [ref=f14e617]:
+                - cell "3–3" [ref=f14e618]
+                - cell "0.3" [ref=f14e619]
+                - cell "30%" [ref=f14e620]
+              - row [ref=f14e621]:
+                - cell "4–4" [ref=f14e622]
+                - cell "0.2" [ref=f14e623]
+                - cell "20%" [ref=f14e624]
+              - row [ref=f14e625]:
+                - cell "5–5" [ref=f14e626]
+                - cell "0.1" [ref=f14e627]
+                - cell "10%" [ref=f14e628]
+              - row [ref=f14e629]:
+                - cell "6+" [ref=f14e630]
+                - cell "0.02" [ref=f14e631]
+                - cell "2%" [ref=f14e632]
+        - generic [ref=f14e633]:
+          - heading "RogueIncomeSet" [level=2] [ref=f14e635]
+          - table [ref=f14e637]:
+            - rowgroup [ref=f14e638]:
+              - row [ref=f14e639]:
+                - columnheader "Раунды" [ref=f14e640] [cursor=pointer]
+                - columnheader "Множитель" [ref=f14e641] [cursor=pointer]
+                - columnheader "От обычного" [ref=f14e642] [cursor=pointer]
+            - rowgroup [ref=f14e643]:
+              - row [ref=f14e644]:
+                - cell "1–5" [ref=f14e645]
+                - cell "1.1" [ref=f14e646]
+                - cell "110%" [ref=f14e647]
+              - row [ref=f14e648]:
+                - cell "6–10" [ref=f14e649]
+                - cell "0.7" [ref=f14e650]
+                - cell "70%" [ref=f14e651]
+              - row [ref=f14e652]:
+                - cell "11–15" [ref=f14e653]
+                - cell "0.45" [ref=f14e654]
+                - cell "45%" [ref=f14e655]
+              - row [ref=f14e656]:
+                - cell "16–20" [ref=f14e657]
+                - cell "0.39" [ref=f14e658]
+                - cell "39%" [ref=f14e659]
+              - row [ref=f14e660]:
+                - cell "21–25" [ref=f14e661]
+                - cell "0.28" [ref=f14e662]
+                - cell "28%" [ref=f14e663]
+              - row [ref=f14e664]:
+                - cell "26–30" [ref=f14e665]
+                - cell "0.16" [ref=f14e666]
+                - cell "16%" [ref=f14e667]
+              - row [ref=f14e668]:
+                - cell "31–35" [ref=f14e669]
+                - cell "0.1" [ref=f14e670]
+                - cell "10%" [ref=f14e671]
+              - row [ref=f14e672]:
+                - cell "36–45" [ref=f14e673]
+                - cell "0.09" [ref=f14e674]
+                - cell "9%" [ref=f14e675]
+              - row [ref=f14e676]:
+                - cell "46–55" [ref=f14e677]
+                - cell "0.07" [ref=f14e678]
+                - cell "7%" [ref=f14e679]
+              - row [ref=f14e680]:
+                - cell "56–60" [ref=f14e681]
+                - cell "0.05" [ref=f14e682]
+                - cell "5%" [ref=f14e683]
+              - row [ref=f14e684]:
+                - cell "61–65" [ref=f14e685]
+                - cell "0.04" [ref=f14e686]
+                - cell "4%" [ref=f14e687]
+              - row [ref=f14e688]:
+                - cell "66–70" [ref=f14e689]
+                - cell "0.03" [ref=f14e690]
+                - cell "3%" [ref=f14e691]
+              - row [ref=f14e692]:
+                - cell "71+" [ref=f14e693]
+                - cell "0.02" [ref=f14e694]
+                - cell "2%" [ref=f14e695]
+      - generic [ref=f14e696]:
+        - text: Неофициальная фанатская вики, без монетизации. Данные, названия, тексты и изображения принадлежат
+        - link "Ninja Kiwi" [ref=f14e697] [cursor=pointer]:
+          - /url: https://ninjakiwi.com
+        - text: . Данные выгружены через
+        - link "BTD6 Mod Helper" [ref=f14e698] [cursor=pointer]:
+          - /url: https://github.com/gurrenm3/BTD-Mod-Helper
+        - text: ", иконки из спрайтов игры."
+        - link "Исходный код" [ref=f14e699] [cursor=pointer]:
+          - /url: https://github.com/Antonzlo/btd6-tech-wiki
+        - text: . Сделано с ♥
+        - link "Antonzlo" [ref=f14e700] [cursor=pointer]:
+          - /url: https://github.com/Antonzlo
+        - text: .
