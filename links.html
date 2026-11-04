@@ -65,6 +65,17 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .side .toc a{color:var(--soft);padding-block:3px}
 main{min-width:0}
 
+/* Sticky knowledge category nav */
+.knav{display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:var(--top-h,66px);z-index:4;
+  background:var(--sky);padding:8px 0;margin:-4px 0 8px}
+.knav a{font:600 14px var(--body);padding:6px 14px;border:2px solid var(--edge);border-radius:10px;
+  background:var(--panel);color:var(--ink);box-shadow:0 3px 0 var(--edge);white-space:nowrap}
+.knav a:hover{background:var(--gold);color:var(--gold-ink);text-decoration:none}
+.knav a.on{background:var(--gold);color:var(--gold-ink)}
+.page-knowledge :is(.card,h2){scroll-margin-top:calc(var(--top-h,66px) + 56px)}
+@media (max-width:860px){.knav{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .knav::-webkit-scrollbar{display:none}}
+
 /* The one loud thing: outlined cartoon titles */
 h1{font-family:var(--display);font-weight:800;font-size:44px;line-height:1.05;margin:0 0 10px;text-wrap:balance;
   color:var(--gold);-webkit-text-stroke:7px var(--edge);paint-order:stroke fill;letter-spacing:.01em}
@@ -158,6 +169,7 @@ svg text{fill:var(--soft);font:11px var(--body)}
   box-shadow:0 3px 0 var(--edge);padding:5px 10px;font-size:13px;white-space:nowrap;z-index:2}
 .ktip{max-width:300px;white-space:normal}
 .ktip b{display:block}.ktip p{margin:3px 0 4px;line-height:1.4}.ktip small{color:var(--soft)}
+.ktip .kchain{display:block;margin-top:3px;color:var(--gold-ink);font-weight:600}
 
 /* Wide screens: card content side by side */
 .split{display:grid;grid-template-columns:minmax(0,1fr);gap:8px 40px}
@@ -226,11 +238,38 @@ body:has(.diff) :is(.card,h2.group,.prop-row){scroll-margin-top:calc(var(--top-h
 :root{--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--s1:#3987e5;--s2:#d95926;--s3:#199e70}}
 :root[data-theme="dark"]{--s1:#3987e5;--s2:#d95926;--s3:#199e70}
+.pchart{max-width:100%;height:auto;display:block}
 .pchart .pline{fill:none;stroke:var(--s1);stroke-width:2.5;stroke-linejoin:round}
+.pchart .pline.pline2{stroke:var(--s2)}
+.pchart .yt1{fill:var(--s1);font-weight:600}
+.pchart .yt2{fill:var(--s2);font-weight:600}
 .pchart .paxis{stroke:var(--soft);stroke-width:1}
 .pchart .pgrid{stroke:var(--rule);stroke-width:1}
 .pchart .phit{fill:transparent}
 .pchart .phit:hover{fill:var(--rule);opacity:.5}
+.chart-legend{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;margin:4px 0 6px}
+.chart-legend .leg-s1{color:var(--s1);font-weight:600}
+.chart-legend .leg-s2{color:var(--s2);font-weight:600}
+
+/* Paragon degree calculator */
+.pcalc{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,0.75fr);gap:24px;align-items:start;margin:10px 0}
+@media (max-width:760px){.pcalc{grid-template-columns:1fr}}
+.pcalc-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+@media (max-width:520px){.pcalc-fields{grid-template-columns:1fr}}
+.pcalc-field{display:flex;flex-direction:column;gap:4px}
+.pcalc-field label{font-size:13px;font-weight:600;color:var(--soft)}
+.pcalc-field select,.pcalc-field input{font:inherit;padding:6px 10px;border:2px solid var(--edge);border-radius:8px;background:var(--panel);color:var(--ink)}
+.pcalc-result{background:var(--sky);border:2px solid var(--edge);border-radius:14px;padding:16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;box-shadow:0 3px 0 var(--edge)}
+.pcalc-badge{display:flex;flex-direction:column;align-items:center}
+.pcalc-deg{font:800 48px var(--display);color:var(--gold-ink);background:var(--gold);width:90px;height:90px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:3px solid var(--edge);box-shadow:0 3px 0 var(--edge)}
+.pcalc-deg-lbl{font:700 16px var(--body);color:var(--ink);margin-top:6px}
+.pcalc-power{font:700 15px var(--body);color:var(--ink)}
+.pcalc-next{font-size:13px;color:var(--soft)}
+.pcalc-bar-wrap{width:100%;height:12px;background:var(--panel);border:2px solid var(--edge);border-radius:6px;overflow:hidden}
+.pcalc-bar{height:100%;background:var(--gold);transition:width .15s ease}
+.pcalc-breakdown{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:6px 8px;font-size:12px;text-align:left;margin-top:6px}
+.pcalc-breakdown span{color:var(--soft)}
+.pcalc-breakdown b{color:var(--ink);float:right}
 .donut-row{display:flex;flex-wrap:wrap;gap:24px;align-items:center}
 .donut .seg{fill:none;stroke-linecap:butt}
 .donut .s1{stroke:var(--s1)}.donut .s2{stroke:var(--s2)}.donut .s3{stroke:var(--s3)}
@@ -271,6 +310,11 @@ a.badge[href^="powers.html"] b,a.chip:not(.new)[href^="powers.html"]{background:
 a.badge:hover b{filter:brightness(1.08)}
 .mod-name{display:inline-flex;align-items:center;gap:8px}
 .mod-ic{width:22px;height:22px;flex:none;display:inline-block}
+.mod-params{max-height:60px;overflow:hidden}
+.mod-params.overflowing{cursor:pointer;position:relative}
+.mod-params.overflowing:not(.open)::after{content:'';position:absolute;bottom:0;left:0;right:0;height:18px;background:linear-gradient(transparent,var(--panel));pointer-events:none}
+tbody tr:hover .mod-params.overflowing:not(.open)::after{background:linear-gradient(transparent,var(--sky))}
+.mod-params.open{max-height:none}
 .badge b{display:inline-flex;align-items:center;gap:5px}
 .badge b .ic{width:18px;height:18px}
 .stat b{display:flex;align-items:center;gap:6px}
@@ -310,4 +354,4 @@ a.badge:hover b{filter:brightness(1.08)}
 @media (max-width:700px){.prop-row{grid-template-columns:minmax(0,1fr)}}
 .prop-row>.badge{align-self:start;justify-self:start}
 .fold>summary{font-size:15px;margin:4px 0}
-</style></head><body><header class='top'><a class='brand' href='index.html'>BTD6 Tech Wiki<span title='57.4 (Mod Helper export, 2026-11-04)'>57.4</span></a><div class='search'><input id='q' type='search' placeholder='Search: boss, mode, knowledge, power…  ( / )' autocomplete='off' aria-label='Search the wiki'><div class='results' id='qr' hidden></div></div><a class='lang' href='ru/links.html' aria-label='Language'>RU</a></header><div class='layout'><aside class='side'><h4>Sections</h4><nav><a href='index.html'>Home</a><a href='towers.html'>Towers</a><a href='heroes.html'>Heroes</a><a href='paragon.html'>Paragon</a><a href='buffs.html'>Buffs</a><a href='bloons.html'>Bloons</a><a href='rounds.html'>Rounds</a><a href='bosses.html'>Bosses</a><a href='modes.html'>Modes</a><a href='income.html'>Income</a><a href='knowledge.html'>Monkey Knowledge</a><a href='powers.html'>Powers</a><a href='links.html' class=on>Links</a></nav></aside><main class='page-links'><h1>Links</h1><p class='lead'></p><div class='wrap'><table><thead><tr><th>Site</th><th>What it is</th></tr></thead><tbody><tr><td><a href='https://www.bloonswiki.com' rel='noopener'><b>Blooncyclopedia</b></a></td><td>The big wiki for every Bloons game: texts, change history, strategies.</td></tr><tr><td><a href='https://www.reddit.com/r/btd6/' rel='noopener'><b>r/btd6</b></a></td><td>The game community on Reddit.</td></tr><tr><td><a href='https://ninjakiwi.com' rel='noopener'><b>Ninja Kiwi</b></a></td><td>The game developers: news and patch notes.</td></tr><tr><td><a href='https://btd6portal.com/calculators/paragondegree' rel='noopener'><b>BTD6 Portal</b></a></td><td>Calculators: paragon degree and many more.</td></tr><tr><td><a href='https://kaister300.github.io/BTD6ParagonCalculator/' rel='noopener'><b>BTD6 Paragon Calculator</b></a></td><td>Paragon degree calculator.</td></tr><tr><td><a href='https://svrng.github.io/BTD6-Hero-XP-Calculator/' rel='noopener'><b>BTD6 Hero XP Calculator</b></a></td><td>Hero XP calculator.</td></tr><tr><td><a href='https://github.com/gurrenm3/BTD-Mod-Helper' rel='noopener'><b>BTD6 Mod Helper</b></a></td><td>The modding library this site exports its data with.</td></tr><tr><td><a href='https://github.com/Antonzlo/btd6-tech-wiki' rel='noopener'><b>BTD6 Tech Wiki</b></a></td><td>Source code of this site.</td></tr></tbody></table></div><footer class='foot'>Unofficial fan wiki, not monetized. Game data, names, text and images belong to <a href='https://ninjakiwi.com' rel='noopener'>Ninja Kiwi</a>. Data exported with <a href='https://github.com/gurrenm3/BTD-Mod-Helper' rel='noopener'>BTD6 Mod Helper</a>, icons from the game sprites. <a href='https://github.com/Antonzlo/btd6-tech-wiki' rel='noopener'>Source code</a>. Made with ♥ by <a href='https://github.com/Antonzlo' rel='noopener'>Antonzlo</a>.</footer></main></div><script src='search.js?v=b3e96a63'></script></body></html>
+</style></head><body><header class='top'><a class='brand' href='index.html'>BTD6 Tech Wiki<span title='57.4 (Mod Helper export, 2026-11-04)'>57.4</span></a><div class='search'><input id='q' type='search' placeholder='Search: boss, mode, knowledge, power…  ( / )' autocomplete='off' aria-label='Search the wiki'><div class='results' id='qr' hidden></div></div><a class='lang' href='ru/links.html' aria-label='Language'>RU</a></header><div class='layout'><aside class='side'><h4>Sections</h4><nav><a href='index.html'>Home</a><a href='towers.html'>Towers</a><a href='heroes.html'>Heroes</a><a href='paragon.html'>Paragon</a><a href='buffs.html'>Buffs</a><a href='bloons.html'>Bloons</a><a href='rounds.html'>Rounds</a><a href='bosses.html'>Bosses</a><a href='modes.html'>Modes</a><a href='income.html'>Income</a><a href='knowledge.html'>Monkey Knowledge</a><a href='powers.html'>Powers</a><a href='links.html' class=on>Links</a></nav><div class='toc'><h4>On this page</h4><a href='#tools'>Calculators and tools</a><a href='#wikis'>Wikis and databases</a><a href='#mods'>Modding and development</a><a href='#community'>Community and developers</a></div></aside><main class='page-links'><h1>Links</h1><p class='lead'></p><section class='card' id='tools'><div class='card-head'><h2>Calculators and tools</h2></div><div class='wrap'><table><thead><tr><th>Site</th><th>What it is</th></tr></thead><tbody><tr><td><a href='https://btd6data.com' rel='noopener'><b>BTD6 Open Data</b></a></td><td>API tools and leaderboards: bosses, races, farm timings, and OAK profiles.</td></tr><tr><td><a href='https://btd6portal.com' rel='noopener'><b>BTD6 Portal</b></a></td><td>Paragon degree calculators, farm calculator, and community challenges.</td></tr><tr><td><a href='https://kaister300.github.io/BTD6ParagonCalculator/' rel='noopener'><b>BTD6 Paragon Calculator</b></a></td><td>Paragon degree calculator.</td></tr><tr><td><a href='https://svrng.github.io/BTD6-Hero-XP-Calculator/' rel='noopener'><b>BTD6 Hero XP Calculator</b></a></td><td>Hero XP calculator.</td></tr></tbody></table></div></section><section class='card' id='wikis'><div class='card-head'><h2>Wikis and databases</h2></div><div class='wrap'><table><thead><tr><th>Site</th><th>What it is</th></tr></thead><tbody><tr><td><a href='https://www.bloonswiki.com' rel='noopener'><b>Blooncyclopedia</b></a></td><td>The big wiki for every Bloons game: texts, change history, strategies.</td></tr><tr><td><a href='https://bloons.fandom.com/wiki/Bloons_Wiki' rel='noopener'><b>Bloons Wiki (Fandom)</b></a></td><td>The classic community wiki: detailed articles on mechanics, towers, updates, and lore.</td></tr><tr><td><a href='https://btd6index.win' rel='noopener'><b>The BTD6 Index</b></a></td><td>Competitive community records database: 2TC (2 Towers CHIMPS), 2MPC (2 Million Pops), Least Cash.</td></tr><tr><td><a href='https://btd6maplist.sarto.dev/' rel='noopener'><b>BTD6 Maplist</b></a></td><td>Demon-list style ranking of the hardest community custom maps beaten on CHIMPS.</td></tr></tbody></table></div></section><section class='card' id='mods'><div class='card-head'><h2>Modding and development</h2></div><div class='wrap'><table><thead><tr><th>Site</th><th>What it is</th></tr></thead><tbody><tr><td><a href='https://github.com/gurrenm3/BTD-Mod-Helper' rel='noopener'><b>BTD6 Mod Helper</b></a></td><td>The modding library this site exports its data with.</td></tr><tr><td><a href='https://github.com/TDToolbox/BTD6-Mod-Manager' rel='noopener'><b>BTD6 Mod Manager</b></a></td><td>Convenient BTD6 mod manager: install and manage mods and MelonLoader in one click.</td></tr><tr><td><a href='https://btd6apiexplorer.github.io/' rel='noopener'><b>BTD6 API Explorer</b></a></td><td>Web interface for viewing official Ninja Kiwi Open Data API data.</td></tr><tr><td><a href='https://github.com/Antonzlo/btd6-tech-wiki' rel='noopener'><b>BTD6 Tech Wiki</b></a></td><td>Source code of this site.</td></tr></tbody></table></div></section><section class='card' id='community'><div class='card-head'><h2>Community and developers</h2></div><div class='wrap'><table><thead><tr><th>Site</th><th>What it is</th></tr></thead><tbody><tr><td><a href='https://ninjakiwi.com' rel='noopener'><b>Ninja Kiwi</b></a></td><td>The game developers: news and patch notes.</td></tr><tr><td><a href='https://discord.gg/ninjakiwi' rel='noopener'><b>Ninja Kiwi Discord</b></a></td><td>Official developer Discord server: announcements, chat, and co-op matchmaking.</td></tr><tr><td><a href='https://www.reddit.com/r/btd6/' rel='noopener'><b>r/btd6</b></a></td><td>The game community on Reddit.</td></tr><tr><td><a href='https://github.com/hemisemidemipresent/cyberquincy' rel='noopener'><b>Cyber Quincy</b></a></td><td>Community Discord bot for looking up exact tower popology stats, hero XP curves, and round cash.</td></tr></tbody></table></div></section><footer class='foot'>Unofficial fan wiki, not monetized. Game data, names, text and images belong to <a href='https://ninjakiwi.com' rel='noopener'>Ninja Kiwi</a>. Data exported with <a href='https://github.com/gurrenm3/BTD-Mod-Helper' rel='noopener'>BTD6 Mod Helper</a>, icons from the game sprites. <a href='https://github.com/Antonzlo/btd6-tech-wiki' rel='noopener'>Source code</a>. Made with ♥ by <a href='https://github.com/Antonzlo' rel='noopener'>Antonzlo</a>.</footer></main></div><script src='search.js?v=befb47e4'></script></body></html>
