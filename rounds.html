@@ -12,6 +12,7 @@
   --blue:#1f6fd6;     /* links */
   --red:#d93a36;      /* elite / not stackable */
   --red-soft:#fde3e1;
+  --hero:#6b35b8;--hero-soft:#ede2fb;--buff:#1a5fb8;--buff-soft:#dde9fb;--power:#0b7a5c;--power-soft:#d8f1e8; /* link badge kinds */
   --green:#3f9b3a;    /* normal tier / stackable */
   --green-soft:#e1f3dc;
   --hp:#5cc24f;
@@ -22,10 +23,12 @@
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --sky:#0e1726;--panel:#16233a;--ink:#e6eefb;--soft:#9fb0cb;--rule:#26354f;--gold:#f5b821;--gold-ink:#2a1e00;
-  --blue:#7db3ff;--red:#ff7a72;--red-soft:#3a1d22;--green:#7fd36f;--green-soft:#17301b;--hp:#55b948;--edge:#050a14;color-scheme:dark}}
+  --blue:#7db3ff;--red:#ff7a72;--red-soft:#3a1d22;--green:#7fd36f;--green-soft:#17301b;--hp:#55b948;--edge:#050a14;
+  --hero:#cfa8ff;--hero-soft:#2c2142;--buff:#8fbcff;--buff-soft:#172a4a;--power:#6fdcb9;--power-soft:#123029;color-scheme:dark}}
 :root[data-theme="dark"]{
   --sky:#0e1726;--panel:#16233a;--ink:#e6eefb;--soft:#9fb0cb;--rule:#26354f;--gold:#f5b821;--gold-ink:#2a1e00;
-  --blue:#7db3ff;--red:#ff7a72;--red-soft:#3a1d22;--green:#7fd36f;--green-soft:#17301b;--hp:#55b948;--edge:#050a14;color-scheme:dark}
+  --blue:#7db3ff;--red:#ff7a72;--red-soft:#3a1d22;--green:#7fd36f;--green-soft:#17301b;--hp:#55b948;--edge:#050a14;
+  --hero:#cfa8ff;--hero-soft:#2c2142;--buff:#8fbcff;--buff-soft:#172a4a;--power:#6fdcb9;--power-soft:#123029;color-scheme:dark}
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -249,6 +252,11 @@ td.chg{background:color-mix(in srgb,var(--gold) 28%,transparent);color:var(--ink
 .badge b{background:var(--sky);color:var(--ink);padding:0 8px;font-weight:600}
 a.badge b{background:var(--gold);color:var(--gold-ink)}
 a.badge:hover{text-decoration:none}
+/* link badges and chips coloured by what they open: towers gold (default), heroes, bloons, buffs, powers */
+a.badge[href^="heroes.html"] b,a.chip:not(.new)[href^="heroes.html"]{background:var(--hero-soft);color:var(--hero)}
+a.badge[href^="bloons.html"] b,a.chip:not(.new)[href^="bloons.html"]{background:var(--red-soft);color:var(--red)}
+a.badge[href^="buffs.html"] b,a.chip:not(.new)[href^="buffs.html"]{background:var(--buff-soft);color:var(--buff)}
+a.badge[href^="powers.html"] b,a.chip:not(.new)[href^="powers.html"]{background:var(--power-soft);color:var(--power)}
 a.badge:hover b{filter:brightness(1.08)}
 .mod-name{display:inline-flex;align-items:center;gap:8px}
 .mod-ic{width:22px;height:22px;flex:none;display:inline-block}
