@@ -343,7 +343,8 @@ def fmt(value):
     if isinstance(value, float):
         if value.is_integer():
             return f"{int(value):,}".replace(",", " ")
-        return f"{value:,.6g}".replace(",", " ")
+        s = f"{value:,.6g}"
+        return (f"{value:.8f}".rstrip("0") if "e" in s else s).replace(",", " ")  # no 9e-05 in tables
     if isinstance(value, int):
         return f"{value:,}".replace(",", " ")
     return esc(value)
@@ -841,12 +842,26 @@ MODE_BASE = {"Impoppable": "Hard", "Clicks": "Hard", "HalfCash": "Hard", "Double
              "Reverse": "Medium", "PrimaryOnly": "Easy", "Deflation": "Easy"}
 
 
+INCOME_NAMES = {"DefaultIncomeSet": "Обычный доход", "AcceleratedIncomeSet": "Ускоренный доход",
+                "EnduranceIncomeSet": "Доход в режиме выносливости", "FrontierIncomeSet": "Доход Frontier",
+                "FrontierReducedIncomeSet": "Сниженный доход Frontier", "MOABMadnessIncomeSet": "Доход MOAB Madness",
+                "RogueIncomeSet": "Доход Rogue Legends"}
+
+
+def mode_name(stem):
+    m = re.fullmatch(r"Coop(Standard|Deflation)Cash(\d)", stem)  # no game text for the coop cash variants
+    if m:
+        base = t("Mode Deflation", fallback="Deflation") if m[1] == "Deflation" else "Стандарт"
+        return f"{base}, кооператив на {m[2]}"
+    return t(f"Mode {stem}", stem, fallback=stem)
+
+
 def mode_total(stem, files):
     """Effective values of a mode: its base difficulty's modifiers, then its own, with where each value comes from.
     Stacking (inferred, matches in-game prices and lives): multipliers multiply, changeBase/round/set replace,
     addition adds; a multiplier of 0 next to an addition or changeBase means "not used"."""
     chain = [s for s in (MODE_BASE.get(stem), stem) if s and s in files]
-    name = lambda s: t(f"Mode {s}", s, fallback=s)
+    name = mode_name
     v, src = {}, collections.defaultdict(list)
     for s in chain:
         who = name(s)
@@ -854,22 +869,22 @@ def mode_total(stem, files):
             ty = short_type(m)
             if ty == "StartingCashModModel":
                 if m.get("changeBase"):
-                    v["cash"], src["cash"] = m["changeBase"], [f"{who} ={fmt(m['changeBase'])}"]
+                    v["cash"], src["cash"] = m["changeBase"], [f"{who}: {fmt(m['changeBase'])}"]
                 if m.get("multiplier"):
                     v["cash"] = v.get("cash", 0) * m["multiplier"]; src["cash"].append(f"{who} ×{m['multiplier']:g}")
                 if m.get("addition"):
                     v["cash"] = v.get("cash", 0) + m["addition"]; src["cash"].append(f"{who} +{fmt(m['addition'])}")
             elif ty == "StartingHealthModModel":
                 v["lives"] = v.get("lives", 0) * m.get("multiplier", 0) + m.get("addition", 0)
-                src["lives"] = [f"{who} ={fmt(v['lives'])}"]
+                src["lives"] = [f"{who}: {fmt(v['lives'])}"]
             elif ty == "MaxHealthModModel" and m.get("set"):
-                v["maxlives"], src["maxlives"] = m["set"], [f"{who} ={fmt(m['set'])}"]
+                v["maxlives"], src["maxlives"] = m["set"], [f"{who}: {fmt(m['set'])}"]
             elif ty in ("GlobalCostModModel", "GlobalSpeedModModel", "ModifyAllCashModModel"):
                 k = {"GlobalCostModModel": "cost", "GlobalSpeedModModel": "speed", "ModifyAllCashModModel": "allcash"}[ty]
                 v[k] = v.get(k, 1) * m.get("multiplier", 1); src[k].append(f"{who} ×{m.get('multiplier', 1):g}")
             elif ty == "SellMultiplierModModel":
                 v["sell"] = v.get("sell", 0) * m.get("multiplier", 0) + m.get("addition", 0)
-                src["sell"] = [f"{who} ={v['sell'] * 100:g}%"]
+                src["sell"] = [f"{who}: {v['sell'] * 100:g}%"]
             elif ty == "BonusCashPerRoundModModel":
                 v["bonus"] = (m.get("baseCash", 0), m.get("roundMultiple", 0)); src["bonus"] = [who]
             elif ty in ("StartingRoundModModel", "EndRoundModModel"):
@@ -877,14 +892,14 @@ def mode_total(stem, files):
                 v[k], src[k] = m.get("round"), [f"{who}: {'начало с раунда' if k == 'start' else 'конец на раунде'} {m.get('round')}"]
             elif ty == "MonkeyMoneyModModel":
                 if m.get("changeBase"):
-                    v["mm"], src["mm"] = m["changeBase"], [f"{who} ={fmt(m['changeBase'])}"]
+                    v["mm"], src["mm"] = m["changeBase"], [f"{who}: {fmt(m['changeBase'])}"]
                 if m.get("multiplier", 1) != 1:
                     v["mm"] = v.get("mm", 0) * m["multiplier"]; src["mm"].append(f"{who} ×{m['multiplier']:g}")
             elif ty == "RoundSetModModel":
                 v["rounds"], src["rounds"] = m.get("roundsetName"), [who]
     if "maxlives" in v and v.get("lives", 0) > v["maxlives"]:
         v["lives"] = v["maxlives"]
-        src["lives"].append(src["maxlives"][0].replace("=", "максимум "))
+        src["lives"].append(src["maxlives"][0].replace(": ", ": максимум "))
     cm = v.get("allcash", 1)
     one = "×1" if chain[0] in ("Easy", "Medium", "Hard") else None  # coop, sandbox, tutorial: no difficulty under them
     rows = [
@@ -896,7 +911,7 @@ def mode_total(stem, files):
         ("Бонус за раунд", (f"${fmt(v['bonus'][0] * cm)} + {v['bonus'][1] * cm:g} × раунд" if "bonus" in v else None), "bonus"),
         ("Продажа", f"{v['sell'] * 100:g}%" if "sell" in v else None, "sell"),
         ("Раунды", f"{v.get('start', 1)}–{v['end']}" if "end" in v else None, "end"),
-        ("Набор раундов", v.get("rounds"), "rounds"),
+        ("Набор раундов", f"<a href='rounds.html#{esc(v['rounds'])}'>{esc(v['rounds'])}</a>" if v.get("rounds") else None, "rounds"),
         ("Monkey Money за победу", fmt(round(v["mm"])) if "mm" in v else None, "mm"),
     ]
     out = []
@@ -936,7 +951,7 @@ def build_modes():
             if stem not in files:
                 continue
             mods = load(files[stem]).get("mutatorMods") or []
-            name = t(f"Mode {stem}", stem, fallback=stem)
+            name = mode_name(stem)
             key = {"PrimaryOnly": "Primary", "MilitaryOnly": "Military", "MagicOnly": "Magic"}.get(stem) or (
                 "mode-Deflation" if stem.startswith("CoopDeflation") else "mode-Medium" if stem.startswith("CoopStandard")
                 else f"mode-{stem}")
@@ -993,8 +1008,9 @@ def build_income():
                     ("всего 1–100", f"${fmt(round(sum(cash[:100])))}"),
                     ("всего 1–140", f"${fmt(round(sum(cash)))}")])
         inner = st + chart + table(["Раунды", "Множитель", "От обычного"], rows)
-        body.append(card(f.stem, f.stem, inner, section="Доход"))
-        toc.append((f.stem, f.stem))
+        title = INCOME_NAMES.get(f.stem, f.stem)
+        body.append(card(f.stem, title, inner, en_id=f.stem, tagline=f.stem, section="Доход"))
+        toc.append((f.stem, title))
 
     page("income.html", "Доход по раундам",
          "Деньги за лопание умножаются на коэффициент раунда. Для каждого набора показан график 1–140 "

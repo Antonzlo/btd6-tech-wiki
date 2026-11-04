@@ -415,5 +415,14 @@
 "начало с раунда ": "starts at round ",
 "конец на раунде ": "ends at round ",
 " × раунд": " × round",
-"Ничего не найдено": "Nothing found"
+"Ничего не найдено": "Nothing found",
+"Обычный доход": "Default income",
+"Ускоренный доход": "Accelerated income",
+"Доход в режиме выносливости": "Endurance income",
+"Сниженный доход Frontier": "Frontier reduced income",
+"Доход Frontier": "Frontier income",
+"Доход MOAB Madness": "MOAB Madness income",
+"Доход Rogue Legends": "Rogue Legends income",
+"Стандарт, кооператив на ": "Standard, co-op for ",
+", кооператив на ": ", co-op for "
 }
