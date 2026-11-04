@@ -40,6 +40,7 @@ PAGES = [
     ("income.html", "Доход", "Множители дохода по раундам"),
     ("knowledge.html", "Monkey Knowledge", "Цены и эффекты"),
     ("powers.html", "Силы", "Параметры сил"),
+    ("links.html", "Ссылки", "Вики, моды, сообщество"),
 ]
 
 CSS = (ROOT / "style.css").read_text(encoding="utf-8")
@@ -60,7 +61,12 @@ document.addEventListener('click',function(e){if(!e.target.closest('.search')){h
 document.addEventListener('keydown',function(e){if(e.key==='/'&&document.activeElement!==box&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){box.focus();e.preventDefault()}});
 document.querySelectorAll('[data-filter]').forEach(function(f){var rows=document.querySelectorAll(f.dataset.filter);
 f.addEventListener('input',function(){var q=norm(f.value);rows.forEach(function(r){r.dataset.th=q&&norm(r.textContent).indexOf(q)<0?'1':'';r.hidden=!!(r.dataset.th||r.dataset.gh)})})});
-document.querySelectorAll('.tagbar').forEach(function(bar){var rows=document.querySelectorAll(bar.dataset.target+' tbody tr');bar.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){bar.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});var tag=b.dataset.tag;rows.forEach(function(r){r.dataset.gh=tag&&(' '+r.dataset.tags+' ').indexOf(' '+tag+' ')<0?'1':'';r.hidden=!!(r.dataset.th||r.dataset.gh)})})})});
+document.querySelectorAll('.tagbar:not(.sortbar)').forEach(function(bar){var rows=document.querySelectorAll(bar.dataset.target+' tbody tr');bar.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){bar.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});var tag=b.dataset.tag;rows.forEach(function(r){r.dataset.gh=tag&&(' '+r.dataset.tags+' ').indexOf(' '+tag+' ')<0?'1':'';r.hidden=!!(r.dataset.th||r.dataset.gh)})})})});
+document.querySelectorAll('.sortbar').forEach(function(bar){var g=document.getElementById(bar.dataset.grid);bar.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){var k=b.dataset.sort;Array.prototype.slice.call(g.children).sort(function(x,y){return x.dataset[k]-y.dataset[k]}).forEach(function(c){g.appendChild(c)});g.classList.toggle('cols3',k==='order');bar.querySelectorAll('button').forEach(function(o){o.classList.toggle('on',o===b)})})})});
+document.querySelectorAll('table').forEach(function(t){var tb=t.tBodies[0];if(!tb||!t.tHead||t.querySelector('[rowspan]'))return;var ths=t.tHead.rows[0].cells;
+Array.prototype.forEach.call(ths,function(th,ci){th.classList.add('sortable');th.addEventListener('click',function(){var dir=th.dataset.dir==='1'?-1:1;Array.prototype.forEach.call(ths,function(x){delete x.dataset.dir});th.dataset.dir=dir===1?'1':'-1';
+var val=function(r){var s=r.cells[ci]?r.cells[ci].textContent.trim():'';var n=parseFloat(s.replace(/[   $]/g,'').replace(',','.'));return isNaN(n)?s:n};
+Array.prototype.slice.call(tb.rows).sort(function(a,b){var x=val(a),y=val(b);return(typeof x==='number'&&typeof y==='number'?x-y:String(x).localeCompare(String(y)))*dir}).forEach(function(r){tb.appendChild(r)})})})});
 document.querySelectorAll('.kgraph').forEach(function(g){var nodes={};g.querySelectorAll('.kn').forEach(function(n){nodes[n.dataset.id]=n});
 function chain(id,acc){if(acc[id]||!nodes[id])return acc;acc[id]=1;(nodes[id].dataset.req||'').split(' ').filter(Boolean).forEach(function(p){chain(p,acc)});return acc}
 function clear(){g.classList.remove('dim');g.querySelectorAll('.lit').forEach(function(e){e.classList.remove('lit')})}
@@ -923,12 +929,38 @@ def build_heroes():
              toc=[("about", "Описание"), ("levels", "Уровни и опыт"), ("numbers", "Числа по уровням")]
              + ([("abilities", "Способности")] if abils else []))
     current_file = "heroes.html"
-    grid = "".join(f"<a class='tile tower-tile' href='hero-{esc(hid)}.html'>{icon('heroes', hid, 72)}"
+    # hero select screen order from game.json (btd6-knowledge-dumper F6); by cost until it is dumped
+    order = {h["id"]: h["index"] for h in GAME.get("heroSet") or []}
+    heroes.sort(key=lambda h: (order.get(h[2], 99), h[:3]))
+    grid = "".join(f"<a class='tile tower-tile' href='hero-{esc(hid)}.html' data-order='{i}' data-cost='{cost}' "
+                   f"data-xp='{sum(xp for _, xp in levels)}'>{icon('heroes', hid, 72)}"
                    f"<span><b>{esc(name)}</b>{price([cost], 'cost tile-price')}</span></a>"
-                   for cost, name, hid, *_ in heroes)
-    page("heroes.html", "Герои",
-         "Герои по цене.",
-         selector + f"<div class='grid'>{grid}</div>")
+                   for i, (cost, name, hid, base, levels, *_) in enumerate(heroes))
+    page("heroes.html", "Герои", "",
+         selector + sort_bar("hero-grid", [("order", "Как в игре"), ("cost", "По цене"), ("xp", "По XP до 20 уровня")])
+         + f"<div class='grid cols3' id='hero-grid'>{grid}</div>")
+
+
+LINKS = [  # (title, url, what it is)
+    ("Blooncyclopedia", "https://www.bloonswiki.com", "Большая вики по всем играм Bloons: тексты, история изменений, стратегии."),
+    ("r/btd6", "https://www.reddit.com/r/btd6/", "Сообщество игры на Reddit."),
+    ("Ninja Kiwi", "https://ninjakiwi.com", "Разработчики игры: новости и патчноуты."),
+    ("BTD6 Mod Helper", "https://github.com/gurrenm3/BTD-Mod-Helper", "Библиотека для модов, через неё выгружены данные этого сайта."),
+    ("BTD6 Tech Wiki", "https://github.com/Antonzlo/btd6-tech-wiki", "Исходный код этого сайта."),
+]
+
+
+def build_links():
+    rows = [(Raw(f"<a href='{u}' rel='noopener'><b>{esc(n)}</b></a>"), d) for n, u, d in LINKS]
+    page("links.html", "Ссылки", "", table(["Сайт", "Что там"], rows))
+
+
+def sort_bar(grid_id, options):
+    """Buttons that reorder the tiles of #grid_id by a numeric data-<key>; the first option is the initial order.
+    The "order" key also lays the grid out in 3 rows filled column by column, like the game's select screens."""
+    return (f"<div class='tagbar sortbar' data-grid='{grid_id}'>"
+            + "".join(f"<button type='button' data-sort='{k}'{' class=on' if i == 0 else ''}>{esc(n)}</button>"
+                      for i, (k, n) in enumerate(options)) + "</div>")
 
 
 def build_index():
@@ -1491,7 +1523,7 @@ def main():
                             ("knowledge.html", build_knowledge), ("powers.html", build_powers),
                             ("towers.html", build_towers), ("heroes.html", build_heroes), ("bloons.html", build_bloons),
                             ("rounds.html", build_rounds),
-                            ("index.html", build_index)):
+                            ("links.html", build_links), ("index.html", build_index)):
             current_file = file
             build()
         (OUT / "search.js").write_text(
