@@ -447,7 +447,8 @@ def build_paragon():
     page("paragon.html", "Парагон",
          "Степень парагона от 1 до 100 зависит от силы. Сила копится от лопаний, потраченных денег "
          "и пожертвованных улучшений, у каждого источника свой потолок.",
-         body, toc=[("curve", "Сила на степень"), ("sources", "Параметры")])
+         "<p>Посчитать степень: <a href='https://btd6portal.com/calculators/paragondegree' rel='noopener'>BTD6 Portal</a>, "
+         "<a href='https://kaister300.github.io/BTD6ParagonCalculator/' rel='noopener'>BTD6 Paragon Calculator</a>.</p>" + body, toc=[("curve", "Сила на степень"), ("sources", "Параметры")])
 
 
 def skulls(boss_model):
@@ -983,6 +984,8 @@ LINKS = [  # (title, url, what it is)
     ("Blooncyclopedia", "https://www.bloonswiki.com", "Большая вики по всем играм Bloons: тексты, история изменений, стратегии."),
     ("r/btd6", "https://www.reddit.com/r/btd6/", "Сообщество игры на Reddit."),
     ("Ninja Kiwi", "https://ninjakiwi.com", "Разработчики игры: новости и патчноуты."),
+    ("BTD6 Portal", "https://btd6portal.com/calculators/paragondegree", "Калькуляторы: степень парагона и много других."),
+    ("BTD6 Paragon Calculator", "https://kaister300.github.io/BTD6ParagonCalculator/", "Калькулятор степени парагона."),
     ("BTD6 Mod Helper", "https://github.com/gurrenm3/BTD-Mod-Helper", "Библиотека для модов, через неё выгружены данные этого сайта."),
     ("BTD6 Tech Wiki", "https://github.com/Antonzlo/btd6-tech-wiki", "Исходный код этого сайта."),
 ]
