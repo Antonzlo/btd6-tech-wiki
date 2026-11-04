@@ -75,10 +75,11 @@ f.addEventListener('input',function(){var q=norm(f.value);rows.forEach(function(
 document.querySelectorAll('.tagbar:not(.sortbar)').forEach(function(bar){var rows=document.querySelectorAll(bar.dataset.target+' tbody tr');bar.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){bar.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});var tag=b.dataset.tag;rows.forEach(function(r){r.dataset.gh=tag&&(' '+r.dataset.tags+' ').indexOf(' '+tag+' ')<0?'1':'';r.hidden=!!(r.dataset.th||r.dataset.gh)})})})});
 function hcalc(c){var reqs=JSON.parse(c.dataset.reqs),cash=JSON.parse(c.dataset.cash),map=+c.querySelector('select').value,
 pin=c.querySelector('.hc-round'),st=Math.max(0,+c.querySelector('.hc-start').value||0),m=curMult(),
-cost=m===1?+c.dataset.cost:Math.round(c.dataset.cost*m/5)*5,have=st,ok=1;
+K=c.querySelector('.hc-mk').checked?JSON.parse(c.dataset.mk):{xp:0,levels:0,discount:0},base=c.dataset.cost*(1-K.discount),
+cost=m===1&&!K.discount?+c.dataset.cost:Math.round(base*m/5)*5,have=st,ok=1;
 while(have<cost&&ok<=cash.length){have+=cash[ok-1];ok++}if(!c._touched)pin.value=Math.min(ok,140);
-var start=Math.max(1,Math.min(140,+pin.value||1)),xp=0,r=start-1,rs=[];
-reqs.forEach(function(q){while(xp<q&&r<500){r++;xp+=Math.round((r<=20?20*r+20:r<=50?40*r-380:90*r-2880)*map)}rs.push(r)});
+var start=Math.max(1,Math.min(140,+pin.value||1)),xp=K.levels?reqs[K.levels-1]:0,r=start-1,rs=[];
+reqs.forEach(function(q){while(xp<q&&r<500){r++;xp+=Math.round((r<=20?20*r+20:r<=50?40*r-380:90*r-2880)*map*(1+K.xp))}rs.push(Math.max(r,start))});
 var W=640,H=230,P=30,L=36,R=12,X=function(v){return (L+(W-L-R)*(v-1)/139).toFixed(1)},Y=function(l){return (H-P-(H-2*P)*(l-1)/19).toFixed(1)},
 s='',pts=[X(start)+','+Y(1)],lv=1;
 [5,10,15,20].forEach(function(l){s+='<line class="pgrid" x1="'+L+'" y1="'+Y(l)+'" x2="'+(W-R)+'" y2="'+Y(l)+'"/>'});
@@ -97,7 +98,7 @@ c.querySelector('.hcalc-cash').textContent=ok>cash.length?'Денег не хв�
 (start<ok?'Денег хватит только к началу раунда ':'Денег хватит к началу раунда ')+ok+' ($'+cost+', старт $'+st+', без других трат).'
 +(start<ok?' Раньше можно на кастомной карте: укажите её стартовые деньги.':'')}
 document.querySelectorAll('.hcalc').forEach(function(c){var go=function(){hcalc(c)};c.querySelector('select').addEventListener('change',go);
-c.querySelector('.hc-start').addEventListener('input',go);
+c.querySelector('.hc-start').addEventListener('input',go);c.querySelector('.hc-mk').addEventListener('change',go);
 c.querySelector('.hc-round').addEventListener('input',function(){c._touched=true;go()});go()});
 document.querySelectorAll('.sortbar').forEach(function(bar){var g=document.getElementById(bar.dataset.grid);bar.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){var k=b.dataset.sort;Array.prototype.slice.call(g.children).sort(function(x,y){return x.dataset[k]-y.dataset[k]}).forEach(function(c){g.appendChild(c)});g.classList.toggle('cols3',k==='order');bar.querySelectorAll('button').forEach(function(o){o.classList.toggle('on',o===b)})})})});
 document.querySelectorAll('table').forEach(function(t){var tb=t.tBodies[0];if(!tb||!t.tHead||t.classList.contains('nosort')||tb.rows.length<3||t.querySelector('[rowspan]'))return;var ths=t.tHead.rows[0].cells;
@@ -1303,13 +1304,22 @@ def hero_calc(totals, cost):
     times the map difficulty, rounded half up each round. hcalc() in search.js does the math."""
     cash = [round(p + b) for p, b in round_cash().values()]
     maps = [("Beginner", 1), ("Intermediate", 1.1), ("Advanced", 1.2), ("Expert", 1.3)]
+    mods = {n: (load(DATA / "Knowledge" / g / f"{n}.json").get("mod") or {}).get("mutatorMods", [{}])[0]
+            for g, n in (("Support", "MonkeyEducation"), ("Heroes", "SelfTaughtHeroes"),
+                         ("Heroes", "EmpoweredHeroes"), ("Heroes", "HeroFavors"))}
+    # ponytail: XP bonuses assumed additive (1 + 0.08 + 0.10); Monkeys Together Strong left out, it needs a second hero
+    mk = {"xp": mods["MonkeyEducation"].get("multiplier", 0) + mods["SelfTaughtHeroes"].get("multiplier", 0),
+          "levels": mods["EmpoweredHeroes"].get("levels", 0), "discount": mods["HeroFavors"].get("multiplier", 0)}
+    names = ", ".join(t(n, fallback=n) for n in mods)
     return (f"<div class='hcalc' data-reqs='{json.dumps(totals)}' data-cost='{cost}' "
-            f"data-cash='{json.dumps(cash)}'><div class='hcalc-in'>"
+            f"data-cash='{json.dumps(cash)}' data-mk='{json.dumps(mk)}'><div class='hcalc-in'>"
             "<label>Карта <select>" + "".join(f"<option value='{m}'>{esc(t(n, fallback=n))}</option>" for n, m in maps)
             + "</select></label><label>Ставлю на раунде <input class='hc-round' type='number' min='1' max='140' value='1'></label>"
-            f"<label>Старт $ <input class='hc-start' type='number' min='0' step='50' value='{START_CASH}'></label></div>"
+            f"<label>Старт $ <input class='hc-start' type='number' min='0' step='50' value='{START_CASH}'></label>"
+            f"<label title='{esc(names)}'><input class='hc-mk' type='checkbox'> Знания</label></div>"
             "<p class='hcalc-cash'></p><div class='hcalc-out'></div>"
-            "<p class='note'>Со знаниями и другими бонусами к опыту: <a href='https://svrng.github.io/BTD6-Hero-XP-Calculator/' "
+            f"<p class='note'>Знания: {esc(names)}: опыт +{mk['xp'] * 100:g}%, старт с {1 + mk['levels']} уровня, "
+            f"цена −{mk['discount'] * 100:g}%. Бонусы к опыту сложены. Другие бонусы к опыту: <a href='https://svrng.github.io/BTD6-Hero-XP-Calculator/' "
             "rel='noopener'>BTD6 Hero XP Calculator</a>.</p></div>")
 
 
