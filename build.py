@@ -957,7 +957,7 @@ def build_links():
 
 def sort_bar(grid_id, options):
     """Buttons that reorder the tiles of #grid_id by a numeric data-<key>; the first option is the initial order.
-    The "order" key also lays the grid out in 3 rows filled column by column, like the game's select screens."""
+    The "order" key also lays the grid out in 3 columns, like the game's hero select screen."""
     return (f"<div class='tagbar sortbar' data-grid='{grid_id}'>"
             + "".join(f"<button type='button' data-sort='{k}'{' class=on' if i == 0 else ''}>{esc(n)}</button>"
                       for i, (k, n) in enumerate(options)) + "</div>")
