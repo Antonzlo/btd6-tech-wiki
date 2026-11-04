@@ -110,6 +110,80 @@
       "index": 26
     }
   ],
+  "heroSet": [
+    {
+      "id": "Quincy",
+      "index": 0
+    },
+    {
+      "id": "Gwendolin",
+      "index": 1
+    },
+    {
+      "id": "StrikerJones",
+      "index": 2
+    },
+    {
+      "id": "ObynGreenfoot",
+      "index": 3
+    },
+    {
+      "id": "CaptainChurchill",
+      "index": 4
+    },
+    {
+      "id": "Benjamin",
+      "index": 5
+    },
+    {
+      "id": "Ezili",
+      "index": 6
+    },
+    {
+      "id": "PatFusty",
+      "index": 7
+    },
+    {
+      "id": "Adora",
+      "index": 8
+    },
+    {
+      "id": "AdmiralBrickell",
+      "index": 9
+    },
+    {
+      "id": "Etienne",
+      "index": 10
+    },
+    {
+      "id": "Sauda",
+      "index": 11
+    },
+    {
+      "id": "Psi",
+      "index": 12
+    },
+    {
+      "id": "Geraldo",
+      "index": 13
+    },
+    {
+      "id": "Corvus",
+      "index": 14
+    },
+    {
+      "id": "Rosalia",
+      "index": 15
+    },
+    {
+      "id": "Silas",
+      "index": 16
+    },
+    {
+      "id": "DanDMonke",
+      "index": 17
+    }
+  ],
   "bloonProperties": {
     "None": 0,
     "Lead": 1,
