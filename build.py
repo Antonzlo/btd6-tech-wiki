@@ -929,8 +929,8 @@ def build_heroes():
              toc=[("about", "Описание"), ("levels", "Уровни и опыт"), ("numbers", "Числа по уровням")]
              + ([("abilities", "Способности")] if abils else []))
     current_file = "heroes.html"
-    # hero select screen order from game.json (btd6-knowledge-dumper F6); by cost until it is dumped
-    order = {h["id"]: h["index"] for h in GAME.get("heroSet") or []}
+    # hero select screen order from game.json (btd6-knowledge-dumper F6 on that screen); heroSet index, then cost, as fallbacks
+    order = {hid: i for i, hid in enumerate(GAME.get("heroScreen") or [])} or {h["id"]: h["index"] for h in GAME.get("heroSet") or []}
     heroes.sort(key=lambda h: (order.get(h[2], 99), h[:3]))
     grid = "".join(f"<a class='tile tower-tile' href='hero-{esc(hid)}.html' data-order='{i}' data-cost='{cost}' "
                    f"data-xp='{sum(xp for _, xp in levels)}'>{icon('heroes', hid, 72)}"
