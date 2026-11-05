@@ -346,7 +346,9 @@ def icon(kind, oid, size, cls="ic"):
 PAGE_ICONS = {"paragon.html": ("ui", "paragon"), "bosses.html": ("ui", "boss-Bloonarius"), "modes.html": ("ui", "mode-Clicks"),
               "income.html": ("ui", "coin"), "buffs.html": ("towers", "MonkeyVillage"), "knowledge.html": ("ui", "knowledge"),
               "powers.html": ("ui", "powers"), "towers.html": ("towers", "DartMonkey"), "rounds.html": ("ui", "startround"),
-              "bloons.html": ("bloons", "Red"), "heroes.html": ("heroes", "Quincy")}
+              "bloons.html": ("bloons", "Red"), "heroes.html": ("heroes", "Quincy"),
+              "achievements.html": ("achievements", "117"),  # Achievement of Achievements, a medal
+              "links.html": ("achievements", "120")}  # Social Butterfly, for wikis and community
 
 
 def page_icon(file, size):
