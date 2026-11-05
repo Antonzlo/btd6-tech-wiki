@@ -369,3 +369,8 @@ tbody tr:hover .mod-params.overflowing:not(.open)::after{background:linear-gradi
 .fold>summary{font-size:15px;margin:4px 0}
 .reward{white-space:nowrap;display:flex;align-items:center;gap:6px}
 .ach{display:flex;align-items:center;gap:10px}
+.spoiler{cursor:pointer}
+.spoiler .spoil{filter:blur(7px);transition:filter .2s;user-select:none}
+.spoiler.open,.revealed .spoiler{cursor:auto}
+.spoiler.open .spoil,.revealed .spoil{filter:none;user-select:auto}
+.reveal{display:inline-flex;align-items:center;gap:6px;margin-left:12px;font-size:14px;cursor:pointer}

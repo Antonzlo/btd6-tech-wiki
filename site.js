@@ -139,3 +139,8 @@ draw()});
 function openTarget(){var id=decodeURIComponent(location.hash.slice(1));if(!id)return;var el=document.getElementById(id);if(!el)return;var d=el.closest('details');if(d&&!d.open){d.open=true;el.scrollIntoView()}}
 window.addEventListener('hashchange',openTarget);openTarget();
 })();
+// achievements: a hidden row stays a blurred spoiler until clicked; the checkbox opens all; a link to one (#a12) opens it
+(function(){document.querySelectorAll('tr.spoiler').forEach(function(r){r.addEventListener('click',function(){r.classList.add('open')})});
+document.querySelectorAll('[data-reveal]').forEach(function(c){c.addEventListener('change',function(){document.querySelector(c.dataset.reveal).classList.toggle('revealed',c.checked)})});
+function fromHash(){var el=document.getElementById(decodeURIComponent(location.hash.slice(1)));var r=el&&el.closest('tr.spoiler');if(r)r.classList.add('open')}
+window.addEventListener('hashchange',fromHash);fromHash()})();

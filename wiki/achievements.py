@@ -2,7 +2,7 @@
 names and descriptions from textTable. What completes an achievement is game code, the description says it."""
 import re
 from wiki import core
-from wiki.core import DATA, INDEX, card, esc, fmt, icon, load, page, t, table
+from wiki.core import DATA, INDEX, card, esc, fmt, icon, load, page, t
 
 
 def reward(part):
@@ -30,20 +30,40 @@ def reward(part):
 
 def build_achievements():
     achievements = load(DATA / "KnowledgeLayout" / "achievements.json")
-    groups = {False: [], True: []}
+    # reward kind of a loot part -> filter tag
+    kinds = {"MonkeyMoney": "mm", "Power": "power", "InstaMonkey": "insta", "RandomInstaMonkey": "insta",
+             "KnowledgePoints": "knowledge", "Trophy": "trophy"}
+    rows = []
     for a in achievements:
         n = a["id"]
         name = t(f"Achievement {n} Name", fallback=a["type"])
         desc = re.sub(r"</?[a-z]+[^>]*>", "", t(f"Achievement {n} Description", fallback="")).replace("{0}", fmt(a["goal"]))
         INDEX.append([name, "Достижения", f"{core.current_file}#a{n}", a["type"]])
+        parts = [p for p in (a["loot"] or "").split("#") if p.strip()]
+        tags = {kinds.get(p.split(":")[0].strip(), "mode") for p in parts}
+        tags |= {tag for on, tag in ((a["hidden"], "hidden"), (a["coop"], "coop")) if on}
         flags = "".join(f" <span class='badge'><b>{label}</b></span>" for on, label in
                         ((a["hidden"], "скрытое"), (a["coop"], "кооператив")) if on)
-        rewards = "".join(f"<div class='reward'>{reward(p)}</div>" for p in (a["loot"] or "").split("#") if p.strip())
-        title = f"<div class='ach'>{icon('achievements', str(n), 40)}<span><b id='a{n}'>{esc(name)}</b>{flags}</span></div>"
-        groups[a["hidden"]].append((title, esc(desc), rewards))
-    heads = ["Достижение", "Условие", "Награда"]
+        # a hidden achievement is blurred like a spoiler until clicked (or "show hidden" is on); its flags stay readable
+        blur = " class='spoil'" if a["hidden"] else ""
+        cells = (f"<div class='ach'><span{blur}>{icon('achievements', str(n), 40)}</span>"
+                 f"<span><b id='a{n}'{blur}>{esc(name)}</b>{flags}</span></div>",
+                 f"<span{blur}>{esc(desc)}</span>",
+                 f"<div{blur}>" + "".join(f"<div class='reward'>{reward(p)}</div>" for p in parts) + "</div>")
+        rows.append(f"<tr data-tags='{' '.join(sorted(tags))}'{' class=spoiler' if a['hidden'] else ''}>"
+                    + "".join(f"<td>{c}</td>" for c in cells) + "</tr>")
+    filters = [("", "Все"), ("hidden", "Скрытые"), ("coop", "Кооператив"), ("power", "Силы"), ("insta", "Инсты"),
+               ("knowledge", "Очки знаний"), ("trophy", "Трофеи"), ("mode", "Режимы")]
+    bar = ("<div class='tagbar' data-target='#ach-t'>"
+           + "".join(f"<button type='button' data-tag='{k}'{' class=on' if not k else ''}>{esc(label)}</button>"
+                     for k, label in filters) + "</div>")
+    head = "".join(f"<th>{h}</th>" for h in ("Достижение", "Условие", "Награда"))
+    body = (bar + "<input class='filter' type='search' placeholder='Фильтр: название, условие или награда' "
+            "aria-label='Фильтр достижений' data-filter='#ach-t tbody tr'>"
+            "<label class='reveal'><input type='checkbox' data-reveal='#ach-t'> Показать скрытые</label>"
+            f"<div class='wrap'><table id='ach-t'><thead><tr>{head}</tr></thead><tbody>{''.join(rows)}</tbody></table></div>")
+    hidden = sum(a["hidden"] for a in achievements)
     page("achievements.html", "Достижения",
-         "Все достижения: условие, награда. Скрытые в игре показаны как ???, здесь они открыты.",
-         card("visible", "Обычные", table(heads, groups[False]), section="Достижения")
-         + card("hidden", "Скрытые", table(heads, groups[True]), section="Достижения"),
-         [("visible", "Обычные"), ("hidden", "Скрытые")])
+         f"Все {len(achievements)} достижений: условие и награда. {hidden} скрытых в игре показаны как ???, "
+         "здесь они размыты: нажмите на строку, чтобы открыть.",
+         card("all", "Достижения", body, section="Достижения"), [("all", "Достижения")])
