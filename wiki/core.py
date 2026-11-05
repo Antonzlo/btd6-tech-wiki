@@ -365,6 +365,8 @@ def bloon_icon_style(ids):
 
 # ---------- towers (game constants shared by several pages) ----------
 
-TOWER_SETS = {1: "Primary", 2: "Military", 4: "Magic", 8: "Support"}
+# monkey tower categories: the single-bit TowerSet values inside AllMonkeyTowerSets (game.json), bit -> name
+TOWER_SETS = {v: k for k, v in GAME["towerSets"].items()
+              if v and v & (v - 1) == 0 and v & GAME["towerSets"]["AllMonkeyTowerSets"]}
 # shop order: GameModel.towerSet from game.json. Towers missing from data/Towers are skipped by the pages.
 SHOP_ORDER = [t["id"] for t in sorted(GAME["towerSet"], key=lambda t: t["index"])]

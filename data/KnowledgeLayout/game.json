@@ -213,5 +213,16 @@
     "Frozen": 16,
     "Immune": 32,
     "Glass": 64
+  },
+  "towerSets": {
+    "None": 0,
+    "Primary": 1,
+    "Military": 2,
+    "Magic": 4,
+    "Support": 8,
+    "AllMonkeyTowerSets": 15,
+    "Hero": 16,
+    "Paragon": 32,
+    "Items": 64
   }
 }

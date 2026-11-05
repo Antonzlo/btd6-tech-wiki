@@ -30,11 +30,12 @@ START_CASH = 650  # standard starting cash; not in the export (the game model de
 
 def hero_calc(totals, cost):
     """Hero calculator: round each level is reached for a placement round and map difficulty, and the round the
-    hero becomes affordable. totals = cumulative XP for levels 2..20. The XP per round is the game's formula
-    (not in the export, see Blooncyclopedia "Hero XP"): 20r+20 up to round 20, 40r-380 up to 50, 90r-2880 after,
-    times the map difficulty, rounded half up each round. hcalc() in site.js does the math."""
+    hero becomes affordable. totals = cumulative XP for levels 2..20. XP per round and the map difficulty scales come
+    from xp.json (the knowledge dumper calls the game's own functions); per round it is XP x map scale, rounded.
+    hcalc() in site.js does the math and continues the table linearly past its last round."""
     cash = [round(p + b) for p, b in round_cash().values()]
-    maps = [("Beginner", 1), ("Intermediate", 1.1), ("Advanced", 1.2), ("Expert", 1.3)]
+    xp = load(DATA / "KnowledgeLayout" / "xp.json")
+    maps = list(xp["trackDifficultyXpScale"].items())
     km = knowledge_mods()
     mods = {n: (km.get(n) or [{}])[0] for n in ("MonkeyEducation", "SelfTaughtHeroes", "EmpoweredHeroes", "HeroFavors")}
     # ponytail: XP bonuses assumed additive (1 + 0.08 + 0.10); Monkeys Together Strong left out, it needs a second hero
@@ -42,7 +43,9 @@ def hero_calc(totals, cost):
           "levels": mods["EmpoweredHeroes"].get("levels", 0), "discount": mods["HeroFavors"].get("multiplier", 0)}
     names = ", ".join(t(n, fallback=n) for n in mods)
     return (f"<div class='hcalc' data-reqs='{json.dumps(totals)}' data-cost='{cost}' "
-            f"data-cash='{json.dumps(cash)}' data-mk='{json.dumps(mk)}'><div class='hcalc-in'>"
+            f"data-cash='{json.dumps(cash)}' data-mk='{json.dumps(mk)}' "
+            # index 0 of the dump is GetXpForRound(0) = XP for finishing round 1
+            f"data-xp='{json.dumps([round(v) for v in xp['heroXpPerRound']])}'><div class='hcalc-in'>"
             "<label>Карта <select>" + "".join(f"<option value='{m}'>{esc(t(n, fallback=n))}</option>" for n, m in maps)
             + "</select></label><label>Ставлю на раунде <input class='hc-round' type='number' min='1' max='140' value='1'></label>"
             f"<label>Старт $ <input class='hc-start' type='number' min='0' step='50' value='{START_CASH}'></label>"

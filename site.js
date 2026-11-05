@@ -31,8 +31,9 @@ pin=c.querySelector('.hc-round'),st=Math.max(0,+c.querySelector('.hc-start').val
 K=c.querySelector('.hc-mk').checked?JSON.parse(c.dataset.mk):{xp:0,levels:0,discount:0},base=c.dataset.cost*(1-K.discount),
 cost=Math.round(base*m/5)*5,have=st,ok=1;
 while(have<cost&&ok<=cash.length){have+=cash[ok-1];ok++}if(!c._touched)pin.value=Math.min(ok,140);
-var start=Math.max(1,Math.min(140,+pin.value||1)),xp=K.levels?reqs[K.levels-1]:0,r=start-1,rs=[];
-reqs.forEach(function(q){while(xp<q&&r<500){r++;xp+=Math.round((r<=20?20*r+20:r<=50?40*r-380:90*r-2880)*map*(1+K.xp))}rs.push(Math.max(r,start))});
+var XR=JSON.parse(c.dataset.xp),n=XR.length,gx=function(r){return r<=n?XR[r-1]:XR[n-1]+(XR[n-1]-XR[n-2])*(r-n)},
+start=Math.max(1,Math.min(140,+pin.value||1)),xp=K.levels?reqs[K.levels-1]:0,r=start-1,rs=[];
+reqs.forEach(function(q){while(xp<q&&r<500){r++;xp+=Math.round(gx(r)*map*(1+K.xp))}rs.push(Math.max(r,start))});
 var W=640,H=230,P=30,L=36,R=12,X=function(v){return (L+(W-L-R)*(v-1)/139).toFixed(1)},Y=function(l){return (H-P-(H-2*P)*(l-1)/19).toFixed(1)},
 s='',pts=[X(start)+','+Y(1)],lv=1;
 [5,10,15,20].forEach(function(l){s+='<line class="pgrid" x1="'+L+'" y1="'+Y(l)+'" x2="'+(W-R)+'" y2="'+Y(l)+'"/>'});

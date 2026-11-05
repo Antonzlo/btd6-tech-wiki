@@ -2,6 +2,7 @@
 import collections
 import functools
 import re
+import statistics
 from wiki.core import (
     DATA, Raw, card, esc, flatten, fmt, game_text, group, icon, json_files, kv_table, load, page, stats, t,
     table, webp_uri,
@@ -43,7 +44,8 @@ def knowledge_symbols(ids):
 
 def knowledge_game_graph(entries, nodes, get_ancestors=None):
     """The tree exactly as the game lays it out: icon buttons, stem/arrow/elbow pieces, tier bands."""
-    S, pad_l, pad = 0.5, 70, 16
+    # dump units depend on the game's canvas scale, so size by the buttons: a knowledge button is 83 px on the page
+    S, pad_l, pad = 83 / statistics.median(e["rect"][2] for e in entries), 70, 16
     boxes = [e["rect"] for e in entries] + [a["rect"] for e in entries for a in e["arrows"]]
     minx = min(r[0] - r[2] / 2 for r in boxes)
     maxx = max(r[0] + r[2] / 2 for r in boxes)

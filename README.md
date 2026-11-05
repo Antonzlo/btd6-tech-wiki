@@ -23,10 +23,12 @@ python3 -I build.py          # writes site/ (Russian) and site/en/
    For each hero (towerSet 16 with 20 levels) copy `<Hero>.json` and `<Hero> 2.json` … `<Hero> 20.json` into `data/Heroes/<Hero>/`.
 3. For English game text, switch the game to English, export again, and copy `textTable.json` to
    `data/textTable.en.json`.
-4. Monkey Knowledge layout: with the `KnowledgeDumper` mod (`../btd6-knowledge-dumper`) open the Monkey
-   Knowledge screen and press F6, then copy `<game>/KnowledgeLayout/` into `data/KnowledgeLayout/`
-   (icons converted to 96px webp). F6 also writes `game.json`: game version, shop order of towers and
-   bloon property bits (required). Keep `data/VERSION.txt` at the export version; the build warns when the game is newer.
+4. Game facts the export lacks, with the `KnowledgeDumper` mod (`../btd6-knowledge-dumper`): in the main menu press
+   Ctrl+Shift+F6. It opens the Monkey Knowledge tree, the hero screen and a sandbox match, and writes
+   `layout.json` (knowledge tree), `game.json` (game version, shop order of towers and heroes, bloon property and
+   tower set bits) and `xp.json` (hero XP per round and map difficulty XP scales, from the game's own functions).
+   Copy `<game>/KnowledgeLayout/` into `data/KnowledgeLayout/` (icons converted to 96px webp). Ctrl+Shift+F7 prints
+   the current menu and its data. Keep `data/VERSION.txt` at the export version; the build warns when the game is newer.
 5. Icons: press F7 in game with the dumper (main menu, mode select, inside a game: each screen adds the sprites
    it has loaded), then `sh tools/game_icons.sh` writes `data/icons/web/`. UI icon names are in `tools/ui_sprites.txt`.
    `sh tools/compose_icons.sh` makes the ban icons.
