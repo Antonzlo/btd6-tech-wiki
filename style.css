@@ -368,3 +368,4 @@ tbody tr:hover .mod-params.overflowing:not(.open)::after{background:linear-gradi
 .prop-row>.badge{align-self:start;justify-self:start}
 .fold>summary{font-size:15px;margin:4px 0}
 .reward{white-space:nowrap;display:flex;align-items:center;gap:6px}
+.ach{display:flex;align-items:center;gap:10px}

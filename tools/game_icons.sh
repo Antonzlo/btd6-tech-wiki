@@ -6,7 +6,7 @@ cd "$(dirname "$0")/.."
 src=${1:-$HOME/.local/share/Steam/steamapps/common/BloonsTD6/GameIcons}
 web=data/icons/web
 
-for kind in towers upgrades bloons heroes abilities; do
+for kind in towers upgrades bloons heroes abilities achievements; do
   mkdir -p "$web/$kind"
   [ -d "$src/$kind" ] || continue
   magick mogrify -path "$web/$kind" -format webp -trim +repage -resize '128x128>' -strip -quality 88 "$src/$kind"/*.png

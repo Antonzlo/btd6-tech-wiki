@@ -39,7 +39,8 @@ def build_achievements():
         flags = "".join(f" <span class='badge'><b>{label}</b></span>" for on, label in
                         ((a["hidden"], "скрытое"), (a["coop"], "кооператив")) if on)
         rewards = "".join(f"<div class='reward'>{reward(p)}</div>" for p in (a["loot"] or "").split("#") if p.strip())
-        groups[a["hidden"]].append((f"<b id='a{n}'>{esc(name)}</b>{flags}", esc(desc), rewards))
+        title = f"<div class='ach'>{icon('achievements', str(n), 40)}<span><b id='a{n}'>{esc(name)}</b>{flags}</span></div>"
+        groups[a["hidden"]].append((title, esc(desc), rewards))
     heads = ["Достижение", "Условие", "Награда"]
     page("achievements.html", "Достижения",
          "Все достижения: условие, награда. Скрытые в игре показаны как ???, здесь они открыты.",
