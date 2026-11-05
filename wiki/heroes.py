@@ -32,7 +32,7 @@ def hero_calc(totals, cost):
     """Hero calculator: round each level is reached for a placement round and map difficulty, and the round the
     hero becomes affordable. totals = cumulative XP for levels 2..20. The XP per round is the game's formula
     (not in the export, see Blooncyclopedia "Hero XP"): 20r+20 up to round 20, 40r-380 up to 50, 90r-2880 after,
-    times the map difficulty, rounded half up each round. hcalc() in search.js does the math."""
+    times the map difficulty, rounded half up each round. hcalc() in site.js does the math."""
     cash = [round(p + b) for p, b in round_cash().values()]
     maps = [("Beginner", 1), ("Intermediate", 1.1), ("Advanced", 1.2), ("Expert", 1.3)]
     km = knowledge_mods()
