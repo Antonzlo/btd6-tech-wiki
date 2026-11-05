@@ -4,7 +4,8 @@ Sources, each optional past the first:
 - data/Maps/<difficulty>/<id>.json, Mod Helper export: difficulty, water, co-op split.
 - data/KnowledgeLayout/maps.json, KnowledgeDumper map run (Ctrl+Shift+F9): path lengths, obstacle costs, events.
 - data/KnowledgeLayout/maps_geo.json, same run: path points, area polygons, line of sight blockers, obstacle areas,
-  in sim coordinates (y down, the screen is x -150..150, y -116..116). Drawn as an SVG on the map page.
+  in sim coordinates (y down). Drawn as an SVG on the map page, framed by the map's first area: the full-screen
+  base (x -150..150, y -116..116 on every map so far).
 The dump skips browser-only maps; a map or a file that is missing shows "–" or leaves its card out."""
 import re
 
@@ -126,6 +127,12 @@ def rm_center(geo, r):
     return round((min(xs) + max(xs)) / 2, 1), round((min(ys) + max(ys)) / 2, 1)
 
 
+def screen(geo):
+    """The game screen in sim coordinates (x, y, width, height): the first area is the full-screen base."""
+    xs, ys = [q[0] for q in geo["areas"][0]["points"]], [q[1] for q in geo["areas"][0]["points"]]
+    return min(xs), min(ys), max(xs) - min(xs), max(ys) - min(ys)
+
+
 def map_svg(geo, marks=()):
     """The map at load (sandbox, Easy) in sim coordinates: areas by type, paths, blockers, obstacles."""
     owned = {}  # area id -> obstacle index: those areas go away with the obstacle
@@ -166,13 +173,14 @@ def map_svg(geo, marks=()):
         f"{''.join(groups[i])}<circle class='rm-dot' cx='{rm_center(geo, r)[0]:g}' cy='{rm_center(geo, r)[1]:g}' r='3.5'/></g>"
         for i, r in enumerate(geo["removables"]) if r["cost"])
     toggles = "".join(f"<label><input type='checkbox' data-layer='{k}' checked> {esc(n)}</label>" for k, n in LAYERS)
+    x0, y0, w, h = screen(geo)
     return ("<div class='mapview'><div class='map-tools'>" + toggles
             + "<button type='button' class='map-full'>На весь экран</button>"
             + ("<button type='button' class='rm-all'>Убрать все препятствия</button>" if rms else "")
             + "<span class='map-xy' aria-live='off'></span></div>"
-            "<svg class='mapsvg' viewBox='-150 -116 300 232' role='img' aria-label='Схема карты'>"
+            f"<svg class='mapsvg' viewBox='{x0:g} {y0:g} {w:g} {h:g}' role='img' aria-label='Схема карты'>"
             # clipped to the game screen: wider full-screen boxes would show the off-screen parts
-            "<clipPath id='screen'><rect x='-150' y='-116' width='300' height='232'/></clipPath><g clip-path='url(#screen)'>"
+            f"<clipPath id='screen'><rect x='{x0:g}' y='{y0:g}' width='{w:g}' height='{h:g}'/></clipPath><g clip-path='url(#screen)'>"
             f"<g class='L-base'>{''.join(base)}</g><g class='L-los'>{''.join(los)}</g><g class='L-rm'>{rms}</g>"
             f"<g class='L-path'>{''.join(paths)}</g>"
             + "".join(f"<g class='ev' data-ev='{i}'>{m}</g>" for i, m in enumerate(marks) if m)
