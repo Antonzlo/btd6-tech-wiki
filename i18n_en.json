@@ -437,5 +437,20 @@
 "сразу": "placement",
 "И общие для всех башен:": "Plus the ones every tower gets:",
 "Из данных игры: знание записано в модели башни, или башня либо её улучшение указаны в самом знании. ": "From game data: the tower model names the knowledge, or the knowledge names the tower or one of its upgrades. ",
-"«Действует с» это первые тиры, в модели которых оно есть.": "\"Works from\" lists the first tiers whose model has it."
+"«Действует с» это первые тиры, в модели которых оно есть.": "\"Works from\" lists the first tiers whose model has it.",
+"Достижения": "Achievements",
+"Достижение": "Achievement",
+"Награда": "Reward",
+"Условие": "Condition",
+"Обычные": "Regular",
+"Скрытые": "Hidden",
+"скрытое": "hidden",
+"кооператив": "co-op",
+"Условия и награды, скрытые тоже": "Conditions and rewards, hidden ones too",
+"Все достижения: условие, награда. Скрытые в игре показаны как ???, здесь они открыты.": "Every achievement with its condition and reward. The game shows hidden ones as ???, here they are open.",
+"очков знаний": "knowledge points",
+"трофеев": "trophies",
+"инста случайной башни": "Insta of a random tower",
+"инста": "Insta",
+"тира": "tier"
 }
