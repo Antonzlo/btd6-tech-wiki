@@ -2,16 +2,11 @@
 
 From the site audit of 2026-11-05. Done items move to the git history.
 
-## 1. Search engines
-- [ ] `robots.txt` and `sitemap.xml` in the site (every page, both languages).
-- [ ] `<head>`: `description`, `canonical`, `hreflang` pairs RU/EN plus `x-default`, `og:` tags, favicon.
-- [ ] Drop the stray `claude:viewport-fit-sides` meta tag.
-- [ ] Owner: verify the domain in Google Search Console and submit the sitemap. The domain root `robots.txt`
-      comes from the `antonzlo.github.io` repo and lists only that repo's sitemap.
-
-## 2. Page weight
-- [ ] Icons as files (`site/icons/<kind>/<id>.webp`) instead of inline base64: one download, cached across pages.
-      Before: site 88 MB, gzip per page up to 2.5 MB (rounds), 2.1 MB (bloons, achievements), 1.3 MB (knowledge).
+## 1. Search engines (owner)
+- [ ] Verify the domain in Google Search Console and submit https://zlobinanton.ovh/btd6-tech-wiki/sitemap.xml.
+- [ ] The domain root `robots.txt` comes from the `antonzlo.github.io` repo: its `Sitemap:` line points at
+      `http://antonzlo.github.io/sitemap.xml`. Add `Sitemap: https://zlobinanton.ovh/btd6-tech-wiki/sitemap.xml` there
+      (a `robots.txt` inside /btd6-tech-wiki/ is ignored by crawlers).
 
 ## 3. New sections from the Mod Helper export (data not used yet)
 - [ ] Maps (`Maps/`, 91): difficulty, water, co-op split, unlock.

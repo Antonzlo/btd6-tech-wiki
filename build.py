@@ -47,6 +47,12 @@ def main():
             f.read_text(encoding="utf-8") for f in core.OUT.glob("*.html"))))) if lang != "ru" else []
         print(f"{lang}: {len(INDEX)} search entries into {core.OUT}"
               + (f", untranslated: {left[:15]}" if left else ""), file=sys.stderr)
+    # every page in every language; submit https://zlobinanton.ovh/btd6-tech-wiki/sitemap.xml in Search Console
+    urls = "".join(f"<url><loc>{core.page_url(lang, f.name)}</loc></url>"
+                   for lang in LANGS for f in sorted(SITE.glob("*.html")))
+    (SITE / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>'
+                                      f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>',
+                                      encoding="utf-8")
 
 
 if __name__ == "__main__":

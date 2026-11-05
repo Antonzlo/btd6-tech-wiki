@@ -272,6 +272,13 @@ def card(anchor, title, body, en_id="", tagline="", section=""):
 
 current_file = "index.html"
 
+SITE_URL = "https://zlobinanton.ovh/btd6-tech-wiki/"  # where GitHub Pages serves site/; used by canonical links and sitemap.xml
+
+
+def page_url(lang, file):
+    """Absolute URL of a page in a language; index.html is the folder itself."""
+    return SITE_URL + ("" if lang == MAIN_LANG else f"{lang}/") + ("" if file == "index.html" else file)
+
 
 def page(file, title, lead, body, toc=()):
     side = "".join(f"<a href='{f}'{' class=on' if f == file else ''}>{esc(t(n, fallback=n))}</a>" for f, n, _ in PAGES)
@@ -279,8 +286,17 @@ def page(file, title, lead, body, toc=()):
     switch = f"<a class='lang' href='{other}' aria-label='Язык'>{'RU' if LANG == MAIN_LANG else 'EN'}</a>"
     toc_html = ("<div class='toc'><h4>На странице</h4>" + "".join(
         f"<a href='#{esc(a)}'>{esc(n)}</a>" for a, n in toc) + "</div>") if toc else ""
-    head = (f"<meta charset=\"utf-8\"><title>{'BTD6 Tech Wiki' if file == 'index.html' else esc(title) + ' · BTD6 Tech Wiki'}</title>"
-            "<meta name=\"claude:viewport-fit-sides\" content=\"cover\">"
+    full_title = 'BTD6 Tech Wiki' if file == 'index.html' else esc(title) + ' · BTD6 Tech Wiki'
+    desc = esc(re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", lead))).strip()[:200])
+    url = page_url(LANG, file)
+    head = (f"<meta charset=\"utf-8\"><title>{full_title}</title>"
+            f"<meta name=\"description\" content=\"{desc}\"><link rel=\"canonical\" href=\"{url}\">"
+            + "".join(f"<link rel=\"alternate\" hreflang=\"{lang}\" href=\"{page_url(lang, file)}\">" for lang in LANGS)
+            + f"<link rel=\"alternate\" hreflang=\"x-default\" href=\"{page_url(MAIN_LANG, file)}\">"
+            f"<meta property=\"og:type\" content=\"website\"><meta property=\"og:site_name\" content=\"BTD6 Tech Wiki\">"
+            f"<meta property=\"og:title\" content=\"{full_title}\"><meta property=\"og:description\" content=\"{desc}\">"
+            f"<meta property=\"og:url\" content=\"{url}\">"
+            f"<link rel=\"icon\" type=\"image/webp\" href=\"{webp_uri(DATA / 'icons' / 'web' / 'towers' / 'DartMonkey.webp')}\">"
             "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400"
             "&family=Roboto+Mono&display=swap\">"
             f"<style>{CSS}</style>")
