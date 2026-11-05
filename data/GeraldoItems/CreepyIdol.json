@@ -1,0 +1,50 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoItemModel, Assembly-CSharp",
+  "behaviorModels": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoUpgradeTowerModel, Assembly-CSharp",
+      "level": 12,
+      "towerId": "CreepyIdolTowerV2",
+      "name": "GeraldoUpgradeTowerModel_GeraldoUpgradeTower"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoUpgradeTowerModel, Assembly-CSharp",
+      "level": 18,
+      "towerId": "CreepyIdolTowerV3",
+      "name": "GeraldoUpgradeTowerModel_GeraldoUpgradeTower"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateSoundOnGeraldoItemModel, Assembly-CSharp",
+      "soundId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "cb6781cb60be4404c80436f0f6c93c22",
+        "AssetGUID": "cb6781cb60be4404c80436f0f6c93c22"
+      },
+      "name": "CreateSoundOnGeraldoItemModel_CreateSoundOnGeraldoItem"
+    }
+  ],
+  "cost": 120,
+  "canBeActivatedBetweenRounds": true,
+  "towerId": "CreepyIdolTower",
+  "onlyReplenishIfNonePlaced": false,
+  "showBuffsForTower": true,
+  "startingQuantity": 1,
+  "maxQuantity": 4,
+  "roundsToReplenish": 3,
+  "amountToReplenish": 1,
+  "levelUnlockedAt": 0,
+  "bannedForModes": "",
+  "bannedForModesList": [],
+  "maxPurchases": 0,
+  "showGeraldoRangeCircle": false,
+  "blockPurchaseIfTowerPlaced": "",
+  "locsId": "Creepy idol",
+  "iconSwapLevels": [],
+  "defaultIcon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "52f1cdbde877fe147840b3ba71bea310",
+    "AssetGUID": "52f1cdbde877fe147840b3ba71bea310"
+  },
+  "defaultIconSwaps": [],
+  "name": "CreepyIdol"
+}

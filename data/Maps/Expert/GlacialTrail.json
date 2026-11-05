@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "GlacialTrail",
+  "difficulty": 3,
+  "coopMapDivisionType": 0,
+  "unlockDifficulty": 2,
+  "mapMusic": "MusicCoopA",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectGlacialTrailButton]",
+    "AssetGUID": "MapImages[MapSelectGlacialTrailButton]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "6a6798a0934861e49b88c0e4332c6cab",
+    "AssetGUID": "6a6798a0934861e49b88c0e4332c6cab"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": true,
+  "theme": 5,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

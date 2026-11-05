@@ -1,0 +1,82 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoItemModel, Assembly-CSharp",
+  "behaviorModels": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.SeeInvisibilityPotionBehaviorModel, Assembly-CSharp",
+      "rounds": 5,
+      "buffDisplayPath": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "832dfcb578ae97140b436e7d5369af07",
+        "AssetGUID": "832dfcb578ae97140b436e7d5369af07"
+      },
+      "buffLocsName": "BuffIconVillagex2x",
+      "buffIconName": "BuffIconVillagex2x",
+      "buffDisplayModel": null,
+      "effectAtTowerId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": null,
+        "AssetGUID": null
+      },
+      "upgradeV2At": 14,
+      "roundsUpgradedTo": 10,
+      "upgradedRangeScale": 1.2,
+      "upgradeV3At": 19,
+      "bonusCamoDamage": 1,
+      "camoModifier": null,
+      "name": "SeeInvisibilityPotionBehaviorModel_SeeInvisibilityPotion"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateEffectOnGeraldoItemModel, Assembly-CSharp",
+      "effectId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "0bb66bea8c09d5147b1f748ab3df8849",
+        "AssetGUID": "0bb66bea8c09d5147b1f748ab3df8849"
+      },
+      "lifespan": 0.0,
+      "fullScreen": false,
+      "useCenterPosition": false,
+      "name": "CreateEffectOnGeraldoItemModel_CreateEffectOnGeraldoItem"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateSoundOnGeraldoItemModel, Assembly-CSharp",
+      "soundId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "48cddfaa8af4a4e469e59697a59294dd",
+        "AssetGUID": "48cddfaa8af4a4e469e59697a59294dd"
+      },
+      "name": "CreateSoundOnGeraldoItemModel_CreateSoundOnGeraldoItem"
+    }
+  ],
+  "cost": 200,
+  "canBeActivatedBetweenRounds": true,
+  "towerId": "",
+  "onlyReplenishIfNonePlaced": false,
+  "showBuffsForTower": false,
+  "startingQuantity": 1,
+  "maxQuantity": 2,
+  "roundsToReplenish": 10,
+  "amountToReplenish": 1,
+  "levelUnlockedAt": 3,
+  "bannedForModes": "",
+  "bannedForModesList": [],
+  "maxPurchases": 0,
+  "showGeraldoRangeCircle": false,
+  "blockPurchaseIfTowerPlaced": "",
+  "locsId": "See invisibility potion",
+  "iconSwapLevels": [
+    14
+  ],
+  "defaultIcon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "dd81d4cb311615d4c9b23eca2cc3014d",
+    "AssetGUID": "dd81d4cb311615d4c9b23eca2cc3014d"
+  },
+  "defaultIconSwaps": [
+    {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+      "guidRef": "4c4ed05757ff05149b42b5a21e52d3b9",
+      "AssetGUID": "4c4ed05757ff05149b42b5a21e52d3b9"
+    }
+  ],
+  "name": "SeeInvisibilityPotion"
+}

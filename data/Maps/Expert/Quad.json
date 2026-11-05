@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "Quad",
+  "difficulty": 3,
+  "coopMapDivisionType": 0,
+  "unlockDifficulty": 2,
+  "mapMusic": "MusicCoopA",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectQuadButton]",
+    "AssetGUID": "MapImages[MapSelectQuadButton]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "2bfff9839fe9ddf489067961a7620202",
+    "AssetGUID": "2bfff9839fe9ddf489067961a7620202"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": true,
+  "theme": 2,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

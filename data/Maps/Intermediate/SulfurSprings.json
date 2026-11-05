@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "SulfurSprings",
+  "difficulty": 1,
+  "coopMapDivisionType": 0,
+  "unlockDifficulty": 0,
+  "mapMusic": "MusicDarkA",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectSulfurSpringsButton]",
+    "AssetGUID": "MapImages[MapSelectSulfurSpringsButton]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "2712a9e1db4f7354fb9af0d7ec1dd99e",
+    "AssetGUID": "2712a9e1db4f7354fb9af0d7ec1dd99e"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": true,
+  "theme": 6,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

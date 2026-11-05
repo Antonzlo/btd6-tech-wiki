@@ -9,8 +9,6 @@ From the site audit of 2026-11-05. Done items move to the git history.
       (a `robots.txt` inside /btd6-tech-wiki/ is ignored by crawlers).
 
 ## 3. New sections from the Mod Helper export (data not used yet)
-- [ ] Maps (`Maps/`, 91): difficulty, water, co-op split, unlock.
-- [ ] Geraldo shop (`GeraldoItems/`, 16): cost, unlock level, restock.
 - [ ] Achievements from the export (`Achievements/`, same data as the dumper, rewards included); the dumper then
       only adds icons.
 - [ ] Skins (`Skins/`, 52), Trophy Store (`TrophyStoreItems/`, 439).

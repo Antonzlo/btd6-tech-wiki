@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "FrozenOver",
+  "difficulty": 0,
+  "coopMapDivisionType": 0,
+  "unlockDifficulty": 0,
+  "mapMusic": "MusicCoopA",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectFrozenOverButton]",
+    "AssetGUID": "MapImages[MapSelectFrozenOverButton]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "3e72a4f172a3b1546a1a0c7376606443",
+    "AssetGUID": "3e72a4f172a3b1546a1a0c7376606443"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": true,
+  "theme": 5,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

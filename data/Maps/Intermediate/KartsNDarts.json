@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "KartsNDarts",
+  "difficulty": 1,
+  "coopMapDivisionType": 1,
+  "unlockDifficulty": 0,
+  "mapMusic": "MusicUpbeat3A",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectKartsNDarts]",
+    "AssetGUID": "MapImages[MapSelectKartsNDarts]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "d73082483444f324b85f53f82a011722",
+    "AssetGUID": "d73082483444f324b85f53f82a011722"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": false,
+  "theme": 2,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

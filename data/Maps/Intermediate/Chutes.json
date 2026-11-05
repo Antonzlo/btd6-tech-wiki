@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "Chutes",
+  "difficulty": 1,
+  "coopMapDivisionType": 2,
+  "unlockDifficulty": 0,
+  "mapMusic": "MusicCityA",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectChutesButton]",
+    "AssetGUID": "MapImages[MapSelectChutesButton]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "8fac661d54d9a964f82e257e6d2931df",
+    "AssetGUID": "8fac661d54d9a964f82e257e6d2931df"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": true,
+  "theme": 0,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

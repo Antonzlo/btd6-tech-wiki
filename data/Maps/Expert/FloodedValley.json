@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "FloodedValley",
+  "difficulty": 3,
+  "coopMapDivisionType": 0,
+  "unlockDifficulty": 2,
+  "mapMusic": "MusicDarkA",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectFloodedValleyButton]",
+    "AssetGUID": "MapImages[MapSelectFloodedValleyButton]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "c73e454d1288cc14a8a8ab8de6009486",
+    "AssetGUID": "c73e454d1288cc14a8a8ab8de6009486"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": true,
+  "theme": 4,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

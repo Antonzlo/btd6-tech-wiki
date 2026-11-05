@@ -1,0 +1,374 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoItemModel, Assembly-CSharp",
+  "behaviorModels": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoCreateProjectileModel, Assembly-CSharp",
+      "projectileModel": {
+        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.ProjectileModel, Assembly-CSharp",
+        "display": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "958b42cf30bc23c4698e4ee5a37df10f",
+          "AssetGUID": "958b42cf30bc23c4698e4ee5a37df10f"
+        },
+        "id": "TubeOfAmazoGlueProjectile",
+        "maxPierce": 0.0,
+        "pierce": 100.0,
+        "scale": 1.0,
+        "ignoreBlockers": true,
+        "usePointCollisionWithBloons": false,
+        "canCollisionBeBlockedByMapLos": false,
+        "filters": [
+          {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterOutTagModel, Assembly-CSharp",
+            "tag": "Moabs",
+            "disableWhenSupportMutatorIDs": [],
+            "name": "FilterOutTagModel_TubeOfAmazoGlueProjectile"
+          },
+          {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterGlueLevelModel, Assembly-CSharp",
+            "glueLevel": 5,
+            "name": "FilterGlueLevelModel_TubeOfAmazoGlueProjectile"
+          }
+        ],
+        "behaviors": [
+          {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.AgeModel, Assembly-CSharp",
+            "rounds": 4,
+            "useRoundTime": false,
+            "lifespan": 9999999.0,
+            "lifespanFrames": 0,
+            "endOfRoundClearBypassModel": null,
+            "Lifespan": 9999999.0,
+            "collisionPass": 0,
+            "name": "AgeModel_TubeOfAmazoGlueProjectile"
+          },
+          {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.SlowModel, Assembly-CSharp",
+            "effectModel": null,
+            "layers": 9999999,
+            "overlayLayer": 0,
+            "glueLevel": 5,
+            "isUnique": true,
+            "dontRefreshDuration": false,
+            "cascadeMutators": false,
+            "removeMutatorIfNotMatching": false,
+            "matchLayersWithDamage": false,
+            "mutationId": "Glue",
+            "countGlueAchievement": true,
+            "lifespan": 30.0,
+            "lifespanFrames": 0,
+            "multiplier": 0.5,
+            "chance": 0.0,
+            "dontRemoveOnBloonDegrade": false,
+            "Lifespan": 30.0,
+            "Multiplier": 0.5,
+            "overlayType": "GlueBasic",
+            "collisionPass": -1,
+            "name": ""
+          },
+          {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.ClearHitBloonsModel, Assembly-CSharp",
+            "interval": 0.05,
+            "intervalFrames": 0,
+            "collisionPass": 0,
+            "name": ""
+          },
+          {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.ProjectileFilterModel, Assembly-CSharp",
+            "filters": [
+              {
+                "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterOutTagModel, Assembly-CSharp",
+                "tag": "Moabs",
+                "disableWhenSupportMutatorIDs": [],
+                "name": "FilterOutTagModel_TubeOfAmazoGlueProjectile"
+              },
+              {
+                "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterGlueLevelModel, Assembly-CSharp",
+                "glueLevel": 5,
+                "name": "FilterGlueLevelModel_TubeOfAmazoGlueProjectile"
+              }
+            ],
+            "collisionPass": 0,
+            "name": "ProjectileFilterModel_TubeOfAmazoGlueProjectile"
+          },
+          {
+            "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+            "display": {
+              "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+              "guidRef": "958b42cf30bc23c4698e4ee5a37df10f",
+              "AssetGUID": "958b42cf30bc23c4698e4ee5a37df10f"
+            },
+            "layer": 0,
+            "positionOffset": {
+              "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "MagnitudeSquared": 0.0,
+              "Magnitude": 0.0,
+              "Rotation": 0.0,
+              "SimToDispRotation": 180.0
+            },
+            "scale": 1.0,
+            "ignoreRotation": false,
+            "animationChanges": null,
+            "delayedReveal": 0.0,
+            "category": 16,
+            "isAnimationPaused": false,
+            "lockDisplayDelayModification": false,
+            "name": "DisplayModel_ProjectileDisplay"
+          }
+        ],
+        "collisionPasses": [
+          -1,
+          0
+        ],
+        "canCollideWithBloons": true,
+        "radius": 14.0,
+        "vsBlockerRadius": 0.0,
+        "hasDamageModifiers": false,
+        "dontUseCollisionChecker": false,
+        "checkCollisionInterval": 0.0,
+        "checkCollisionIntervalFrames": 0,
+        "ignoreNonTargetable": false,
+        "ignorePierceExhaustion": false,
+        "saveId": "TubeOfAmazoGlueProjectile",
+        "displayModel": null,
+        "cantCreateSubProjectiles": false,
+        "CappedPierce": 100.0,
+        "name": "ProjectileModel_TubeOfAmazoGlueProjectile"
+      },
+      "projectileModelUpgrades": [
+        {
+          "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.ProjectileModel, Assembly-CSharp",
+          "display": {
+            "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+            "guidRef": "958b42cf30bc23c4698e4ee5a37df10f",
+            "AssetGUID": "958b42cf30bc23c4698e4ee5a37df10f"
+          },
+          "id": "TubeOfAmazoGlueProjectileV2",
+          "maxPierce": 0.0,
+          "pierce": 100.0,
+          "scale": 1.0,
+          "ignoreBlockers": true,
+          "usePointCollisionWithBloons": false,
+          "canCollisionBeBlockedByMapLos": false,
+          "filters": [
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterGlueLevelModel, Assembly-CSharp",
+              "glueLevel": 5,
+              "name": "FilterGlueLevelModel_TubeOfAmazoGlueProjectileV2"
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterOutTagModel, Assembly-CSharp",
+              "tag": "Bad",
+              "disableWhenSupportMutatorIDs": [],
+              "name": "FilterOutTagModel_TubeOfAmazoGlueProjectileV2"
+            }
+          ],
+          "behaviors": [
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.AgeModel, Assembly-CSharp",
+              "rounds": 4,
+              "useRoundTime": false,
+              "lifespan": 9999999.0,
+              "lifespanFrames": 0,
+              "endOfRoundClearBypassModel": null,
+              "Lifespan": 9999999.0,
+              "collisionPass": 0,
+              "name": "AgeModel_TubeOfAmazoGlueProjectileV2"
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.SlowModel, Assembly-CSharp",
+              "effectModel": null,
+              "layers": 9999999,
+              "overlayLayer": 0,
+              "glueLevel": 5,
+              "isUnique": true,
+              "dontRefreshDuration": false,
+              "cascadeMutators": false,
+              "removeMutatorIfNotMatching": false,
+              "matchLayersWithDamage": false,
+              "mutationId": "Glue",
+              "countGlueAchievement": true,
+              "lifespan": 30.0,
+              "lifespanFrames": 0,
+              "multiplier": 0.45,
+              "chance": 0.0,
+              "dontRemoveOnBloonDegrade": false,
+              "Lifespan": 30.0,
+              "Multiplier": 0.45,
+              "overlayType": "GlueBasic",
+              "collisionPass": -1,
+              "name": ""
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.ClearHitBloonsModel, Assembly-CSharp",
+              "interval": 0.05,
+              "intervalFrames": 0,
+              "collisionPass": 0,
+              "name": ""
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.ProjectileFilterModel, Assembly-CSharp",
+              "filters": [
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterGlueLevelModel, Assembly-CSharp",
+                  "glueLevel": 5,
+                  "name": "FilterGlueLevelModel_TubeOfAmazoGlueProjectileV2"
+                },
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterOutTagModel, Assembly-CSharp",
+                  "tag": "Bad",
+                  "disableWhenSupportMutatorIDs": [],
+                  "name": "FilterOutTagModel_TubeOfAmazoGlueProjectileV2"
+                }
+              ],
+              "collisionPass": 0,
+              "name": "ProjectileFilterModel_TubeOfAmazoGlueProjectileV2"
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CollideExtraPierceReductionModel, Assembly-CSharp",
+              "bloonTag": "Moab",
+              "extraAmount": 4,
+              "destroyProjectileIfPierceNotEnough": false,
+              "collisionPass": -1,
+              "name": ""
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CollideExtraPierceReductionModel, Assembly-CSharp",
+              "bloonTag": "Bfb",
+              "extraAmount": 9,
+              "destroyProjectileIfPierceNotEnough": false,
+              "collisionPass": -1,
+              "name": ""
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CollideExtraPierceReductionModel, Assembly-CSharp",
+              "bloonTag": "Ddt",
+              "extraAmount": 9,
+              "destroyProjectileIfPierceNotEnough": false,
+              "collisionPass": -1,
+              "name": ""
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CollideExtraPierceReductionModel, Assembly-CSharp",
+              "bloonTag": "Zomg",
+              "extraAmount": 24,
+              "destroyProjectileIfPierceNotEnough": false,
+              "collisionPass": -1,
+              "name": ""
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.SlowModifierForTagModel, Assembly-CSharp",
+              "tag": "Moabs",
+              "slowId": "Glue",
+              "slowMultiplier": 1.3888888,
+              "resetToUnmodified": false,
+              "preventMutation": false,
+              "lifespanOverride": 0.0,
+              "makeNotTag": false,
+              "collisionPass": 0,
+              "name": "SlowModifierForTagModel_SlowModifierTag"
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+              "display": {
+                "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                "guidRef": "958b42cf30bc23c4698e4ee5a37df10f",
+                "AssetGUID": "958b42cf30bc23c4698e4ee5a37df10f"
+              },
+              "layer": 0,
+              "positionOffset": {
+                "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "MagnitudeSquared": 0.0,
+                "Magnitude": 0.0,
+                "Rotation": 0.0,
+                "SimToDispRotation": 180.0
+              },
+              "scale": 1.0,
+              "ignoreRotation": false,
+              "animationChanges": null,
+              "delayedReveal": 0.0,
+              "category": 16,
+              "isAnimationPaused": false,
+              "lockDisplayDelayModification": false,
+              "name": "DisplayModel_ProjectileDisplay"
+            }
+          ],
+          "collisionPasses": [
+            -1,
+            0
+          ],
+          "canCollideWithBloons": true,
+          "radius": 14.0,
+          "vsBlockerRadius": 0.0,
+          "hasDamageModifiers": false,
+          "dontUseCollisionChecker": false,
+          "checkCollisionInterval": 0.0,
+          "checkCollisionIntervalFrames": 0,
+          "ignoreNonTargetable": false,
+          "ignorePierceExhaustion": false,
+          "saveId": "TubeOfAmazoGlueProjectile",
+          "displayModel": null,
+          "cantCreateSubProjectiles": false,
+          "CappedPierce": 100.0,
+          "name": "ProjectileModel_TubeOfAmazoGlueProjectileV2"
+        }
+      ],
+      "projectileModelUpgradeAtLevels": [
+        17
+      ],
+      "randomRotation": false,
+      "name": "GeraldoCreateProjectileModel_GeraldoCreateProjectile"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateEffectOnGeraldoItemModel, Assembly-CSharp",
+      "effectId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "cc4e51ecd049ee249a5bd51db3612483",
+        "AssetGUID": "cc4e51ecd049ee249a5bd51db3612483"
+      },
+      "lifespan": 0.0,
+      "fullScreen": false,
+      "useCenterPosition": false,
+      "name": "CreateEffectOnGeraldoItemModel_CreateEffectOnGeraldoItem"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateSoundOnGeraldoItemModel, Assembly-CSharp",
+      "soundId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "0475901d6cd8f0748840c5fa19e6e9fc",
+        "AssetGUID": "0475901d6cd8f0748840c5fa19e6e9fc"
+      },
+      "name": "CreateSoundOnGeraldoItemModel_CreateSoundOnGeraldoItem"
+    }
+  ],
+  "cost": 150,
+  "canBeActivatedBetweenRounds": true,
+  "towerId": "",
+  "onlyReplenishIfNonePlaced": false,
+  "showBuffsForTower": false,
+  "startingQuantity": 2,
+  "maxQuantity": 3,
+  "roundsToReplenish": 4,
+  "amountToReplenish": 1,
+  "levelUnlockedAt": 4,
+  "bannedForModes": "",
+  "bannedForModesList": [],
+  "maxPurchases": 0,
+  "showGeraldoRangeCircle": false,
+  "blockPurchaseIfTowerPlaced": "",
+  "locsId": "Tube of amaz-o-glue",
+  "iconSwapLevels": [],
+  "defaultIcon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "616499f813e7d4b4caeaa848c4db0183",
+    "AssetGUID": "616499f813e7d4b4caeaa848c4db0183"
+  },
+  "defaultIconSwaps": [],
+  "name": "TubeOfAmazoGlue"
+}

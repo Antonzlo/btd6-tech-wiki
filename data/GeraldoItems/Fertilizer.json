@@ -1,0 +1,75 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoItemModel, Assembly-CSharp",
+  "behaviorModels": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.FertilizerBehaviorModel, Assembly-CSharp",
+      "cashScale": 1.2,
+      "cashIncrement": 0.0,
+      "rounds": 4,
+      "path1TierLimit": -1,
+      "path2TierLimit": -1,
+      "path3TierLimit": -1,
+      "buffDisplayPath": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "067560f02de13474592fb5e1c0a7fcef",
+        "AssetGUID": "067560f02de13474592fb5e1c0a7fcef"
+      },
+      "buffLocsName": "BuffIconFertilizer",
+      "buffIconName": "BuffIconFertilizer",
+      "buffDisplayModel": null,
+      "effectAtTowerId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": null,
+        "AssetGUID": null
+      },
+      "name": "FertilizerBehaviorModel_Fertilizer"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateEffectOnGeraldoItemModel, Assembly-CSharp",
+      "effectId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "cc4e51ecd049ee249a5bd51db3612483",
+        "AssetGUID": "cc4e51ecd049ee249a5bd51db3612483"
+      },
+      "lifespan": 0.0,
+      "fullScreen": false,
+      "useCenterPosition": false,
+      "name": "CreateEffectOnGeraldoItemModel_CreateEffectOnGeraldoItem"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateSoundOnGeraldoItemModel, Assembly-CSharp",
+      "soundId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "dae5d23be07cf7e41be0983e7ba7e7a8",
+        "AssetGUID": "dae5d23be07cf7e41be0983e7ba7e7a8"
+      },
+      "name": "CreateSoundOnGeraldoItemModel_CreateSoundOnGeraldoItem"
+    }
+  ],
+  "cost": 300,
+  "canBeActivatedBetweenRounds": true,
+  "towerId": "",
+  "onlyReplenishIfNonePlaced": false,
+  "showBuffsForTower": false,
+  "startingQuantity": 1,
+  "maxQuantity": 4,
+  "roundsToReplenish": 3,
+  "amountToReplenish": 1,
+  "levelUnlockedAt": 9,
+  "bannedForModes": "Clicks",
+  "bannedForModesList": [
+    "Clicks"
+  ],
+  "maxPurchases": 0,
+  "showGeraldoRangeCircle": false,
+  "blockPurchaseIfTowerPlaced": "",
+  "locsId": "Fertilizer",
+  "iconSwapLevels": [],
+  "defaultIcon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "b699a031e3d62ce42ae9fc7524505e65",
+    "AssetGUID": "b699a031e3d62ce42ae9fc7524505e65"
+  },
+  "defaultIconSwaps": [],
+  "name": "Fertilizer"
+}

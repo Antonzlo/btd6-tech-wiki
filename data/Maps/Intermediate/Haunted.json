@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "Haunted",
+  "difficulty": 1,
+  "coopMapDivisionType": 2,
+  "unlockDifficulty": 0,
+  "mapMusic": "MusicCityA",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectHauntedButton]",
+    "AssetGUID": "MapImages[MapSelectHauntedButton]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "1ac6faae15dc6d142ba1db2551b7468d",
+    "AssetGUID": "1ac6faae15dc6d142ba1db2551b7468d"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": true,
+  "theme": 1,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

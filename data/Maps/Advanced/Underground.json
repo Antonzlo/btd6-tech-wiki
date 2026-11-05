@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "Underground",
+  "difficulty": 2,
+  "coopMapDivisionType": 4,
+  "unlockDifficulty": 1,
+  "mapMusic": "MusicUpbeat2A",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectUndergroundButton]",
+    "AssetGUID": "MapImages[MapSelectUndergroundButton]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "d1b2a583a6cade94385d0d7dd792414d",
+    "AssetGUID": "d1b2a583a6cade94385d0d7dd792414d"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": false,
+  "theme": 6,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

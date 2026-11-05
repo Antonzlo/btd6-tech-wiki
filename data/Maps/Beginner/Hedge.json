@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "Hedge",
+  "difficulty": 0,
+  "coopMapDivisionType": 1,
+  "unlockDifficulty": 0,
+  "mapMusic": "MusicCityA",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectHedgeButton]",
+    "AssetGUID": "MapImages[MapSelectHedgeButton]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "93e6f80f76b70684aa02dbc4fa2523c0",
+    "AssetGUID": "93e6f80f76b70684aa02dbc4fa2523c0"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": false,
+  "theme": 2,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

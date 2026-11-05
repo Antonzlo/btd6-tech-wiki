@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "WinterPark",
+  "difficulty": 0,
+  "coopMapDivisionType": 0,
+  "unlockDifficulty": 0,
+  "mapMusic": "MusicCoopA",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectWinterPark]",
+    "AssetGUID": "MapImages[MapSelectWinterPark]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "a7a8ac07fccb8324c906aeba7f485ce7",
+    "AssetGUID": "a7a8ac07fccb8324c906aeba7f485ce7"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": true,
+  "theme": 5,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

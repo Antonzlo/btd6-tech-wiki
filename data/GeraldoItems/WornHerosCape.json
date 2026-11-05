@@ -1,0 +1,58 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoItemModel, Assembly-CSharp",
+  "behaviorModels": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoChangeTowerBehaviorModel, Assembly-CSharp",
+      "targetTowerBaseId": "DartMonkey",
+      "path1TierMax": 2,
+      "path2TierMax": 2,
+      "path3TierMax": 2,
+      "resultingTowerName": "SuperMonkey",
+      "effectAtTowerId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "bd59063e602744046867dd2d40544266",
+        "AssetGUID": "bd59063e602744046867dd2d40544266"
+      },
+      "upgradedTowerName": "",
+      "upgradedTowerUnlockedAt": 0,
+      "resultingPath1TierMax": 3,
+      "resultingPath2TierMax": 3,
+      "resultingPath3TierMax": 3,
+      "upgradeBlockId": "WornHerosCape",
+      "name": "GeraldoChangeTowerBehaviorModel_GeraldoChangeTower"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateSoundOnGeraldoItemModel, Assembly-CSharp",
+      "soundId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "9604cfa4a41253e4aacb9b02599b4e03",
+        "AssetGUID": "9604cfa4a41253e4aacb9b02599b4e03"
+      },
+      "name": "CreateSoundOnGeraldoItemModel_CreateSoundOnGeraldoItem"
+    }
+  ],
+  "cost": 1750,
+  "canBeActivatedBetweenRounds": true,
+  "towerId": "",
+  "onlyReplenishIfNonePlaced": false,
+  "showBuffsForTower": false,
+  "startingQuantity": 1,
+  "maxQuantity": 3,
+  "roundsToReplenish": 7,
+  "amountToReplenish": 1,
+  "levelUnlockedAt": 6,
+  "bannedForModes": "",
+  "bannedForModesList": [],
+  "maxPurchases": 0,
+  "showGeraldoRangeCircle": false,
+  "blockPurchaseIfTowerPlaced": "",
+  "locsId": "Worn heros cape",
+  "iconSwapLevels": [],
+  "defaultIcon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "10dca2eace562524ab7cf7eea24c6fdb",
+    "AssetGUID": "10dca2eace562524ab7cf7eea24c6fdb"
+  },
+  "defaultIconSwaps": [],
+  "name": "WornHerosCape"
+}

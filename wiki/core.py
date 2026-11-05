@@ -34,6 +34,7 @@ PAGES = [
     ("knowledge.html", "Monkey Knowledge", "Цены и эффекты"),
     ("powers.html", "Силы", "Параметры сил"),
     ("achievements.html", "Достижения", "Условия и награды, скрытые тоже"),
+    ("maps.html", "Карты", "Вода, сложность, кооператив"),
     ("links.html", "Ссылки", "Вики, моды, сообщество"),
 ]
 
@@ -388,7 +389,8 @@ PAGE_ICONS = {"paragon.html": ("ui", "paragon"), "bosses.html": ("ui", "boss-Blo
               "powers.html": ("ui", "powers"), "towers.html": ("towers", "DartMonkey"), "rounds.html": ("ui", "startround"),
               "bloons.html": ("bloons", "Red"), "heroes.html": ("heroes", "Quincy"),
               "achievements.html": ("achievements", "117"),  # Achievement of Achievements, a medal
-              "links.html": ("achievements", "120")}  # Social Butterfly, for wikis and community
+              "links.html": ("achievements", "120"),  # Social Butterfly, for wikis and community
+              "maps.html": ("maps", "Tutorial")}  # Monkey Meadow
 
 
 def page_icon(file, size):

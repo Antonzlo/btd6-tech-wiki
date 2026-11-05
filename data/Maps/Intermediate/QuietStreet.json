@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "QuietStreet",
+  "difficulty": 1,
+  "coopMapDivisionType": 0,
+  "unlockDifficulty": 0,
+  "mapMusic": "MusicBTD5JazzA",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectQuietSteetMapButton]",
+    "AssetGUID": "MapImages[MapSelectQuietSteetMapButton]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "8f4c7d6feeafc9f44a2232b91a38170f",
+    "AssetGUID": "8f4c7d6feeafc9f44a2232b91a38170f"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": true,
+  "theme": 5,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

@@ -1,0 +1,80 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoItemModel, Assembly-CSharp",
+  "behaviorModels": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.SharpeningStoneBehaviorModel, Assembly-CSharp",
+      "pierceIncrease": 1.0,
+      "buffDisplayPath": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "d57c8dbc8c152144caa4c104cfabd205",
+        "AssetGUID": "d57c8dbc8c152144caa4c104cfabd205"
+      },
+      "buffLocsName": "BuffIconSharpeningStone",
+      "buffIconName": "BuffIconSharpeningStone",
+      "buffDisplayModel": null,
+      "sharpProperty": 17,
+      "effectAtTowerId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": null,
+        "AssetGUID": null
+      },
+      "bonusPierceAtLevel": 15.0,
+      "bonusPierce": 1.0,
+      "rounds": 10,
+      "name": "SharpeningStoneBehaviorModel_SharpeningStone"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateEffectOnGeraldoItemModel, Assembly-CSharp",
+      "effectId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "7fdd9e2209e95d14cb50e919ecc83df8",
+        "AssetGUID": "7fdd9e2209e95d14cb50e919ecc83df8"
+      },
+      "lifespan": 0.0,
+      "fullScreen": false,
+      "useCenterPosition": false,
+      "name": "CreateEffectOnGeraldoItemModel_CreateEffectOnGeraldoItem"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateSoundOnGeraldoItemModel, Assembly-CSharp",
+      "soundId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "d932c55ae47ede6468f61be4caf5b312",
+        "AssetGUID": "d932c55ae47ede6468f61be4caf5b312"
+      },
+      "name": "CreateSoundOnGeraldoItemModel_CreateSoundOnGeraldoItem"
+    }
+  ],
+  "cost": 200,
+  "canBeActivatedBetweenRounds": true,
+  "towerId": "",
+  "onlyReplenishIfNonePlaced": false,
+  "showBuffsForTower": false,
+  "startingQuantity": 1,
+  "maxQuantity": 3,
+  "roundsToReplenish": 5,
+  "amountToReplenish": 1,
+  "levelUnlockedAt": 5,
+  "bannedForModes": "",
+  "bannedForModesList": [],
+  "maxPurchases": 0,
+  "showGeraldoRangeCircle": false,
+  "blockPurchaseIfTowerPlaced": "",
+  "locsId": "Sharpening stone",
+  "iconSwapLevels": [
+    15
+  ],
+  "defaultIcon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "5069c7c97f1374e48aa4527a159cb2e7",
+    "AssetGUID": "5069c7c97f1374e48aa4527a159cb2e7"
+  },
+  "defaultIconSwaps": [
+    {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+      "guidRef": "4d270e85ed996ba4eae6feac0959cf3d",
+      "AssetGUID": "4d270e85ed996ba4eae6feac0959cf3d"
+    }
+  ],
+  "name": "SharpeningStone"
+}

@@ -1,0 +1,50 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoItemModel, Assembly-CSharp",
+  "behaviorModels": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateSoundOnGeraldoItemModel, Assembly-CSharp",
+      "soundId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "8cf225e0bffeb7c428586c20f206c05d",
+        "AssetGUID": "8cf225e0bffeb7c428586c20f206c05d"
+      },
+      "name": "CreateSoundOnGeraldoItemModel_CreateSoundOnGeraldoItem"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateEffectOnGeraldoItemModel, Assembly-CSharp",
+      "effectId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "cc4e51ecd049ee249a5bd51db3612483",
+        "AssetGUID": "cc4e51ecd049ee249a5bd51db3612483"
+      },
+      "lifespan": 1.0,
+      "fullScreen": false,
+      "useCenterPosition": false,
+      "name": "CreateEffectOnGeraldoItemModel_CreateEffectOnGeraldoItem"
+    }
+  ],
+  "cost": 26000,
+  "canBeActivatedBetweenRounds": true,
+  "towerId": "ParagonPowerTotemTower",
+  "onlyReplenishIfNonePlaced": false,
+  "showBuffsForTower": false,
+  "startingQuantity": 1,
+  "maxQuantity": 2,
+  "roundsToReplenish": 1,
+  "amountToReplenish": 1,
+  "levelUnlockedAt": 20,
+  "bannedForModes": "",
+  "bannedForModesList": [],
+  "maxPurchases": 0,
+  "showGeraldoRangeCircle": false,
+  "blockPurchaseIfTowerPlaced": "",
+  "locsId": "Paragon power totem",
+  "iconSwapLevels": [],
+  "defaultIcon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "44ec3db93dc5cb847aaf730cea6c6084",
+    "AssetGUID": "44ec3db93dc5cb847aaf730cea6c6084"
+  },
+  "defaultIconSwaps": [],
+  "name": "ParagonPowerTotem"
+}

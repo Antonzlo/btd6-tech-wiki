@@ -18,7 +18,7 @@ python3 -I build.py          # writes site/ (Russian) and site/en/
 
 1. In game, Mod Helper settings, press **Export Game Data**. The export lands in
    `<Proton prefix>/drive_c/users/steamuser/AppData/LocalLow/Ninja Kiwi/BloonsTD6/`.
-2. Copy `Bosses Bloons Mods IncomeSets Buffs Knowledge Powers Upgrades paragonDegreeData.json textTable.json`,
+2. Copy `Bosses Bloons Mods IncomeSets Buffs Knowledge Powers Upgrades Maps GeraldoItems paragonDegreeData.json textTable.json`,
    the 26 main tower folders from `Towers/`, and `Rounds/DefaultRoundSet`, `Rounds/AlternateRoundSet` into `data/`.
    For each hero (towerSet 16 with 20 levels) copy `<Hero>.json` and `<Hero> 2.json` … `<Hero> 20.json` into `data/Heroes/<Hero>/`.
 3. For English game text, switch the game to English, export again, and copy `textTable.json` to

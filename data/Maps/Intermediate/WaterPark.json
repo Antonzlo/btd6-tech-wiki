@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "WaterPark",
+  "difficulty": 1,
+  "coopMapDivisionType": 0,
+  "unlockDifficulty": 0,
+  "mapMusic": "MusicSailsAgain",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectWaterparkMapButton]",
+    "AssetGUID": "MapImages[MapSelectWaterparkMapButton]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "fdf98e4109572e84aaffa2b6e380644f",
+    "AssetGUID": "fdf98e4109572e84aaffa2b6e380644f"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": true,
+  "theme": 2,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

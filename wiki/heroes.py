@@ -3,7 +3,7 @@ import json
 import re
 from wiki import core
 from wiki.core import (
-    DATA, GAME, Raw, card, esc, game_text, icon, json_files, load, page, sort_bar, stats, t, table,
+    DATA, GAME, Raw, card, esc, fmt, game_text, icon, json_files, load, page, sort_bar, stats, t, table,
 )
 from wiki.knowledge import knowledge_mods
 from wiki.towers import (
@@ -56,6 +56,29 @@ def hero_calc(totals, cost):
             "rel='noopener'>BTD6 Hero XP Calculator</a>.</p></div>")
 
 
+GERALDO_TEXT = {"BottleHotSauce": "Gerrys fire hot sauce"}  # the one shop item whose text key does not follow its id
+
+
+def geraldo_shop():
+    """Geraldo's shop from data/GeraldoItems: price, unlock level, stock and restock. Text keys are the id split
+    into words plus " name" / " description" (case and punctuation vary), so match them loosely."""
+    loose = lambda s: re.sub(r"[^a-z]", "", s.lower())
+    keys = {loose(k[:-5]): k[:-5] for k in core.TEXT if k.lower().endswith(" name")}
+    rows = []
+    for f in sorted((DATA / "GeraldoItems").glob("*.json")):
+        d, item = load(f), f.stem
+        base = GERALDO_TEXT.get(item) or keys.get(loose(item), item)
+        name = t(f"{base} name", fallback=item)
+        rows.append((d["levelUnlockedAt"], d["cost"], (
+            Raw(f"<div class='ach'>{icon('geraldo', item, 40)}<b>{esc(name)}</b></div>"),
+            Raw(f"<div class='reward'>{icon('ui', 'coin', 18)}{fmt(d['cost'])}</div>"),
+            "сразу" if d["levelUnlockedAt"] <= 1 else d["levelUnlockedAt"], d["startingQuantity"], d["maxQuantity"],
+            Raw(f"<div class='reward'>+{d['amountToReplenish']} раз в {d['roundsToReplenish']} р.</div>"),
+            Raw(game_text(t(f"{base} description", fallback=""))))))
+    rows.sort(key=lambda r: r[:2])
+    return table(["Предмет", "Цена", "С уровня", "В начале", "Максимум", "Пополнение", "Что делает"], [r[2] for r in rows])
+
+
 def build_heroes():
     upgrades = {f.stem: load(f) for f in json_files("Upgrades")}
     ucost = {u.get("name"): u.get("cost", 0) for u in upgrades.values()}
@@ -99,10 +122,11 @@ def build_heroes():
                 + card("numbers", "Числа по уровням", numbers, section=name)
                 + (card("abilities", "Способности", abilities_table(
                     abils, lambda up: f"уровень {upgrades[up].get('tier', 0) + 1}" if up in upgrades else esc(up)), section=name)
-                   if abils else ""))
+                   if abils else "")
+                + (card("shop", "Магазин", geraldo_shop(), section=name) if hid == "Geraldo" else ""))
         page(core.current_file, name, esc(t(f"{hid} Short Description", fallback="")), body,
              toc=[("about", "Описание"), ("levels", "Уровни и опыт"), ("calc", "Калькулятор"), ("numbers", "Числа по уровням")]
-             + ([("abilities", "Способности")] if abils else []))
+             + ([("abilities", "Способности")] if abils else []) + ([("shop", "Магазин")] if hid == "Geraldo" else []))
     core.current_file = "heroes.html"
     # hero select screen order from game.json (btd6-knowledge-dumper F6 on that screen); heroSet index, then cost, as fallbacks
     order = {hid: i for i, hid in enumerate(GAME.get("heroScreen") or [])} or {h["id"]: h["index"] for h in GAME.get("heroSet") or []}

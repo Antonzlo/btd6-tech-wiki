@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "Ravine",
+  "difficulty": 3,
+  "coopMapDivisionType": 0,
+  "unlockDifficulty": 2,
+  "mapMusic": "MusicDarkA",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectRavineButton]",
+    "AssetGUID": "MapImages[MapSelectRavineButton]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "22e78e4b1f7b21a43800603a053f8f64",
+    "AssetGUID": "22e78e4b1f7b21a43800603a053f8f64"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": true,
+  "theme": 1,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

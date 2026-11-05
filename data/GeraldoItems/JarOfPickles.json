@@ -1,0 +1,76 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoItemModel, Assembly-CSharp",
+  "behaviorModels": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.JarOfPicklesBehaviorModel, Assembly-CSharp",
+      "attackSpeedScale": 0.75,
+      "damageIncrease": 1,
+      "rounds": 5,
+      "buffDisplayPath": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "34a697d429cf5ee4a856971884985fbf",
+        "AssetGUID": "34a697d429cf5ee4a856971884985fbf"
+      },
+      "buffLocsName": "BuffIconJarOfPickles",
+      "buffIconName": "BuffIconJarOfPickles",
+      "effectAtTowerId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": null,
+        "AssetGUID": null
+      },
+      "buffDisplayModel": null,
+      "bonusFortDamageAt": 11,
+      "bonusFortDamage": 0,
+      "bonusFortDamageAtV2": 16,
+      "bonusFortDamageV2": 1,
+      "fortModifier": null,
+      "fortModifierV2": null,
+      "name": "JarOfPicklesBehaviorModel_JarOfPickles"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateEffectOnGeraldoItemModel, Assembly-CSharp",
+      "effectId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "209f58e2fb8d6a04b8f9771c812c66ab",
+        "AssetGUID": "209f58e2fb8d6a04b8f9771c812c66ab"
+      },
+      "lifespan": 0.0,
+      "fullScreen": false,
+      "useCenterPosition": false,
+      "name": "CreateEffectOnGeraldoItemModel_CreateEffectOnGeraldoItem"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateSoundOnGeraldoItemModel, Assembly-CSharp",
+      "soundId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "48cddfaa8af4a4e469e59697a59294dd",
+        "AssetGUID": "48cddfaa8af4a4e469e59697a59294dd"
+      },
+      "name": "CreateSoundOnGeraldoItemModel_CreateSoundOnGeraldoItem"
+    }
+  ],
+  "cost": 150,
+  "canBeActivatedBetweenRounds": true,
+  "towerId": "",
+  "onlyReplenishIfNonePlaced": false,
+  "showBuffsForTower": false,
+  "startingQuantity": 2,
+  "maxQuantity": 4,
+  "roundsToReplenish": 4,
+  "amountToReplenish": 1,
+  "levelUnlockedAt": 0,
+  "bannedForModes": "",
+  "bannedForModesList": [],
+  "maxPurchases": 0,
+  "showGeraldoRangeCircle": false,
+  "blockPurchaseIfTowerPlaced": "",
+  "locsId": "Jar of Pickles",
+  "iconSwapLevels": [],
+  "defaultIcon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "b3dfbf93382b60b448e3b38966a4a811",
+    "AssetGUID": "b3dfbf93382b60b448e3b38966a4a811"
+  },
+  "defaultIconSwaps": [],
+  "name": "JarOfPickles"
+}

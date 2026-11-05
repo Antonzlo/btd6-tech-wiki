@@ -21,6 +21,7 @@ from wiki.modes import build_income, build_modes
 from wiki.buffs import build_buffs
 from wiki.knowledge import build_knowledge, build_powers
 from wiki.achievements import build_achievements
+from wiki.maps import build_maps
 from wiki.heroes import build_heroes
 from wiki.links import build_index, build_links
 from wiki.towers import build_towers
@@ -34,7 +35,8 @@ def main():
         INDEX.clear()
         for file, build in (("paragon.html", build_paragon), ("bosses.html", build_bosses), ("modes.html", build_modes),
                             ("income.html", build_income), ("buffs.html", build_buffs),
-                            ("knowledge.html", build_knowledge), ("powers.html", build_powers), ("achievements.html", build_achievements),
+                            ("knowledge.html", build_knowledge), ("powers.html", build_powers),
+                            ("achievements.html", build_achievements), ("maps.html", build_maps),
                             ("towers.html", build_towers), ("heroes.html", build_heroes), ("bloons.html", build_bloons),
                             ("rounds.html", build_rounds),
                             ("links.html", build_links), ("index.html", build_index)):

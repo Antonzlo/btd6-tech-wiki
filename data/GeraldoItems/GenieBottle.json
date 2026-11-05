@@ -1,0 +1,52 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoItemModel, Assembly-CSharp",
+  "behaviorModels": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoUpgradeTowerModel, Assembly-CSharp",
+      "level": 18,
+      "towerId": "GenieBottleTowerV2",
+      "name": "GeraldoUpgradeTowerModel_GeraldoUpgradeTower"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateSoundOnGeraldoItemModel, Assembly-CSharp",
+      "soundId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "64169e766b08fe440a7dc3cb6ce975b4",
+        "AssetGUID": "64169e766b08fe440a7dc3cb6ce975b4"
+      },
+      "name": "CreateSoundOnGeraldoItemModel_CreateSoundOnGeraldoItem"
+    }
+  ],
+  "cost": 2500,
+  "canBeActivatedBetweenRounds": true,
+  "towerId": "GenieBottleTower",
+  "onlyReplenishIfNonePlaced": false,
+  "showBuffsForTower": false,
+  "startingQuantity": 1,
+  "maxQuantity": 2,
+  "roundsToReplenish": 5,
+  "amountToReplenish": 1,
+  "levelUnlockedAt": 12,
+  "bannedForModes": "",
+  "bannedForModesList": [],
+  "maxPurchases": 0,
+  "showGeraldoRangeCircle": false,
+  "blockPurchaseIfTowerPlaced": "",
+  "locsId": "Genie bottle",
+  "iconSwapLevels": [
+    18
+  ],
+  "defaultIcon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "589bf148dc7ea7f4e99349ea9df15f81",
+    "AssetGUID": "589bf148dc7ea7f4e99349ea9df15f81"
+  },
+  "defaultIconSwaps": [
+    {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+      "guidRef": "88e2081b80c698c449bd483fccb887af",
+      "AssetGUID": "88e2081b80c698c449bd483fccb887af"
+    }
+  ],
+  "name": "GenieBottle"
+}

@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "Bazaar",
+  "difficulty": 1,
+  "coopMapDivisionType": 1,
+  "unlockDifficulty": 0,
+  "mapMusic": "MusicUpbeat2A",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectBazaarButton]",
+    "AssetGUID": "MapImages[MapSelectBazaarButton]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "961922a5a0861f34995ec8edbdcefa85",
+    "AssetGUID": "961922a5a0861f34995ec8edbdcefa85"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": true,
+  "theme": 3,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

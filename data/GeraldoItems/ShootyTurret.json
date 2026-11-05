@@ -1,0 +1,52 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoItemModel, Assembly-CSharp",
+  "behaviorModels": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoUpgradeTowerModel, Assembly-CSharp",
+      "level": 13,
+      "towerId": "ShootyTurretTowerV2",
+      "name": "GeraldoUpgradeTowerModel_GeraldoUpgradeTower"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateSoundOnGeraldoItemModel, Assembly-CSharp",
+      "soundId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "e50476d895fc5d941bde017beca5f81f",
+        "AssetGUID": "e50476d895fc5d941bde017beca5f81f"
+      },
+      "name": "CreateSoundOnGeraldoItemModel_CreateSoundOnGeraldoItem"
+    }
+  ],
+  "cost": 250,
+  "canBeActivatedBetweenRounds": true,
+  "towerId": "ShootyTurretTower",
+  "onlyReplenishIfNonePlaced": false,
+  "showBuffsForTower": true,
+  "startingQuantity": 2,
+  "maxQuantity": 4,
+  "roundsToReplenish": 5,
+  "amountToReplenish": 1,
+  "levelUnlockedAt": 0,
+  "bannedForModes": "",
+  "bannedForModesList": [],
+  "maxPurchases": 0,
+  "showGeraldoRangeCircle": false,
+  "blockPurchaseIfTowerPlaced": "",
+  "locsId": "Shooty turret",
+  "iconSwapLevels": [
+    13
+  ],
+  "defaultIcon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "9afe1dbee04fd9240a6cd92db190fe87",
+    "AssetGUID": "9afe1dbee04fd9240a6cd92db190fe87"
+  },
+  "defaultIconSwaps": [
+    {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+      "guidRef": "511c05f39f4d8f84284bb4746c8bbaf8",
+      "AssetGUID": "511c05f39f4d8f84284bb4746c8bbaf8"
+    }
+  ],
+  "name": "ShootyTurret"
+}

@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "Peninsula",
+  "difficulty": 2,
+  "coopMapDivisionType": 0,
+  "unlockDifficulty": 1,
+  "mapMusic": "MusicUpbeat3A",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectPeninsulaButton]",
+    "AssetGUID": "MapImages[MapSelectPeninsulaButton]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "66a6950301edacb4e8eccb30710d2851",
+    "AssetGUID": "66a6950301edacb4e8eccb30710d2851"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": true,
+  "theme": 4,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}

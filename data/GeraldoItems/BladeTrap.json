@@ -1,0 +1,1062 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoItemModel, Assembly-CSharp",
+  "behaviorModels": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.GeraldoCreateProjectileModel, Assembly-CSharp",
+      "projectileModel": {
+        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.ProjectileModel, Assembly-CSharp",
+        "display": {
+          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+          "guidRef": "4bb22349add95fb43ac3d588b0955be0",
+          "AssetGUID": "4bb22349add95fb43ac3d588b0955be0"
+        },
+        "id": "BladeTrapProjectile",
+        "maxPierce": 1.0,
+        "pierce": 1.0,
+        "scale": 1.0,
+        "ignoreBlockers": true,
+        "usePointCollisionWithBloons": false,
+        "canCollisionBeBlockedByMapLos": false,
+        "filters": [
+          {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterInvisibleModel, Assembly-CSharp",
+            "isActive": true,
+            "ignoreBroadPhase": false,
+            "name": ""
+          },
+          {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterBloonIfDamageTypeModel, Assembly-CSharp",
+            "ifCantHitBloonProperties": 1,
+            "damageModel": {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.DamageModel, Assembly-CSharp",
+              "damage": 1.0,
+              "maxDamage": -1.0,
+              "distributeToChildren": true,
+              "overrideDistributeBlocker": false,
+              "createPopEffect": true,
+              "immuneBloonProperties": 17,
+              "immuneBloonPropertiesOriginal": 17,
+              "ignoreImmunityDestroy": false,
+              "ignoreDamageMultipliers": false,
+              "CappedDamage": 1.0,
+              "collisionPass": 0,
+              "name": "DamageModel_BladeProjectile_"
+            },
+            "name": ""
+          }
+        ],
+        "behaviors": [
+          {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.AgeModel, Assembly-CSharp",
+            "rounds": 9999999,
+            "useRoundTime": false,
+            "lifespan": 9999999.0,
+            "lifespanFrames": 0,
+            "endOfRoundClearBypassModel": null,
+            "Lifespan": 9999999.0,
+            "collisionPass": 0,
+            "name": "AgeModel_BladeTrapProjectile"
+          },
+          {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.ProjectileFilterModel, Assembly-CSharp",
+            "filters": [
+              {
+                "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterInvisibleModel, Assembly-CSharp",
+                "isActive": true,
+                "ignoreBroadPhase": false,
+                "name": ""
+              },
+              {
+                "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterBloonIfDamageTypeModel, Assembly-CSharp",
+                "ifCantHitBloonProperties": 1,
+                "damageModel": {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.DamageModel, Assembly-CSharp",
+                  "damage": 1.0,
+                  "maxDamage": -1.0,
+                  "distributeToChildren": true,
+                  "overrideDistributeBlocker": false,
+                  "createPopEffect": true,
+                  "immuneBloonProperties": 17,
+                  "immuneBloonPropertiesOriginal": 17,
+                  "ignoreImmunityDestroy": false,
+                  "ignoreDamageMultipliers": false,
+                  "CappedDamage": 1.0,
+                  "collisionPass": 0,
+                  "name": "DamageModel_BladeProjectile_"
+                },
+                "name": ""
+              }
+            ],
+            "collisionPass": 0,
+            "name": "ProjectileFilterModel_BladeTrapProjectile"
+          },
+          {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CreateProjectileOnContactModel, Assembly-CSharp",
+            "projectile": {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.ProjectileModel, Assembly-CSharp",
+              "display": {
+                "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                "guidRef": "03e0dba727284a345ac90f99d03cedaa",
+                "AssetGUID": "03e0dba727284a345ac90f99d03cedaa"
+              },
+              "id": "BladeOriginProjectile",
+              "maxPierce": 1.0,
+              "pierce": 1.0,
+              "scale": 1.0,
+              "ignoreBlockers": true,
+              "usePointCollisionWithBloons": false,
+              "canCollisionBeBlockedByMapLos": false,
+              "filters": [
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterAllModel, Assembly-CSharp",
+                  "name": ""
+                }
+              ],
+              "behaviors": [
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.AgeModel, Assembly-CSharp",
+                  "rounds": 9999999,
+                  "useRoundTime": false,
+                  "lifespan": 3.0,
+                  "lifespanFrames": 0,
+                  "endOfRoundClearBypassModel": null,
+                  "Lifespan": 3.0,
+                  "collisionPass": 0,
+                  "name": "AgeModel_BladeOriginProjectile"
+                },
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.ProjectileFilterModel, Assembly-CSharp",
+                  "filters": [
+                    {
+                      "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterAllModel, Assembly-CSharp",
+                      "name": ""
+                    }
+                  ],
+                  "collisionPass": 0,
+                  "name": "ProjectileFilterModel_BladeOriginProjectile"
+                },
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.RotateModel, Assembly-CSharp",
+                  "angle": -360.0,
+                  "rotationFrames": 0.0,
+                  "collisionPass": 0,
+                  "name": ""
+                },
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CreateProjectileOnIntervalModel, Assembly-CSharp",
+                  "projectile": {
+                    "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.ProjectileModel, Assembly-CSharp",
+                    "display": {
+                      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                      "guidRef": "73c06263b85d1354da4cf582782051b1",
+                      "AssetGUID": "73c06263b85d1354da4cf582782051b1"
+                    },
+                    "id": "BladeProjectile",
+                    "maxPierce": -1.0,
+                    "pierce": 200.0,
+                    "scale": 1.0,
+                    "ignoreBlockers": true,
+                    "usePointCollisionWithBloons": false,
+                    "canCollisionBeBlockedByMapLos": false,
+                    "filters": [
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterInvisibleModel, Assembly-CSharp",
+                        "isActive": true,
+                        "ignoreBroadPhase": false,
+                        "name": ""
+                      }
+                    ],
+                    "behaviors": [
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.DamageModel, Assembly-CSharp",
+                        "damage": 1.0,
+                        "maxDamage": -1.0,
+                        "distributeToChildren": true,
+                        "overrideDistributeBlocker": false,
+                        "createPopEffect": true,
+                        "immuneBloonProperties": 17,
+                        "immuneBloonPropertiesOriginal": 17,
+                        "ignoreImmunityDestroy": false,
+                        "ignoreDamageMultipliers": false,
+                        "CappedDamage": 1.0,
+                        "collisionPass": 0,
+                        "name": "DamageModel_BladeProjectile_"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.TravelStraitModel, Assembly-CSharp",
+                        "speed": 150.0,
+                        "speedFrames": 0.0,
+                        "lifespan": 2.0,
+                        "lifespanFrames": 0,
+                        "Speed": 150.0,
+                        "Lifespan": 2.0,
+                        "collisionPass": 0,
+                        "name": "TravelStraitModel_BladeProjectile"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.ProjectileFilterModel, Assembly-CSharp",
+                        "filters": [
+                          {
+                            "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterInvisibleModel, Assembly-CSharp",
+                            "isActive": true,
+                            "ignoreBroadPhase": false,
+                            "name": ""
+                          }
+                        ],
+                        "collisionPass": 0,
+                        "name": "ProjectileFilterModel_BladeProjectile"
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.SyncCamoDetectionWithTowerModel, Assembly-CSharp",
+                        "collisionPass": 0,
+                        "name": ""
+                      },
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+                        "display": {
+                          "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                          "guidRef": "73c06263b85d1354da4cf582782051b1",
+                          "AssetGUID": "73c06263b85d1354da4cf582782051b1"
+                        },
+                        "layer": 0,
+                        "positionOffset": {
+                          "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+                          "x": 0.0,
+                          "y": 0.0,
+                          "z": 0.0,
+                          "MagnitudeSquared": 0.0,
+                          "Magnitude": 0.0,
+                          "Rotation": 0.0,
+                          "SimToDispRotation": 180.0
+                        },
+                        "scale": 1.0,
+                        "ignoreRotation": false,
+                        "animationChanges": null,
+                        "delayedReveal": 0.0,
+                        "category": 16,
+                        "isAnimationPaused": false,
+                        "lockDisplayDelayModification": false,
+                        "name": "DisplayModel_ProjectileDisplay"
+                      }
+                    ],
+                    "collisionPasses": [
+                      0
+                    ],
+                    "canCollideWithBloons": true,
+                    "radius": 2.0,
+                    "vsBlockerRadius": 0.0,
+                    "hasDamageModifiers": false,
+                    "dontUseCollisionChecker": false,
+                    "checkCollisionInterval": 0.0,
+                    "checkCollisionIntervalFrames": 0,
+                    "ignoreNonTargetable": false,
+                    "ignorePierceExhaustion": false,
+                    "saveId": null,
+                    "displayModel": null,
+                    "cantCreateSubProjectiles": false,
+                    "CappedPierce": 200.0,
+                    "name": "ProjectileModel_BladeProjectile"
+                  },
+                  "emission": {
+                    "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions.ArcEmissionModel, Assembly-CSharp",
+                    "angle": 180.0,
+                    "offsetStart": 0.0,
+                    "offset": 0.0,
+                    "useProjectileRotation": true,
+                    "useAirUnitRotation": false,
+                    "SliceSize": 0.0,
+                    "Count": 2,
+                    "sliceSize": 0.0,
+                    "count": 2,
+                    "behaviors": null,
+                    "name": ""
+                  },
+                  "intervalFrames": 2,
+                  "onlyIfHasTarget": false,
+                  "range": -1.0,
+                  "targetType": {
+                    "$type": "Il2CppAssets.Scripts.Models.Towers.TargetType, Assembly-CSharp",
+                    "id": "",
+                    "isActionable": false,
+                    "actionOnCreate": false,
+                    "intID": -1,
+                    "continueToNextPriority": false
+                  },
+                  "isBuffedByRate": false,
+                  "useRawWeaponRate": false,
+                  "onlyEmitOnce": false,
+                  "effect": null,
+                  "collisionPass": 0,
+                  "name": ""
+                },
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CreateEffectOnExpireModel, Assembly-CSharp",
+                  "assetId": {
+                    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                    "guidRef": "6d84b13b7622d2744b8e8369565bc058",
+                    "AssetGUID": "6d84b13b7622d2744b8e8369565bc058"
+                  },
+                  "lifespan": 6.0,
+                  "fullscreen": 0,
+                  "randomRotation": false,
+                  "effectModel": null,
+                  "useTargetPosition": false,
+                  "collisionPass": 0,
+                  "name": ""
+                },
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CreateSoundOnProjectileExpireModel, Assembly-CSharp",
+                  "sound1": {
+                    "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+                    "assetId": {
+                      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                      "guidRef": "ec9a5a7531a750e4c82bf8429e0812e4",
+                      "AssetGUID": "ec9a5a7531a750e4c82bf8429e0812e4"
+                    },
+                    "name": "SoundModel_Explosion01"
+                  },
+                  "sound2": {
+                    "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+                    "assetId": {
+                      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                      "guidRef": "57fac571daa668140b0674eb515f9586",
+                      "AssetGUID": "57fac571daa668140b0674eb515f9586"
+                    },
+                    "name": "SoundModel_Explosion02"
+                  },
+                  "sound3": {
+                    "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+                    "assetId": {
+                      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                      "guidRef": "5b1ee796433122141a0db034af251f15",
+                      "AssetGUID": "5b1ee796433122141a0db034af251f15"
+                    },
+                    "name": "SoundModel_Explosion03"
+                  },
+                  "sound4": {
+                    "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+                    "assetId": {
+                      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                      "guidRef": "f5f616027b9887c4db5b1341a614b352",
+                      "AssetGUID": "f5f616027b9887c4db5b1341a614b352"
+                    },
+                    "name": "SoundModel_Explosion04"
+                  },
+                  "sound5": {
+                    "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+                    "assetId": {
+                      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                      "guidRef": "9a36e64ca09a7ef42bd4af49c1cf4ef6",
+                      "AssetGUID": "9a36e64ca09a7ef42bd4af49c1cf4ef6"
+                    },
+                    "name": "SoundModel_Explosion05"
+                  },
+                  "limiter": 0,
+                  "collisionPass": 0,
+                  "name": "CreateSoundOnProjectileExpireModel_BladeOriginProjectile"
+                },
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+                  "display": {
+                    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                    "guidRef": "03e0dba727284a345ac90f99d03cedaa",
+                    "AssetGUID": "03e0dba727284a345ac90f99d03cedaa"
+                  },
+                  "layer": 0,
+                  "positionOffset": {
+                    "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0,
+                    "MagnitudeSquared": 0.0,
+                    "Magnitude": 0.0,
+                    "Rotation": 0.0,
+                    "SimToDispRotation": 180.0
+                  },
+                  "scale": 1.0,
+                  "ignoreRotation": false,
+                  "animationChanges": null,
+                  "delayedReveal": 0.0,
+                  "category": 16,
+                  "isAnimationPaused": false,
+                  "lockDisplayDelayModification": false,
+                  "name": "DisplayModel_ProjectileDisplay"
+                }
+              ],
+              "collisionPasses": [
+                0
+              ],
+              "canCollideWithBloons": false,
+              "radius": 0.0,
+              "vsBlockerRadius": 0.0,
+              "hasDamageModifiers": false,
+              "dontUseCollisionChecker": false,
+              "checkCollisionInterval": 0.0,
+              "checkCollisionIntervalFrames": 0,
+              "ignoreNonTargetable": false,
+              "ignorePierceExhaustion": false,
+              "saveId": null,
+              "displayModel": null,
+              "cantCreateSubProjectiles": false,
+              "CappedPierce": 1.0,
+              "name": "ProjectileModel_BladeOriginProjectile"
+            },
+            "emission": {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions.SingleEmissionModel, Assembly-CSharp",
+              "behaviors": [
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions.Behaviors.EmissionRotationZeroModel, Assembly-CSharp",
+                  "name": ""
+                }
+              ],
+              "name": ""
+            },
+            "passOnCollidedWith": false,
+            "dontCreateAtBloon": true,
+            "passOnDirectionToContact": false,
+            "useChance": false,
+            "chance": 0.0,
+            "collisionPass": 0,
+            "name": ""
+          },
+          {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CreateSoundOnProjectileCollisionModel, Assembly-CSharp",
+            "sound1": {
+              "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+              "assetId": {
+                "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                "guidRef": "81a8bbce0c7a1cc45927b8e9c8a490b7",
+                "AssetGUID": "81a8bbce0c7a1cc45927b8e9c8a490b7"
+              },
+              "name": "SoundModel_ActivatedMaelstrom"
+            },
+            "sound2": {
+              "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+              "assetId": {
+                "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                "guidRef": "81a8bbce0c7a1cc45927b8e9c8a490b7",
+                "AssetGUID": "81a8bbce0c7a1cc45927b8e9c8a490b7"
+              },
+              "name": "SoundModel_ActivatedMaelstrom"
+            },
+            "sound3": {
+              "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+              "assetId": {
+                "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                "guidRef": "81a8bbce0c7a1cc45927b8e9c8a490b7",
+                "AssetGUID": "81a8bbce0c7a1cc45927b8e9c8a490b7"
+              },
+              "name": "SoundModel_ActivatedMaelstrom"
+            },
+            "sound4": {
+              "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+              "assetId": {
+                "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                "guidRef": "81a8bbce0c7a1cc45927b8e9c8a490b7",
+                "AssetGUID": "81a8bbce0c7a1cc45927b8e9c8a490b7"
+              },
+              "name": "SoundModel_ActivatedMaelstrom"
+            },
+            "sound5": {
+              "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+              "assetId": {
+                "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                "guidRef": "81a8bbce0c7a1cc45927b8e9c8a490b7",
+                "AssetGUID": "81a8bbce0c7a1cc45927b8e9c8a490b7"
+              },
+              "name": "SoundModel_ActivatedMaelstrom"
+            },
+            "collisionPass": 0,
+            "name": "CreateSoundOnProjectileCollisionModel_BladeTrapProjectile"
+          },
+          {
+            "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.SyncCamoDetectionWithTowerModel, Assembly-CSharp",
+            "collisionPass": 0,
+            "name": ""
+          },
+          {
+            "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+            "display": {
+              "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+              "guidRef": "4bb22349add95fb43ac3d588b0955be0",
+              "AssetGUID": "4bb22349add95fb43ac3d588b0955be0"
+            },
+            "layer": 0,
+            "positionOffset": {
+              "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "MagnitudeSquared": 0.0,
+              "Magnitude": 0.0,
+              "Rotation": 0.0,
+              "SimToDispRotation": 180.0
+            },
+            "scale": 1.0,
+            "ignoreRotation": false,
+            "animationChanges": null,
+            "delayedReveal": 0.0,
+            "category": 16,
+            "isAnimationPaused": false,
+            "lockDisplayDelayModification": false,
+            "name": "DisplayModel_ProjectileDisplay"
+          }
+        ],
+        "collisionPasses": [
+          0
+        ],
+        "canCollideWithBloons": true,
+        "radius": 6.0,
+        "vsBlockerRadius": 0.0,
+        "hasDamageModifiers": false,
+        "dontUseCollisionChecker": false,
+        "checkCollisionInterval": 0.0,
+        "checkCollisionIntervalFrames": 0,
+        "ignoreNonTargetable": false,
+        "ignorePierceExhaustion": false,
+        "saveId": "BladeTrapProjectile",
+        "displayModel": null,
+        "cantCreateSubProjectiles": false,
+        "CappedPierce": 1.0,
+        "name": "ProjectileModel_BladeTrapProjectile"
+      },
+      "projectileModelUpgrades": [
+        {
+          "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.ProjectileModel, Assembly-CSharp",
+          "display": {
+            "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+            "guidRef": "cd5f40b93bba58b4392cf9d0d35b071e",
+            "AssetGUID": "cd5f40b93bba58b4392cf9d0d35b071e"
+          },
+          "id": "BladeTrapProjectileV2",
+          "maxPierce": 1.0,
+          "pierce": 1.0,
+          "scale": 1.0,
+          "ignoreBlockers": true,
+          "usePointCollisionWithBloons": false,
+          "canCollisionBeBlockedByMapLos": false,
+          "filters": [
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterInvisibleModel, Assembly-CSharp",
+              "isActive": true,
+              "ignoreBroadPhase": false,
+              "name": ""
+            }
+          ],
+          "behaviors": [
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.AgeModel, Assembly-CSharp",
+              "rounds": 9999999,
+              "useRoundTime": false,
+              "lifespan": 9999999.0,
+              "lifespanFrames": 0,
+              "endOfRoundClearBypassModel": null,
+              "Lifespan": 9999999.0,
+              "collisionPass": 0,
+              "name": "AgeModel_BladeTrapProjectileV2"
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.ProjectileFilterModel, Assembly-CSharp",
+              "filters": [
+                {
+                  "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterInvisibleModel, Assembly-CSharp",
+                  "isActive": true,
+                  "ignoreBroadPhase": false,
+                  "name": ""
+                }
+              ],
+              "collisionPass": 0,
+              "name": "ProjectileFilterModel_BladeTrapProjectileV2"
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CreateProjectileOnContactModel, Assembly-CSharp",
+              "projectile": {
+                "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.ProjectileModel, Assembly-CSharp",
+                "display": {
+                  "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                  "guidRef": "9c84a0161646bac4ebcaf0ab51123730",
+                  "AssetGUID": "9c84a0161646bac4ebcaf0ab51123730"
+                },
+                "id": "BladeOriginProjectile",
+                "maxPierce": 1.0,
+                "pierce": 1.0,
+                "scale": 1.0,
+                "ignoreBlockers": true,
+                "usePointCollisionWithBloons": false,
+                "canCollisionBeBlockedByMapLos": false,
+                "filters": [
+                  {
+                    "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterAllModel, Assembly-CSharp",
+                    "name": ""
+                  }
+                ],
+                "behaviors": [
+                  {
+                    "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.AgeModel, Assembly-CSharp",
+                    "rounds": 9999999,
+                    "useRoundTime": false,
+                    "lifespan": 3.0,
+                    "lifespanFrames": 0,
+                    "endOfRoundClearBypassModel": null,
+                    "Lifespan": 3.0,
+                    "collisionPass": 0,
+                    "name": "AgeModel_BladeOriginProjectile"
+                  },
+                  {
+                    "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.ProjectileFilterModel, Assembly-CSharp",
+                    "filters": [
+                      {
+                        "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterAllModel, Assembly-CSharp",
+                        "name": ""
+                      }
+                    ],
+                    "collisionPass": 0,
+                    "name": "ProjectileFilterModel_BladeOriginProjectile"
+                  },
+                  {
+                    "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.RotateModel, Assembly-CSharp",
+                    "angle": -360.0,
+                    "rotationFrames": 0.0,
+                    "collisionPass": 0,
+                    "name": ""
+                  },
+                  {
+                    "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CreateProjectileOnIntervalModel, Assembly-CSharp",
+                    "projectile": {
+                      "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.ProjectileModel, Assembly-CSharp",
+                      "display": {
+                        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                        "guidRef": "73c06263b85d1354da4cf582782051b1",
+                        "AssetGUID": "73c06263b85d1354da4cf582782051b1"
+                      },
+                      "id": "BladeProjectile",
+                      "maxPierce": -1.0,
+                      "pierce": 500.0,
+                      "scale": 1.0,
+                      "ignoreBlockers": true,
+                      "usePointCollisionWithBloons": false,
+                      "canCollisionBeBlockedByMapLos": false,
+                      "filters": [
+                        {
+                          "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterInvisibleModel, Assembly-CSharp",
+                          "isActive": true,
+                          "ignoreBroadPhase": false,
+                          "name": ""
+                        }
+                      ],
+                      "behaviors": [
+                        {
+                          "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.DamageModel, Assembly-CSharp",
+                          "damage": 2.0,
+                          "maxDamage": -1.0,
+                          "distributeToChildren": true,
+                          "overrideDistributeBlocker": false,
+                          "createPopEffect": true,
+                          "immuneBloonProperties": 0,
+                          "immuneBloonPropertiesOriginal": 0,
+                          "ignoreImmunityDestroy": false,
+                          "ignoreDamageMultipliers": false,
+                          "CappedDamage": 2.0,
+                          "collisionPass": 0,
+                          "name": "DamageModel_BladeProjectile_"
+                        },
+                        {
+                          "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.TravelStraitModel, Assembly-CSharp",
+                          "speed": 150.0,
+                          "speedFrames": 0.0,
+                          "lifespan": 2.0,
+                          "lifespanFrames": 0,
+                          "Speed": 150.0,
+                          "Lifespan": 2.0,
+                          "collisionPass": 0,
+                          "name": "TravelStraitModel_BladeProjectile"
+                        },
+                        {
+                          "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.ProjectileFilterModel, Assembly-CSharp",
+                          "filters": [
+                            {
+                              "$type": "Il2CppAssets.Scripts.Models.Towers.Filters.FilterInvisibleModel, Assembly-CSharp",
+                              "isActive": true,
+                              "ignoreBroadPhase": false,
+                              "name": ""
+                            }
+                          ],
+                          "collisionPass": 0,
+                          "name": "ProjectileFilterModel_BladeProjectile"
+                        },
+                        {
+                          "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.SyncCamoDetectionWithTowerModel, Assembly-CSharp",
+                          "collisionPass": 0,
+                          "name": ""
+                        },
+                        {
+                          "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+                          "display": {
+                            "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                            "guidRef": "73c06263b85d1354da4cf582782051b1",
+                            "AssetGUID": "73c06263b85d1354da4cf582782051b1"
+                          },
+                          "layer": 0,
+                          "positionOffset": {
+                            "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0,
+                            "MagnitudeSquared": 0.0,
+                            "Magnitude": 0.0,
+                            "Rotation": 0.0,
+                            "SimToDispRotation": 180.0
+                          },
+                          "scale": 1.0,
+                          "ignoreRotation": false,
+                          "animationChanges": null,
+                          "delayedReveal": 0.0,
+                          "category": 16,
+                          "isAnimationPaused": false,
+                          "lockDisplayDelayModification": false,
+                          "name": "DisplayModel_ProjectileDisplay"
+                        }
+                      ],
+                      "collisionPasses": [
+                        0
+                      ],
+                      "canCollideWithBloons": true,
+                      "radius": 2.0,
+                      "vsBlockerRadius": 0.0,
+                      "hasDamageModifiers": false,
+                      "dontUseCollisionChecker": false,
+                      "checkCollisionInterval": 0.0,
+                      "checkCollisionIntervalFrames": 0,
+                      "ignoreNonTargetable": false,
+                      "ignorePierceExhaustion": false,
+                      "saveId": null,
+                      "displayModel": null,
+                      "cantCreateSubProjectiles": false,
+                      "CappedPierce": 500.0,
+                      "name": "ProjectileModel_BladeProjectile"
+                    },
+                    "emission": {
+                      "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions.ArcEmissionModel, Assembly-CSharp",
+                      "angle": 360.0,
+                      "offsetStart": 0.0,
+                      "offset": 0.0,
+                      "useProjectileRotation": true,
+                      "useAirUnitRotation": false,
+                      "SliceSize": 0.0,
+                      "Count": 4,
+                      "sliceSize": 0.0,
+                      "count": 4,
+                      "behaviors": null,
+                      "name": ""
+                    },
+                    "intervalFrames": 2,
+                    "onlyIfHasTarget": false,
+                    "range": -1.0,
+                    "targetType": {
+                      "$type": "Il2CppAssets.Scripts.Models.Towers.TargetType, Assembly-CSharp",
+                      "id": "",
+                      "isActionable": false,
+                      "actionOnCreate": false,
+                      "intID": -1,
+                      "continueToNextPriority": false
+                    },
+                    "isBuffedByRate": false,
+                    "useRawWeaponRate": false,
+                    "onlyEmitOnce": false,
+                    "effect": null,
+                    "collisionPass": 0,
+                    "name": ""
+                  },
+                  {
+                    "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CreateEffectOnExpireModel, Assembly-CSharp",
+                    "assetId": {
+                      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                      "guidRef": "6d84b13b7622d2744b8e8369565bc058",
+                      "AssetGUID": "6d84b13b7622d2744b8e8369565bc058"
+                    },
+                    "lifespan": 6.0,
+                    "fullscreen": 0,
+                    "randomRotation": false,
+                    "effectModel": null,
+                    "useTargetPosition": false,
+                    "collisionPass": 0,
+                    "name": ""
+                  },
+                  {
+                    "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CreateSoundOnProjectileExpireModel, Assembly-CSharp",
+                    "sound1": {
+                      "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+                      "assetId": {
+                        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                        "guidRef": "ec9a5a7531a750e4c82bf8429e0812e4",
+                        "AssetGUID": "ec9a5a7531a750e4c82bf8429e0812e4"
+                      },
+                      "name": "SoundModel_Explosion01"
+                    },
+                    "sound2": {
+                      "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+                      "assetId": {
+                        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                        "guidRef": "57fac571daa668140b0674eb515f9586",
+                        "AssetGUID": "57fac571daa668140b0674eb515f9586"
+                      },
+                      "name": "SoundModel_Explosion02"
+                    },
+                    "sound3": {
+                      "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+                      "assetId": {
+                        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                        "guidRef": "5b1ee796433122141a0db034af251f15",
+                        "AssetGUID": "5b1ee796433122141a0db034af251f15"
+                      },
+                      "name": "SoundModel_Explosion03"
+                    },
+                    "sound4": {
+                      "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+                      "assetId": {
+                        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                        "guidRef": "f5f616027b9887c4db5b1341a614b352",
+                        "AssetGUID": "f5f616027b9887c4db5b1341a614b352"
+                      },
+                      "name": "SoundModel_Explosion04"
+                    },
+                    "sound5": {
+                      "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+                      "assetId": {
+                        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                        "guidRef": "9a36e64ca09a7ef42bd4af49c1cf4ef6",
+                        "AssetGUID": "9a36e64ca09a7ef42bd4af49c1cf4ef6"
+                      },
+                      "name": "SoundModel_Explosion05"
+                    },
+                    "limiter": 0,
+                    "collisionPass": 0,
+                    "name": "CreateSoundOnProjectileExpireModel_BladeOriginProjectile"
+                  },
+                  {
+                    "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+                    "display": {
+                      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                      "guidRef": "9c84a0161646bac4ebcaf0ab51123730",
+                      "AssetGUID": "9c84a0161646bac4ebcaf0ab51123730"
+                    },
+                    "layer": 0,
+                    "positionOffset": {
+                      "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+                      "x": 0.0,
+                      "y": 0.0,
+                      "z": 0.0,
+                      "MagnitudeSquared": 0.0,
+                      "Magnitude": 0.0,
+                      "Rotation": 0.0,
+                      "SimToDispRotation": 180.0
+                    },
+                    "scale": 1.0,
+                    "ignoreRotation": false,
+                    "animationChanges": null,
+                    "delayedReveal": 0.0,
+                    "category": 16,
+                    "isAnimationPaused": false,
+                    "lockDisplayDelayModification": false,
+                    "name": "DisplayModel_ProjectileDisplay"
+                  }
+                ],
+                "collisionPasses": [
+                  0
+                ],
+                "canCollideWithBloons": false,
+                "radius": 0.0,
+                "vsBlockerRadius": 0.0,
+                "hasDamageModifiers": false,
+                "dontUseCollisionChecker": false,
+                "checkCollisionInterval": 0.0,
+                "checkCollisionIntervalFrames": 0,
+                "ignoreNonTargetable": false,
+                "ignorePierceExhaustion": false,
+                "saveId": null,
+                "displayModel": null,
+                "cantCreateSubProjectiles": false,
+                "CappedPierce": 1.0,
+                "name": "ProjectileModel_BladeOriginProjectile"
+              },
+              "emission": {
+                "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions.SingleEmissionModel, Assembly-CSharp",
+                "behaviors": [
+                  {
+                    "$type": "Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions.Behaviors.EmissionRotationZeroModel, Assembly-CSharp",
+                    "name": ""
+                  }
+                ],
+                "name": ""
+              },
+              "passOnCollidedWith": false,
+              "dontCreateAtBloon": true,
+              "passOnDirectionToContact": false,
+              "useChance": false,
+              "chance": 0.0,
+              "collisionPass": 0,
+              "name": ""
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.CreateSoundOnProjectileCollisionModel, Assembly-CSharp",
+              "sound1": {
+                "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+                "assetId": {
+                  "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                  "guidRef": "81a8bbce0c7a1cc45927b8e9c8a490b7",
+                  "AssetGUID": "81a8bbce0c7a1cc45927b8e9c8a490b7"
+                },
+                "name": "SoundModel_ActivatedMaelstrom"
+              },
+              "sound2": {
+                "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+                "assetId": {
+                  "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                  "guidRef": "81a8bbce0c7a1cc45927b8e9c8a490b7",
+                  "AssetGUID": "81a8bbce0c7a1cc45927b8e9c8a490b7"
+                },
+                "name": "SoundModel_ActivatedMaelstrom"
+              },
+              "sound3": {
+                "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+                "assetId": {
+                  "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                  "guidRef": "81a8bbce0c7a1cc45927b8e9c8a490b7",
+                  "AssetGUID": "81a8bbce0c7a1cc45927b8e9c8a490b7"
+                },
+                "name": "SoundModel_ActivatedMaelstrom"
+              },
+              "sound4": {
+                "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+                "assetId": {
+                  "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                  "guidRef": "81a8bbce0c7a1cc45927b8e9c8a490b7",
+                  "AssetGUID": "81a8bbce0c7a1cc45927b8e9c8a490b7"
+                },
+                "name": "SoundModel_ActivatedMaelstrom"
+              },
+              "sound5": {
+                "$type": "Il2CppAssets.Scripts.Models.Audio.SoundModel, Assembly-CSharp",
+                "assetId": {
+                  "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+                  "guidRef": "81a8bbce0c7a1cc45927b8e9c8a490b7",
+                  "AssetGUID": "81a8bbce0c7a1cc45927b8e9c8a490b7"
+                },
+                "name": "SoundModel_ActivatedMaelstrom"
+              },
+              "collisionPass": 0,
+              "name": "CreateSoundOnProjectileCollisionModel_BladeTrapProjectileV2"
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors.SyncCamoDetectionWithTowerModel, Assembly-CSharp",
+              "collisionPass": 0,
+              "name": ""
+            },
+            {
+              "$type": "Il2CppAssets.Scripts.Models.GenericBehaviors.DisplayModel, Assembly-CSharp",
+              "display": {
+                "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+                "guidRef": "cd5f40b93bba58b4392cf9d0d35b071e",
+                "AssetGUID": "cd5f40b93bba58b4392cf9d0d35b071e"
+              },
+              "layer": 0,
+              "positionOffset": {
+                "$type": "Il2CppAssets.Scripts.Simulation.SMath.Vector3, Assembly-CSharp",
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "MagnitudeSquared": 0.0,
+                "Magnitude": 0.0,
+                "Rotation": 0.0,
+                "SimToDispRotation": 180.0
+              },
+              "scale": 1.0,
+              "ignoreRotation": false,
+              "animationChanges": null,
+              "delayedReveal": 0.0,
+              "category": 16,
+              "isAnimationPaused": false,
+              "lockDisplayDelayModification": false,
+              "name": "DisplayModel_ProjectileDisplay"
+            }
+          ],
+          "collisionPasses": [
+            0
+          ],
+          "canCollideWithBloons": true,
+          "radius": 6.0,
+          "vsBlockerRadius": 0.0,
+          "hasDamageModifiers": false,
+          "dontUseCollisionChecker": false,
+          "checkCollisionInterval": 0.0,
+          "checkCollisionIntervalFrames": 0,
+          "ignoreNonTargetable": false,
+          "ignorePierceExhaustion": false,
+          "saveId": "BladeTrapProjectileV2",
+          "displayModel": null,
+          "cantCreateSubProjectiles": false,
+          "CappedPierce": 1.0,
+          "name": "ProjectileModel_BladeTrapProjectileV2"
+        }
+      ],
+      "projectileModelUpgradeAtLevels": [
+        15
+      ],
+      "randomRotation": false,
+      "name": "GeraldoCreateProjectileModel_GeraldoCreateProjectile"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateEffectOnGeraldoItemModel, Assembly-CSharp",
+      "effectId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "cc4e51ecd049ee249a5bd51db3612483",
+        "AssetGUID": "cc4e51ecd049ee249a5bd51db3612483"
+      },
+      "lifespan": 0.0,
+      "fullScreen": false,
+      "useCenterPosition": false,
+      "name": "CreateEffectOnGeraldoItemModel_CreateEffectOnGeraldoItem"
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.GeraldoItems.CreateSoundOnGeraldoItemModel, Assembly-CSharp",
+      "soundId": {
+        "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.AudioClipReference, Il2CppNinjaKiwi.Common",
+        "guidRef": "0de14f09b28a98c4aa3c243eb5eb28bd",
+        "AssetGUID": "0de14f09b28a98c4aa3c243eb5eb28bd"
+      },
+      "name": "CreateSoundOnGeraldoItemModel_CreateSoundOnGeraldoItem"
+    }
+  ],
+  "cost": 650,
+  "canBeActivatedBetweenRounds": true,
+  "towerId": "",
+  "onlyReplenishIfNonePlaced": false,
+  "showBuffsForTower": false,
+  "startingQuantity": 1,
+  "maxQuantity": 4,
+  "roundsToReplenish": 5,
+  "amountToReplenish": 1,
+  "levelUnlockedAt": 7,
+  "bannedForModes": "",
+  "bannedForModesList": [],
+  "maxPurchases": 0,
+  "showGeraldoRangeCircle": false,
+  "blockPurchaseIfTowerPlaced": "",
+  "locsId": "Blade trap",
+  "iconSwapLevels": [
+    15
+  ],
+  "defaultIcon": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "fab170415fe5b2745959370635d11e79",
+    "AssetGUID": "fab170415fe5b2745959370635d11e79"
+  },
+  "defaultIconSwaps": [
+    {
+      "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+      "guidRef": "443bf5d339b62f246b65c919342dda8d",
+      "AssetGUID": "443bf5d339b62f246b65c919342dda8d"
+    }
+  ],
+  "name": "BladeTrap"
+}

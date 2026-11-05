@@ -1,0 +1,24 @@
+{
+  "$type": "Il2CppAssets.Scripts.Data.MapSets.MapDetails, Assembly-CSharp",
+  "id": "TreeStump",
+  "difficulty": 0,
+  "coopMapDivisionType": 3,
+  "unlockDifficulty": 0,
+  "mapMusic": "MusicUpbeat3A",
+  "mapSprite": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "MapImages[MapSelectTreeStumpButton]",
+    "AssetGUID": "MapImages[MapSelectTreeStumpButton]"
+  },
+  "odysseyStatue": {
+    "$type": "Il2CppNinjaKiwi.Common.ResourceUtils.PrefabReference, Il2CppNinjaKiwi.Common",
+    "guidRef": "7d25b748c0c803f46a1d6e63089adbe7",
+    "AssetGUID": "7d25b748c0c803f46a1d6e63089adbe7"
+  },
+  "isDebug": false,
+  "isBrowserOnly": false,
+  "hasWater": false,
+  "theme": 0,
+  "IsStandard": true,
+  "IsBrowserOnly": false
+}
