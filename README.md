@@ -30,6 +30,8 @@ python3 -I build.py          # writes site/ (Russian) and site/en/
 5. Icons: press F7 in game with the dumper (main menu, mode select, inside a game: each screen adds the sprites
    it has loaded), then `sh tools/game_icons.sh` writes `data/icons/web/`. UI icon names are in `tools/ui_sprites.txt`.
    `sh tools/compose_icons.sh` makes the ban icons.
+6. `sh tools/diff_build.sh` lists the pages that differ from the last commit's build. Commit and push: the
+   workflow publishes the site.
 
 ## Files
 
