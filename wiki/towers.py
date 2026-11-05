@@ -232,7 +232,7 @@ def build_towers():
         tid = folder.name
         base = load(folder / f"{tid}.json")
         variants = {}
-        for f in folder.glob(f"{tid}-*.json"):
+        for f in sorted(folder.glob(f"{tid}-*.json")):
             suffix = f.stem.split("-", 1)[1]
             variants[suffix] = combat_stats(load(f), ucost)
         variants["000"] = combat_stats(base, ucost)

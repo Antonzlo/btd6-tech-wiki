@@ -11,7 +11,7 @@ from wiki.mods import param
 def buff_towers():
     """buffIconName or buffLocsName -> towers whose models carry it (the source tower's CanBuffIndicatorModel)."""
     out = {}
-    for f in (DATA / "Towers").glob("*/*.json"):
+    for f in sorted((DATA / "Towers").glob("*/*.json")):
         for name in set(re.findall(r'"buff(?:Icon|Locs)Name": "([^"]+)"', f.read_text(encoding="utf-8"))):
             out.setdefault(name, set()).add(f.parent.name)
     return out
@@ -26,8 +26,8 @@ def tower_badge(tid):
 def buff_icon_owners():
     """Buff icon name -> heroes and powers whose models carry it: {(kind, id)}."""
     out = {}
-    files = [("hero", f.parent.name, f) for f in (DATA / "Heroes").glob("*/*.json")] + \
-            [("power", f.stem, f) for f in (DATA / "Powers").glob("*.json")]
+    files = [("hero", f.parent.name, f) for f in sorted((DATA / "Heroes").glob("*/*.json"))] + \
+            [("power", f.stem, f) for f in sorted((DATA / "Powers").glob("*.json"))]
     for kind, oid, f in files:
         for name in set(re.findall(r'"(?:buff|)(?:Icon|Locs|icon)Name": "([^"]+)"', f.read_text(encoding="utf-8"))):
             out.setdefault(name, set()).add((kind, oid))

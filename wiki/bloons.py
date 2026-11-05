@@ -9,7 +9,7 @@ from wiki.core import (
 
 # ---------- bloons (shared by the bloons and rounds pages) ----------
 
-BLOONS = {f.stem: load(f) for f in (DATA / "Bloons").rglob("*.json")}
+BLOONS = {f.stem: load(f) for f in sorted((DATA / "Bloons").rglob("*.json"))}
 
 
 def children(b):
@@ -138,7 +138,7 @@ def build_bloons():
 @functools.cache
 def raw_round_pops(rs="DefaultRoundSet"):
     out = {}
-    for f in (DATA / "Rounds" / rs).glob("*.json"):
+    for f in sorted((DATA / "Rounds" / rs).glob("*.json")):
         r = int(f.stem)
         out[r] = sum(g["count"] * pops(g["bloon"]) for g in load(f).get("groups") or [])
     return dict(sorted(out.items()))

@@ -104,7 +104,7 @@ def build_knowledge():
     body, toc = [], []
     GAME_LAYOUT = load_game_layout()
     for cat in sorted(p for p in (DATA / "Knowledge").iterdir() if p.is_dir()):
-        nodes = {f.stem: load(f) for f in cat.glob("*.json")}
+        nodes = {f.stem: load(f) for f in sorted(cat.glob("*.json"))}
 
         def get_ancestors(kid):
             res = set()
@@ -171,7 +171,7 @@ def build_powers():
 @functools.cache
 def knowledge_mods():
     """{knowledge id: its mutator mods}, for every knowledge in the dump."""
-    return {f.stem: (load(f).get("mod") or {}).get("mutatorMods") or [] for f in (DATA / "Knowledge").rglob("*.json")}
+    return {f.stem: (load(f).get("mod") or {}).get("mutatorMods") or [] for f in sorted((DATA / "Knowledge").rglob("*.json"))}
 
 
 def tower_knowledge(tid, folder, up_code):
@@ -180,7 +180,7 @@ def tower_knowledge(tid, folder, up_code):
     towerBaseId, comma lists) or one of its upgrades (upgradeName)."""
     known = knowledge_mods()
     seen = collections.defaultdict(set)
-    for f in folder.glob(f"{tid}*.json"):
+    for f in sorted(folder.glob(f"{tid}*.json")):
         code = "000" if f.stem == tid else f.stem.split("-", 1)[1]
         for k in re.findall(r'"mod":\s*"([^"]+)"', f.read_text(encoding="utf-8")):
             if k in known:
