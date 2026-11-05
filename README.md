@@ -4,7 +4,7 @@ A static wiki of exact Bloons TD 6 numbers taken from the game's own models: bos
 income, buff stacking, paragon, Monkey Knowledge, powers, towers with crosspaths, and rounds.
 English (`/`) and Russian (`/ru/`).
 
-Live: https://zlobinanton.ovh/btd6-tech-wiki/ (GitHub Pages, branch `gh-pages`, deployed with `sh tools/deploy_pages.sh`).
+Live: https://zlobinanton.ovh/btd6-tech-wiki/ (GitHub Pages, deployed by `.github/workflows/pages.yml` on every push to `main`).
 
 Python standard library only, no dependencies.
 
@@ -33,7 +33,7 @@ python3 -I build.py          # writes site/ (Russian) and site/en/
 
 ## Files
 
-- `build.py` the generator, `style.css` the styles, `i18n_en.json` English phrases for the interface.
+- `build.py` the entry point, `wiki/` the generator (`core.py` shared helpers, one module per page group), `site.js` the client script, `style.css` the styles, `i18n_en.json` English phrases for the interface.
 - `data/` the game export the site is built from.
 
 Game data, names, descriptions and images (icons are the game sprites) belong to Ninja Kiwi.
