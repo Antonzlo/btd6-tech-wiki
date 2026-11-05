@@ -4,6 +4,7 @@ import functools
 import html
 import json
 import re
+import shutil
 import sys
 from pathlib import Path
 
@@ -316,10 +317,33 @@ def group(gid, title, cards):
     return f"<h2 class='group' id='{esc(gid)}'>{esc(title)}</h2><div class='cards'>{''.join(cards)}</div>"
 
 
+# GitHub Pages gets icons as files (one download, cached across pages); the other build stays self-contained with
+# data: URIs, since the single-page artifact made from it cannot load other files.
+ICONS_AS_FILES = "--pages" in sys.argv
+
+
 @functools.cache
-def webp_uri(f):
-    """data: URI of a webp file, or "" when it is missing (pages cannot load images from other hosts)."""
+def inline_webp(f):
     return "data:image/webp;base64," + base64.b64encode(f.read_bytes()).decode() if f.exists() else ""
+
+
+@functools.cache
+def published_webp(f):
+    """Copies f to site/img/<path under data/> once; returns that path relative to site/, or "" when f is missing."""
+    if not f.exists():
+        return ""
+    rel = "img/" + f.relative_to(DATA).as_posix()
+    (SITE / rel).parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(f, SITE / rel)
+    return rel
+
+
+def webp_uri(f):
+    """URL of a webp file for the page being built, or "" when it is missing."""
+    if not ICONS_AS_FILES:
+        return inline_webp(f)
+    rel = published_webp(f)
+    return ("" if LANG == MAIN_LANG else "../") + rel if rel else ""
 
 
 def sort_bar(grid_id, options):
