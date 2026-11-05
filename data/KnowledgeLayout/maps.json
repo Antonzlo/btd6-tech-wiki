@@ -1,0 +1,2037 @@
+{
+  "Tutorial": {
+    "paths": [
+      1276.3301
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "InTheLoop": {
+    "paths": [
+      1521.5367
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "SkullTweak": {
+    "paths": [
+      1179.7784,
+      1180.7681,
+      1180.7681
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "SkullPartyConfirmation",
+        "cost": 0
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "InteractableClickSequenceTrigger \u003E RemovableActiveAction",
+      "RemoveableSoldTrigger \u003E DestroyAreaAction\u002BCreateAreaAction\u002BTriggerMapActionsAction\u002BToggleSplitterAction",
+      "StartRoundTrigger \u003E DestroyAreaAction\u002BTriggerMapActionsAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "ThreeMinesAround": {
+    "paths": [
+      1334.5665
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 3000
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 50000
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 10000
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 435
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 25000
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 100000
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RoundRemoveableStartedTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RoundRemoveableStartedTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RoundRemoveableStartedTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RoundRemoveableStartedTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RoundRemoveableStartedTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RoundRemoveableStartedTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "SpaPits": {
+    "paths": [
+      1578.583
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "SpaPitsTarPitsConfirmation",
+        "cost": 0
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E ToggleSplitterAction\u002BCreateAreasAction\u002BDestroyAreasAction\u002BTriggerMapActionsAction\u002BMapEventActiveAction",
+      "StartRoundTrigger \u003E MapEventActiveAction\u002BMapEventActiveAction\u002BTriggerMapActionsAction\u002BDestroyAreaAction",
+      "InteractableClickSequenceTrigger \u003E RemovableActiveAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Tinkerton": {
+    "paths": [
+      1252.3333
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "ReverseModeTrigger \u003E ",
+      "InteractableClickTrigger \u003E MapEventActiveAction",
+      "InteractableClickTrigger \u003E EmitProjectileAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "TreeStump": {
+    "paths": [
+      1498.9471
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "TownCentre": {
+    "paths": [
+      1033.157
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "MiddleOfTheRoad": {
+    "paths": [
+      1341.6647
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "OneTwoTree": {
+    "paths": [
+      1330.2999
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E DestroyAreaAction\u002BCreateAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction\u002BCreateAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction\u002BCreateAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction\u002BCreateAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction\u002BCreateAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "AfterRoundTrigger \u003E CreateAreaAction\u002BDestroyAreaAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Scrapyard": {
+    "paths": [
+      1800.1709
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "InteractableClickTrigger \u003E EmitProjectileAction\u002BMapEventActiveAction\u002BMapEventActiveAction",
+      "SimTimeElapsedTrigger \u003E MapEventActiveAction\u002BMapEventActiveAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "TheCabin": {
+    "paths": [
+      1076.0468
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "InteractableClickSequenceTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Resort": {
+    "paths": [
+      1600.056
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Skates": {
+    "paths": [
+      1247.9587
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E DestroyAreaAction\u002BCreateAreaAction",
+      "InteractableClickTrigger \u003E ",
+      "InteractableClickTrigger \u003E ",
+      "InteractableClickTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "LotusIsland": {
+    "paths": [
+      1107.9165
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "InteractableClickTrigger \u003E EmitProjectileAction\u002BMapEventActiveAction\u002BMapEventActiveAction",
+      "SimTimeElapsedTrigger \u003E MapEventActiveAction\u002BMapEventActiveAction",
+      "InteractableClickTrigger \u003E EmitProjectileAction\u002BMapEventActiveAction\u002BMapEventActiveAction",
+      "SimTimeElapsedTrigger \u003E MapEventActiveAction\u002BMapEventActiveAction",
+      "InteractableClickTrigger \u003E EmitProjectileAction\u002BMapEventActiveAction\u002BMapEventActiveAction",
+      "SimTimeElapsedTrigger \u003E MapEventActiveAction\u002BMapEventActiveAction",
+      "InteractableClickTrigger \u003E EmitProjectileAction\u002BMapEventActiveAction\u002BMapEventActiveAction",
+      "SimTimeElapsedTrigger \u003E MapEventActiveAction\u002BMapEventActiveAction",
+      "InteractableClickTrigger \u003E EmitProjectileAction\u002BMapEventActiveAction\u002BMapEventActiveAction",
+      "SimTimeElapsedTrigger \u003E MapEventActiveAction\u002BMapEventActiveAction",
+      "TowerInAreaTrigger \u003E ChangeSimTimeElapsedTriggerAction\u002BChangeSimTimeElapsedTriggerAction\u002BChangeSimTimeElapsedTriggerAction\u002BChangeSimTimeElapsedTriggerAction\u002BChangeSimTimeElapsedTriggerAction",
+      "TowerInAreaTrigger \u003E ChangeEmitProjectileAction\u002BChangeEmitProjectileAction\u002BChangeEmitProjectileAction\u002BChangeEmitProjectileAction\u002BChangeEmitProjectileAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "CandyFalls": {
+    "paths": [
+      1405.8951
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "WinterPark": {
+    "paths": [
+      1245.1891
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Carved": {
+    "paths": [
+      1312.555
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "ParkPath": {
+    "paths": [
+      1162.9161
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "AlpineRun": {
+    "paths": [
+      1389.2451
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "FrozenOver": {
+    "paths": [
+      1503.6085
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "OnProjectileHitTrigger \u003E CreateTowerAction",
+      "OnProjectileHitTrigger \u003E IncrementCaveMonkeyHitsAction",
+      "OnProjectileHitTrigger \u003E ",
+      "OnProjectileHitTrigger \u003E ",
+      "OnProjectileHitTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Cubism": {
+    "paths": [
+      1712.8933
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "FourCircles": {
+    "paths": [
+      1338.7777
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Hedge": {
+    "paths": [
+      1539.7148
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Logs": {
+    "paths": [
+      1949.2809
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "EndOfTheRoad": {
+    "paths": [
+      995.7781
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "LostCrevasse": {
+    "paths": [
+      616.9892,
+      575.3754,
+      616.98926
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "LuminousCove": {
+    "paths": [
+      964.81586,
+      973.67523
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "InteractableClickTrigger \u003E DestroyAreaAction\u002BDestroyAreaAction",
+      "TowerPlacedTrigger\u002BTowerPlacedTrigger\u002BTowerPlacedTrigger\u002BInteractableClickTrigger \u003E ",
+      "InteractableClickTrigger \u003E ",
+      "TowerPlacedTrigger \u003E ",
+      "TowerPlacedTrigger \u003E ",
+      "TowerPlacedTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "AncientPortal": {
+    "paths": [
+      321.581,
+      266.3635
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "BloonsPoppedTrigger \u003E TriggerMapActionsAction",
+      "BloonsPoppedTrigger \u003E TriggerMapActionsAction",
+      "BloonsPoppedTrigger \u003E TriggerMapActionsAction",
+      "BloonsPoppedTrigger \u003E TriggerMapActionsAction",
+      "BloonsPoppedTrigger \u003E TriggerMapActionsAction",
+      "InteractableClickTrigger \u003E TriggerMapActionsAction",
+      "OnMapCreatedTrigger \u003E TriggerMapActionsAction",
+      "OnMapLoadedWithActiveRegenRemovableTrigger\u002BRepeatableTrigger \u003E TriggerMapActionsAction",
+      "SimTimeElapsedTrigger \u003E TriggerMapActionsAction",
+      "SimTimeElapsedTrigger \u003E TriggerMapActionsAction",
+      "OnMapLoadedWithActiveRegenRemovableTrigger\u002BRepeatableTrigger \u003E TriggerMapActionsAction"
+    ],
+    "regenRemovables": [
+      "RegenRemovableModel",
+      "RegenRemovableModel"
+    ],
+    "behaviours": []
+  },
+  "SulfurSprings": {
+    "paths": [
+      1071.9423
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "InteractableClickSequenceTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "WaterPark": {
+    "paths": [
+      918.96796,
+      689.83594
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "StartMapTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Polyphemus": {
+    "paths": [
+      1002.67596,
+      1002.6751,
+      1002.67596
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 1000
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "OnMapCreatedTrigger \u003E TriggerMapActionsAction",
+      "AfterRoundTrigger\u002BOnMapLoadedWithActiveRegenRemovableTrigger \u003E TriggerMapActionsAction",
+      "RepeatableTrigger\u002BOnMapLoadedWithActiveRegenRemovableTrigger \u003E TriggerMapActionsAction",
+      "RemoveableSoldTrigger \u003E DestroyAreaAction",
+      "RemoveableSoldTrigger \u003E DestroyAreaAction",
+      "RemoveableSoldTrigger \u003E DestroyAreaAction",
+      "RemoveableSoldTrigger \u003E DestroyAreaAction",
+      "RemoveableSoldTrigger \u003E DestroyAreaAction",
+      "RemoveableSoldTrigger \u003E DestroyAreaAction",
+      "RemoveableSoldTrigger \u003E DestroyAreaAction",
+      "RemoveableSoldTrigger \u003E DestroyAreaAction"
+    ],
+    "regenRemovables": [
+      "RegenRemovableModel"
+    ],
+    "behaviours": []
+  },
+  "CoveredGarden": {
+    "paths": [
+      688.6863
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "AfterRoundTrigger \u003E CycleAreasAction",
+      "StartMapTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Quarry": {
+    "paths": [
+      1348.2039
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "AfterRoundTrigger\u002BPreBloonSpawnTrigger \u003E PathActiveAction\u002BDestroyAreaAction",
+      "StartMapTrigger \u003E ",
+      "InteractableClickSequenceTrigger \u003E ",
+      "InteractableClickSequenceTrigger \u003E ",
+      "InteractableClickSequenceTrigger \u003E ",
+      "InteractableClickTrigger \u003E ",
+      "InteractableClickTrigger \u003E ",
+      "InteractableClickTrigger \u003E ",
+      "InteractableClickTrigger\u002BInteractableClickTrigger\u002BInteractableClickTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "QuietStreet": {
+    "paths": [
+      883.62683,
+      883.6265,
+      879.57007,
+      883.62683
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "RemoveableSoldTrigger \u003E CreateAreaAction\u002BDestroyAreaAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "BloonariusPrime": {
+    "paths": [
+      904.4004
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "PreBloonSpawnTrigger \u003E PathActiveAction",
+      "AfterRoundTrigger \u003E PathActiveAction\u002BPathActiveAction\u002BMapEventActiveAction\u002BMapEventActiveAction",
+      "StartRoundTrigger \u003E ",
+      "AfterRoundTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Balance": {
+    "paths": [
+      123.20016,
+      661.6465,
+      630.6886,
+      666.53625,
+      632.8364,
+      112.7004,
+      112.7004,
+      666.5361,
+      632.836,
+      661.64606,
+      630.68964,
+      123.20016,
+      898.0779
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Encrypted": {
+    "paths": [
+      1002.1971,
+      1002.1971,
+      1002.1971
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "RemoveableSoldTrigger \u003E CreateAreaAction\u002BCreateAreaAction\u002BDestroyAreaAction",
+      "RemoveableSoldTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "RemoveableSoldTrigger \u003E CreateAreaAction\u002BDestroyAreaAction",
+      "EncryptedTrigger \u003E DestroyAreaAction\u002BDestroyAreaAction\u002BDestroyAreaAction\u002BDestroyAreaAction\u002BDestroyAreaAction\u002BDestroyAreaAction\u002BCreateTowerAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Bazaar": {
+    "paths": [
+      742.98,
+      764.9,
+      742.98
+    ],
+    "removables": [
+      {
+        "name": "Palm Trees",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "Palm Trees",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "Palm Trees",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "Palm Trees",
+        "text": "Removable Cost",
+        "cost": 500
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "AdorasTemple": {
+    "paths": [
+      1272.7863,
+      1272.7689,
+      1153.344,
+      1153.344,
+      1153.344
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "AdoraSunGodDarkMapTrigger \u003E ",
+      "StartMapTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "SpringSpring": {
+    "paths": [
+      1081.5386,
+      1078.8472,
+      1081.5386
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "KartsNDarts": {
+    "paths": [
+      1245.6819
+    ],
+    "removables": [
+      {
+        "name": "Tyre Pile",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "Tyre Pile",
+        "text": "Removable Cost",
+        "cost": 500
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E SellRemoveableAction",
+      "RemoveableSoldTrigger \u003E SellRemoveableAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "MoonLanding": {
+    "paths": [
+      1243.1323
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Haunted": {
+    "paths": [
+      962.9989,
+      963.79974
+    ],
+    "removables": [
+      {
+        "name": "SpookyTree",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "SpookyTree",
+        "text": "Removable Cost",
+        "cost": 500
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Downstream": {
+    "paths": [
+      1228.2189
+    ],
+    "removables": [
+      {
+        "name": "Downstream Rocks",
+        "text": "Removable Cost",
+        "cost": 350
+      },
+      {
+        "name": "Downstream Rocks",
+        "text": "Removable Cost",
+        "cost": 350
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "FiringRange": {
+    "paths": [
+      1238.3198,
+      1243.2822
+    ],
+    "removables": [
+      {
+        "name": "WatchTower",
+        "text": "Removable Cost",
+        "cost": 1000
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Cracked": {
+    "paths": [
+      1355.2411
+    ],
+    "removables": [
+      {
+        "name": "Rock",
+        "text": "Removable Cost",
+        "cost": 1000
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Streambed": {
+    "paths": [
+      1202.7964
+    ],
+    "removables": [
+      {
+        "name": "Skull",
+        "text": "Removable Cost",
+        "cost": 1000
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Chutes": {
+    "paths": [
+      656.2345,
+      654.354
+    ],
+    "removables": [
+      {
+        "name": "Left Statue",
+        "text": "Removable Cost",
+        "cost": 350
+      },
+      {
+        "name": "Right Statue",
+        "text": "Removable Cost",
+        "cost": 350
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E SellRemoveableAction",
+      "RemoveableSoldTrigger \u003E SellRemoveableAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Rake": {
+    "paths": [
+      803.59485,
+      794.3572
+    ],
+    "removables": [
+      {
+        "name": "Rock",
+        "text": "Removable Cost",
+        "cost": 1000
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "SpiceIslands": {
+    "paths": [
+      1044.7548
+    ],
+    "removables": [
+      {
+        "name": "Palm Trees",
+        "text": "Removable Cost",
+        "cost": 1000
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "ShipCapture": {
+    "paths": [
+      379.2696,
+      330.2894,
+      379.26962,
+      330.28937,
+      379.2696
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 1000
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E DestroyAreaAction\u002BCreateAreaAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": [
+      "ShipCaptureControllerModel"
+    ]
+  },
+  "Ascent": {
+    "paths": [
+      791.0135,
+      1052.2366,
+      1052.2366
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "MushroomGrotto": {
+    "paths": [
+      788.2888,
+      788.2888,
+      784.1374
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 400
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "StartMapTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E DestroyAreaAction\u002BCreateAreaAction\u002BEnablePathTargetZoneAction",
+      "RemoveableSoldTrigger \u003E DestroyAreaAction\u002BCreateAreaAction\u002BEnablePathTargetZoneAction",
+      "RemoveableSoldTrigger \u003E DestroyAreaAction\u002BCreateAreaAction\u002BEnablePathTargetZoneAction",
+      "RemoveableSoldTrigger \u003E DestroyAreaAction\u002BCreateAreaAction\u002BEnablePathTargetZoneAction",
+      "RemoveableSoldTrigger \u003E DestroyAreasAction\u002BCreateAreasAction\u002BEnablePathTargetZoneAction\u002BEnablePathTargetZoneAction\u002BEnablePathTargetZoneAction\u002BEnablePathTargetZoneAction\u002BEnablePathTargetZoneAction\u002BEnablePathTargetZoneAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "PartyParade": {
+    "paths": [
+      412.6,
+      412.6,
+      412.6
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "SunsetGulch": {
+    "paths": [
+      698.76074,
+      390,
+      390
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "AfterRoundTrigger\u002BPreBloonSpawnTrigger \u003E PathActiveAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "EnchantedGlade": {
+    "paths": [
+      491.14682,
+      573.22003
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "LivesLowerThanTrigger \u003E TriggerMapActionsAction",
+      "LivesLowerThanTrigger \u003E TriggerMapActionsAction",
+      "LivesLowerThanTrigger \u003E TriggerMapActionsAction",
+      "LivesLowerThanTrigger \u003E TriggerMapActionsAction",
+      "LivesLowerThanTrigger \u003E TriggerMapActionsAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "LastResort": {
+    "paths": [
+      1135.0188,
+      748.01886,
+      565.0188,
+      424,
+      424
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 1000
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E DestroyAreaAction\u002BCreateAreaAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "CastleRevenge": {
+    "paths": [
+      184.03918,
+      257.4293,
+      191.36237,
+      268.5741,
+      163.19695,
+      156.878,
+      493.89044,
+      486.40384,
+      657.2467
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "OnMapCreatedTrigger \u003E TriggerMapActionsAction",
+      "SimTimeElapsedTrigger\u002BOnMapLoadedWithActiveRegenRemovableTrigger \u003E TriggerMapActionsAction",
+      "RepeatableTrigger \u003E TriggerMapActionsAction"
+    ],
+    "regenRemovables": [
+      "RegenRemovableModel"
+    ],
+    "behaviours": []
+  },
+  "DarkPath": {
+    "paths": [
+      644.80176
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 1000
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 1000
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 1000
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 1000
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "OnMapCreatedTrigger \u003E TriggerMapActionsAction",
+      "RemoveableSoldTrigger \u003E TriggerMapActionsAction",
+      "RemoveableSoldTrigger \u003E TriggerMapActionsAction",
+      "RemoveableSoldTrigger \u003E TriggerMapActionsAction",
+      "RemoveableSoldTrigger \u003E TriggerMapActionsAction",
+      "RemoveableSoldTrigger \u003E TriggerMapActionsAction",
+      "RemoveableSoldTrigger \u003E TriggerMapActionsAction",
+      "RemoveableSoldTrigger \u003E TriggerMapActionsAction",
+      "RemoveableSoldTrigger \u003E TriggerMapActionsAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Erosion": {
+    "paths": [
+      380.61987,
+      378.2153,
+      530.7353,
+      496.26816,
+      399.50473,
+      320.54208,
+      530.7353
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "OnMapCreatedTrigger \u003E ",
+      "StartMapTrigger \u003E ",
+      "AfterRoundTrigger \u003E TriggerMapActionsAction",
+      "AfterRoundTrigger \u003E TriggerMapActionsAction",
+      "AfterRoundTrigger \u003E TriggerMapActionsAction",
+      "AfterRoundTrigger \u003E TriggerMapActionsAction",
+      "AfterRoundTrigger \u003E TriggerMapActionsAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "MidnightMansion": {
+    "paths": [
+      669.3737,
+      668.9354,
+      669.3737
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 250
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "AfterRoundTrigger \u003E CycleAreasAction\u002BCycleAreasAction",
+      "StartMapTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "SunkenColumns": {
+    "paths": [
+      640.6699,
+      657.32715,
+      640.6699
+    ],
+    "removables": [
+      {
+        "name": "Puddle",
+        "text": "Removable Cost",
+        "cost": 1000
+      },
+      {
+        "name": "Puddle",
+        "text": "Removable Cost",
+        "cost": 1000
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "XFactor": {
+    "paths": [
+      676.60474,
+      477.70343,
+      688.9086,
+      540.7357,
+      676.6542,
+      477.76062,
+      688.9094,
+      540.73517,
+      676.60474
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 2000
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E DestroyAreaAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Mesa": {
+    "paths": [
+      605.8174,
+      534.14325,
+      605.8174
+    ],
+    "removables": [
+      {
+        "name": "Rock",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "Rock",
+        "text": "Removable Cost",
+        "cost": 500
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E RemovableActiveAction",
+      "RemoveableSoldTrigger \u003E RemovableActiveAction",
+      "RemoveableSoldTrigger \u003E RemovableActiveAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Geared": {
+    "paths": [
+      556.3289
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "AfterRoundTrigger \u003E RotateAreaAction\u002BRotateAreaAction",
+      "StartMapTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Spillway": {
+    "paths": [
+      970.14966,
+      955.49854,
+      954.7745,
+      959.4916,
+      973.3146
+    ],
+    "removables": [
+      {
+        "name": "WallPiece",
+        "text": "Removable Cost",
+        "cost": 2000
+      },
+      {
+        "name": "WallPiece",
+        "text": "Removable Cost",
+        "cost": 2000
+      },
+      {
+        "name": "WallPiece",
+        "text": "Removable Cost",
+        "cost": 2000
+      },
+      {
+        "name": "WallPiece",
+        "text": "Removable Cost",
+        "cost": 2000
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Cargo": {
+    "paths": [
+      589.4037
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "AfterRoundTrigger\u002BPreBloonSpawnTrigger \u003E PathActiveAction\u002BRemovableActiveAction\u002BRemovableActiveAction\u002BDestroyAreaAction\u002BDestroyAreaAction",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "PatsPond": {
+    "paths": [
+      779.6148,
+      811.58545,
+      779.6148
+    ],
+    "removables": [
+      {
+        "name": "Pond Rocks",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "Pond Rocks",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "Swamp Trees",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "Swamp Trees",
+        "text": "Removable Cost",
+        "cost": 500
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Peninsula": {
+    "paths": [
+      705.5922
+    ],
+    "removables": [
+      {
+        "name": "Peninsula Kelp",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "Peninsula Kelp",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "Peninsula Kelp",
+        "text": "Removable Cost",
+        "cost": 500
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "HighFinance": {
+    "paths": [
+      1152.2427,
+      830.3999,
+      1152.2427
+    ],
+    "removables": [
+      {
+        "name": "Building",
+        "text": "Build Map Object",
+        "cost": 500
+      },
+      {
+        "name": "Building",
+        "text": "Build Map Object",
+        "cost": 350
+      },
+      {
+        "name": "Building",
+        "text": "Build Map Object",
+        "cost": 1500
+      },
+      {
+        "name": "Building",
+        "text": "Build Map Object",
+        "cost": 1000
+      },
+      {
+        "name": "Building",
+        "text": "Build Map Object",
+        "cost": 500
+      },
+      {
+        "name": "Building",
+        "text": "Build Map Object",
+        "cost": 500
+      },
+      {
+        "name": "Building",
+        "text": "Build Map Object",
+        "cost": 1500
+      },
+      {
+        "name": "Building",
+        "text": "Build Map Object",
+        "cost": 1500
+      },
+      {
+        "name": "Building",
+        "text": "Build Map Object",
+        "cost": 750
+      },
+      {
+        "name": "Building",
+        "text": "Build Map Object",
+        "cost": 750
+      },
+      {
+        "name": "Building",
+        "text": "Build Map Object",
+        "cost": 1000
+      },
+      {
+        "name": "Building",
+        "text": "Build Map Object",
+        "cost": 1500
+      },
+      {
+        "name": "Building",
+        "text": "Build Map Object",
+        "cost": 350
+      },
+      {
+        "name": "Building",
+        "text": "Build Map Object",
+        "cost": 500
+      },
+      {
+        "name": "Building",
+        "text": "Build Map Object",
+        "cost": 350
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "AnotherBrick": {
+    "paths": [
+      651.548
+    ],
+    "removables": [
+      {
+        "name": "BricksLarge",
+        "text": "Removable Cost",
+        "cost": 1000
+      },
+      {
+        "name": "BricksMed",
+        "text": "Removable Cost",
+        "cost": 1000
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "OffTheCoast": {
+    "paths": [
+      901.27576
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Cornfield": {
+    "paths": [
+      947.206
+    ],
+    "removables": [
+      {
+        "name": "Cornfield 1",
+        "text": "Removable Cost",
+        "cost": 700
+      },
+      {
+        "name": "Cornfield 2",
+        "text": "Removable Cost",
+        "cost": 1000
+      },
+      {
+        "name": "Cornfield 3",
+        "text": "Removable Cost",
+        "cost": 700
+      },
+      {
+        "name": "Cornfield 4",
+        "text": "Removable Cost",
+        "cost": 1000
+      },
+      {
+        "name": "Cornfield 6",
+        "text": "Removable Cost",
+        "cost": 700
+      },
+      {
+        "name": "Cornfield 8",
+        "text": "Removable Cost",
+        "cost": 1500
+      },
+      {
+        "name": "Cornfield 9",
+        "text": "Removable Cost",
+        "cost": 1000
+      },
+      {
+        "name": "Cornfield 10",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "Cornfield 11",
+        "text": "Removable Cost",
+        "cost": 350
+      },
+      {
+        "name": "Cornfield 12",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "Cornfield 10",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "Cornfield 11",
+        "text": "Removable Cost",
+        "cost": 350
+      },
+      {
+        "name": "Cornfield 12",
+        "text": "Removable Cost",
+        "cost": 500
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Underground": {
+    "paths": [
+      639.00854,
+      792.92664,
+      792.92664
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "TrickyTracks": {
+    "paths": [
+      467.10123,
+      478.88867,
+      360.219,
+      386.30225,
+      380.2602,
+      368.98062,
+      478.88867
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "GlacialTrail": {
+    "paths": [
+      649.303
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": [
+      "ApplyTowerFreezeModel"
+    ]
+  },
+  "DarkDungeons": {
+    "paths": [
+      430.20145,
+      335.70648,
+      393.3348,
+      325.73096,
+      505.19354
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "InteractableClickTrigger \u003E EmitProjectileAction\u002BDarkDungeonsFireTriggerAction\u002BMapEventActiveAction\u002BMapEventActiveAction",
+      "SimTimeElapsedTrigger \u003E MapEventActiveAction\u002BMapEventActiveAction",
+      "InteractableClickTrigger \u003E EmitProjectileAction\u002BDarkDungeonsFireTriggerAction\u002BMapEventActiveAction\u002BMapEventActiveAction",
+      "SimTimeElapsedTrigger \u003E MapEventActiveAction\u002BMapEventActiveAction",
+      "DarkDungeonsStatueActiveTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Sanctuary": {
+    "paths": [
+      232.39375,
+      232.34656,
+      219.27232,
+      109.30695,
+      109.30695,
+      219.27232,
+      452.67566
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "StartRoundTrigger \u003E MovingPlatformAction",
+      "StartRoundTrigger \u003E MovingPlatformAction",
+      "StartRoundTrigger \u003E MovingPlatformAction",
+      "StartRoundTrigger \u003E MovingPlatformAction",
+      "StartRoundTrigger \u003E MovingPlatformAction",
+      "StartRoundTrigger \u003E MovingPlatformAction",
+      "StartRoundTrigger \u003E MovingPlatformAction",
+      "StartRoundTrigger \u003E MovingPlatformAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Ravine": {
+    "paths": [
+      54.52061,
+      280.01633,
+      317.38748,
+      71.00077,
+      433.774,
+      386.8071
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [
+      "InteractableClickTrigger \u003E MapEventActiveAction",
+      "InteractableClickTrigger \u003E EmitProjectileAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "FloodedValley": {
+    "paths": [
+      395.9269,
+      395.92694,
+      395.9269
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 5000
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E CreateAreaAction\u002BDestroyAreaAction\u002BDestroyAreaAction\u002BDestroyAreaAction\u002BDestroyAreaAction\u002BDestroyAreaAction\u002BDestroyAreaAction",
+      "InteractableClickSequenceTrigger \u003E RemovableActiveAction",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Infernal": {
+    "paths": [
+      657.047,
+      657.0473
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "BloodyPuddles": {
+    "paths": [
+      412.90186,
+      409.93524,
+      409.6837,
+      409.68362,
+      410.9531,
+      411.85046,
+      409.6837
+    ],
+    "removables": [
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 1000
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      },
+      {
+        "name": "",
+        "text": "Removable Cost",
+        "cost": 500
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E CreateAreaAction\u002BRemovableActiveAction\u002BRemovableActiveAction",
+      "RemoveableSoldTrigger \u003E SellRemoveableAction\u002BDestroyAreaAction",
+      "RemoveableSoldTrigger \u003E SellRemoveableAction"
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Workshop": {
+    "paths": [
+      110.69,
+      11.340004,
+      21.629997,
+      11.099998,
+      116.4,
+      16.910004,
+      11.129997,
+      21.04,
+      11.029999,
+      111.0086
+    ],
+    "removables": [],
+    "speed": 1.5,
+    "events": [
+      "AfterRoundTrigger\u002BPreBloonSpawnTrigger \u003E PathActiveAction",
+      "ReverseModeTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "Quad": {
+    "paths": [
+      689.98663,
+      702.0521,
+      690.6643,
+      711.43054,
+      689.98663
+    ],
+    "removables": [
+      {
+        "name": "Quad Garden",
+        "text": "Removable Cost",
+        "cost": 1500
+      },
+      {
+        "name": "Quad Garden",
+        "text": "Removable Cost",
+        "cost": 1500
+      },
+      {
+        "name": "Quad Garden",
+        "text": "Removable Cost",
+        "cost": 1500
+      },
+      {
+        "name": "Quad Garden",
+        "text": "Removable Cost",
+        "cost": 1500
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "DarkCastle": {
+    "paths": [
+      301.97757,
+      206.41136,
+      205.64183,
+      303.71204,
+      63.7,
+      233.20757,
+      534.9829
+    ],
+    "removables": [
+      {
+        "name": "Rock",
+        "text": "Removable Cost",
+        "cost": 1000
+      },
+      {
+        "name": "Rock",
+        "text": "Removable Cost",
+        "cost": 1000
+      },
+      {
+        "name": "Rock",
+        "text": "Removable Cost",
+        "cost": 1000
+      },
+      {
+        "name": "Rock",
+        "text": "Removable Cost",
+        "cost": 1000
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E ",
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "MuddyPuddles": {
+    "paths": [
+      650.61334,
+      656.28204,
+      651.89276,
+      652.18744,
+      656.28204
+    ],
+    "removables": [],
+    "speed": 1,
+    "events": [],
+    "regenRemovables": [],
+    "behaviours": []
+  },
+  "#ouch": {
+    "paths": [
+      500.40002,
+      502.5,
+      576.4,
+      580,
+      576.4
+    ],
+    "removables": [
+      {
+        "name": "Puddle",
+        "text": "Removable Cost",
+        "cost": 1000
+      }
+    ],
+    "speed": 1,
+    "events": [
+      "RemoveableSoldTrigger \u003E "
+    ],
+    "regenRemovables": [],
+    "behaviours": []
+  }
+}

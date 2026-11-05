@@ -44,7 +44,7 @@ def main():
             build()
         INDEX[:] = list({(e[0], e[2]): e for e in INDEX if e[0]}.values())  # same title and link once
         (core.OUT / "search.js").write_text(
-            translate("var WIKI_INDEX=" + json.dumps(INDEX, ensure_ascii=False) + ";" + SEARCH_JS), encoding="utf-8")
+            translate("var WIKI_INDEX=" + json.dumps(INDEX, ensure_ascii=False) + ";" + SEARCH_JS, html=False), encoding="utf-8")
         left = sorted(set(re.findall(r"[А-Яа-яЁё][А-Яа-яЁё .,:()/-]*", "".join(
             f.read_text(encoding="utf-8") for f in core.OUT.glob("*.html"))))) if lang != "ru" else []
         print(f"{lang}: {len(INDEX)} search entries into {core.OUT}"

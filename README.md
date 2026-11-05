@@ -12,6 +12,7 @@ Python standard library only, no dependencies.
 
 ```sh
 python3 -I build.py          # writes site/ (Russian) and site/en/
+python3 -I dev.py            # preview at http://127.0.0.1:8765/, rebuilds on changes (settings at the top of dev.py)
 ```
 
 ## Refresh after a game patch
@@ -28,7 +29,9 @@ python3 -I build.py          # writes site/ (Russian) and site/en/
    `layout.json` (knowledge tree), `game.json` (game version, shop order of towers and heroes, bloon property and
    tower set bits) and `xp.json` (hero XP per round and map difficulty XP scales, from the game's own functions).
    Copy `<game>/KnowledgeLayout/` into `data/KnowledgeLayout/` (icons converted to 96px webp). Ctrl+Shift+F7 prints
-   the current menu and its data. Keep `data/VERSION.txt` at the export version; the build warns when the game is newer.
+   the current menu and its data. Ctrl+Shift+F9 loads every map (browser-only ones skipped) and writes `maps.json`
+   (path lengths, removable obstacles, map mechanics); a stopped run continues where it left off. The maps page works
+   without it and shows "–" for maps not in the file. Keep `data/VERSION.txt` at the export version; the build warns when the game is newer.
 5. Icons: press F7 in game with the dumper (main menu, mode select, inside a game: each screen adds the sprites
    it has loaded), then `sh tools/game_icons.sh` writes `data/icons/web/`. UI icon names are in `tools/ui_sprites.txt`.
    `sh tools/compose_icons.sh` makes the ban icons.

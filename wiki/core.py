@@ -122,11 +122,33 @@ def set_lang(lang):
         PHRASES = (re.compile(f"(?=[{first}])(?:" + "|".join(f"(?:{a})" for a in alts) + ")"), words)
 
 
-def translate(text):
+SVG_BLOCK = re.compile(r"(<svg\b.*?</svg>|data:[^'\")\s]+)", re.S)
+SVG_TEXT = re.compile(r"(>)([^<]+)(<)|(aria-label=')([^']*)(')")
+
+
+def translate(text, html=True):
+    """Russian phrases to the current language. html=False translates the whole text (search.js: its SVG markup
+    lives in JS strings, so the HTML shortcuts below would skip code)."""
     if PHRASES is None:
         return text
     pattern, words = PHRASES
-    return pattern.sub(lambda m: words[m.group(0)], text)
+
+    def sub(s):
+        return pattern.sub(lambda m: words[m.group(0)], s)
+
+    if not html:
+        return sub(text)
+
+    # skips data: URIs (inline icons) and, inside an SVG, all but its text nodes (title, text) and aria-label:
+    # some phrases start with a digit, comma, space or Latin letter, so running over base64 or path data
+    # (M1,2L3.5,4) tries every phrase at almost every character
+    parts = SVG_BLOCK.split(text)
+    for i, part in enumerate(parts):
+        if i % 2 == 0:
+            parts[i] = sub(part)
+        elif part.startswith("<svg"):
+            parts[i] = SVG_TEXT.sub(lambda m: m[1] + sub(m[2]) + m[3] if m[1] else m[4] + sub(m[5]) + m[6], part)
+    return "".join(parts)
 
 
 def t(*keys, fallback=""):

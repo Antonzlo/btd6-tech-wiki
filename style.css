@@ -374,3 +374,50 @@ tbody tr:hover .mod-params.overflowing:not(.open)::after{background:linear-gradi
 .spoiler.open,.revealed .spoiler{cursor:auto}
 .spoiler.open .spoil,.revealed .spoil{filter:none;user-select:auto}
 .reveal{display:inline-flex;align-items:center;gap:6px;margin-left:12px;font-size:14px;cursor:pointer}
+/* map page: schematic from the map dump, sim coordinates (y down) */
+.mapview{margin:8px 0}
+.map-tools{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-bottom:10px;font-size:14px}
+.map-tools label{display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.map-tools button{font:inherit;padding:4px 10px;border:2px solid var(--edge);border-radius:10px;background:var(--panel);color:var(--ink);cursor:pointer}
+.map-xy{margin-left:auto;font-family:var(--code);color:var(--soft);min-width:9em;text-align:right}
+.mapsvg{display:block;width:100%;max-width:560px;height:auto;background:#2b3a2b;border:3px solid var(--edge);border-radius:14px}
+.mapsvg .a{stroke:#0006;stroke-width:.4}
+.mapsvg .land{fill:#6fae55}
+.mapsvg .water{fill:#3b8fd0}
+.mapsvg .track{fill:#d9c48c}
+.mapsvg .unplaceable{fill:#c0473f;fill-opacity:.55}
+.mapsvg .blk{stroke:#3a0d0a;stroke-width:.8}
+.mapsvg .dis{fill:none;stroke:#fff;stroke-dasharray:3 2;stroke-width:.6}
+.mapsvg .a:hover{stroke:#fff;stroke-width:1}
+.mapsvg .los{fill:none;stroke:#fff;stroke-opacity:.7;stroke-width:.5}
+.mapsvg .path polyline{fill:none;stroke:#ffd84a;stroke-width:1.4;stroke-linejoin:round;marker-mid:none}
+.mapsvg .path circle{fill:#ffd84a;stroke:#1b2a44;stroke-width:.6}
+.mapsvg .path.idle polyline{stroke-dasharray:4 3;stroke:#ffb347}
+.mapsvg .path.hid polyline{stroke:#c78bff;stroke-dasharray:1.5 2}
+.mapsvg .path.hid circle{fill:#c78bff}
+.mapsvg .rm{cursor:pointer}
+.mapsvg .rm-dot{fill:#d04fe0;stroke:#fff;stroke-width:.8}
+.mapsvg .rm.gone>:not(.rm-dot){display:none}
+.mapsvg .gone-a{display:none}
+.mapsvg .rm.gone .rm-dot{fill:none;stroke-dasharray:1.5 1}
+.mapsvg.no-land .land,.mapsvg.no-water .water,.mapsvg.no-track .track,.mapsvg.no-unplaceable .unplaceable,
+.mapsvg.no-path .L-path,.mapsvg.no-los .los,.mapsvg.no-rm .L-rm{display:none}
+.mapview.big{position:fixed;inset:0;z-index:1000;margin:0;padding:12px 16px;background:var(--sky);display:flex;flex-direction:column}
+.mapview.big .mapsvg{max-width:none;flex:1;min-height:0;width:100%;height:100%}
+body.map-open{overflow:hidden}
+/* map events: hover or click a row in "Mechanics" to see it on the map */
+.mapsvg .ev{display:none;pointer-events:none}
+.mapsvg .ev.on{display:inline}
+.mapsvg .ev.res>.hl-on,.mapsvg .ev.res>.hl-off{display:none}
+.mapsvg .hl-at{fill:#ffd84a55;stroke:#ffd84a;stroke-width:1.6}
+.mapsvg .hl-on{fill:#3fdc6a55;stroke:#3fdc6a;stroke-width:1.6}
+.mapsvg .hl-off{fill:#ff4a4a44;stroke:#ff4a4a;stroke-width:1.6;stroke-dasharray:3 2}
+.mapsvg .hl-move{fill:#4ab0ff44;stroke:#4ab0ff;stroke-width:1.6}
+.mapsvg polyline.hl-on,.mapsvg polyline.hl-off{fill:none;stroke-width:3.5}
+.mapsvg .pin{animation:pin 1s ease-in-out infinite alternate}
+@keyframes pin{to{stroke-width:3.5}}
+.mapsvg .pin-n{font:700 11px var(--display);fill:#1b2a44;stroke:#ffd84a;stroke-width:3;paint-order:stroke;text-anchor:middle;dominant-baseline:central}
+@media (prefers-reduced-motion:reduce){.mapsvg .pin{animation:none}}
+.evs .ev-row{cursor:pointer}
+.evs .ev-row:hover,.evs .ev-row.on{background:var(--rule)}
+.ev-show{color:var(--blue);white-space:nowrap}
