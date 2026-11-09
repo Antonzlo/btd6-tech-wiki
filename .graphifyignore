@@ -1,0 +1,6 @@
+# graph the wiki's code and docs, not the game dump or browser test leftovers
+data/
+.playwright-mcp/
+tests/
+graphify-out/
+sqlite_mcp_server.db
