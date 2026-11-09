@@ -11,6 +11,9 @@ import re
 
 from wiki.core import DATA, card, esc, fmt, icon, load, page, stats, t, table
 from wiki import core
+from wiki.place import write_place_js
+
+PLACE_VER = ""  # place.js version for cache busting, set by build_maps
 
 # CoopDivision enum of the game (code, not in the export); only the values the maps use are named
 COOP_SPLIT = {0: "общее поле", 1: "горизонтально", 2: "вертикально", 3: "по диагонали", 4: "по диагонали"}
@@ -222,7 +225,8 @@ def map_svg(geo, marks=()):
             f"<g class='L-base'>{''.join(base)}</g><g class='L-los'>{''.join(los)}</g><g class='L-rm'>{rms}</g>"
             f"<g class='L-path'>{''.join(paths)}</g><g class='L-tw'>{game_towers(geo)}</g>"
             + "".join(f"<g class='ev' data-ev='{i}'>{m}</g>" for i, m in enumerate(marks) if m)
-            + "</g></svg></div>")
+            + "</g></svg><div class='buff-panel' hidden></div></div>"
+            f"<script src='place.js?v={PLACE_VER}'></script>")
 
 
 def kind(model):
@@ -525,6 +529,8 @@ def mechanics(d):
 
 
 def build_maps():
+    global PLACE_VER
+    PLACE_VER = write_place_js()
     dump, geo = optional("maps.json"), optional("maps_geo.json") or {}
     # one folder per difficulty, in the game's difficulty order
     folders = sorted((p for p in (DATA / "Maps").iterdir() if p.is_dir()), key=lambda p: load(next(p.glob("*.json")))["difficulty"])

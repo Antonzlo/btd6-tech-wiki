@@ -416,6 +416,20 @@ body.map-open{overflow:hidden}
 .mapsvg .tw.game{fill:#8fd3ff}
 .mapsvg .tw.miss{fill:#ff2bd6;stroke:#fff}
 .mapsvg .tw:hover{fill:#e2564a}
+.mapsvg .tw.target{stroke:#fff;stroke-width:1.4;fill:#f08a24}
+.mapsvg .tw.has-img{fill-opacity:.3}
+.mapsvg .tw-img{cursor:pointer}
+.mapsvg .tw-buffs{pointer-events:none}
+.buff-panel .bi{width:22px;height:22px;vertical-align:middle;margin-right:6px}
+.mapsvg .tw-range{fill:#fff;fill-opacity:.06;stroke:#fff;stroke-opacity:.45;stroke-width:.5;stroke-dasharray:2 1.5;pointer-events:none}
+.buff-panel{margin-top:10px;padding:10px 12px;border:2px solid var(--edge);border-radius:12px;background:var(--panel)}
+.buff-panel h4{margin:0 0 6px}
+.buff-panel ul{list-style:none;margin:0 0 8px;padding:0;display:grid;gap:6px}
+.buff-panel li{display:grid;gap:3px}
+.buff-panel li.dup{opacity:.5}
+.buff-panel .src{font-weight:600;color:var(--soft)}
+.buff-panel small{color:var(--soft)}
+.buff-panel button{font:inherit;padding:4px 10px;border:2px solid var(--edge);border-radius:10px;background:var(--sky);color:var(--ink);cursor:pointer}
 .mapsvg .tw-ghost{pointer-events:none;stroke-width:.6;fill-opacity:.55}
 .mapsvg .tw-ghost.fit{fill:#fff;stroke:#1d5e1d}
 .mapsvg .tw-ghost.nofit{fill:#e2564a;stroke:#5e1d1d}
