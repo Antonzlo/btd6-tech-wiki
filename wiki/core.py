@@ -307,8 +307,10 @@ def page(file, title, lead, body, toc=()):
     side = "".join(f"<a href='{f}'{' class=on' if f == file else ''}>{esc(t(n, fallback=n))}</a>" for f, n, _ in PAGES)
     other = ("ru/" if LANG == MAIN_LANG else "../") + file
     switch = f"<a class='lang' href='{other}' aria-label='Язык'>{'RU' if LANG == MAIN_LANG else 'EN'}</a>"
-    toc_html = ("<div class='toc'><h4>На странице</h4>" + "".join(
-        f"<a href='#{esc(a)}'>{esc(n)}</a>" for a, n in toc) + "</div>") if toc else ""
+    toc_links = "".join(f"<a href='#{esc(a)}'>{esc(n)}</a>" for a, n in toc)
+    toc_html = f"<nav class='toc' aria-label='На странице'><h4>На странице</h4>{toc_links}</nav>" if toc else ""
+    mobile_toc = (f"<details class='mobile-toc'><summary>На странице</summary>"
+                  f"<nav aria-label='На странице'>{toc_links}</nav></details>") if toc else ""
     full_title = 'BTD6 Tech Wiki' if file == 'index.html' else esc(title) + ' · BTD6 Tech Wiki'
     desc = esc(re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", lead))).strip()[:200])
     url = page_url(LANG, file)
@@ -327,11 +329,14 @@ def page(file, title, lead, body, toc=()):
         f"<header class='top'><a class='brand' href='index.html'>BTD6 Tech Wiki<span title='{esc(VERSION)}'>"
         f"{esc(VERSION.split(' ')[0])}</span></a>"
         "<div class='search'><input id='q' type='search' placeholder='Поиск: босс, режим, знание, сила…  ( / )' "
-        "autocomplete='off' aria-label='Поиск по вики'><div class='results' id='qr' hidden></div></div>"
+        "autocomplete='off' aria-label='Поиск по вики' role='combobox' aria-autocomplete='list' "
+        "aria-expanded='false' aria-controls='qr'>"
+        "<div class='results' id='qr' role='listbox' aria-label='Поиск по вики' hidden></div>"
+        "<div class='results empty' id='q-status' role='status'></div></div>"
         f"{switch}</header>"
-        f"<div class='layout'><aside class='side'><h4>Разделы</h4><nav>{side}</nav>{toc_html}</aside>"
+        f"<div class='layout'><aside class='side'><h4>Разделы</h4><nav aria-label='Разделы'>{side}</nav>{toc_html}</aside>"
         f"<main class='page-{file.removesuffix('.html')}'><h1>{esc(title)}</h1><p class='lead'>{lead}</p>"
-        f"{body}<footer class='foot'>Неофициальная фанатская вики. Данные, названия, тексты и изображения "
+        f"{mobile_toc}{body}<footer class='foot'>Неофициальная фанатская вики. Данные, названия, тексты и изображения "
         "принадлежат <a href='https://ninjakiwi.com' rel='noopener'>Ninja Kiwi</a>. Данные выгружены через "
         "<a href='https://github.com/gurrenm3/BTD-Mod-Helper' rel='noopener'>BTD6 Mod Helper</a>, иконки из спрайтов игры. "
         "<a href='https://github.com/Antonzlo/btd6-tech-wiki' rel='noopener'>Исходный код</a>. Сделано с ♥ <a href='https://github.com/Antonzlo' rel='noopener'>Antonzlo</a>.</footer>"

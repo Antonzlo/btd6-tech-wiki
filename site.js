@@ -1,17 +1,22 @@
 
 (function(){
-var box=document.getElementById('q'),out=document.getElementById('qr');if(!box)return;var sel=0,hits=[];
+var box=document.getElementById('q'),out=document.getElementById('qr'),status=document.getElementById('q-status');if(!box)return;var sel=0,hits=[];
 var empty=false;
 function norm(s){return s.toLowerCase().replace(/ё/g,'е').replace(/[\s\-]+/g,' ')}
 function rank(e,q,ws){var t=norm(e[0]),x=t+' '+norm(e[3]||'');
 for(var i=0;i<ws.length;i++)if(x.indexOf(ws[i])<0)return -1;
 return t===q?0:t.indexOf(q+' ')===0?1:t.indexOf(q)===0?2:(' '+t).indexOf(' '+q)>=0?3:t.indexOf(q)>=0?4:5}
+function select(i,scroll){sel=i;Array.prototype.forEach.call(out.children,function(a,j){
+var active=j===i;a.classList.toggle('sel',active);a.setAttribute('aria-selected',active)});
+var active=out.children[i];if(active){box.setAttribute('aria-activedescendant',active.id);if(scroll)active.scrollIntoView({block:'nearest'})}
+else box.removeAttribute('aria-activedescendant')}
 function draw(){out.innerHTML='';hits.forEach(function(h,i){var a=document.createElement('a');a.href=h[2];
-if(i===sel)a.className='sel';var s=document.createElement('span');s.textContent=h[0];var m=document.createElement('small');
-m.textContent=h[1];a.appendChild(s);a.appendChild(m);a.addEventListener('mouseenter',function(){sel=i;out.querySelectorAll('a').forEach(function(o,j){o.classList.toggle('sel',j===i)})});
-out.appendChild(a);if(i===sel)a.scrollIntoView({block:'nearest'})});
-if(empty){var n=document.createElement('div');n.className='empty';n.textContent='Ничего не найдено';out.appendChild(n)}
-out.hidden=!hits.length&&!empty}
+a.id='q-option-'+i;a.tabIndex=-1;a.setAttribute('role','option');
+var s=document.createElement('span');s.textContent=h[0];var m=document.createElement('small');
+m.textContent=h[1];a.appendChild(s);a.appendChild(m);a.addEventListener('mouseenter',function(){select(i,false)});
+out.appendChild(a)});
+out.hidden=!hits.length;box.setAttribute('aria-expanded',!out.hidden);select(sel,false);
+status.textContent=empty?'Ничего не найдено':''}
 function close(){hits=[];empty=false;draw()}
 box.addEventListener('input',function(){var q=norm(box.value.trim()),ws=q.split(' ');sel=0;
 hits=q?WIKI_INDEX.map(function(e){return[rank(e,q,ws),e]}).filter(function(p){return p[0]>=0})
@@ -19,8 +24,10 @@ hits=q?WIKI_INDEX.map(function(e){return[rank(e,q,ws),e]}).filter(function(p){re
 empty=!!q&&!hits.length;draw()});
 box.addEventListener('focus',function(){if(box.value.trim())box.dispatchEvent(new Event('input'))});
 box.addEventListener('keydown',function(e){if(e.key==='Escape'){if(hits.length||empty)close();else{box.value='';box.blur()}return}
-if(!hits.length)return;if(e.key==='ArrowDown'){sel=Math.min(sel+1,hits.length-1);draw();e.preventDefault()}
-else if(e.key==='ArrowUp'){sel=Math.max(sel-1,0);draw();e.preventDefault()}else if(e.key==='Enter'){location.href=hits[sel][2]}});
+if(!hits.length)return;if(e.key==='ArrowDown'){select(Math.min(sel+1,hits.length-1),true);e.preventDefault()}
+else if(e.key==='ArrowUp'){select(Math.max(sel-1,0),true);e.preventDefault()}else if(e.key==='Enter'){location.href=hits[sel][2]}});
+box.addEventListener('blur',function(e){if(!out.contains(e.relatedTarget))close()});
+out.addEventListener('mousedown',function(e){if(e.button===0)e.preventDefault()});
 document.addEventListener('click',function(e){if(!e.target.closest('.search'))close()});
 document.addEventListener('keydown',function(e){if(e.key==='/'&&document.activeElement!==box&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){box.focus();e.preventDefault()}});
 document.querySelectorAll('[data-filter]').forEach(function(f){var rows=document.querySelectorAll(f.dataset.filter);
@@ -147,7 +154,16 @@ window.addEventListener('hashchange',fromHash);fromHash()})();
 (function(){document.querySelectorAll('.mapview').forEach(function(v){var svg=v.querySelector('svg'),xy=v.querySelector('.map-xy');
 v.querySelectorAll('[data-layer]').forEach(function(c){c.addEventListener('change',function(){svg.classList.toggle('no-'+c.dataset.layer,!c.checked)})});
 var rms=svg.querySelectorAll('.rm');var eff=function(g,gone){var ids=function(k){return (g.dataset[k]||'').split(' ').filter(Boolean)};ids('off').forEach(function(i){svg.querySelectorAll('[data-a="'+i+'"]').forEach(function(el){el.classList.toggle('gone-a',gone)})});ids('on').forEach(function(i){svg.querySelectorAll('[data-a="'+i+'"]').forEach(function(el){el.classList.toggle('dis',!gone)})});var path=function(id,on){svg.querySelectorAll('.path').forEach(function(p){if((' '+p.dataset.p+' ').indexOf(' '+id+' ')>=0)p.classList.toggle('idle',!on)})};ids('pon').forEach(function(id){path(id,gone)});ids('poff').forEach(function(id){path(id,!gone)})};svg.mapFx=eff;rms.forEach(function(g){var go=function(){eff(g,g.classList.toggle('gone'))};g.addEventListener('click',go);g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}})});
-var full=v.querySelector('.map-full'),big=function(on){v.classList.toggle('big',on);document.body.classList.toggle('map-open',on);full.textContent=on?'Свернуть':'На весь экран'};full.addEventListener('click',function(){big(!v.classList.contains('big'))});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&v.classList.contains('big'))big(false)});var all=v.querySelector('.rm-all');if(all)all.addEventListener('click',function(){var on=!Array.prototype.every.call(rms,function(g){return g.classList.contains('gone')});rms.forEach(function(g){g.classList.toggle('gone',on);eff(g,on)});all.textContent=on?'Вернуть все препятствия':'Убрать все препятствия'});
+var full=v.querySelector('.map-full'),dialog=document.createElement('dialog'),marker=document.createComment('mapview');
+dialog.className='map-dialog';dialog.setAttribute('aria-label','Схема карты');
+full.addEventListener('click',function(){
+if(dialog.open){dialog.close();return}
+if(dialog.isConnected)return;
+v.before(marker);dialog.appendChild(v);document.body.appendChild(dialog);
+full.textContent='Свернуть';dialog.showModal();document.body.classList.add('map-open');full.focus()});
+dialog.addEventListener('close',function(){
+marker.replaceWith(v);dialog.remove();document.body.classList.remove('map-open');full.textContent='На весь экран';full.focus()});
+var all=v.querySelector('.rm-all');if(all)all.addEventListener('click',function(){var on=!Array.prototype.every.call(rms,function(g){return g.classList.contains('gone')});rms.forEach(function(g){g.classList.toggle('gone',on);eff(g,on)});all.textContent=on?'Вернуть все препятствия':'Убрать все препятствия'});
 svg.addEventListener('mousemove',function(e){var p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;var q=p.matrixTransform(svg.getScreenCTM().inverse());xy.textContent='x '+q.x.toFixed(1)+', y '+q.y.toFixed(1)});
 svg.addEventListener('mouseleave',function(){xy.textContent=''})})})();
 (function(){var svg=document.querySelector('.mapsvg');if(!svg)return;var pinned=null;

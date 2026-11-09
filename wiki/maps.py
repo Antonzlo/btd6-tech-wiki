@@ -401,6 +401,7 @@ def path_opens(geo):
 
 
 def map_page(m, file, name, level, summary, geo):
+    core.current_file = file
     rows = []
     if geo:
         roles, opens = path_roles(geo), path_opens(geo)
@@ -459,7 +460,6 @@ def map_page(m, file, name, level, summary, geo):
         toc.append(("events", "Механики"))
     if not summary and not geo:
         body += "<p class='note'>Для этой карты нет дампа путей и препятствий: дампер пропускает карты только для браузерной версии.</p>"
-    core.current_file = file
     page(file, name, f"{esc(level)}. Схема, пути, препятствия и механики карты.", body, toc)
 
 

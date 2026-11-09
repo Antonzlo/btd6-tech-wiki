@@ -142,7 +142,7 @@ def build_knowledge():
                     + (knowledge_game_graph(GAME_LAYOUT[cat.name], nodes, get_ancestors) if cat.name in GAME_LAYOUT else "<p class='note'>Нет раскладки: запустите KnowledgeDumper (F6).</p>")
                     + "".join(cards))
         toc.append((cat.name, t(cat.name, fallback=cat.name)))
-    knav = "<nav class='knav'>" + "".join(
+    knav = "<nav class='knav' aria-label='Знания'>" + "".join(
         f"<a href='#{esc(a)}'>{esc(n)}</a>" for a, n in toc) + "</nav>"
     page("knowledge.html", t("Monkey Knowledge", fallback="Monkey Knowledge"),
          "Деревья знаний как в игре. Наведите на знание, чтобы подсветить цепочку, нажмите, чтобы открыть "

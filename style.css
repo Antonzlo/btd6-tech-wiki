@@ -52,7 +52,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .results a{display:flex;justify-content:space-between;gap:12px;padding:7px 10px;border-radius:8px;color:var(--ink)}
 .results a:hover,.results a.sel{background:var(--gold);color:var(--gold-ink);text-decoration:none}
 .results small{color:var(--soft);white-space:nowrap}
-.results .empty{padding:7px 10px;color:var(--soft)}
+.results.empty{padding:7px 10px;color:var(--soft)}
+.results.empty:empty{border:0;box-shadow:none;padding:0}
 .results a.sel small,.results a:hover small{color:var(--gold-ink)}
 
 .layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px;max-width:1760px;margin:0 auto;
@@ -64,6 +65,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .side a:hover{background:var(--panel);text-decoration:none}
 .side nav a.on{background:var(--gold);color:var(--gold-ink);border-color:var(--edge);font-weight:600}
 .side .toc a{color:var(--soft);padding-block:3px}
+.side .toc{display:block}
+.mobile-toc{display:none}
 main{min-width:0}
 
 /* Sticky knowledge category nav */
@@ -148,6 +151,8 @@ svg text{fill:var(--soft);font:11px var(--body)}
   .layout{grid-template-columns:minmax(0,1fr);gap:8px}
   .side{position:static;max-height:none}.side .toc,.side h4{display:none}
   .side nav{flex-direction:row;flex-wrap:wrap;gap:6px}
+  .mobile-toc{display:block}
+  .mobile-toc nav{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 0}
   h1{font-size:34px;-webkit-text-stroke-width:6px}
   .card{padding:16px}
 }
@@ -402,8 +407,9 @@ tbody tr:hover .mod-params.overflowing:not(.open)::after{background:linear-gradi
 .mapsvg .rm.gone .rm-dot{fill:none;stroke-dasharray:1.5 1}
 .mapsvg.no-land .land,.mapsvg.no-water .water,.mapsvg.no-track .track,.mapsvg.no-unplaceable .unplaceable,
 .mapsvg.no-path .L-path,.mapsvg.no-los .los,.mapsvg.no-rm .L-rm{display:none}
-.mapview.big{position:fixed;inset:0;z-index:1000;margin:0;padding:12px 16px;background:var(--sky);display:flex;flex-direction:column}
-.mapview.big .mapsvg{max-width:none;flex:1;min-height:0;width:100%;height:100%}
+.map-dialog{inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;border:0;padding:12px 16px;background:var(--sky);color:var(--ink)}
+.map-dialog .mapview{height:100%;margin:0;display:flex;flex-direction:column}
+.map-dialog .mapsvg{max-width:none;flex:1;min-height:0;width:100%;height:100%}
 body.map-open{overflow:hidden}
 /* map events: hover or click a row in "Mechanics" to see it on the map */
 .mapsvg .ev{display:none;pointer-events:none}
