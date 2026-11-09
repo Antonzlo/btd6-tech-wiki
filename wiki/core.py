@@ -31,6 +31,7 @@ PAGES = [
     ("bosses.html", "Боссы", "HP и механики по тирам"),
     ("modes.html", "Режимы", "Модификаторы сложностей"),
     ("income.html", "Доход", "Множители дохода по раундам"),
+    ("coop.html", "Деньги в коопе", "Что делится между игроками"),
     ("knowledge.html", "Monkey Knowledge", "Цены и эффекты"),
     ("powers.html", "Силы", "Параметры сил"),
     ("achievements.html", "Достижения", "Условия и награды, скрытые тоже"),
@@ -412,7 +413,7 @@ def icon(kind, oid, size, cls="ic"):
 
 
 PAGE_ICONS = {"paragon.html": ("ui", "paragon"), "bosses.html": ("ui", "boss-Bloonarius"), "modes.html": ("ui", "mode-Clicks"),
-              "income.html": ("ui", "coin"), "buffs.html": ("towers", "MonkeyVillage"), "knowledge.html": ("ui", "knowledge"),
+              "income.html": ("ui", "coin"), "coop.html": ("ui", "coin"), "buffs.html": ("towers", "MonkeyVillage"), "knowledge.html": ("ui", "knowledge"),
               "powers.html": ("ui", "powers"), "towers.html": ("towers", "DartMonkey"), "rounds.html": ("ui", "startround"),
               "bloons.html": ("bloons", "Red"), "heroes.html": ("heroes", "Quincy"),
               "achievements.html": ("achievements", "117"),  # Achievement of Achievements, a medal

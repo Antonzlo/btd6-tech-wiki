@@ -72,6 +72,11 @@ PARAM_RU = {  # model field -> words; fields not listed fall back to their camel
     "xpToAdd": "доп. опыт", "maxActivationsPerRound": "макс. за раунд", "maxActivationsPerGame": "макс. за игру",
     "livesCost": "цена в жизнях", "maxDamage": "макс. урон", "maxPierce": "макс. пробивание", "glueLevel": "уровень клея",
     "maxStackSize": "макс. стак",
+    "cashPerRound": "денег за раунд", "minimum": "минимум", "maximum": "максимум", "capacity": "вместимость",
+    "interest": "процент", "flatCashAmount": "денег за шар", "incomeModifier": "множитель дохода", "salvage": "при продаже",
+    "cashbackZoneMultiplier": "возврат за башню", "cashbackMaxPercent": "максимум возврата, %", "cashToAdd": "денег",
+    "cashAmount": "денег", "incomeRecoveryRate": "доля дохода на долг", "collectionRate": "доля на долг",
+    "emittedByCashEarnedMultiplier": "доля сразу", "distributeCash": "делится",
 }
 
 
