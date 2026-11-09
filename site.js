@@ -172,3 +172,64 @@ document.querySelectorAll('.ev-row').forEach(function(r){var i=r.dataset.ev;
 r.addEventListener('mouseenter',function(){show(i)});r.addEventListener('mouseleave',function(){show(pinned)});
 var go=function(){if(pinned!==null&&svg.mapFx)svg.mapFx(rowOf(pinned),false);pinned=pinned===i?null:i;if(pinned!==null&&svg.mapFx)svg.mapFx(r,true);document.querySelectorAll('.ev-row').forEach(function(x){x.classList.toggle('on',x.dataset.ev===pinned)});show(pinned);if(pinned)svg.scrollIntoView({block:'nearest',behavior:'smooth'})};
 r.addEventListener('click',go);r.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}})})})();
+// tower placement on the map: footprint from the dump (circle or rectangle), checked against the areas drawn on the map
+// (removed obstacles and map events included) and towers already placed
+(function(){document.querySelectorAll('.mapview').forEach(function(v){
+var svg=v.querySelector('.mapsvg'),pick=v.querySelector('.place'),clear=v.querySelector('.place-clear'),layer=svg&&svg.querySelector('.L-tw');if(!pick||!layer)return;
+var NS='http://www.w3.org/2000/svg',ghost=null,placed=[];
+// rings from the path data "Mx,yLx,y...Z" per ring; even-odd over all rings handles holes
+var areas=Array.prototype.map.call(svg.querySelectorAll('path.a'),function(p){var c=p.classList;
+return{el:p,kind:c.contains('blk')?'blocker':c.contains('track')?'track':c.contains('unplaceable')?'unplaceable':c.contains('water')?'water':'land',
+rings:p.getAttribute('d').split('M').filter(Boolean).map(function(r){return r.replace('Z','').split('L').map(function(q){return q.split(',').map(Number)})})}});
+function live(a){return!a.el.classList.contains('dis')&&!a.el.classList.contains('gone-a')&&!a.el.closest('.rm.gone')}
+function inPoly(x,y,rings){var hit=false;rings.forEach(function(r){for(var i=0,j=r.length-1;i<r.length;j=i++){var a=r[i],b=r[j];
+if((a[1]>y)!==(b[1]>y)&&x<a[0]+(y-a[1])*(b[0]-a[0])/(b[1]-a[1]))hit=!hit}});return hit}
+function segDist(x,y,a,b){var dx=b[0]-a[0],dy=b[1]-a[1],l=dx*dx+dy*dy,t=l?Math.max(0,Math.min(1,((x-a[0])*dx+(y-a[1])*dy)/l)):0;
+return Math.hypot(x-a[0]-t*dx,y-a[1]-t*dy)}
+// points of the footprint: centre, two rings for a circle, a 2-unit grid for a rectangle
+function samples(f,x,y){var s=[[x,y]],i,j;if(f.r){[f.r,f.r/2].forEach(function(r){for(i=0;i<24;i++)s.push([x+r*Math.cos(i*Math.PI/12),y+r*Math.sin(i*Math.PI/12)])})}
+else{var nx=Math.ceil(f.w/2),ny=Math.ceil(f.h/2);for(i=0;i<=nx;i++)for(j=0;j<=ny;j++)s.push([x-f.w/2+f.w*i/nx,y-f.h/2+f.h*j/ny])}return s}
+function touches(a,f,x,y){if(f.r)return inPoly(x,y,a.rings)||a.rings.some(function(r){return r.some(function(p,i){return segDist(x,y,p,r[(i+1)%r.length])<f.r-1e-6})});
+// ponytail: rectangle vs polygon by samples plus polygon corners inside, a sliver thinner than 2 units can slip through
+return samples(f,x,y).some(function(p){return inPoly(p[0],p[1],a.rings)})||a.rings.some(function(r){return r.some(function(p){return Math.abs(p[0]-x)<f.w/2&&Math.abs(p[1]-y)<f.h/2})})}
+function overlap(f,x,y,p){var g=p.f,dx=Math.abs(x-p.x),dy=Math.abs(y-p.y);
+if(f.r&&g.r)return Math.hypot(dx,dy)<f.r+g.r-1e-6;
+if(!f.r&&!g.r)return dx<(f.w+g.w)/2-1e-6&&dy<(f.h+g.h)/2-1e-6;
+var c=f.r?f:g,b=f.r?g:f;return Math.hypot(Math.max(0,dx-b.w/2),Math.max(0,dy-b.h/2))<c.r-1e-6}
+// ponytail: rule guessed, not from game code: no track or no-placing area under any part of the footprint, every
+// sampled point on ground the tower allows (topmost area in map order; off-screen points pass, the game lets a
+// footprint hang over the screen edge), centre on screen, line of sight blockers ignored; check against the game
+function ok(f,x,y){var vb=svg.viewBox.baseVal;if(x<vb.x||y<vb.y||x>vb.x+vb.width||y>vb.y+vb.height)return false;
+var on=areas.filter(live);
+// the game lets a footprint overlap track and no-placing areas by about 1.5 units: Pat's Pond dump, Dart Monkeys (r 6)
+// with centres 4.5 to 5.1 from the track; towers among themselves touch at the full radius (12 apart)
+// ponytail: one fixed slack fitted on r 6 only, could be a share of the radius; dump big towers by the track to tell
+var s=1.5,g={r:f.r&&f.r-s,w:f.w&&f.w-2*s,h:f.h&&f.h-2*s};
+if(on.some(function(a){return(a.kind==='track'||a.kind==='unplaceable')&&touches(a,g,x,y)}))return false;
+if(!samples(f,x,y).every(function(s){var top=null;on.forEach(function(a){if((a.kind==='land'||a.kind==='water')&&inPoly(s[0],s[1],a.rings))top=a.kind});return!top||f.on.indexOf(top)>=0}))return false;
+return!placed.some(function(p){return overlap(f,x,y,p)})}
+function fp(){var o=pick.selectedOptions[0];if(!o||!o.value)return null;var d=o.dataset;
+return{id:o.value,name:o.textContent,r:+d.r||0,w:+d.w||0,h:+d.h||0,on:d.on.split(' ')}}
+function shape(f,x,y,cls){var el=document.createElementNS(NS,f.r?'circle':'rect');
+if(f.r){el.setAttribute('cx',x);el.setAttribute('cy',y);el.setAttribute('r',f.r)}
+else{el.setAttribute('x',x-f.w/2);el.setAttribute('y',y-f.h/2);el.setAttribute('width',f.w);el.setAttribute('height',f.h)}
+el.setAttribute('class',cls);return el}
+function at(e){var p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())}
+function add(f,x,y){var el=shape(f,x,y,'tw'),t=document.createElementNS(NS,'title');t.textContent=f.name+': x '+x.toFixed(1)+', y '+y.toFixed(1)+' (нажмите, чтобы убрать)';
+el.appendChild(t);layer.appendChild(el);placed.push({f:f,x:x,y:y,el:el});clear.hidden=false}
+svg.addEventListener('mousemove',function(e){var f=fp();if(ghost){ghost.remove();ghost=null}if(!f)return;var q=at(e);
+ghost=shape(f,q.x,q.y,'tw-ghost '+(ok(f,q.x,q.y)?'fit':'nofit'));layer.appendChild(ghost)});
+svg.addEventListener('mouseleave',function(){if(ghost){ghost.remove();ghost=null}});
+// capture: while a tower is picked, clicks place it instead of removing obstacles; a click on a placed tower removes it
+svg.addEventListener('click',function(e){var hit=placed.filter(function(p){return p.el===e.target})[0];
+if(hit){hit.el.remove();placed.splice(placed.indexOf(hit),1);clear.hidden=!placed.length;e.stopPropagation();return}
+var f=fp();if(!f)return;e.stopPropagation();var q=at(e);if(ok(f,q.x,q.y))add(f,q.x,q.y)},true);
+clear.addEventListener('click',function(){placed.forEach(function(p){p.el.remove()});placed=[];clear.hidden=true});
+// towers placed in game (from the dump) block like placed ones; one the rule would refuse is a rule bug, marked red
+layer.querySelectorAll('.tw.game').forEach(function(el){var o=pick.querySelector('option[value="'+el.dataset.id+'"]');if(!o)return;
+var d=o.dataset;placed.push({f:{id:o.value,name:o.textContent,r:+d.r||0,w:+d.w||0,h:+d.h||0,on:d.on.split(' ')},x:+el.dataset.x,y:+el.dataset.y,el:el})});
+placed.forEach(function(p,i){placed.splice(i,1);var fits=ok(p.f,p.x,p.y);placed.splice(i,0,p);p.el.classList.toggle('miss',!fits)});
+var misses=layer.querySelectorAll('.tw.miss').length;if(placed.length){var note=document.createElement('span');
+note.textContent='башен из игры: '+placed.length+(misses?', правило не пускает: '+misses:', правило пускает все');pick.parentNode.after(note)}
+clear.hidden=!placed.length;
+svg.placeTest={fp:function(id){pick.value=id;return fp()},ok:ok,add:add}})})();

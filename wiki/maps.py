@@ -133,6 +133,43 @@ def screen(geo):
     return min(xs), min(ys), max(xs) - min(xs), max(ys) - min(ys)
 
 
+# AreaType enum of the game (code, not in the export): tower areaTypes use these numbers, the map dump the names
+AREA_TYPES = {1: "water", 2: "land"}
+
+
+def tower_picker():
+    """A select of base towers and heroes with their placement footprint (circle radius or rectangle) and allowed
+    ground, for trying placements on the map. Shop order, then hero select order (heroSet)."""
+    def group(label, folder, ids):
+        opts = []
+        for tid in ids:
+            f = DATA / folder / tid / f"{tid}.json"
+            if not f.exists():
+                continue
+            m = load(f)
+            fp = m["footprint"]
+            size = f"data-w='{fp['xWidth']:g}' data-h='{fp['yWidth']:g}'" if "xWidth" in fp else f"data-r='{fp['radius']:g}'"
+            on = " ".join(AREA_TYPES.get(a, str(a)) for a in m["areaTypes"])
+            opts.append(f"<option value='{esc(tid)}' {size} data-on='{on}'>{esc(t(tid, fallback=tid))}</option>")
+        return f"<optgroup label='{label}'>{''.join(opts)}</optgroup>"
+    heroes = [h["id"] for h in sorted(core.GAME.get("heroSet") or [], key=lambda h: h["index"])]
+    return ("<label>Башня <select class='place'><option value=''>не ставить</option>"
+            + group("Обезьяны", "Towers", core.SHOP_ORDER) + group("Герои", "Heroes", heroes) + "</select></label>"
+            "<button type='button' class='place-clear' hidden>Убрать башни</button>")
+
+
+def game_towers(geo):
+    """Towers placed in game when the map was dumped (F9 in a match): the page checks each against its placement rule."""
+    out = []
+    for w in geo.get("towers") or []:
+        shape = (f"<circle cx='{w['x']:g}' cy='{w['y']:g}' r='{w['r']:g}'" if w["r"] else
+                 f"<rect x='{w['x'] - w['w'] / 2:g}' y='{w['y'] - w['h'] / 2:g}' width='{w['w']:g}' height='{w['h']:g}'")
+        out.append(f"{shape} class='tw game' data-id='{esc(w['id'])}' data-x='{w['x']:g}' data-y='{w['y']:g}'>"
+                   f"<title>{esc(t(w['id'], fallback=w['id']))} из игры: x {w['x']:g}, y {w['y']:g}</title>"
+                   f"</{'circle' if w['r'] else 'rect'}>")
+    return "".join(out)
+
+
 def map_svg(geo, marks=()):
     """The map at load (sandbox, Easy) in sim coordinates: areas by type, paths, blockers, obstacles."""
     owned = {}  # area id -> obstacle index: those areas go away with the obstacle
@@ -177,12 +214,13 @@ def map_svg(geo, marks=()):
     return ("<div class='mapview'><div class='map-tools'>" + toggles
             + "<button type='button' class='map-full'>На весь экран</button>"
             + ("<button type='button' class='rm-all'>Убрать все препятствия</button>" if rms else "")
+            + tower_picker()
             + "<span class='map-xy' aria-live='off'></span></div>"
             f"<svg class='mapsvg' viewBox='{x0:g} {y0:g} {w:g} {h:g}' role='img' aria-label='Схема карты'>"
             # clipped to the game screen: wider full-screen boxes would show the off-screen parts
             f"<clipPath id='screen'><rect x='{x0:g}' y='{y0:g}' width='{w:g}' height='{h:g}'/></clipPath><g clip-path='url(#screen)'>"
             f"<g class='L-base'>{''.join(base)}</g><g class='L-los'>{''.join(los)}</g><g class='L-rm'>{rms}</g>"
-            f"<g class='L-path'>{''.join(paths)}</g>"
+            f"<g class='L-path'>{''.join(paths)}</g><g class='L-tw'>{game_towers(geo)}</g>"
             + "".join(f"<g class='ev' data-ev='{i}'>{m}</g>" for i, m in enumerate(marks) if m)
             + "</g></svg></div>")
 

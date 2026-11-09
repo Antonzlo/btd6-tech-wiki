@@ -411,6 +411,15 @@ tbody tr:hover .mod-params.overflowing:not(.open)::after{background:linear-gradi
 .map-dialog .mapview{height:100%;margin:0;display:flex;flex-direction:column}
 .map-dialog .mapsvg{max-width:none;flex:1;min-height:0;width:100%;height:100%}
 body.map-open{overflow:hidden}
+/* towers placed to try the map: footprint from the dump */
+.mapsvg .tw{fill:#f6c445;fill-opacity:.85;stroke:#3a2a00;stroke-width:.6;cursor:pointer}
+.mapsvg .tw.game{fill:#8fd3ff}
+.mapsvg .tw.miss{fill:#ff2bd6;stroke:#fff}
+.mapsvg .tw:hover{fill:#e2564a}
+.mapsvg .tw-ghost{pointer-events:none;stroke-width:.6;fill-opacity:.55}
+.mapsvg .tw-ghost.fit{fill:#fff;stroke:#1d5e1d}
+.mapsvg .tw-ghost.nofit{fill:#e2564a;stroke:#5e1d1d}
+.map-tools select{font:inherit;padding:3px 6px;border:2px solid var(--edge);border-radius:10px;background:var(--panel);color:var(--ink)}
 /* map events: hover or click a row in "Mechanics" to see it on the map */
 .mapsvg .ev{display:none;pointer-events:none}
 .mapsvg .ev.on{display:inline}

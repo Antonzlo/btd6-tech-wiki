@@ -37,7 +37,8 @@ python3 -I dev.py            # preview at http://127.0.0.1:8765/, rebuilds with 
    points, areas, line of sight blockers, obstacles, the spawner with its splitters, map events with their settings,
    click targets). It skips maps already in both files, so a stopped run continues where it left off; delete
    `maps_geo.json` to dump everything again. Pressing the keys again stops after the current map. Plain F9 inside a
-   match dumps only that map. Copy both files into `data/KnowledgeLayout/`. The map pages build without them and
+   match dumps only that map, with the towers standing on it: the map page draws them and checks each against its
+   placement rule (pink: the game placed it, the rule would not). Copy both files into `data/KnowledgeLayout/`. The map pages build without them and
    show "–" for what is missing.
 6. Icons: press F7 in game with the dumper (main menu, mode select, inside a game: each screen adds the sprites
    it has loaded), then `sh tools/game_icons.sh` writes `data/icons/web/`. UI icon names are in `tools/ui_sprites.txt`.
