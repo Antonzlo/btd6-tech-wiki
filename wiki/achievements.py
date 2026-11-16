@@ -47,7 +47,9 @@ def build_achievements():
         # a hidden achievement is blurred like a spoiler until clicked (or "show hidden" is on); its flags stay readable
         blur = " class='spoil'" if a["hidden"] else ""
         cells = (f"<div class='ach'><span{blur}>{icon('achievements', str(n), 40)}</span>"
-                 f"<span><b id='a{n}'{blur}>{esc(name)}</b>{flags}</span></div>",
+                 f"<span><b id='a{n}'{blur}>{esc(name)}</b>{flags}"
+                 # a real button: the row's click handler opens it, so the keyboard can too
+                 + ("<button type='button' class='unspoil'>Показать</button>" if a["hidden"] else "") + "</span></div>",
                  f"<span{blur}>{esc(desc)}</span>",
                  f"<div{blur}>" + "".join(f"<div class='reward'>{reward(p)}</div>" for p in parts) + "</div>")
         rows.append(f"<tr data-tags='{' '.join(sorted(tags))}'{' class=spoiler' if a['hidden'] else ''}>"

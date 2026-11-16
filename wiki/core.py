@@ -269,7 +269,10 @@ def kv_table(pairs):
 
 
 def table(headers, rows, row_attr=""):
-    head = "".join(f"<th>{esc(h)}</th>" for h in headers)
+    # a column of numbers gets a right-aligned header too
+    nums = [bool(rows) and all(len(r) > i and isinstance(r[i], (int, float)) and not isinstance(r[i], bool) for r in rows)
+            for i in range(len(headers))]
+    head = "".join(f"<th{' class=n' if n else ''}>{esc(h)}</th>" for h, n in zip(headers, nums))
     body = "".join(f"<tr{row_attr}>" + "".join(
         f"<td class='n'>{fmt(c)}</td>" if isinstance(c, (int, float)) and not isinstance(c, bool)
         else f"<td>{c if isinstance(c, str) else fmt(c)}</td>" for c in r) + "</tr>" for r in rows)
@@ -289,9 +292,11 @@ def game_text(text):
 def card(anchor, title, body, en_id="", tagline="", section=""):
     INDEX.append([title, section, f"{current_file}#{anchor}", en_id])
     head = (f"<div class='card-head'><h2>{esc(title)}</h2>"
+            f"<a class='hlink' href='#{esc(anchor)}' aria-label='Ссылка на раздел'>#</a>"
             + (f"<span class='tag'>{esc(tagline)}</span>" if tagline else "")
             + (f"<span class='id'>{esc(en_id)}</span>" if en_id and en_id != title else "") + "</div>")
-    return f"<section class='card' id='{esc(anchor)}'>{head}{body}</section>"
+    # tabindex: a link from the contents list moves keyboard focus into the section
+    return f"<section class='card' id='{esc(anchor)}' tabindex='-1'>{head}{body}</section>"
 
 
 current_file = "index.html"
@@ -315,7 +320,7 @@ def page(file, title, lead, body, toc=()):
     full_title = 'BTD6 Tech Wiki' if file == 'index.html' else esc(title) + ' · BTD6 Tech Wiki'
     desc = esc(re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", lead))).strip()[:200])
     url = page_url(LANG, file)
-    head = (f"<meta charset=\"utf-8\"><title>{full_title}</title>"
+    head = (f"<meta charset=\"utf-8\"><meta name=\"color-scheme\" content=\"light dark\"><title>{full_title}</title>"
             f"<meta name=\"description\" content=\"{desc}\"><link rel=\"canonical\" href=\"{url}\">"
             + "".join(f"<link rel=\"alternate\" hreflang=\"{lang}\" href=\"{page_url(lang, file)}\">" for lang in LANGS)
             + f"<link rel=\"alternate\" hreflang=\"x-default\" href=\"{page_url(MAIN_LANG, file)}\">"
@@ -340,8 +345,11 @@ def page(file, title, lead, body, toc=()):
         f"{mobile_toc}{body}<footer class='foot'>Неофициальная фанатская вики. Данные, названия, тексты и изображения "
         "принадлежат <a href='https://ninjakiwi.com' rel='noopener'>Ninja Kiwi</a>. Данные выгружены через "
         "<a href='https://github.com/gurrenm3/BTD-Mod-Helper' rel='noopener'>BTD6 Mod Helper</a>, иконки из спрайтов игры. "
-        "<a href='https://github.com/Antonzlo/btd6-tech-wiki' rel='noopener'>Исходный код</a>. Сделано с ♥ <a href='https://github.com/Antonzlo' rel='noopener'>Antonzlo</a>.</footer>"
-        f"</main></div><script src='search.js?v={JS_VER}'></script>")
+        "<a href='https://github.com/Antonzlo/btd6-tech-wiki' rel='noopener'>Исходный код</a>. Автор: <a href='https://github.com/Antonzlo' rel='noopener'>Antonzlo</a>.</footer>"
+        f"</main></div><script src='search.js?v={JS_VER}'></script>"
+        # static pages: the browser renders a wiki link ahead once the pointer rests on it (Chromium; others ignore it)
+        "<script type='speculationrules'>{\"prerender\":[{\"where\":{\"and\":[{\"href_matches\":\"/*\"},"
+        "{\"not\":{\"selector_matches\":\"[rel~=noopener]\"}}]},\"eagerness\":\"moderate\"}]}</script>")
     # the artifact page itself is a fragment (the host adds the skeleton); --pages builds plain files for GitHub Pages
     if file == "index.html" and LANG == MAIN_LANG and "--pages" not in sys.argv:
         doc = head + content
@@ -359,7 +367,7 @@ def json_files(folder):
 
 def group(gid, title, cards):
     """A titled section whose small cards sit two per row on wide screens."""
-    return f"<h2 class='group' id='{esc(gid)}'>{esc(title)}</h2><div class='cards'>{''.join(cards)}</div>"
+    return f"<h2 class='group' id='{esc(gid)}' tabindex='-1'>{esc(title)}</h2><div class='cards'>{''.join(cards)}</div>"
 
 
 # GitHub Pages gets icons as files (one download, cached across pages); the other build stays self-contained with

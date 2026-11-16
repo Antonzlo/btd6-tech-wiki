@@ -62,18 +62,33 @@ document.querySelectorAll('.hcalc').forEach(function(c){var go=function(){hcalc(
 c.querySelector('.hc-start').addEventListener('input',go);c.querySelector('.hc-mk').addEventListener('change',go);
 c.querySelector('.hc-round').addEventListener('input',function(){c._touched=true;go()});go()});
 document.querySelectorAll('.sortbar').forEach(function(bar){var g=document.getElementById(bar.dataset.grid);bar.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){var k=b.dataset.sort;Array.prototype.slice.call(g.children).sort(function(x,y){return x.dataset[k]-y.dataset[k]}).forEach(function(c){g.appendChild(c)});g.classList.toggle('cols3',k==='order');bar.querySelectorAll('button').forEach(function(o){o.classList.toggle('on',o===b)})})})});
+var COLLATE=new Intl.Collator(undefined,{numeric:true,sensitivity:'base'});
 document.querySelectorAll('table').forEach(function(t){var tb=t.tBodies[0];if(!tb||!t.tHead||t.classList.contains('nosort')||tb.rows.length<3||t.querySelector('[rowspan]'))return;var ths=t.tHead.rows[0].cells;
-Array.prototype.forEach.call(ths,function(th,ci){th.classList.add('sortable');th.tabIndex=0;var go=function(){var dir=th.dataset.dir==='1'?-1:1;Array.prototype.forEach.call(ths,function(x){delete x.dataset.dir;x.removeAttribute('aria-sort')});th.dataset.dir=dir===1?'1':'-1';th.setAttribute('aria-sort',dir===1?'ascending':'descending');
+// a real button in each header (keyboard and screen readers get it for free), state in aria-sort on the th, one
+// click listener per table, one status line read out per sort
+var say=document.createElement('div');say.className='sr-status';say.setAttribute('role','status');t.after(say);
+Array.prototype.forEach.call(ths,function(th){if(!th.textContent.trim())return;var b=document.createElement('button');b.type='button';
+while(th.firstChild)b.appendChild(th.firstChild);th.appendChild(b)});
+t.tHead.addEventListener('click',function(e){var b=e.target.closest('th>button');if(!b)return;var th=b.parentNode,ci=th.cellIndex,
+dir=th.getAttribute('aria-sort')==='ascending'?-1:1;
+Array.prototype.forEach.call(ths,function(x){x.removeAttribute('aria-sort')});th.setAttribute('aria-sort',dir===1?'ascending':'descending');
+// ponytail: number or text guessed from the cell text, a data-type per column from the generator would be exact
 var val=function(r){var s=r.cells[ci]?r.cells[ci].textContent.trim():'';if(s===''||s==='–')return null;var n=parseFloat(s.replace(/[\s$×x%]/g,'').replace('−','-').replace(',','.'));return isNaN(n)?s:n};
-Array.prototype.slice.call(tb.rows).sort(function(a,b){var x=val(a),y=val(b);if(x===null||y===null)return(x===null)-(y===null);return(typeof x==='number'&&typeof y==='number'?x-y:String(x).localeCompare(String(y)))*dir}).forEach(function(r){tb.appendChild(r)})};
-th.addEventListener('click',go);th.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}})})});
+var rows=Array.prototype.map.call(tb.rows,function(r){return[val(r),r]});
+rows.sort(function(a,b){var x=a[0],y=b[0];if(x===null||y===null)return(x===null)-(y===null);return(typeof x==='number'&&typeof y==='number'?x-y:COLLATE.compare(x,y))*dir});
+// moveBefore keeps focus and state inside a moved row; appendChild where the browser lacks it
+rows.forEach(function(p){if(tb.moveBefore)tb.moveBefore(p[1],null);else tb.appendChild(p[1])});
+say.textContent='Отсортировано: '+b.textContent.trim()+(dir===1?', по возрастанию':', по убыванию')})});
 document.querySelectorAll('.kgraph').forEach(function(g){var nodes={};g.querySelectorAll('.kn').forEach(function(n){nodes[n.dataset.id]=n});
 function chain(id,acc){if(acc[id]||!nodes[id])return acc;acc[id]=1;(nodes[id].dataset.req||'').split(' ').filter(Boolean).forEach(function(p){chain(p,acc)});return acc}
 function clear(){g.classList.remove('dim');g.querySelectorAll('.lit').forEach(function(e){e.classList.remove('lit')})}
 function light(id){clear();var on=chain(id,{});g.classList.add('dim');Object.keys(on).forEach(function(k){nodes[k].classList.add('lit')});
 g.querySelectorAll('.edge').forEach(function(e){if(on[e.dataset.from]&&on[e.dataset.to])e.classList.add('lit')})}
 Object.keys(nodes).forEach(function(id){var n=nodes[id];n.addEventListener('mouseenter',function(){light(id)});
-n.addEventListener('focus',function(){light(id)});n.addEventListener('mouseleave',clear);n.addEventListener('blur',clear)});var tip=g.querySelector('.ktip');if(tip)Object.keys(nodes).forEach(function(id){var n=nodes[id];n.addEventListener('mouseenter',function(){var b=n.getBoundingClientRect();tip.innerHTML='';var t=document.createElement('b');t.textContent=n.dataset.name;var c=document.createElement('small');c.textContent=n.dataset.cost+' MM';tip.appendChild(t);if(n.dataset.desc){var p=document.createElement('p');p.textContent=n.dataset.desc;tip.appendChild(p)}tip.appendChild(c);if(+n.dataset.ancPts>0||parseInt(n.dataset.ancMm)>0){var ch=document.createElement('small');ch.className='kchain';ch.textContent='Всего в ветке: '+n.dataset.ancPts+' знаний, '+n.dataset.ancMm+' MM';tip.appendChild(ch)}tip.hidden=false;var top=b.top-tip.offsetHeight-6;if(top<70)top=b.bottom+6;tip.style.left=Math.max(8,Math.min(innerWidth-tip.offsetWidth-8,b.left+b.width/2-tip.offsetWidth/2))+'px';tip.style.top=top+'px'});n.addEventListener('mouseleave',function(){tip.hidden=true})})});
+n.addEventListener('focus',function(){light(id)});n.addEventListener('mouseleave',clear);n.addEventListener('blur',clear)});var tip=g.querySelector('.ktip');if(tip)Object.keys(nodes).forEach(function(id){var n=nodes[id],hide=function(){tip.hidden=true};
+// the tip follows keyboard focus too, and Escape puts it away
+n.addEventListener('blur',hide);n.addEventListener('keydown',function(e){if(e.key==='Escape')hide()});
+var showTip=function(){var b=n.getBoundingClientRect();tip.innerHTML='';var t=document.createElement('b');t.textContent=n.dataset.name;var c=document.createElement('small');c.textContent=n.dataset.cost+' MM';tip.appendChild(t);if(n.dataset.desc){var p=document.createElement('p');p.textContent=n.dataset.desc;tip.appendChild(p)}tip.appendChild(c);if(+n.dataset.ancPts>0||parseInt(n.dataset.ancMm)>0){var ch=document.createElement('small');ch.className='kchain';ch.textContent='Всего в ветке: '+n.dataset.ancPts+' знаний, '+n.dataset.ancMm+' MM';tip.appendChild(ch)}tip.hidden=false;var top=b.top-tip.offsetHeight-6;if(top<70)top=b.bottom+6;tip.style.left=Math.max(8,Math.min(innerWidth-tip.offsetWidth-8,b.left+b.width/2-tip.offsetWidth/2))+'px';tip.style.top=top+'px'};n.addEventListener('mouseenter',showTip);n.addEventListener('focus',showTip);n.addEventListener('mouseleave',hide)})});
 
 var DIFF_KEY='btd6-diff';function curMult(){try{return +localStorage.getItem(DIFF_KEY)||1}catch(x){return 1}}
 function applyDiff(){var m=curMult();document.querySelectorAll('.diff button').forEach(function(b){b.classList.toggle('on',+b.dataset.mult===m)});
@@ -110,14 +125,25 @@ pbTotems.textContent='+'+p_totems.toLocaleString('ru-RU')}
 c._update=update;c.querySelectorAll('input,select').forEach(function(el){el.addEventListener('input',update);el.addEventListener('change',update)});
 update()}
 document.querySelectorAll('.pcalc').forEach(pcalc);
-document.querySelectorAll('.mod-params').forEach(function(el){if(el.scrollHeight>68){el.classList.add('overflowing');el.title='Нажмите, чтобы показать все параметры';el.addEventListener('click',function(){el.classList.toggle('open')})}});
+document.querySelectorAll('.mod-params').forEach(function(el){if(el.scrollHeight>68){el.classList.add('overflowing');el.title='Нажмите, чтобы показать все параметры';el.tabIndex=0;el.setAttribute('role','button');el.setAttribute('aria-expanded','false');
+var tog=function(){el.setAttribute('aria-expanded',el.classList.toggle('open'))};el.addEventListener('click',tog);
+el.addEventListener('keydown',function(e){if(e.target===el&&(e.key==='Enter'||e.key===' ')){e.preventDefault();tog()}})}});
+// the language switch keeps the section: /ru/page.html#tiers opens page.html#tiers
+document.querySelectorAll('.lang').forEach(function(a){a.addEventListener('click',function(){a.href=a.getAttribute('href').split('#')[0]+location.hash})});
+// phones: the section list is one sideways-scrolling row, bring the current section into it
+(function(){var on=document.querySelector('.side nav a.on');if(on&&on.parentNode.scrollWidth>on.parentNode.clientWidth)on.parentNode.scrollLeft=on.offsetLeft-on.parentNode.offsetLeft-16})();
 applyDiff();
-(function(){var kn=document.querySelector('.knav');if(!kn)return;var links=kn.querySelectorAll('a'),secs=[];
-links.forEach(function(a){var id=a.getAttribute('href').slice(1),el=document.getElementById(id);if(el)secs.push({el:el,a:a})});
-function up(){var off=kn.offsetHeight+kn.getBoundingClientRect().top+20,cur=null;
-secs.forEach(function(s){if(s.el.getBoundingClientRect().top<=off)cur=s});
-links.forEach(function(a){a.classList.remove('on')});if(cur)cur.a.classList.add('on')}
-window.addEventListener('scroll',up,{passive:true});up()})();
+// section in view, for the page contents list and the knowledge category bar. Where the browser tracks it itself
+// (scroll-target-group, :target-current in style.css) the script only mirrors it into aria-current once scrolling
+// stops; elsewhere it finds the section and sets .on
+(function(){var css=window.CSS&&CSS.supports('scroll-target-group:auto'),bar=document.querySelector('.top');
+document.querySelectorAll('.knav,.side .toc').forEach(function(nav){var links=nav.querySelectorAll('a[href^="#"]'),secs=[];
+links.forEach(function(a){var el=document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)));if(el)secs.push({el:el,a:a})});
+function up(){var cur=null;if(css)cur=nav.querySelector('a:target-current');
+else{var off=(nav.classList.contains('knav')?nav.offsetHeight+nav.getBoundingClientRect().top:bar?bar.offsetHeight:0)+20;
+secs.forEach(function(s){if(s.el.getBoundingClientRect().top<=off)cur=s.a})}
+links.forEach(function(a){if(!css)a.classList.toggle('on',a===cur);if(a===cur)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')})}
+window.addEventListener(css?'scrollend':'scroll',up,{passive:true});up()})})();
 (function(){var top=document.querySelector('.top');if(!top)return;function h(){document.documentElement.style.setProperty('--top-h',top.offsetHeight+'px')}h();if(window.ResizeObserver)new ResizeObserver(h).observe(top)})();
 document.querySelectorAll('.xp').forEach(function(xp){var data=JSON.parse(xp.parentNode.querySelector('.xp-data').textContent),
 st=[0,0,0],variant=null,out=xp.querySelector('.xp-out');
@@ -131,9 +157,9 @@ r.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',!varian
 xp.querySelectorAll('[data-variant]').forEach(function(b){b.classList.toggle('on',b.dataset.variant===variant)});
 if(!d){out.innerHTML='<p class="note">Нет данных для '+e(k)+'.</p>';return}
 var h='<div class="stats"><div class="stat"><b class="cost" data-parts="'+d.parts.join(',')+'">$'+f(d.cost)+'</b><small>цена '+e(/^\d{3}$/.test(k)?k.split('').join('-'):k)+'</small></div><div class="stat"><b>'+f(d.range)+'</b><small>дальность</small></div></div>';
-d.attacks.forEach(function(a,ai){h+='<h3>'+e(a.name)+' <span class="id">дальность '+f(a.range)+'</span></h3><div class="wrap"><table><thead><tr><th>Оружие</th><th>Перезарядка, с</th><th>Атак/с</th><th>Снаряд</th><th>Кол-во</th><th>Урон</th><th>Урон за выстрел</th><th>Пробив.</th><th>Примерный DPS</th><th>Модификаторы и эффекты</th><th>Не лопает</th></tr></thead><tbody>';
+d.attacks.forEach(function(a,ai){h+='<h3>'+e(a.name)+' <span class="id">дальность '+f(a.range)+'</span></h3><div class="wrap"><table><thead><tr><th>Оружие</th><th class="n">Перезарядка, с</th><th class="n">Атак/с</th><th>Снаряд</th><th class="n">Кол-во</th><th class="n">Урон</th><th class="n">Урон за выстрел</th><th class="n">Пробив.</th><th class="n">Примерный DPS</th><th>Модификаторы и эффекты</th><th>Не лопает</th></tr></thead><tbody>';
 a.weapons.forEach(function(w,wi){var n=Math.max(1,w.proj.length);w.proj.forEach(function(p,pi){h+='<tr>'+(pi===0?'<td rowspan="'+n+'">'+(wi+1)+(w.emission?' <span class="id">'+e(w.emission)+'</span>':'')+'</td><td class="n" rowspan="'+n+'">'+f(p.rate)+'</td><td class="n" rowspan="'+n+'">'+(p.rate?f(1/p.rate):'–')+'</td>':'')
-+'<td style="padding-left:'+(10+p.depth*16)+'px">'+(p.depth?'↳ ':'')+e(p.projectile)+'</td><td class="n">'+f(p.count)+'</td><td class="n">'+f(p.damage)+'</td><td class="n">'+f(p.shotDamage)+'</td><td class="n">'+f(p.pierce)+'</td><td class="n">'+f(p.dps)+'</td><td>'
++'<td style="padding-left:'+(10+p.depth*16)+'px">'+(p.depth?'↳ ':'')+e(p.projectile)+'</td><td class="n">'+f(p.count)+'</td><td class="n">'+f(p.damage)+'</td><td class="n">'+f(p.shotDamage)+'</td><td class="n">'+f(p.pierce)+'</td><td class="n">'+f(p.dps==null?null:Math.round(p.dps*100)/100)+'</td><td>'
  +p.mods.concat(p.effects).map(function(m){return'<span class="chip">'+e(m)+'</span>'}).join(' ')+'</td><td>'+((p.immune||[]).length?p.immune.map(function(x){return'<a class="chip no" href="bloons.html#prop-'+x[0]+'">'+e(x[1])+'</a>'}).join(' '):'–')+'</td></tr>'});
 if(!w.proj.length)h+='<tr><td>'+(wi+1)+'</td><td class="n">'+f(w.rate)+'</td><td class="n">'+(w.rate?f(1/w.rate):'–')+'</td><td colspan="8">–</td></tr>'});
 h+='</tbody></table></div>'});if(d.attacks.length)h+='<p class="note">Примерный DPS: урон за выстрел / перезарядка. Без учёта баффов, пробивания и множителей режима.</p>';

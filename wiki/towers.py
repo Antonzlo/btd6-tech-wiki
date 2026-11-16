@@ -94,7 +94,7 @@ def combat_stats(d, upgrade_costs):
         elif st == "AbilityModel":
             abilities.append({"name": t(b.get("displayName") or "", fallback=b.get("displayName") or b.get("name", "")),
                               "cooldown": num(b.get("cooldown"))})
-        elif not any(s in st for s in ("Sound", "Effect", "Display")):
+        elif not any(s in st for s in ("Sound", "Effect", "Display", "Animation")):
             other.append(label(st))
     # sub-towers (sentries, drones, pets, totems) sit inside the model as whole TowerModels: their attacks
     # join this tower's, prefixed with the sub-tower name
@@ -175,13 +175,14 @@ def tier_stats(d):
     projs = [p for p in d.get("projectiles") or [] if p.get("damage") is not None]
     p = max(projs, key=lambda p: p.get("dps") or 0, default={})
     return {"range": num(d.get("range")), "rate": p.get("rate"), "damage": p.get("shotDamage"), "pierce": p.get("pierce"),
-            "dps": num(p.get("dps")), "immune": p.get("immune") or []}
+            "dps": None if p.get("dps") is None else round(p["dps"], 2), "immune": p.get("immune") or []}
 
 
 def levels_table(rows, first_col="Тир", only_changed=False):
     """Attack numbers per row: (label, stats, previous stats or None). Cells that differ from the previous
     row's are highlighted; with only_changed, rows where nothing changed are left out."""
-    head = f"<tr><th>{first_col}</th><th>Дальность</th><th>Перезарядка, с</th><th>Урон за выстрел</th><th>Пробив.</th><th>Примерный DPS</th><th>Не лопает</th></tr>"
+    head = (f"<tr><th>{first_col}</th>" + "".join(f"<th class='n'>{h}</th>" for h in (
+        "Дальность", "Перезарядка, с", "Урон за выстрел", "Пробив.", "Примерный DPS")) + "<th>Не лопает</th></tr>")
     keys = ("range", "rate", "damage", "pierce", "dps", "immune")
     body = ""
     for label, s, prev in rows:

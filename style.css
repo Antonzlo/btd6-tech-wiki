@@ -1,34 +1,38 @@
 /* Layout: the game's HUD language. Chunky outlined panels with a hard drop shadow, cartoon display face
    for titles only, quiet sans for data. Top bar with search, left rail nav, cards in one column.
    Boldness lives in one place: titles with an ink outline, and the boss HP bars with skull ticks. */
+/* every colour is light-dark(light, dark): the scheme follows the system, data-theme on the root forces one */
 :root{
-  --sky:#e8f1fb;      /* page ground, cool menu blue */
-  --panel:#ffffff;
-  --ink:#1b2a44;      /* outlines, text */
-  --soft:#5a6b86;     /* secondary text */
-  --rule:#cfdcec;
+  color-scheme:light dark;
+  --sky:light-dark(#e8f1fb,#0e1726);      /* page ground, cool menu blue */
+  --panel:light-dark(#ffffff,#16233a);
+  --ink:light-dark(#1b2a44,#e6eefb);      /* outlines, text */
+  --soft:light-dark(#5a6b86,#9fb0cb);     /* secondary text */
+  --rule:light-dark(#cfdcec,#26354f);
   --gold:#f5b821;     /* monkey money: highlights, active nav */
-  --gold-ink:#5b4200;
-  --blue:#1f6fd6;     /* links */
-  --red:#d93a36;      /* elite / not stackable */
-  --red-soft:#fde3e1;
-  --hero:#6b35b8;--hero-soft:#ede2fb;--buff:#1a5fb8;--buff-soft:#dde9fb;--power:#0b7a5c;--power-soft:#d8f1e8; /* link badge kinds */
-  --green:#3f9b3a;    /* normal tier / stackable */
-  --green-soft:#e1f3dc;
-  --hp:#5cc24f;
+  --gold-ink:light-dark(#5b4200,#2a1e00);
+  --gold-text:light-dark(#8a5a00,#f5b821); /* gold as text: the bright gold is 1.7:1 on a light panel */
+  --blue:light-dark(#1f6fd6,#7db3ff);     /* links */
+  --red:light-dark(#d93a36,#ff7a72);      /* elite / not stackable */
+  --red-soft:light-dark(#fde3e1,#3a1d22);
+  /* link badge kinds */
+  --hero:light-dark(#6b35b8,#cfa8ff);--hero-soft:light-dark(#ede2fb,#2c2142);
+  --buff:light-dark(#1a5fb8,#8fbcff);--buff-soft:light-dark(#dde9fb,#172a4a);
+  --power:light-dark(#0b7a5c,#6fdcb9);--power-soft:light-dark(#d8f1e8,#123029);
+  --green:light-dark(#3f9b3a,#7fd36f);    /* normal tier / stackable */
+  --green-soft:light-dark(#e1f3dc,#17301b);
+  --hp:light-dark(#5cc24f,#55b948);
   --display:"Rubik",system-ui,sans-serif;
-  --edge:#1b2a44;     /* outlines and hard shadows */
+  --edge:light-dark(#1b2a44,#050a14);     /* outlines and hard shadows */
   --body:"Rubik",system-ui,-apple-system,"Segoe UI",sans-serif;
   --code:"Roboto Mono",ui-monospace,Consolas,monospace;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --sky:#0e1726;--panel:#16233a;--ink:#e6eefb;--soft:#9fb0cb;--rule:#26354f;--gold:#f5b821;--gold-ink:#2a1e00;
-  --blue:#7db3ff;--red:#ff7a72;--red-soft:#3a1d22;--green:#7fd36f;--green-soft:#17301b;--hp:#55b948;--edge:#050a14;
-  --hero:#cfa8ff;--hero-soft:#2c2142;--buff:#8fbcff;--buff-soft:#172a4a;--power:#6fdcb9;--power-soft:#123029;color-scheme:dark}}
-:root[data-theme="dark"]{
-  --sky:#0e1726;--panel:#16233a;--ink:#e6eefb;--soft:#9fb0cb;--rule:#26354f;--gold:#f5b821;--gold-ink:#2a1e00;
-  --blue:#7db3ff;--red:#ff7a72;--red-soft:#3a1d22;--green:#7fd36f;--green-soft:#17301b;--hp:#55b948;--edge:#050a14;
-  --hero:#cfa8ff;--hero-soft:#2c2142;--buff:#8fbcff;--buff-soft:#172a4a;--power:#6fdcb9;--power-soft:#123029;color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+/* pages cross-fade into each other; the top bar and the section list stay put */
+@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}
+.top{view-transition-name:top}
+@media (min-width:861px){.side{view-transition-name:side}}
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -66,6 +70,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .side nav a.on{background:var(--gold);color:var(--gold-ink);border-color:var(--edge);font-weight:600}
 .side .toc a{color:var(--soft);padding-block:3px}
 .side .toc{display:block}
+/* the link of the section in view: the browser tracks it (scroll-target-group), site.js sets .on where it cannot */
+.side .toc,.knav{scroll-target-group:auto}
+.side .toc a:is(:target-current,.on){background:none;border-color:transparent;border-radius:0;color:var(--ink);font-weight:600;
+  box-shadow:inset 3px 0 0 var(--gold)}
 .mobile-toc{display:none}
 main{min-width:0}
 
@@ -75,7 +83,7 @@ main{min-width:0}
 .knav a{font:600 14px var(--body);padding:6px 14px;border:2px solid var(--edge);border-radius:10px;
   background:var(--panel);color:var(--ink);box-shadow:0 3px 0 var(--edge);white-space:nowrap}
 .knav a:hover{background:var(--gold);color:var(--gold-ink);text-decoration:none}
-.knav a.on{background:var(--gold);color:var(--gold-ink)}
+.knav a:is(:target-current,.on){background:var(--gold);color:var(--gold-ink)}
 .page-knowledge :is(.card,h2){scroll-margin-top:calc(var(--top-h,66px) + 56px)}
 @media (max-width:860px){.knav{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .knav::-webkit-scrollbar{display:none}}
@@ -112,6 +120,8 @@ table{border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:14px}
 th,td{border-bottom:1px solid var(--rule);padding:6px 12px;text-align:left;vertical-align:top}
 thead th{font-size:12.5px;color:var(--soft);font-weight:500;background:var(--panel);border-bottom:2px solid var(--edge)}
 td.n{text-align:right;white-space:nowrap;font-weight:500}
+th.n{text-align:right}
+td:not(.n){max-inline-size:60ch}
 td.k{font-family:var(--code);font-size:12.5px;color:var(--soft)}
 tbody tr:hover td{background:var(--sky)}
 details{margin:10px 0}
@@ -133,11 +143,18 @@ summary{cursor:pointer;color:var(--blue);font-size:14px;font-weight:500}
 /* game hero select screen: 3 columns, filled row by row */
 .grid.cols3{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (max-width:700px){.grid.cols3{grid-template-columns:1fr}}
-th.sortable{cursor:pointer;user-select:none}
-th.sortable:hover{color:var(--ink)}
-th.sortable::after{content:" ↕";opacity:.35}
-th[data-dir="1"]::after{content:" ▲";opacity:1}
-th[data-dir="-1"]::after{content:" ▼";opacity:1}
+/* sortable column: site.js puts a button in the header, the arrow comes from aria-sort */
+th:has(>button){padding:0}
+th>button{font:inherit;color:inherit;text-align:inherit;background:none;border:0;padding:6px 12px;inline-size:100%;min-block-size:24px;cursor:pointer}
+th>button:hover{color:var(--ink)}
+th>button::after{content:" ↕";opacity:0}
+th>button:is(:hover,:focus-visible)::after{opacity:.5}
+th[aria-sort="ascending"]>button::after{content:" ▲";opacity:1}
+th[aria-sort="descending"]>button::after{content:" ▼";opacity:1}
+.sr-status{position:absolute;inline-size:1px;block-size:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+/* long pages: cards below the first screen are laid out and painted only when scrolled near. Not the knowledge
+   tree: its tooltip is position:fixed, and paint containment would clip it to the card */
+:is(main>.card~.card,.cards>.card:nth-child(n+5)):not(:has(.ktip)){content-visibility:auto;contain-intrinsic-size:auto none auto 600px}
 .tile{background:var(--panel);border:3px solid var(--edge);border-radius:16px;box-shadow:0 4px 0 var(--edge);padding:14px 16px;color:var(--ink);
   transition:transform .12s ease,box-shadow .12s ease}
 .tile:hover{text-decoration:none;transform:translateY(-2px);box-shadow:0 6px 0 var(--edge)}
@@ -150,7 +167,9 @@ svg text{fill:var(--soft);font:11px var(--body)}
 @media (max-width:860px){
   .layout{grid-template-columns:minmax(0,1fr);gap:8px}
   .side{position:static;max-height:none}.side .toc,.side h4{display:none}
-  .side nav{flex-direction:row;flex-wrap:wrap;gap:6px}
+  /* one row that scrolls sideways; site.js brings the current section into view */
+  .side nav{flex-direction:row;flex-wrap:nowrap;gap:6px;overflow-x:auto;scrollbar-width:none}
+  .side nav a{white-space:nowrap}
   .mobile-toc{display:block}
   .mobile-toc nav{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 0}
   h1{font-size:34px;-webkit-text-stroke-width:6px}
@@ -192,7 +211,7 @@ svg text{fill:var(--soft);font:11px var(--body)}
 .up-head{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .xp-row{display:flex;align-items:center;gap:6px;margin:6px 0;flex-wrap:wrap}
 .xp-row span{min-width:72px;color:var(--soft);font-size:13.5px}
-.xp-row button{font:600 15px var(--body);min-width:40px;padding:5px 0;border:2px solid var(--edge);border-radius:10px;
+.xp-row button{font:600 15px var(--body);min-width:40px;padding:5px 10px;border:2px solid var(--edge);border-radius:10px;
   background:var(--sky);color:var(--ink);box-shadow:0 3px 0 var(--edge);cursor:pointer}
 .xp-row button.on{background:var(--gold);color:var(--gold-ink)}
 .xp-row button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--edge)}
@@ -238,16 +257,14 @@ body:has(.diff) :is(.card,h2.group,.prop-row){scroll-margin-top:calc(var(--top-h
 .diff button .ic{width:22px;height:22px}
 .diff button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--edge)}
 .price{margin-left:auto;text-align:right;white-space:nowrap;display:flex;flex-direction:column;align-items:flex-end;line-height:1.2}
-.price .big{font:700 17px var(--body);color:var(--gold)}
+.price .big{font:700 17px var(--body);color:var(--gold-text)}
 .price small{font-size:12px;color:var(--soft)}
 .price small .cost{font-weight:600;color:var(--ink)}
-.tile-price{display:block;font-weight:700;font-size:15px;color:var(--gold)}
-.stat .cost{color:var(--gold)}
+.tile-price{display:block;font-weight:700;font-size:15px;color:var(--gold-text)}
+.stat .cost{color:var(--gold-text)}
 
 /* Paragon charts (series colors validated with the dataviz validator, light on #fff, dark on #16233a) */
-:root{--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--s1:#3987e5;--s2:#d95926;--s3:#199e70}}
-:root[data-theme="dark"]{--s1:#3987e5;--s2:#d95926;--s3:#199e70}
+:root{--s1:light-dark(#2a78d6,#3987e5);--s2:light-dark(#eb6834,#d95926);--s3:light-dark(#1baf7a,#199e70)}
 .pchart{max-width:100%;height:auto;display:block}
 .pchart .pline{fill:none;stroke:var(--s1);stroke-width:2.5;stroke-linejoin:round}
 .pchart .pline.pline2{stroke:var(--s2)}
@@ -378,6 +395,11 @@ tbody tr:hover .mod-params.overflowing:not(.open)::after{background:linear-gradi
 .spoiler .spoil{filter:blur(7px);transition:filter .2s;user-select:none}
 .spoiler.open,.revealed .spoiler{cursor:auto}
 .spoiler.open .spoil,.revealed .spoil{filter:none;user-select:auto}
+.unspoil{font:inherit;font-size:12.5px;margin-left:8px;padding:1px 8px;border:1.5px solid var(--edge);border-radius:6px;
+  background:var(--sky);color:var(--ink);cursor:pointer}
+.spoiler.open .unspoil,.revealed .unspoil{display:none}
+.hlink{color:var(--soft);font-weight:600;opacity:.4}
+.hlink:is(:hover,:focus-visible){opacity:1;text-decoration:none}
 .reveal{display:inline-flex;align-items:center;gap:6px;margin-left:12px;font-size:14px;cursor:pointer}
 /* map page: schematic from the map dump, sim coordinates (y down) */
 .mapview{margin:8px 0}

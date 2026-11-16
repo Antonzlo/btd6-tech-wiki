@@ -19,18 +19,24 @@ INCOME_RU = {
     "BountyHunterZoneModel": "Награда за шары", "AddCashOnProjectileExpireModel": "Деньги по истечении снаряда",
     "CashPerTowerInMakeshiftAreaModel": "Деньги за башни на площадке", "MonkeyBankerModel": "Доход банков",
 }
-SPLIT, OWNER, PICKER, UNKNOWN = "делится на всех", "владельцу башни", "одному игроку", "не проверено"
+SPLIT, OWNER, UNKNOWN = "делится на всех", "владельцу башни", "не проверено"
 
 
-def verdict(m):
-    """Who gets this cash in co-op, from the model's own flag; game code: PerRoundCashBonusTower.OnRoundComplete
-    (distributeCash: AddSharedCash, else AddCash to the owner) and Cash.Pickup (a share to one player, the rest
-    shared when distributeBonusIncome; which player is not traced yet)."""
+def verdict(m, pickup=False):
+    """Who gets this cash in co-op, from the model's own flags; game code: PerRoundCashBonusTower.OnRoundComplete
+    (distributeCash: AddSharedCash, else AddCash to the owner) and Cash.Pickup. Pickup looks for a Pickup behavior
+    on the same projectile (pickup: a PickupModel sits next to the CashModel): the share emittedByCashEarnedMultiplier
+    goes to Pickup.Owner.PlayerOwnerId, the owner of the emitting tower, whoever collects it; the rest is shared when
+    distributeBonusIncome, else it goes to the owner too. Cash without a Pickup (Marketplace, banks) takes a path
+    that is not traced."""
     k = short_type(m)
     if k == "PerRoundCashBonusTowerModel":
         return SPLIT if m.get("distributeCash") else OWNER
-    if k == "CashModel":
-        return "основное одному игроку, бонус делится" if m.get("distributeBonusIncome") else PICKER
+    if k == "CashModel" and pickup:
+        share = m.get("emittedByCashEarnedMultiplier", 1)
+        if share >= 1 or not m.get("distributeBonusIncome"):
+            return OWNER
+        return f"{share * 100:g}% владельцу башни, остальное делится на всех"
     return UNKNOWN
 
 
@@ -53,19 +59,20 @@ def sources():
             oid = f.parent.name if kind in ("towers", "heroes") else f.stem
             found = []
 
-            def walk(o):
+            def walk(o, pickup=False):
                 if isinstance(o, dict):
                     if short_type(o) in INCOME_RU:
-                        found.append(o)
+                        found.append((o, pickup))
                     for v in o.values():
                         walk(v)
                 elif isinstance(o, list):
+                    pickup = any(short_type(v) == "PickupModel" for v in o)  # behaviors of one projectile
                     for v in o:
-                        walk(v)
+                        walk(v, pickup)
             walk(load(f))
-            for m in found:
+            for m, pickup in found:
                 e = out.setdefault((kind, oid), {}).setdefault((short_type(m), model_name(m)), {"first": m, "tiers": {}})
-                tiers = e["tiers"].setdefault(verdict(m), [])
+                tiers = e["tiers"].setdefault(verdict(m, pickup), [])
                 if tier_key(f) not in tiers:
                     tiers.append(tier_key(f))
     return out
@@ -101,6 +108,9 @@ def build_coop():
         ["Деньги за лопание шаров", "делятся поровну", "Код игры: Simulation.UpdateStagedCash → AddSharedCash"],
         ["Бонус в конце раунда (100 + номер раунда)", "делится поровну", "Код игры: AddSharedCash (EndOfRound)"],
         ["Перевод денег другому игроку", "напрямую от игрока игроку", "Код игры: Simulation.SendCash"],
+        ["Подбираемые деньги (бананы, ящики)", "владельцу башни, кто бы их ни подобрал", "Код игры: Cash.Pickup → Pickup.Owner.PlayerOwnerId"],
+        ["Ловушка инженера", "владельцу ловушки: деньги пойманных шаров × (rbeCashMultiplier − 1)", "Код игры: EatBloon.EmitCash"],
+        ["Игрок вышел из матча", "его деньги делятся поровну между оставшимися, общие деньги дальше делятся на оставшихся", "Код игры: Simulation.RemovePlayer"],
     ])
     rows = []
     for (kind, oid), types in sources().items():
@@ -114,8 +124,9 @@ def build_coop():
                  "При 2, 3 и 4 игроках доля без других модификаторов: половина, треть, четверть.</p>"
                  + table(["Игроков", "Стандарт: база → на игрока", "Deflation: база → на игрока"], start_rows), section="Кооп")
             + card("sources", "Доход башен, героев и сил",
-                   "<p class='note'>«Делится» и «владельцу» взяты из флага модели (distributeCash, distributeBonusIncome). "
-                   "«Не проверено»: у модели нет такого флага, а путь денег в коде игры ещё не прослежен. Числа из "
+                   "<p class='note'>«Делится» и «владельцу» взяты из флагов модели: distributeCash у денег в конце раунда, "
+                   "у подбираемых денег PickupModel рядом, emittedByCashEarnedMultiplier и distributeBonusIncome. "
+                   "«Не проверено»: путь этих денег в коде игры ещё не прослежен. Числа из "
                    "первого тира, где источник появляется.</p>"
                    "<input class='filter' type='search' placeholder='Фильтр: башня или источник' aria-label='Фильтр источников' "
                    "data-filter='#coop-src tbody tr'>"
