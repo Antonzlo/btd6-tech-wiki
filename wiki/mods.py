@@ -2,7 +2,7 @@
 import re
 from wiki import core
 from wiki.core import DATA, Raw, TOWER_SETS, esc, flatten, fmt, icon, label, short_type, t, table
-from wiki.bloons import BLOONS
+from wiki.bloons import BLOONS, round_set_href
 
 
 LOCK_SVG = ("<svg class='ic mod-ic' viewBox='0 0 24 24' width='22' height='22' aria-hidden='true'>"
@@ -94,7 +94,7 @@ def ref(k, v):
     if k == "towerSetToLock" and v in TOWER_SETS:
         return f"towers.html#set-{TOWER_SETS[v]}", icon("ui", TOWER_SETS[v], 18) + esc(t(TOWER_SETS[v], fallback=TOWER_SETS[v]))
     if k == "roundsetName" and (DATA / "Rounds" / s).is_dir():
-        return f"rounds.html#{s}", esc(s)
+        return round_set_href(s), esc(s)
     if not re.fullmatch(r"[A-Za-z][\w-]*", s) or s in ("True", "False"):
         return None
     if (DATA / "Towers" / s).is_dir():

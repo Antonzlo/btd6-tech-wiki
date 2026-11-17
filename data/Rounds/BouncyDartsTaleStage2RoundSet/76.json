@@ -1,0 +1,15 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Rounds.RoundModel, Assembly-CSharp",
+  "groups": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "CeramicRegrow",
+      "start": 0.0,
+      "end": 106.619995,
+      "count": 60,
+      "name": ""
+    }
+  ],
+  "emissions_": null,
+  "name": ""
+}

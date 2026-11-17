@@ -30,9 +30,6 @@ Open in the notes themselves (needs more reading of the code or a test in game):
 ## 3. In `data/` already, not shown
 
 ## 4. In the Mod Helper export, not copied into `data/` yet
-- [ ] Round sets (`Rounds/`, 47, the wiki has 2): Accelerated, Endurance, MOABMadness, FastUpgrades, MasteryMode,
-      DefaultSkipEveryOddRound, then the 16 hero trial sets and the quest sets (BattleCat, BouncyDarts, HeMan,
-      Scoops, Skeletor, Mermonkey). One page per set or the rounds page gets too heavy.
 - [ ] Achievements from the export (`Achievements/`, same data as the dumper, rewards included); the dumper then
       only adds icons.
 - [ ] Skins (`Skins/`, 18 heroes), Trophy Store (`TrophyStoreItems/`: Bloons, Coop, GameUI, Heroes, Monkeys).

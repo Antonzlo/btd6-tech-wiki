@@ -6,7 +6,7 @@ from wiki.core import (
 )
 from wiki.charts import dual_line_chart
 from wiki.mods import mod_table
-from wiki.bloons import bonus_cash_mod, raw_round_pops
+from wiki.bloons import bonus_cash_mod, raw_round_pops, round_set_href
 
 
 # The game stacks a mode on the difficulty it is picked under; that link is not in the export (the in-game menu).
@@ -84,7 +84,7 @@ def mode_total(stem, files):
         ("Бонус за раунд", (f"${fmt(v['bonus'][0] * cm)} + {v['bonus'][1] * cm:g} × раунд" if "bonus" in v else None), "bonus"),
         ("Продажа", f"{v['sell'] * 100:g}%" if "sell" in v else None, "sell"),
         ("Раунды", f"{v.get('start', 1)}–{v['end']}" if "end" in v else None, "end"),
-        ("Набор раундов", f"<a href='rounds.html#{esc(v['rounds'])}'>{esc(v['rounds'])}</a>" if v.get("rounds") else None, "rounds"),
+        ("Набор раундов", f"<a href='{round_set_href(v['rounds'])}'>{esc(v['rounds'])}</a>" if v.get("rounds") else None, "rounds"),
         ("Monkey Money за победу", fmt(round(v["mm"])) if "mm" in v else None, "mm"),
     ]
     out = []

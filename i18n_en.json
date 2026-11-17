@@ -758,5 +758,15 @@
 "Игра выбирает коэффициент по раунду появления шара, даже если его лопнули позже. Для обычного поп-дохода она применяет коэффициент, затем делит итог между получателями.": "The game picks the factor by the round the bloon spawned in, even if it pops later. For ordinary pop cash it applies the factor, then splits the result between the recipients.",
 "Раунд появления": "Spawn round",
 "Коэффициент DefaultIncomeSet": "DefaultIncomeSet factor",
-"С ": "From "
+"С ": "From ",
+"Другие наборы раундов": "Other round sets",
+"Испытания героев": "Hero trials",
+"Квесты": "Quests",
+"этап 1": "stage 1",
+"этап 2": "stage 2",
+"Номера раундов как в файлах набора. Доход: ": "Round numbers as in the set files. Income: ",
+", у этого набора нет своего набора дохода": ", this set has no income set of its own",
+"Бонус за раунд как в режиме Medium.": "The round bonus is as in Medium mode.",
+"Все наборы раундов": "All round sets",
+"Шары каждого раунда набора, RBE и деньги за лопание и за раунд.": "Bloons of every round of the set, RBE and cash for pops and for the round."
 }

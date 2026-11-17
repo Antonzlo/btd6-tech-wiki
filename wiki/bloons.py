@@ -1,6 +1,7 @@
 """Bloon and round pages."""
 import collections
 import functools
+from wiki import core
 from wiki.core import (
     DATA, GAME, INDEX, Raw, SHOP_ORDER, bloon_css, bloon_icon_style, card, esc, fmt, game_text, group, icon,
     label, load, page, short_type, skipped, stats, t, table,
@@ -150,11 +151,18 @@ def bonus_cash_mod():
                  if short_type(m) == "BonusCashPerRoundModModel"), {})
 
 
+def income_set_name(rs):
+    """The income set named after the round set (AcceleratedRoundSet -> AcceleratedIncomeSet), else the default one.
+    The dump does not link them; the names match for Accelerated, Endurance and MOABMadness."""
+    name = rs.removesuffix("RoundSet") + "IncomeSet"
+    return name if (DATA / "IncomeSets" / f"{name}.json").exists() else "DefaultIncomeSet"
+
+
 @functools.cache
 def round_cash(rs="DefaultRoundSet"):
-    """{round: (pop cash, end of round bonus)}: 1 $ per layer popped times the DefaultIncomeSet multiplier of the round,
-    bonus from the Medium mode model (BonusCashPerRoundModModel: baseCash + round * roundMultiple)."""
-    income = load(DATA / "IncomeSets" / "DefaultIncomeSet.json")
+    """{round: (pop cash, end of round bonus)}: 1 $ per layer popped times the income set multiplier of the round
+    (income_set_name), bonus from the Medium mode model (BonusCashPerRoundModModel: baseCash + round * roundMultiple)."""
+    income = load(DATA / "IncomeSets" / f"{income_set_name(rs)}.json")
 
     def income_mult(r):
         return next((th["multiplier"] for th in income.get("thresholds") or [] if r <= th["threshold"]),
@@ -166,7 +174,50 @@ def round_cash(rs="DefaultRoundSet"):
     return {r: (p * income_mult(r), base_b + r * mult_b) for r, p in raw.items()}
 
 
-def build_rounds():
+# ---------- rounds: one table per round set, Default and ABR on rounds.html, the others on rounds-<set>.html ----------
+
+MAIN_SETS = {"DefaultRoundSet": "Обычные раунды", "AlternateRoundSet": "Альтернативные раунды (ABR)"}
+MODE_SETS = ("AcceleratedRoundSet", "EnduranceRoundSet", "MOABMadnessRoundSet", "FastUpgradesRoundSet", "MasteryModeRoundSet",
+             "DefaultSkipEveryOddRound")
+# set -> game text keys of its name (the dump does not link them), joined with ": ". A key the text table lacks is shown
+# as it is, so "этап 1" below is plain text. Sets not listed show their folder name; hero trials are built from the hero.
+SET_TEXT = {
+    "AcceleratedRoundSet": ("AcceleratedRoundSetQuestName",), "MOABMadnessRoundSet": ("MOABMadnessQuestName",),
+    "FastUpgradesRoundSet": ("FastUpgradesQuestName",), "MasteryModeRoundSet": ("MasteryModeQuestName",),
+    "BattleCatQuestRoundSet": ("BattleCatQuest1Name",),
+    "BouncyDartsTaleStage1RoundSet": ("BouncyDartsTaleQuestName", "этап 1"),
+    "BouncyDartsTaleStage2RoundSet": ("BouncyDartsTaleQuestName", "этап 2"),
+    "HeManStage3RoundSet": ("HeManQuestName", "HeManQuest3Name"),
+    "QuestMermonkeyStage1RoundSet": ("MermonkeyQuestName", "MermonkeyQuest1Name"),
+    "ScoopsTaleIPart1RoundSet": ("ScoopsTaleIQuestName", "ScoopsTaleIQuest1Name"),
+    "ScoopsTaleIPart2RoundSet": ("ScoopsTaleIQuestName", "ScoopsTaleIQuest2Name"),
+    "ScoopsTaleIPart3RoundSet": ("ScoopsTaleIQuestName", "ScoopsTaleIQuest3Name"),
+    "SkeletorQuestRoundSet1": ("SkeletorQuestName", "SkeletorQuest1Name"),
+}
+
+
+def extra_sets():
+    """Round sets with their own page: mode sets, hero trials, then quests."""
+    have = {f.name for f in (DATA / "Rounds").iterdir()} - set(MAIN_SETS)
+    trials = sorted(s for s in have if s.endswith("TrialRoundSet"))
+    return ([s for s in MODE_SETS if s in have], trials, sorted(have - set(MODE_SETS) - set(trials)))
+
+
+def round_set_href(rs):
+    return f"rounds-{rs}.html" if rs not in MAIN_SETS and (DATA / "Rounds" / rs).is_dir() else f"rounds.html#{rs}"
+
+
+def round_set_title(rs):
+    if rs in MAIN_SETS:
+        return MAIN_SETS[rs]
+    if rs.endswith("TrialRoundSet"):
+        name = rs.removeprefix("Quest").removesuffix("TrialRoundSet")
+        hero = next((h.name for h in sorted((DATA / "Heroes").iterdir()) if name in h.name), name)
+        return f"{t(hero, fallback=hero)}: {t(f'{name}TestQuestName', f'{name}TestQuest1Name', fallback=rs)}"
+    return ": ".join(t(k, fallback=k) for k in SET_TEXT.get(rs, ())) or rs
+
+
+def round_table_card(rs, title, note=""):
     bloons = BLOONS
 
     def tags(b):
@@ -178,45 +229,66 @@ def build_rounds():
     prop_names = {"camo": t("Camo"), "regrow": t("Regrow"), "fortified": "Укреплённые"}
     filters = [("", "Все"), ("new", "С новым"), ("camo", t("Camo")), ("regrow", t("Regrow")), ("fortified", "Укреплённые"),
                ("lead", t("Lead")), ("ceramic", t("Ceramic")), ("moab", "MOAB-класс")]
+    folder = DATA / "Rounds" / rs
+    rows, total, seen = [], 0, set()
+    for f in sorted(folder.glob("*.json"), key=lambda f: int(f.stem)):
+        r = int(f.stem)
+        groups = load(f).get("groups") or []
+        chips = "".join(f"<a class='chip bchip' href='bloons.html#{esc(bloons[g['bloon']].get('baseId', g['bloon']))}'>"
+                        f"<i class='bi bi-{bloon_css(g["bloon"])}'></i>{g['count']}× {esc(bloon_name(g['bloon']))}</a>" for g in groups)
+        r_rbe = sum(g["count"] * rbe(g["bloon"]) for g in groups)
+        cash, bonus = round_cash(rs)[r]
+        total += cash + bonus
+        dur = max((g["end"] for g in groups), default=0) / 60
+        # first appearance of a bloon type or a property (camo, regrow, fortified)
+        row_tags = set().union(*(tags(g["bloon"]) for g in groups)) if groups else set()
+        feats = [bloons[g["bloon"]].get("baseId") for g in groups] + [p for p in ("camo", "regrow", "fortified") if p in row_tags]
+        new = list(dict.fromkeys(x for x in feats if x not in seen))
+        seen.update(new)
+        badges = "".join(f"<span class='chip new'>{esc(prop_names[x])}</span>" if x in prop_names
+                         else f"<a class='chip new' href='bloons.html#{esc(x)}'>{esc(t(x, fallback=x))}</a>" for x in new)
+        if new:
+            row_tags.add("new")
+        cells = [r, Raw(f"<div class='chips'>{chips}</div>"), Raw(f"<div class='chips'>{badges}</div>"), r_rbe,
+                 round(cash, 1), bonus, round(total, 1), round(dur, 2)]
+        rows.append(f"<tr data-tags='{' '.join(sorted(row_tags))}'{' class=newrow' if new else ''}>" + "".join(
+            f"<td class='n'>{fmt(c)}</td>" if isinstance(c, (int, float)) else f"<td>{c}</td>" for c in cells) + "</tr>")
+    head = "".join(f"<th>{h}</th>" for h in ("Раунд", "Шары", "Впервые", "RBE", "$ за лопание", "$ бонус", "$ всего с 1-го", "Длит., с"))
+    bar = (f"<div class='tagbar' data-target='#{rs}-t'>"
+           + "".join(f"<button type='button' data-tag='{k}'{' class=on' if not k else ''}>{esc(n)}</button>" for k, n in filters)
+           + "</div>")
+    INDEX.append([title, "Раунды", f"{round_set_href(rs).split('#')[0]}#{rs}", rs])
+    return card(rs, title,
+                (f"<div class='chips'><a class='badge' href='modes.html#AlternateBloonsRounds'><span>режим</span><b>{icon('ui', 'mode-AlternateBloonsRounds', 18)}{esc(t('Mode AlternateBloonsRounds', fallback='ABR'))}</b></a></div>" if rs == "AlternateRoundSet" else "")
+                + note + bar + "<input class='filter' type='search' placeholder='Фильтр: номер или шар' aria-label='Фильтр раундов' "
+                f"data-filter='#{rs}-t tbody tr'>"
+                f"<div class='wrap'><table id='{rs}-t'><thead><tr>{head}</tr></thead><tbody>{''.join(rows)}</tbody></table></div>",
+                section="Раунды")
 
+
+def build_rounds():
+    icons = bloon_icon_style(set(BLOONS))
     sections, toc = [], []
-    for rs, title in (("DefaultRoundSet", "Обычные раунды"), ("AlternateRoundSet", "Альтернативные раунды (ABR)")):
-        folder = DATA / "Rounds" / rs
-        rows, total, seen = [], 0, set()
-        for f in sorted(folder.glob("*.json"), key=lambda f: int(f.stem)):
-            r = int(f.stem)
-            groups = load(f).get("groups") or []
-            chips = "".join(f"<a class='chip bchip' href='bloons.html#{esc(bloons[g['bloon']].get('baseId', g['bloon']))}'>"
-                            f"<i class='bi bi-{bloon_css(g["bloon"])}'></i>{g['count']}× {esc(bloon_name(g['bloon']))}</a>" for g in groups)
-            r_rbe = sum(g["count"] * rbe(g["bloon"]) for g in groups)
-            cash, bonus = round_cash(rs)[r]
-            total += cash + bonus
-            dur = max((g["end"] for g in groups), default=0) / 60
-            # first appearance of a bloon type or a property (camo, regrow, fortified)
-            row_tags = set().union(*(tags(g["bloon"]) for g in groups)) if groups else set()
-            feats = [bloons[g["bloon"]].get("baseId") for g in groups] + [p for p in ("camo", "regrow", "fortified") if p in row_tags]
-            new = list(dict.fromkeys(x for x in feats if x not in seen))
-            seen.update(new)
-            badges = "".join(f"<span class='chip new'>{esc(prop_names[x])}</span>" if x in prop_names
-                             else f"<a class='chip new' href='bloons.html#{esc(x)}'>{esc(t(x, fallback=x))}</a>" for x in new)
-            if new:
-                row_tags.add("new")
-            cells = [r, Raw(f"<div class='chips'>{chips}</div>"), Raw(f"<div class='chips'>{badges}</div>"), r_rbe,
-                     round(cash, 1), bonus, round(total, 1), round(dur, 2)]
-            rows.append(f"<tr data-tags='{' '.join(sorted(row_tags))}'{' class=newrow' if new else ''}>" + "".join(
-                f"<td class='n'>{fmt(c)}</td>" if isinstance(c, (int, float)) else f"<td>{c}</td>" for c in cells) + "</tr>")
-        head = "".join(f"<th>{h}</th>" for h in ("Раунд", "Шары", "Впервые", "RBE", "$ за лопание", "$ бонус", "$ всего с 1-го", "Длит., с"))
-        bar = (f"<div class='tagbar' data-target='#{rs}-t'>"
-               + "".join(f"<button type='button' data-tag='{k}'{' class=on' if not k else ''}>{esc(n)}</button>" for k, n in filters)
-               + "</div>")
-        INDEX.append([title, "Раунды", f"rounds.html#{rs}", rs])
-        sections.append(card(rs, title,
-                             (f"<div class='chips'><a class='badge' href='modes.html#AlternateBloonsRounds'><span>режим</span><b>{icon('ui', 'mode-AlternateBloonsRounds', 18)}{esc(t('Mode AlternateBloonsRounds', fallback='ABR'))}</b></a></div>" if rs == "AlternateRoundSet" else "") + bar + "<input class='filter' type='search' placeholder='Фильтр: номер или шар' aria-label='Фильтр раундов' "
-                             f"data-filter='#{rs}-t tbody tr'>"
-                             f"<div class='wrap'><table id='{rs}-t'><thead><tr>{head}</tr></thead><tbody>{''.join(rows)}</tbody></table></div>",
-                             section="Раунды"))
+    for rs, title in MAIN_SETS.items():
+        sections.append(round_table_card(rs, title))
         toc.append((rs, title))
+    kinds = zip(("Режимы", "Испытания героев", "Квесты"), extra_sets())
+    links = "".join(f"<h3>{kind}</h3><div class='chips'>"
+                    + "".join(f"<a class='chip' href='{round_set_href(s)}'>{esc(round_set_title(s))}</a>" for s in sets) + "</div>"
+                    for kind, sets in kinds)
+    sections.insert(0, card("other-sets", "Другие наборы раундов", links, section="Раунды"))
+    toc.insert(0, ("other-sets", "Другие наборы раундов"))
     page("rounds.html", "Раунды",
          "Шары каждого раунда, RBE и деньги. За лопание 1 $ за слой с множителем дохода раунда, "
          "бонус за раунд 100 $ + номер раунда. HP MOAB-класса в поздних раундах растёт, здесь базовые значения.",
-         bloon_icon_style(set(bloons)) + "".join(sections), toc)
+         icons + "".join(sections), toc)
+    for rs in sum(extra_sets(), []):
+        file, title, income = f"rounds-{rs}.html", round_set_title(rs), income_set_name(rs)
+        core.current_file = file  # card() indexes its anchor under this page
+        note = (f"<p class='note'>Номера раундов как в файлах набора. Доход: {esc(income)}"
+                + (", у этого набора нет своего набора дохода" if income == "DefaultIncomeSet" else "")
+                + ". Бонус за раунд как в режиме Medium. "
+                "<a href='rounds.html'>Все наборы раундов</a></p>")
+        page(file, title, "Шары каждого раунда набора, RBE и деньги за лопание и за раунд.",
+             icons + round_table_card(rs, title, note), [(rs, title)])
+
