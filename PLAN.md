@@ -55,9 +55,8 @@ Checked only by the absence of any mention in `wiki/`.
 ## 7. Design: less of a generated look
 From screenshots of the home, tower and co-op pages on 2026-11-16. The game HUD idea (ink outline, hard shadow,
 gold titles) is the site's own and stays. What reads as a template is that one treatment sits on everything.
-- [ ] Outline and hard shadow only on things you press (tiles, buttons, search), like buttons in the game. Content
-      cards become quiet panels: no shadow, thin rule or none. Now every card, tile, button, badge and input has
-      the same 2 to 3px border and drop shadow.
+- [ ] Check badges (`.badge`) and other non-pressable bordered elements: outline and hard shadow only on things you press.
+      Content cards are quiet panels already.
 - [ ] Stat pills (big number over a small label) on tower, hero and bloon cards: replace with one compact row of
       "label value" pairs.
 - [ ] Pastel pill chips and the two-part badges with a monospace label: keep colour only where it encodes

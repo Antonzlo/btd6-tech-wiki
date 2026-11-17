@@ -96,7 +96,7 @@ h3{font-size:15px;font-weight:600;margin:20px 0 8px}
 .lead{max-width:66ch;margin:0 0 6px;font-size:16px}
 .ver{font-size:13px;color:var(--soft);margin:0 0 8px}
 
-.card{background:var(--panel);border:3px solid var(--edge);border-radius:18px;box-shadow:0 5px 0 var(--edge);
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:18px;
   padding:20px 22px;margin:22px 0;scroll-margin-top:calc(var(--top-h,66px) + 16px)}
 .card-head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
 .card-head h2{overflow-wrap:anywhere;min-width:0}
@@ -183,7 +183,7 @@ svg text{fill:var(--soft);font:11px var(--body)}
 .kgraph .band1{fill:var(--panel);stroke:var(--rule)}
 .kgraph .bandlbl{fill:var(--soft);font:600 13px var(--body)}
 .kgraph .kn .nm{fill:var(--ink);font:500 13px var(--body)}
-.card:target{box-shadow:0 5px 0 var(--edge),0 0 0 4px var(--gold)}
+.card:target{box-shadow:0 0 0 4px var(--gold)}
 
 /* Knowledge tree in the game's own layout */
 .kgame{position:relative}
