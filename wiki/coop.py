@@ -18,7 +18,9 @@ INCOME_RU = {
     "MonkeyCityIncomeSupportModel": "Больше денег за лопание (город)", "BananaCashIncreaseSupportModel": "Больше денег с бананов",
     "BountyHunterZoneModel": "Награда за шары", "AddCashOnProjectileExpireModel": "Деньги по истечении снаряда",
     "CashPerTowerInMakeshiftAreaModel": "Деньги за башни на площадке", "MonkeyBankerModel": "Доход банков",
+    "EatBloonModel": "Бонус ловушки", "WallOfTreesModel": "Бонус Wall of Trees",
 }
+CAPTURE_BONUSES = {"EatBloonModel", "WallOfTreesModel"}
 SPLIT, OWNER, UNKNOWN = "делится на всех", "владельцу башни", "не проверено"
 
 
@@ -34,6 +36,11 @@ def verdict(m, pickup=False):
         return OWNER
     if k == "PerRoundCashBonusTowerModel":
         return SPLIT if m.get("distributeCash") else OWNER
+    if k in CAPTURE_BONUSES:
+        behaviors = (m.get("projectile") or {}).get("behaviors") or []
+        cash = next((b for b in behaviors if short_type(b) == "CashModel"), None)
+        has_pickup = any(short_type(b) == "PickupModel" for b in behaviors)
+        return verdict(cash, has_pickup) if cash else UNKNOWN
     if k == "CashModel" and pickup:
         share = m.get("emittedByCashEarnedMultiplier", 1)
         if share >= 1 or not m.get("distributeBonusIncome"):
@@ -51,8 +58,7 @@ def model_name(m):
 
 
 def sources():
-    """(kind, id) -> (model type, model name) -> {"first": first model, "tiers": {verdict: [tier keys]}} over towers, heroes,
-    powers and Geraldo items, lowest tier first."""
+    """Group each unit's income behaviors by model and capture payout parameters, lowest tier first."""
     out = {}
     folders = [("towers", "Towers"), ("heroes", "Heroes"), ("powers", "Powers"), ("geraldo", "GeraldoItems")]
     for kind, folder in folders:
@@ -61,19 +67,22 @@ def sources():
             oid = f.parent.name if kind in ("towers", "heroes") else f.stem
             found = []
 
-            def walk(o, pickup=False):
+            def walk(o, pickup=False, capture_cash=False):
                 if isinstance(o, dict):
-                    if short_type(o) in INCOME_RU:
+                    kind_ = short_type(o)
+                    if kind_ in INCOME_RU and not (capture_cash and kind_ == "CashModel"):
                         found.append((o, pickup))
-                    for v in o.values():
-                        walk(v)
+                    for key, v in o.items():
+                        walk(v, capture_cash=(kind_ in CAPTURE_BONUSES and key == "projectile")
+                             or (capture_cash and key == "behaviors"))
                 elif isinstance(o, list):
                     pickup = any(short_type(v) == "PickupModel" for v in o)  # behaviors of one projectile
                     for v in o:
-                        walk(v, pickup)
+                        walk(v, pickup, capture_cash)
             walk(load(f))
             for m, pickup in found:
-                e = out.setdefault((kind, oid), {}).setdefault((short_type(m), model_name(m)), {"first": m, "tiers": {}})
+                key = (short_type(m), model_name(m), m.get("rbeCashMultiplier"), m.get("rbeCapacity"))
+                e = out.setdefault((kind, oid), {}).setdefault(key, {"first": m, "tiers": {}})
                 tiers = e["tiers"].setdefault(verdict(m, pickup), [])
                 if tier_key(f) not in tiers:
                     tiers.append(tier_key(f))
@@ -105,13 +114,28 @@ def build_coop():
             base = next((m.get("changeBase") for m in load(f).get("mutatorMods", []) if short_type(m) == "StartingCashModModel"), None) if f.exists() else None
             row.append(f"${fmt(base)} → ${fmt(int(base) // n)}" + (f" (+1 первым {int(base) % n})" if base and int(base) % n else "") if base else "–")
         start_rows.append(row)
+    bonus_rows = []
+    for difficulty in ("Easy", "Medium", "Hard"):
+        models = load(DATA / "Mods" / f"{difficulty}.json").get("mutatorMods", [])
+        for model in models:
+            if short_type(model) == "BonusCashPerRoundModModel":
+                bonus_rows.append([difficulty, model["baseCash"], model["roundMultiple"]])
+    income_set = load(DATA / "IncomeSets" / "DefaultIncomeSet.json")
+    income_rows = []
+    first_round = 1
+    for entry in income_set["thresholds"]:
+        last_round = entry["threshold"]
+        income_rows.append([f"{first_round}–{last_round}", entry["multiplier"]])
+        first_round = last_round + 1
+    income_rows.append([f"С {first_round}", income_set["finalMultiplier"]])
     rules = table(["Откуда", "В коопе", "Основание"], [
         ["Стартовые деньги", "делятся поровну", "Код игры: база режима делится на число игроков"],
         ["Деньги за лопание шаров", "делятся поровну", "Код игры: Simulation.UpdateStagedCash → AddSharedCash"],
-        ["Бонус в конце раунда (100 + номер раунда)", "делится поровну", "Код игры: AddSharedCash (EndOfRound)"],
+        ["Бонус в конце раунда", "делится поровну", "Код игры: AddSharedCash (EndOfRound)"],
         ["Перевод денег другому игроку", "напрямую от игрока игроку", "Код игры: Simulation.SendCash"],
         ["Подбираемые деньги (бананы, ящики)", "владельцу башни, кто бы их ни подобрал", "Код игры: Cash.Pickup → Pickup.Owner.PlayerOwnerId"],
-        ["Ловушка инженера", "владельцу ловушки: деньги пойманных шаров × (rbeCashMultiplier − 1)", "Код игры: EatBloon.EmitCash"],
+        ["Бонус ловушки инженера", "владельцу ловушки. Стоимость пойманных шаров учитывает доход раунда появления. В CHIMPS бонус отключён", "Код игры: EatBloon.Collide, EatBloon.EmitCash"],
+        ["Бонус Wall of Trees", "владельцу стены при подборе. В CHIMPS бонус отключён", "Код игры: WallOfTrees.EmitCash → Cash.Pickup"],
         ["Продажа башни", "владельцу башни", "Код игры: TowerManager.SellTower → AddCash"],
         ["Банк и выдача займа IMF", "владельцу башни", "Код игры: Bank.Collect, ImfLoan.Activate → AddCash"],
         ["Возврат займа IMF", "из доли заёмщика после деления, и из переводов ему", "Код игры: ImfLoanCollection.AddCashTransform"],
@@ -120,15 +144,27 @@ def build_coop():
     ])
     rows = []
     for (kind, oid), types in sources().items():
-        for (k, name), e in types.items():
+        for (k, name, multiplier, capacity), e in types.items():
             who = "<br>".join(f"<b>{esc(v)}</b>" + (f" <small class='note'>{esc(tier_text(kind, keys))}</small>" if tier_text(kind, keys) else "")
                               for v, keys in e["tiers"].items())
-            what = effect_line(e["first"]).replace(f"<b>{esc(EFFECT_RU.get(k) or label(k))}</b>", f"<b>{esc(INCOME_RU[k])}</b>" + (f" <small class='note'>{esc(name)}</small>" if name else ""), 1)
+            if k in CAPTURE_BONUSES and multiplier is not None:
+                what = f"<b>{esc(INCOME_RU[k])}</b> ({fmt(multiplier)} − 1) × накопленный доход"
+                if capacity is not None:
+                    what += f" <small class='note'>Ёмкость {fmt(capacity)} RBE</small>"
+            else:
+                what = effect_line(e["first"]).replace(f"<b>{esc(EFFECT_RU.get(k) or label(k))}</b>", f"<b>{esc(INCOME_RU[k])}</b>" + (f" <small class='note'>{esc(name)}</small>" if name else ""), 1)
             rows.append((Raw(source_badge(kind, oid)), Raw(what), Raw(who)))
     body = (card("rules", "Общие правила", rules
                  + "<p class='note'>Правила прочитаны в коде игры (GameAssembly.dll версии 57.4): в выгрузке данных их нет. "
                  "При 2, 3 и 4 игроках доля без других модификаторов: половина, треть, четверть.</p>"
-                 + table(["Игроков", "Стандарт: база → на игрока", "Deflation: база → на игрока"], start_rows), section="Кооп")
+                 + table(["Игроков", "Стандарт: база → на игрока", "Deflation: база → на игрока"], start_rows)
+                 + "<p>Общий бонус в конце раунда равен базе плюс номер раунда, умноженный на коэффициент. "
+                 "Доля игрока равна общему бонусу, делённому на текущее число получателей.</p>"
+                 + table(["Сложность", "База бонуса", "Коэффициент номера раунда"], bonus_rows), section="Кооп")
+            + card("pop-income", "Деньги за лопание шаров",
+                   "<p>Игра выбирает коэффициент по раунду появления шара, даже если его лопнули позже. "
+                   "Для обычного поп-дохода она применяет коэффициент, затем делит итог между получателями.</p>"
+                   + table(["Раунд появления", "Коэффициент DefaultIncomeSet"], income_rows), section="Кооп")
             + card("sources", "Доход башен, героев и сил",
                    "<p class='note'>«Делится» и «владельцу» взяты из флагов модели: distributeCash у денег в конце раунда, "
                    "у подбираемых денег PickupModel рядом, emittedByCashEarnedMultiplier и distributeBonusIncome. "
@@ -138,4 +174,5 @@ def build_coop():
                    "data-filter='#coop-src tbody tr'>"
                    + table(["Источник", "Что даёт", "В коопе"], rows).replace("<table>", "<table id='coop-src'>", 1), section="Кооп"))
     page("coop.html", "Деньги в коопе", "Откуда приходят деньги и делятся ли они между игроками в кооперативе.", body,
-         [("rules", "Общие правила"), ("sources", "Доход башен, героев и сил")])
+         [("rules", "Общие правила"), ("pop-income", "Деньги за лопание шаров"),
+          ("sources", "Доход башен, героев и сил")])
