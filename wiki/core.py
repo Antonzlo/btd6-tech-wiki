@@ -282,7 +282,7 @@ def table(headers, rows, row_attr=""):
 
 def stats(items):
     return "<div class='stats'>" + "".join(
-        f"<div class='stat'><b>{fmt(v)}</b><small>{esc(k)}</small></div>" for k, v in items) + "</div>"
+        f"<div class='stat'><small>{esc(k)}</small><b>{fmt(v)}</b></div>" for k, v in items) + "</div>"
 
 
 def game_text(text):

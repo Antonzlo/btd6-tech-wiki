@@ -57,8 +57,6 @@ From screenshots of the home, tower and co-op pages on 2026-11-16. The game HUD 
 gold titles) is the site's own and stays. What reads as a template is that one treatment sits on everything.
 - [ ] Check badges (`.badge`) and other non-pressable bordered elements: outline and hard shadow only on things you press.
       Content cards are quiet panels already.
-- [ ] Stat pills (big number over a small label) on tower, hero and bloon cards: replace with one compact row of
-      "label value" pairs.
 - [ ] Pastel pill chips and the two-part badges with a monospace label: keep colour only where it encodes
       something (cannot pop, stackable, link kind), plain text elsewhere. Monospace only for real ids.
 - [ ] Fonts: Rubik for both titles and text, loaded from Google Fonts. Self-host Rubik for titles, system font for
