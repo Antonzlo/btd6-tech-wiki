@@ -22,10 +22,10 @@
   --green:light-dark(#3f9b3a,#7fd36f);    /* normal tier / stackable */
   --green-soft:light-dark(#e1f3dc,#17301b);
   --hp:light-dark(#5cc24f,#55b948);
-  --display:"Rubik",system-ui,sans-serif;
+  --display:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Ubuntu,Cantarell,"Helvetica Neue",Arial,sans-serif;
   --edge:light-dark(#1b2a44,#050a14);     /* outlines and hard shadows */
-  --body:"Rubik",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --code:"Roboto Mono",ui-monospace,Consolas,monospace;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Ubuntu,Cantarell,"Helvetica Neue",Arial,sans-serif;
+  --code:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
 }
 :root[data-theme="light"]{color-scheme:light}
 :root[data-theme="dark"]{color-scheme:dark}

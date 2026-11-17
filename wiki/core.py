@@ -329,8 +329,6 @@ def page(file, title, lead, body, toc=()):
             f"<meta property=\"og:title\" content=\"{full_title}\"><meta property=\"og:description\" content=\"{desc}\">"
             f"<meta property=\"og:url\" content=\"{url}\">"
             f"<link rel=\"icon\" type=\"image/webp\" href=\"{webp_uri(DATA / 'icons' / 'web' / 'towers' / 'DartMonkey.webp')}\">"
-            "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400"
-            "&family=Roboto+Mono&display=swap\">"
             f"<style>{CSS}</style>")
     content = (
         f"<header class='top'><a class='brand' href='index.html'>BTD6 Tech Wiki<span title='{esc(VERSION)}'>"

@@ -59,5 +59,3 @@ gold titles) is the site's own and stays. What reads as a template is that one t
       Content cards are quiet panels already.
 - [ ] Pastel pill chips and the two-part badges with a monospace label: keep colour only where it encodes
       something (cannot pop, stackable, link kind), plain text elsewhere. Monospace only for real ids.
-- [ ] Fonts: Rubik for both titles and text, loaded from Google Fonts. Self-host Rubik for titles, system font for
-      text (also closes the external request).
