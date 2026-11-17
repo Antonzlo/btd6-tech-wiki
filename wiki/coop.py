@@ -27,9 +27,11 @@ def verdict(m, pickup=False):
     (distributeCash: AddSharedCash, else AddCash to the owner) and Cash.Pickup. Pickup looks for a Pickup behavior
     on the same projectile (pickup: a PickupModel sits next to the CashModel): the share emittedByCashEarnedMultiplier
     goes to Pickup.Owner.PlayerOwnerId, the owner of the emitting tower, whoever collects it; the rest is shared when
-    distributeBonusIncome, else it goes to the owner too. Cash without a Pickup (Marketplace, banks) takes a path
-    that is not traced."""
+    distributeBonusIncome, else it goes to the owner too. Cash without a Pickup (Marketplace) takes a path that is
+    not traced."""
     k = short_type(m)
+    if k in ("BankModel", "ImfLoanModel"):  # Bank.Collect and ImfLoan.Activate: AddCash to Tower.get_owner
+        return OWNER
     if k == "PerRoundCashBonusTowerModel":
         return SPLIT if m.get("distributeCash") else OWNER
     if k == "CashModel" and pickup:
@@ -110,6 +112,10 @@ def build_coop():
         ["Перевод денег другому игроку", "напрямую от игрока игроку", "Код игры: Simulation.SendCash"],
         ["Подбираемые деньги (бананы, ящики)", "владельцу башни, кто бы их ни подобрал", "Код игры: Cash.Pickup → Pickup.Owner.PlayerOwnerId"],
         ["Ловушка инженера", "владельцу ловушки: деньги пойманных шаров × (rbeCashMultiplier − 1)", "Код игры: EatBloon.EmitCash"],
+        ["Продажа башни", "владельцу башни", "Код игры: TowerManager.SellTower → AddCash"],
+        ["Банк и выдача займа IMF", "владельцу башни", "Код игры: Bank.Collect, ImfLoan.Activate → AddCash"],
+        ["Возврат займа IMF", "из доли заёмщика после деления, и из переводов ему", "Код игры: ImfLoanCollection.AddCashTransform"],
+        ["Double Cash", "удваивает долю своего игрока после деления", "Код игры: AddSharedCash"],
         ["Игрок вышел из матча", "его деньги делятся поровну между оставшимися, общие деньги дальше делятся на оставшихся", "Код игры: Simulation.RemovePlayer"],
     ])
     rows = []

@@ -20,6 +20,7 @@ from wiki.paragon import build_bosses, build_paragon
 from wiki.modes import build_income, build_modes
 from wiki.buffs import build_buffs
 from wiki.coop import build_coop
+from wiki.xp import build_xp
 from wiki.knowledge import build_knowledge, build_powers
 from wiki.achievements import build_achievements
 from wiki.maps import build_maps
@@ -35,7 +36,7 @@ def main():
         set_lang(lang)
         INDEX.clear()
         for file, build in (("paragon.html", build_paragon), ("bosses.html", build_bosses), ("modes.html", build_modes),
-                            ("income.html", build_income), ("coop.html", build_coop), ("buffs.html", build_buffs),
+                            ("income.html", build_income), ("coop.html", build_coop), ("xp.html", build_xp), ("buffs.html", build_buffs),
                             ("knowledge.html", build_knowledge), ("powers.html", build_powers),
                             ("achievements.html", build_achievements), ("maps.html", build_maps),
                             ("towers.html", build_towers), ("heroes.html", build_heroes), ("bloons.html", build_bloons),

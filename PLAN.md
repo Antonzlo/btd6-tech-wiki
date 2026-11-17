@@ -14,26 +14,18 @@ Checked against the dump on 2026-11-16: starting cash bases, round bonus, mode e
 (`data/KnowledgeLayout/xp.json`) all match. The native addresses were not re-checked.
 
 Co-op cash: on the wiki since 2026-11-16 (picked-up cash to the tower's owner, Bloon Trap, a player leaving, income
-multiplier by spawn round).
-
-XP (new page, only hero XP is on the wiki now):
-- [ ] Round XP: `20*(r+2+max(0,r-19)) + 50*max(0,r-49)` with `r = round - 1`, times the map difficulty scale
-      (both already in `xp.json`).
-- [ ] Freeplay: x0.30 after the mode's last round, x0.10 after round 100 with a cap of 3000.
-- [ ] Sub-game scales: Rush x0.2, BossBloonChallenge x3.0 (names from the enum, not checked in game).
-- [ ] Account XP in co-op: every player gets the full round XP, no division by the player count.
-- [ ] Tower XP: round XP times the tower's share of the team's spending on non-hero towers, then the tower's own
-      XP bonuses. Free and insta towers add no weight. Fractions are kept, not rounded.
-- [ ] Knowledge XP bonuses multiply: Monkey Education 1.08 x Elite Military Training 1.05 = 1.134.
+multiplier by spawn round). Bank, IMF Loan payout and repayment, tower sale and Double Cash since 2026-11-17.
+XP page (`xp.html`) since 2026-11-17: round XP, freeplay, BossRush x0.2 and Rogue x3.0, co-op split, no-XP gates,
+account ranks from `rank-xp.json`.
 
 Open in the notes themselves (needs more reading of the code or a test in game):
 - [ ] A dropped connection before the player is formally removed.
 - [ ] The ordinary pop cash for a bloon caught by the trap.
-- [ ] The doubling branch in `AddSharedCash` (double cash).
 - [ ] Who gets the extra dollar when starting cash does not divide evenly.
-- [ ] Challenge types that give no XP (candidate names only).
-- [ ] Cash path of the sources shown as "not checked": bank, IMF loan, `GiveCashOnPop`, cash zones,
-      `CashModel` without a `PickupModel`.
+- [ ] Which players' knowledge the co-op lobby applies (tower XP bonuses).
+- [ ] `selectedDifficultyRating` values (multiplies round XP, not in the dump).
+- [ ] Cash path of the sources shown as "not checked": `GiveCashOnPop`, cash zones, `CashModel` without a
+      `PickupModel`.
 
 ## 3. In `data/` already, not shown
 - [ ] `xpCost` of tower upgrades (`data/Upgrades/`): only the hero pages read it.
@@ -53,7 +45,6 @@ Open in the notes themselves (needs more reading of the code or a test in game):
 ## 5. Not in the export: needs the dumper or the game code
 Checked only by the absence of any mention in `wiki/`.
 - [ ] Freeplay rules: bloon HP and speed growth by round.
-- [ ] Account level and veteran level XP tables.
 - [ ] Odyssey, Race, Contested Territory and boss events as modes.
 - [ ] Insta monkey and collection event chances.
 - [ ] Standard starting cash 650 is hardcoded in `wiki/heroes.py` (`START_CASH`).
