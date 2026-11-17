@@ -28,7 +28,6 @@ Open in the notes themselves (needs more reading of the code or a test in game):
       `PickupModel`.
 
 ## 3. In `data/` already, not shown
-- [ ] `xpCost` of tower upgrades (`data/Upgrades/`): only the hero pages read it.
 
 ## 4. In the Mod Helper export, not copied into `data/` yet
 - [ ] Round sets (`Rounds/`, 47, the wiki has 2): Accelerated, Endurance, MOABMadness, FastUpgrades, MasteryMode,
@@ -71,6 +70,5 @@ gold titles) is the site's own and stays. What reads as a template is that one t
 - [ ] Pastel pill chips and the two-part badges with a monospace label: keep colour only where it encodes
       something (cannot pop, stackable, link kind), plain text elsewhere. Monospace only for real ids.
 - [ ] Tables stretch to the full 1760px card (co-op rules: three columns far apart). Size tables to their content.
-- [ ] Footer: drop "Сделано с ♥".
 - [ ] Fonts: Rubik for both titles and text, loaded from Google Fonts. Self-host Rubik for titles, system font for
       text (also closes the external request).

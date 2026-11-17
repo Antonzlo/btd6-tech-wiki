@@ -247,14 +247,18 @@ def build_towers():
         file = f"tower-{tid}.html"
         core.current_file = file
         cols = []
+        xp_total = 0
         for i, path in enumerate(paths):
             done, rows = [], []
             for tier, u in enumerate(path, 1):
                 c = ucost.get(u, 0)
+                xp = upgrades.get(u, {}).get("xpCost") or 0
+                xp_total += xp
                 done.append(c)
                 INDEX.append([t(u, fallback=u), name, f"{file}#upgrades", u])
                 rows.append(f"<li>{icon('upgrades', u, 56, 'ic up-ic')}<div><div class='up-head'><b>{tier}. {esc(t(u, fallback=u))}</b>"
-                            f"<span class='price'>{price([c], 'cost big')}<small>всего {price(done)}</small></span></div>"
+                            f"<span class='price'>{price([c], 'cost big')}<small>всего {price(done)}</small>"
+                            + (f"<small>{fmt(xp)} XP</small>" if xp else "") + "</span></div>"
                             f"<p>{esc(t(u + ' Description'))}</p></div></li>")
             cols.append(f"<div class='path'><h3>Путь {i + 1}</h3><ol>{''.join(rows)}</ol></div>")
         para = ""
@@ -283,7 +287,8 @@ def build_towers():
             + card("about", name,
                  "<div class='hero-row'>" + icon('towers', tid, 120, 'ic portrait') + "<div>" + game_text(t(f"{tid} Description", f"{tid}Description"))
                  + stats([("цена", price([base.get("cost", 0)])), ("дальность", base.get("range")),
-                          ("радиус места", base.get("radius")), ("категория", t(TOWER_SETS.get(base.get("towerSet")), fallback=""))])
+                          ("радиус места", base.get("radius")), ("категория", t(TOWER_SETS.get(base.get("towerSet")), fallback=""))]
+                         + ([("XP на все пути", Raw(f"{fmt(xp_total)} XP"))] if xp_total else []))
                  + "</div></div>",
                  en_id=tid, section="Башни")
             + card("upgrades", "Улучшения", f"<div class='paths'>{''.join(cols)}</div>{para}", section=name)
