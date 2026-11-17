@@ -311,7 +311,12 @@ def page_url(lang, file):
 
 
 def page(file, title, lead, body, toc=()):
-    side = "".join(f"<a href='{f}'{' class=on' if f == file else ''}>{esc(t(n, fallback=n))}</a>" for f, n, *_ in PAGES)
+    # a sub-page lights its section: tower-X.html -> towers.html, hero-X -> heroes, map-X -> maps, rounds-X -> rounds
+    stem = file.split("-", 1)[0]
+    section = next((f for f, *_ in PAGES if f in (file, f"{stem}.html", f"{stem}s.html", f"{stem}es.html")), file)
+    side = "".join(f"<a href='{f}'{(' class=on aria-current=' + ('page' if f == file else 'true')) if f == section else ''}>"
+                   f"{esc(t(n, fallback=n))}</a>"
+                   for f, n, *_ in PAGES)
     other = ("ru/" if LANG == MAIN_LANG else "../") + file
     switch = f"<a class='lang' href='{other}' aria-label='Язык'>{'RU' if LANG == MAIN_LANG else 'EN'}</a>"
     toc_links = "".join(f"<a href='#{esc(a)}'>{esc(n)}</a>" for a, n in toc)
