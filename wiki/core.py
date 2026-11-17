@@ -20,24 +20,24 @@ SKIP_TYPES = ("ResourceUtils", "DisplayModel", "AudioClip", "SMath.Vector", "Col
 SKIP_KEYS = {"$type", "guidRef", "AssetGUID", "display", "icon", "iconSmall", "name", "_name"}
 
 PAGES = [
-    ("index.html", "Главная", ""),
+    ("index.html", "Главная", "", ""),
     # your side, then the enemy, then the match rules, then account-wide extras
-    ("towers.html", "Башни", "Улучшения и кроссапгрейды"),
-    ("heroes.html", "Герои", "Уровни и опыт"),
-    ("paragon.html", "Парагон", "Сила и степени"),
-    ("buffs.html", "Баффы", "Что стакается"),
-    ("bloons.html", "Шары", "Свойства, HP и дети"),
-    ("rounds.html", "Раунды", "Состав, RBE и деньги"),
-    ("bosses.html", "Боссы", "HP и механики по тирам"),
-    ("modes.html", "Режимы", "Модификаторы сложностей"),
-    ("income.html", "Доход", "Множители дохода по раундам"),
-    ("coop.html", "Деньги в коопе", "Что делится между игроками"),
-    ("xp.html", "Опыт", "За раунд, в коопе, уровни аккаунта"),
-    ("knowledge.html", "Monkey Knowledge", "Цены и эффекты"),
-    ("powers.html", "Силы", "Параметры сил"),
-    ("achievements.html", "Достижения", "Условия и награды, скрытые тоже"),
-    ("maps.html", "Карты", "Вода, сложность, кооператив"),
-    ("links.html", "Ссылки", "Вики, моды, сообщество"),
+    ("towers.html", "Башни", "Улучшения и кроссапгрейды", "Ваша сторона"),
+    ("heroes.html", "Герои", "Уровни и опыт", "Ваша сторона"),
+    ("paragon.html", "Парагон", "Сила и степени", "Ваша сторона"),
+    ("buffs.html", "Баффы", "Что стакается", "Ваша сторона"),
+    ("bloons.html", "Шары", "Свойства, HP и дети", "Противник"),
+    ("rounds.html", "Раунды", "Состав, RBE и деньги", "Противник"),
+    ("bosses.html", "Боссы", "HP и механики по тирам", "Противник"),
+    ("modes.html", "Режимы", "Модификаторы сложностей", "Правила матча"),
+    ("income.html", "Доход", "Множители дохода по раундам", "Правила матча"),
+    ("coop.html", "Деньги в коопе", "Что делится между игроками", "Правила матча"),
+    ("xp.html", "Опыт", "За раунд, в коопе, уровни аккаунта", "Правила матча"),
+    ("knowledge.html", "Monkey Knowledge", "Цены и эффекты", "Остальное"),
+    ("powers.html", "Силы", "Параметры сил", "Остальное"),
+    ("achievements.html", "Достижения", "Условия и награды, скрытые тоже", "Остальное"),
+    ("maps.html", "Карты", "Вода, сложность, кооператив", "Остальное"),
+    ("links.html", "Ссылки", "Вики, моды, сообщество", "Остальное"),
 ]
 
 CSS = (ROOT / "style.css").read_text(encoding="utf-8")
@@ -311,7 +311,7 @@ def page_url(lang, file):
 
 
 def page(file, title, lead, body, toc=()):
-    side = "".join(f"<a href='{f}'{' class=on' if f == file else ''}>{esc(t(n, fallback=n))}</a>" for f, n, _ in PAGES)
+    side = "".join(f"<a href='{f}'{' class=on' if f == file else ''}>{esc(t(n, fallback=n))}</a>" for f, n, *_ in PAGES)
     other = ("ru/" if LANG == MAIN_LANG else "../") + file
     switch = f"<a class='lang' href='{other}' aria-label='Язык'>{'RU' if LANG == MAIN_LANG else 'EN'}</a>"
     toc_links = "".join(f"<a href='#{esc(a)}'>{esc(n)}</a>" for a, n in toc)

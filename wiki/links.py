@@ -1,4 +1,5 @@
 """Links page and the home page."""
+from itertools import groupby
 from wiki import core
 from wiki.core import INDEX, PAGES, Raw, card, esc, page, page_icon, t, table
 
@@ -45,8 +46,12 @@ def build_links():
 
 
 def build_index():
-    tiles = "".join(f"<a class='tile page-tile' href='{f}'>{page_icon(f, 56)}<span><b>{esc(t(n, fallback=n))}</b><small>{esc(s)}</small></span></a>" for f, n, s in PAGES[1:])
+    tiles = "".join(
+        f"<h2 class='group'>{esc(title)}</h2><div class='grid home-grid'>"
+        + "".join(f"<a class='tile page-tile' href='{f}'>{page_icon(f, 56)}<span><b>{esc(t(n, fallback=n))}</b><small>{esc(s)}</small></span></a>"
+                  for f, n, s, _ in items) + "</div>"
+        for title, items in ((k, list(v)) for k, v in groupby(PAGES[1:], key=lambda p: p[3])))
     page("index.html", "BTD6 Tech Wiki",
          "Точные числа Bloons TD 6 из файлов игры: урон и цены башен, уровни героев, HP боссов, "
          "режимы, доход, баффы. Поиск по сайту: клавиша /.",
-         f"<div class='grid home-grid'>{tiles}</div>")
+         tiles)

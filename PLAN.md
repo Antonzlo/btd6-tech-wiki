@@ -61,14 +61,11 @@ gold titles) is the site's own and stays. What reads as a template is that one t
 - [ ] Outline and hard shadow only on things you press (tiles, buttons, search), like buttons in the game. Content
       cards become quiet panels: no shadow, thin rule or none. Now every card, tile, button, badge and input has
       the same 2 to 3px border and drop shadow.
-- [ ] Home page: 15 identical tiles in two wide columns. Group them the way `PAGES` already orders them (your
-      side, the enemy, match rules, account extras) with a heading per group, and make the tiles narrower.
 - [ ] Stat pills (big number over a small label) on tower, hero and bloon cards: replace with one compact row of
       "label value" pairs.
 - [ ] Game text boxes (`.game`): a tinted, bordered, rounded box around every description, also inside table rows
       (knowledge tables). Plain text, or a left rule where it must stand apart from wiki text.
 - [ ] Pastel pill chips and the two-part badges with a monospace label: keep colour only where it encodes
       something (cannot pop, stackable, link kind), plain text elsewhere. Monospace only for real ids.
-- [ ] Tables stretch to the full 1760px card (co-op rules: three columns far apart). Size tables to their content.
 - [ ] Fonts: Rubik for both titles and text, loaded from Google Fonts. Self-host Rubik for titles, system font for
       text (also closes the external request).
