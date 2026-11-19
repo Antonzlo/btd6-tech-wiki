@@ -12,14 +12,14 @@
   --gold:#f5b821;     /* monkey money: highlights, active nav */
   --gold-ink:light-dark(#5b4200,#2a1e00);
   --gold-text:light-dark(#8a5a00,#f5b821); /* gold as text: the bright gold is 1.7:1 on a light panel */
-  --blue:light-dark(#1f6fd6,#7db3ff);     /* links */
-  --red:light-dark(#d93a36,#ff7a72);      /* elite / not stackable */
+  --blue:light-dark(#1a62c0,#7db3ff);     /* links, 4.5:1 on the page ground too */
+  --red:light-dark(#c0302c,#ff7a72);      /* elite / not stackable */
   --red-soft:light-dark(#fde3e1,#3a1d22);
   /* link badge kinds */
   --hero:light-dark(#6b35b8,#cfa8ff);--hero-soft:light-dark(#ede2fb,#2c2142);
   --buff:light-dark(#1a5fb8,#8fbcff);--buff-soft:light-dark(#dde9fb,#172a4a);
-  --power:light-dark(#0b7a5c,#6fdcb9);--power-soft:light-dark(#d8f1e8,#123029);
-  --green:light-dark(#3f9b3a,#7fd36f);    /* normal tier / stackable */
+  --power:light-dark(#0a6e52,#6fdcb9);--power-soft:light-dark(#d8f1e8,#123029);
+  --green:light-dark(#2a7526,#7fd36f);    /* normal tier / stackable */
   --green-soft:light-dark(#e1f3dc,#17301b);
   --hp:light-dark(#5cc24f,#55b948);
   --display:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Ubuntu,Cantarell,"Helvetica Neue",Arial,sans-serif;
@@ -264,7 +264,7 @@ body:has(.diff) :is(.card,h2.group,.prop-row){scroll-margin-top:calc(var(--top-h
 .stat .cost{color:var(--gold-text)}
 
 /* Paragon charts (series colors validated with the dataviz validator, light on #fff, dark on #16233a) */
-:root{--s1:light-dark(#2a78d6,#3987e5);--s2:light-dark(#eb6834,#d95926);--s3:light-dark(#1baf7a,#199e70)}
+:root{--s1:light-dark(#1d64c2,#6aa8f5);--s2:light-dark(#b8470f,#f08a52);--s3:light-dark(#0d7a54,#3fcf98)}  /* series colours are also text (legend, axis): 4.5:1 on panel and page in both themes */
 .pchart{max-width:100%;height:auto;display:block}
 .pchart .pline{fill:none;stroke:var(--s1);stroke-width:2.5;stroke-linejoin:round}
 .pchart .pline.pline2{stroke:var(--s2)}
@@ -395,8 +395,8 @@ tbody tr:hover .mod-params.overflowing:not(.open)::after{background:linear-gradi
 .unspoil{font:inherit;font-size:12.5px;margin-left:8px;padding:1px 8px;border:1.5px solid var(--edge);border-radius:6px;
   background:var(--sky);color:var(--ink);cursor:pointer}
 .spoiler.open .unspoil,.revealed .unspoil{display:none}
-.hlink{color:var(--soft);font-weight:600;opacity:.4}
-.hlink:is(:hover,:focus-visible){opacity:1;text-decoration:none}
+.hlink{color:var(--soft);font-weight:600}
+.hlink:is(:hover,:focus-visible){color:var(--blue);text-decoration:none}
 .reveal{display:inline-flex;align-items:center;gap:6px;margin-left:12px;font-size:14px;cursor:pointer}
 /* map page: schematic from the map dump, sim coordinates (y down) */
 .mapview{margin:8px 0}
