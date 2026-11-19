@@ -1,0 +1,71 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Rounds.RoundModel, Assembly-CSharp",
+  "groups": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "LeadFortified",
+      "start": 0.0,
+      "end": 1260.0,
+      "count": 40,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Pink",
+      "start": 1260.0,
+      "end": 2520.0,
+      "count": 60,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Yellow",
+      "start": 2160.0,
+      "end": 2520.0,
+      "count": 60,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Ceramic",
+      "start": 240.0,
+      "end": 251.99998,
+      "count": 40,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Ceramic",
+      "start": 1200.0,
+      "end": 1212.0,
+      "count": 40,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Ceramic",
+      "start": 2160.0,
+      "end": 2172.0,
+      "count": 42,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Moab",
+      "start": 1200.0,
+      "end": 2400.0,
+      "count": 4,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Bfb",
+      "start": 900.0,
+      "end": 2100.0,
+      "count": 2,
+      "name": ""
+    }
+  ],
+  "emissions_": null,
+  "name": ""
+}

@@ -1,0 +1,87 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Rounds.RoundModel, Assembly-CSharp",
+  "groups": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "LeadFortified",
+      "start": 0.0,
+      "end": 1680.0,
+      "count": 111,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "CeramicFortified",
+      "start": 0.0,
+      "end": 120.0,
+      "count": 35,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "CeramicFortified",
+      "start": 420.0,
+      "end": 540.0,
+      "count": 35,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "CeramicFortified",
+      "start": 840.0,
+      "end": 960.0,
+      "count": 35,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "CeramicFortified",
+      "start": 1260.0,
+      "end": 1380.0,
+      "count": 35,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "ZomgFortified",
+      "start": 360.0,
+      "end": 420.0,
+      "count": 1,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "BfbFortified",
+      "start": 60.0,
+      "end": 120.0,
+      "count": 1,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "MoabFortified",
+      "start": 600.0,
+      "end": 660.0,
+      "count": 3,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "MoabFortified",
+      "start": 300.0,
+      "end": 360.0,
+      "count": 3,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Red",
+      "start": 1680.0,
+      "end": 1740.0,
+      "count": 2,
+      "name": ""
+    }
+  ],
+  "emissions_": null,
+  "name": ""
+}

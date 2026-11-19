@@ -1,0 +1,79 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Rounds.RoundModel, Assembly-CSharp",
+  "groups": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "BlueRegrow",
+      "start": 0.0,
+      "end": 1728.0001,
+      "count": 80,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Lead",
+      "start": 24.0,
+      "end": 264.0,
+      "count": 6,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Black",
+      "start": 288.0,
+      "end": 864.00006,
+      "count": 15,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Rainbow",
+      "start": 480.0,
+      "end": 1728.0001,
+      "count": 6,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Ceramic",
+      "start": 576.0,
+      "end": 576.0,
+      "count": 2,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "LeadRegrow",
+      "start": 888.0,
+      "end": 984.0,
+      "count": 4,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Black",
+      "start": 1008.00006,
+      "end": 1488.0001,
+      "count": 15,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Ceramic",
+      "start": 1248.0001,
+      "end": 1248.0001,
+      "count": 3,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Lead",
+      "start": 1488.0001,
+      "end": 1728.0001,
+      "count": 8,
+      "name": ""
+    }
+  ],
+  "emissions_": null,
+  "name": ""
+}

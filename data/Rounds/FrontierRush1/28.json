@@ -1,0 +1,55 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Rounds.RoundModel, Assembly-CSharp",
+  "groups": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "DynamiteBloon",
+      "start": 0.0,
+      "end": 30.0,
+      "count": 4,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "DynamiteBloon",
+      "start": 90.0,
+      "end": 120.0,
+      "count": 2,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "DynamiteBloon",
+      "start": 180.0,
+      "end": 210.0,
+      "count": 3,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "DynamiteBloon",
+      "start": 270.0,
+      "end": 300.0,
+      "count": 5,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "ZebraCamo",
+      "start": 0.0,
+      "end": 300.0,
+      "count": 12,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "PurpleRegrow",
+      "start": 0.0,
+      "end": 300.0,
+      "count": 28,
+      "name": ""
+    }
+  ],
+  "emissions_": null,
+  "name": ""
+}

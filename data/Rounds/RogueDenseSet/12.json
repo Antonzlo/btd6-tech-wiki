@@ -1,0 +1,103 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Rounds.RoundModel, Assembly-CSharp",
+  "groups": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "CeramicFortified",
+      "start": 48.0,
+      "end": 240.0,
+      "count": 1,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Ceramic",
+      "start": 240.0,
+      "end": 2160.0,
+      "count": 10,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "RedCamo",
+      "start": 0.0,
+      "end": 2160.0,
+      "count": 50,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "RedCamo",
+      "start": 2.4,
+      "end": 2162.4001,
+      "count": 50,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "RedCamo",
+      "start": 0.48000002,
+      "end": 2160.48,
+      "count": 50,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "RedCamo",
+      "start": 0.72,
+      "end": 2160.72,
+      "count": 50,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "RedCamo",
+      "start": 0.96000004,
+      "end": 2160.9602,
+      "count": 50,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "RedCamo",
+      "start": 1.2,
+      "end": 2161.2,
+      "count": 50,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "RedCamo",
+      "start": 1.44,
+      "end": 2161.44,
+      "count": 50,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "RedCamo",
+      "start": 1.6800001,
+      "end": 2161.68,
+      "count": 50,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "RedCamo",
+      "start": 1.9200001,
+      "end": 2161.9202,
+      "count": 50,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "RedCamo",
+      "start": 2.16,
+      "end": 2162.16,
+      "count": 50,
+      "name": ""
+    }
+  ],
+  "emissions_": null,
+  "name": ""
+}

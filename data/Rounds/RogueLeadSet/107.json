@@ -1,0 +1,55 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Rounds.RoundModel, Assembly-CSharp",
+  "groups": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "MoabFortified",
+      "start": 0.0,
+      "end": 720.0,
+      "count": 15,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "LeadFortified",
+      "start": 0.0,
+      "end": 1800.0,
+      "count": 40,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "BadFortified",
+      "start": 900.0,
+      "end": 1500.0,
+      "count": 1,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Purple",
+      "start": 360.0,
+      "end": 660.0,
+      "count": 20,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Purple",
+      "start": 1080.0,
+      "end": 1380.0,
+      "count": 20,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Bad",
+      "start": 0.0,
+      "end": 1800.0,
+      "count": 3,
+      "name": ""
+    }
+  ],
+  "emissions_": null,
+  "name": ""
+}

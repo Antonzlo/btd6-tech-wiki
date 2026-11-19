@@ -1,0 +1,39 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Rounds.RoundModel, Assembly-CSharp",
+  "groups": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Red",
+      "start": 0.0,
+      "end": 2700.0,
+      "count": 20,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Red",
+      "start": 60.0,
+      "end": 2160.0,
+      "count": 72,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Blue",
+      "start": 600.0,
+      "end": 2400.0,
+      "count": 54,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Green",
+      "start": 1200.0,
+      "end": 2700.0,
+      "count": 40,
+      "name": ""
+    }
+  ],
+  "emissions_": null,
+  "name": ""
+}

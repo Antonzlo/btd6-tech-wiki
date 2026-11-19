@@ -1,0 +1,63 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Rounds.RoundModel, Assembly-CSharp",
+  "groups": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "MoabFortified",
+      "start": 0.0,
+      "end": 60.0,
+      "count": 1,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "RainbowCamo",
+      "start": 0.0,
+      "end": 600.0,
+      "count": 10,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Zebra",
+      "start": 0.0,
+      "end": 1200.0,
+      "count": 25,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "Rainbow",
+      "start": 900.0,
+      "end": 1200.0,
+      "count": 10,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "PurpleRegrowCamo",
+      "start": 1200.0,
+      "end": 1620.0,
+      "count": 20,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "ZebraCamo",
+      "start": 1680.0,
+      "end": 2100.0,
+      "count": 15,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "LeadFortifiedCamo",
+      "start": 2100.0,
+      "end": 2100.0,
+      "count": 8,
+      "name": ""
+    }
+  ],
+  "emissions_": null,
+  "name": ""
+}

@@ -1,0 +1,63 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Rounds.RoundModel, Assembly-CSharp",
+  "groups": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "BadFortified",
+      "start": 0.0,
+      "end": 3600.0,
+      "count": 1,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "RingleaderBloon",
+      "start": 0.0,
+      "end": 3600.0,
+      "count": 9,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "AuraBloon",
+      "start": 0.0,
+      "end": 3600.0,
+      "count": 9,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "RetributionBloon",
+      "start": 0.0,
+      "end": 3600.0,
+      "count": 9,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "GlassBloon",
+      "start": 0.0,
+      "end": 3600.0,
+      "count": 24,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "DynamiteBloon",
+      "start": 0.0,
+      "end": 3600.0,
+      "count": 24,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "DiamondBloon",
+      "start": 0.0,
+      "end": 3600.0,
+      "count": 24,
+      "name": ""
+    }
+  ],
+  "emissions_": null,
+  "name": ""
+}

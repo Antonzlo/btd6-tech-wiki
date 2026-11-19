@@ -45,9 +45,10 @@ Checked only by the absence of any mention in `wiki/`.
 
 ## 6. Legends, later
 - [ ] Rogue Legends: `Artifacts/` (573), `rogueData.json` (rarity chances, XP per tile, shop, starter kits, CHIMPS
-      rules, bloon modifiers), 7 Rogue round sets, `RogueIncomeSet`.
+      rules, bloon modifiers).
 - [ ] Frontier: `frontierData.json` (stamina, saloon, traits, loot, chests, fishing, difficulties, encounters,
-      feats), 7 Frontier round sets.
+      feats).
+- [x] All 14 Rogue and Frontier round sets, plus the three Legends pop-cash multiplier tables.
 
 ## 7. Design: less of a generated look
 From screenshots of the home, tower and co-op pages on 2026-11-16. The game HUD idea (ink outline, hard shadow,

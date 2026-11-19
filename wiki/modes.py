@@ -21,6 +21,7 @@ INCOME_NAMES = {"DefaultIncomeSet": "Обычный доход", "AcceleratedInc
                 "EnduranceIncomeSet": "Доход в режиме выносливости", "FrontierIncomeSet": "Доход Frontier",
                 "FrontierReducedIncomeSet": "Сниженный доход Frontier", "MOABMadnessIncomeSet": "Доход MOAB Madness",
                 "RogueIncomeSet": "Доход Rogue Legends"}
+LEGENDS_INCOME_SETS = {"RogueIncomeSet", "FrontierIncomeSet", "FrontierReducedIncomeSet"}
 
 
 def mode_name(stem):
@@ -168,26 +169,29 @@ def build_income():
                     return th["multiplier"]
             return fm
 
-        cash = [raw.get(r, 0) * inc_mult(r) + base_b + r * mult_b for r in range(1, 141)]
-        total = [sum(cash[:i + 1]) for i in range(len(cash))]
-
         rows, start = [], 1
         for th in thresholds:
             rows.append((f"{start}–{th['threshold']}", th["multiplier"], f"{th['multiplier'] * 100:g}%"))
             start = th["threshold"] + 1
         rows.append((f"{start}+", final_mult, f"{final_mult * 100:g}%" if final_mult is not None else "–"))
 
-        chart = dual_line_chart(cash, total, ticks, f"{f.stem} 1–140", k, k, tip,
-                                ys3=[inc_mult(r) for r in range(1, 141)])
-        st = stats([("всего 1–80", f"${fmt(round(sum(cash[:80])))}"),
-                    ("всего 1–100", f"${fmt(round(sum(cash[:100])))}"),
-                    ("всего 1–140", f"${fmt(round(sum(cash)))}")])
-        inner = st + chart + table(["Раунды", "Множитель", "От обычного"], rows)
+        inner = table(["Раунды", "Множитель", "От обычного"], rows)
+        if f.stem in LEGENDS_INCOME_SETS:
+            inner = "<p class='note'>Доход за раунд зависит от набора волн конкретного испытания Legends.</p>" + inner
+        else:
+            cash = [raw.get(r, 0) * inc_mult(r) + base_b + r * mult_b for r in range(1, 141)]
+            total = [sum(cash[:i + 1]) for i in range(len(cash))]
+            chart = dual_line_chart(cash, total, ticks, f"{f.stem} 1–140", k, k, tip,
+                                    ys3=[inc_mult(r) for r in range(1, 141)])
+            st = stats([("всего 1–80", f"${fmt(round(sum(cash[:80])))}"),
+                        ("всего 1–100", f"${fmt(round(sum(cash[:100])))}"),
+                        ("всего 1–140", f"${fmt(round(sum(cash)))}")])
+            inner = st + chart + inner
         title = INCOME_NAMES.get(f.stem, f.stem)
         body.append(card(f.stem, title, inner, en_id=f.stem, tagline=f.stem, section="Доход"))
         toc.append((f.stem, title))
 
     page("income.html", "Доход по раундам",
-         "Деньги за лопание умножаются на коэффициент раунда, в котором шар появился. Для каждого набора: "
-         "график 1–140 с доходом за раунд (слева) и накопленной суммой (справа).",
+         "Деньги за лопание умножаются на коэффициент раунда, в котором шар появился. Графики показывают доход "
+         "за раунд и накопленную сумму на примере волн обычной игры.",
          f"<div class='cards'>{''.join(body)}</div>", toc)

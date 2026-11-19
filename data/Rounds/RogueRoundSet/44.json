@@ -1,0 +1,31 @@
+{
+  "$type": "Il2CppAssets.Scripts.Models.Rounds.RoundModel, Assembly-CSharp",
+  "groups": [
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "CeramicFortified",
+      "start": 0.0,
+      "end": 900.0,
+      "count": 64,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "MoabFortified",
+      "start": 450.0,
+      "end": 1350.0,
+      "count": 18,
+      "name": ""
+    },
+    {
+      "$type": "Il2CppAssets.Scripts.Models.Rounds.BloonGroupModel, Assembly-CSharp",
+      "bloon": "BfbFortified",
+      "start": 900.0,
+      "end": 1800.0,
+      "count": 9,
+      "name": ""
+    }
+  ],
+  "emissions_": null,
+  "name": ""
+}
