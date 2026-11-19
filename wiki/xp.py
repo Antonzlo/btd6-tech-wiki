@@ -69,7 +69,9 @@ def build_xp():
                            ["Boss Rush", "Да, если матч допускает начисление опыта. Множитель ×0,2 до поправки за фриплей"],
                            ["Пользовательское испытание, карта или игра", "Нет"],
                            ["Сторонний мод с боссом", "Зависит от режима и правил мода. Требует отдельной проверки"],
-                       ]), section="Опыт")
+                       ])
+                       + "<p class='note'>Проверено по данным и коду версии 57.4. Это правила обычного XP за раунды; "
+                       "награды за завершение события считаются отдельно.</p>", section="Опыт")
 
     beginner = scales["Beginner"]
     mode_ends = end_rounds()
@@ -97,38 +99,67 @@ def build_xp():
     edu, emt = (next(m["multiplier"] for m in mods if short_type(m) == "TowerXpModModel")
                 for mods in (education, training))
     both = (1 + edu) * (1 + emt)
-    coop_rows = [[n, base[19], base[19] / n, base[19] / n * both] for n in (2, 3, 4)]
+    coop_round_xp = base[19] * beginner
+    coop_rows = [[n, coop_round_xp, coop_round_xp / n, coop_round_xp / n * both] for n in (2, 3, 4)]
+    spending_towers = ("DartMonkey", "TackShooter", "SniperMonkey", "BoomerangMonkey")
     spending_rows = []
     for players in (2, 3, 4):
-        weights = range(1, players + 1)
+        weights = [base_models[tower]["cost"] for tower in spending_towers[:players]]
         total = sum(weights)
-        spending_rows.append([players, " / ".join(map(str, weights)), base[19],
-                              " / ".join(fmt(base[19] * weight / total) for weight in weights)])
+        spending_rows.append([players, " / ".join(map(fmt, weights)), coop_round_xp,
+                              " / ".join(fmt(coop_round_xp * weight / total) for weight in weights)])
     example_towers = [(1, "DartMonkey"), (1, "TackShooter"), (2, "SniperMonkey")]
     purchases = [(player, tower, base_models[tower]["cost"])
                  for player, tower in example_towers]
     team_cost = sum(cost for _, _, cost in purchases)
     tower_rows = []
     for player, tower, cost in purchases:
-        award = base[19] * beginner * cost / team_cost
+        award = coop_round_xp * cost / team_cost
         boosted = award
         for knowledge, bonus in (("MonkeyEducation", edu), ("EliteMilitaryTraining", emt)):
             if knowledge in model_mods[tower]:
                 boosted *= 1 + bonus
         tower_rows.append([player, t(tower, fallback=tower), cost, award, boosted])
+    frontier_tower = load(DATA / "Towers" / "DartMonkey" / "DartMonkey-100.json")
+    frontier_upgrade_cost = sum(load(DATA / "Upgrades" / f"{name}.json")["cost"]
+                                for name in frontier_tower["appliedUpgrades"])
+    frontier_weight = frontier_tower["cost"] + frontier_upgrade_cost
+    cape = load(DATA / "GeraldoItems" / "WornHerosCape.json")
+    dart_cost = base_models["DartMonkey"]["cost"]
+    dart_paragon = load(DATA / "Upgrades" / "DartMonkey Paragon.json")
     coop_card = card("coop", "Опыт в коопе",
                      "<p><b>Опыт аккаунта</b> каждый игрок получает полностью, без деления на число игроков. "
                      "Профиль сохраняет дробную часть. Например, на раунде 101 во фриплее Hard Standard "
                      f"на карте Intermediate с рейтингом 1 каждый игрок получает около {fmt(intermediate_award)} XP.</p>"
                      "<p><b>Опыт башен</b> для каждой башни равен опыту раунда, умноженному на долю её стоимости "
                      "в суммарной стоимости всех учитываемых башен команды. "
-                     "Если башню продали до начисления XP за раунд, её стоимость в расчёт уже не входит. "
-                     "Считается цена, которую заплатили, со скидками. Не считаются герои, подбашни, башни-силы и предметы Geraldo, "
-                     "бесплатные и insta-башни добавляют 0. Во Frontier считается полная цена башни и её улучшений. "
+                     "Если башню продали или уничтожили при создании парагона до начисления XP за раунд, "
+                     "она перестаёт участвовать в расчёте как отдельная башня. "
+                     "В обычных режимах вес башни складывается из цены размещения и цен купленных улучшений с учётом обычных скидок. "
+                     "Бесплатное размещение и размещение Insta-Monkey дают нулевой начальный вес. "
+                     "Из расчёта исключаются герои, подбашни, башни-силы и предметы Geraldo. "
+                     "Во Frontier вес равен сумме цен из моделей башни и её установленных улучшений. "
+                     f"Например, для Dart Monkey 1-0-0 выгрузка даёт вес {fmt(frontier_tower['cost'])} "
+                     f"+ {fmt(frontier_upgrade_cost)} = {fmt(frontier_weight)}.</p>"
                      "Дробный опыт сохраняется, не округляется. Опыт идёт по типу башни: все улучшения одной башни копят один опыт. "
                      "Если общая учитываемая стоимость равна нулю, игроки всё равно получают опыт аккаунта, а башням опыт не начисляется. "
                      "После окончательного удаления игрока из матча игра перестаёт начислять ему XP за раунды. "
                      "Переданные другим игрокам башни дальше копят опыт новым владельцам.</p>"
+                     "<p>При временном обрыве связи симуляция продолжает считать XP за завершённые раунды для игрока, "
+                     "пока его запись остаётся в матче. При пересинхронизации снимок карты переносит баланс игрока. "
+                     "В сохранённых данных игрока нет накопленного XP. Загрузка снимка возобновляет игру с раунда "
+                     "после последнего завершённого и сама не начисляет XP за пропущенные раунды.</p>"
+                     "<p>В обычном расчёте по стоимости есть отдельное правило Monkeyopolis: "
+                     "игра прибавляет к весу деревни стоимость каждой поглощённой фермы, усечённую до целого. "
+                     "Поглощаются подходящие фермы того же владельца. После удаления фермы её вес участвует "
+                     "в XP деревни, а не отдельной фермы. Во Frontier применяется описанный выше расчёт по ценам моделей.</p>"
+                     "<p>Worn Hero’s Cape задаёт вес новой башни как вес исходной Dart Monkey плюс стоимость плаща "
+                     "из применённой модели предмета Geraldo. Это замена веса, а не добавление полной цены Super Monkey. "
+                     f"Пример с ценами базовых дампов: {fmt(dart_cost)} + {fmt(cape['cost'])} = {fmt(dart_cost + cape['cost'])}.</p>"
+                     "<p>При покупке парагона игра прибавляет рассчитанную цену улучшения к текущему весу выбранной башни. "
+                     "Дополнительный денежный взнос влияет на списание денег и степень парагона. "
+                     f"Базовая цена улучшения Dart Monkey из дампа составляет ${fmt(dart_paragon['cost'])}. "
+                     f"Для разблокировки требуется {fmt(dart_paragon['xpCost'])} XP башни.</p>"
                      f"<p><b>Бонусы знаний</b> к опыту башен перемножаются: {t('MonkeyEducation', fallback='MonkeyEducation')} "
                      f"{1 + edu:g} × {t('EliteMilitaryTraining', fallback='EliteMilitaryTraining')} {1 + emt:g} = {both:g}. "
                      "Кооп объединяет изученные знания всех игроков с включённым Monkey Knowledge. "
@@ -143,15 +174,19 @@ def build_xp():
                      + table(["Игроков", "Опыт аккаунта каждому", "Опыт башен игрока", "С обоими бонусами"], coop_rows)
                      + "<p class='note'>Раунд 20, карта Beginner, рейтинг сложности 1. Вложения игроков равны. "
                      "Последняя колонка предполагает, что оба бонуса действуют на все учитываемые башни игрока.</p>"
-                     "<p>Пример для того же раунда с разными вложениями и без бонусов знаний.</p>"
-                     + table(["Игроков", "Соотношение вложений", "XP аккаунта каждому", "XP башен по игрокам"],
+                     "<p>На том же раунде каждый игрок поставил по одной башне без скидок. В порядке игроков "
+                     "это Dart Monkey, Tack Shooter, Sniper Monkey и Boomerang Monkey в зависимости от размера команды. "
+                     "Цены взяты из выгрузки. Бонусы знаний в этом примере отключены.</p>"
+                     + table(["Игроков", "Вложения по игрокам, $", "XP аккаунта каждому", "XP башен по игрокам"],
                              spending_rows)
                      + f"<p>Если в коопе на двоих игроки заплатили цены из дампа без скидок, в этом примере "
                      f"общая стоимость башен составляет ${fmt(team_cost)}. У игрока 1 опыт зачисляется "
                      "отдельно для Dart Monkey и Tack Shooter. Последняя колонка учитывает ссылки на Monkey Education "
                      "и Elite Military Training в моделях этих башен при обоих активных знаниях.</p>"
                      + table(["Игрок", "Тип башни", "Уплаченная цена, $", "XP без знаний", "XP с указанными знаниями"],
-                             tower_rows), section="Опыт")
+                             tower_rows)
+                     + "<p class='note'>Перенос стоимости поглощённых башен в XP-вес парагона пока не подтверждён. "
+                     "Приведённое правило исключения относится к самим уничтоженным башням.</p>", section="Опыт")
 
     gate_card = card("none", "Где опыта нет",
                      "<ul><li>Песочница, редактор карт и редактор игр.</li>"

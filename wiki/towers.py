@@ -264,9 +264,11 @@ def build_towers():
         para = ""
         if (folder / f"{tid}-Paragon.json").exists():
             u = (load(folder / f"{tid}-Paragon.json").get("appliedUpgrades") or [""])[-1]
+            xp = upgrades.get(u, {}).get("xpCost")
             INDEX.append([t(u, fallback=u), name, f"{file}#upgrades", u])
             para = (f"<div class='paragon'><h3>Парагон</h3><ol><li>{icon('upgrades', u, 72, 'ic up-ic para-ic')}<div>"
-                    f"<div class='up-head'><b>{esc(t(u, fallback=u))}</b><span class='price'>{price([ucost.get(u, 0)], 'cost big')}</span></div>"
+                    f"<div class='up-head'><b>{esc(t(u, fallback=u))}</b><span class='price'>{price([ucost.get(u, 0)], 'cost big')}"
+                    + (f"<small>{fmt(xp)} XP</small>" if xp is not None else "") + "</span></div>"
                     f"<p>{esc(t(u + ' Description'))}</p></div></li></ol></div>")
         picker = "".join(
             f"<div class='xp-row' data-path='{i}'><span>Путь {i + 1}</span>"

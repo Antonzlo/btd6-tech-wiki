@@ -13,9 +13,9 @@ from wiki.place import tier_key
 INCOME_RU = {
     "PerRoundCashBonusTowerModel": "Деньги в конце раунда", "CashModel": "Подбираемые деньги (бананы, ящики)",
     "BankModel": "Банк", "ImfLoanModel": "Займ IMF", "CashPerTowerInRangeModel": "Деньги за башни в радиусе",
-    "GiveCashOnPopModel": "Деньги за лопание", "CashbackZoneModel": "Возврат денег при покупке",
+    "GiveCashOnPopModel": "Деньги за лопание", "CashbackZoneModel": "Больше денег при продаже",
     "BonusCashZoneModel": "Бонус к деньгам в зоне", "CashIncreaseModel": "Больше денег за лопание",
-    "MonkeyCityIncomeSupportModel": "Больше денег за лопание (город)", "BananaCashIncreaseSupportModel": "Больше денег с бананов",
+    "MonkeyCityIncomeSupportModel": "Бонус Monkey City к доходу башен", "BananaCashIncreaseSupportModel": "Больше денег с бананов",
     "BountyHunterZoneModel": "Награда за шары", "AddCashOnProjectileExpireModel": "Деньги по истечении снаряда",
     "CashPerTowerInMakeshiftAreaModel": "Деньги за башни на площадке", "MonkeyBankerModel": "Доход банков",
     "EatBloonModel": "Бонус ловушки", "WallOfTreesModel": "Бонус Wall of Trees",
@@ -34,14 +34,22 @@ def verdict(m, pickup=False, instant_expiry=False):
     distributeBonusIncome, else it goes to the owner too. Automatic farm cash with an immediate expiry uses
     Cash.Exhausted and follows distributeSalvage instead."""
     k = short_type(m)
-    if k == "ThriveModel":
+    if k in ("ThriveModel", "CashIncreaseModel"):
         return SPLIT
     if k == "BananaCentralBuffModel":
         return "владельцу фермы, получившей бонус"
     if k == "BananaCashIncreaseSupportModel" and m.get("mutatorId") == "BankHack:Regular":
         return "владельцу банка при сборе"
+    if k == "MonkeyCityIncomeSupportModel":
+        return "по правилам усиленной выплаты"
     if k in ("BankModel", "ImfLoanModel", "GiveCashOnPopModel"):
         return OWNER
+    if k in ("CashPerTowerInRangeModel", "CashPerTowerInMakeshiftAreaModel"):
+        return OWNER
+    if k == "AddCashOnProjectileExpireModel":
+        return "владельцу снаряда"
+    if k == "CashbackZoneModel":
+        return "владельцу проданной башни"
     if k == "PerRoundCashBonusTowerModel":
         return SPLIT if m.get("distributeCash") else OWNER
     if k in CAPTURE_BONUSES:
@@ -107,6 +115,14 @@ def sources():
                     parameters = (m.get("capacity"), m.get("interest"), m.get("autoCollect"))
                 elif kind_ == "BananaCashIncreaseSupportModel":
                     parameters = (m.get("mutatorId"), m.get("multiplier"))
+                elif kind_ == "MonkeyCityIncomeSupportModel":
+                    parameters = (m["incomeModifier"],)
+                elif kind_ == "CashIncreaseModel":
+                    parameters = (m["increase"], m["multiplier"])
+                elif kind_ == "CashPerTowerInRangeModel":
+                    parameters = (m["baseCash"], tuple(m["extraCashPerTier"]), m["maxCashGeneration"])
+                elif kind_ == "CashbackZoneModel":
+                    parameters = (m["cashbackZoneMultiplier"], m["cashbackMaxPercent"], m["maxStacks"])
                 key = (kind_, model_name(m), *parameters)
                 e = out.setdefault((kind, oid), {}).setdefault(key, {"first": m, "tiers": {}})
                 tiers = e["tiers"].setdefault(verdict(m, pickup, instant_expiry), [])
@@ -162,8 +178,23 @@ def farm_income_rows():
     return rows, bank_rows
 
 
+def captured_cash_layers(bloon, lowest_layer=None):
+    """Raw Engineer capture income from the effective model tree (GetNonRegrowLayers, 0xFC7C90).
+
+    The threshold is the lowest layer previously reached, not a minimum eligible layer.
+    Preserve duplicate child IDs. Base dump inputs do not apply runtime mode mutations.
+    """
+    model = load(DATA / "Bloons" / bloon / f"{bloon}.json")
+    if lowest_layer is None:
+        lowest_layer = model["layerNumber"]
+    own = 1 + model["layerCountOffset"] if model["layerNumber"] <= lowest_layer else 0
+    return own + sum(captured_cash_layers(child, lowest_layer)
+                     for behavior in model["behaviors"] if short_type(behavior) == "SpawnChildrenModel"
+                     for child in behavior["children"])
+
+
 def build_coop():
-    # starting cash: the co-op mode's base split evenly, one extra dollar to the first players for a remainder
+    # Starting cash splits the integer pool and assigns the remainder in dictionary key order.
     # (Simulation init at 0xB44DF0..0xB44E79)
     start_rows = []
     more_cash_rows = []
@@ -173,8 +204,9 @@ def build_coop():
 
     def starting_share(base, players):
         share, remainder = divmod(int(base), players)
-        extra = f" (+1 первым {remainder})" if remainder else ""
-        return f"${fmt(base)} → ${fmt(share)}{extra}"
+        if remainder:
+            return f"${fmt(base)} → {remainder} × ${fmt(share + 1)} + {players - remainder} × ${fmt(share)}"
+        return f"${fmt(base)} → ${fmt(share)}"
 
     for n in (2, 3, 4):
         row = [n]
@@ -191,6 +223,12 @@ def build_coop():
         for model in models:
             if short_type(model) == "BonusCashPerRoundModModel":
                 bonus_rows.append([difficulty, model["baseCash"], model["roundMultiple"]])
+    chimps_mods = load(DATA / "Mods" / "Clicks.json")["mutatorMods"]
+    chimps_start = next(m["round"] for m in chimps_mods if short_type(m) == "StartingRoundModModel")
+    _, hard_base, hard_round_multiple = next(row for row in bonus_rows if row[0] == "Hard")
+    chimps_first_bonus = hard_base + chimps_start * hard_round_multiple
+    xp = load(DATA / "KnowledgeLayout" / "xp.json")
+    chimps_first_xp = xp["heroXpPerRound"][chimps_start - 1] * xp["trackDifficultyXpScale"]["Beginner"]
     income_set = load(DATA / "IncomeSets" / "DefaultIncomeSet.json")
     income_rows = []
     first_round = 1
@@ -200,23 +238,51 @@ def build_coop():
         first_round = last_round + 1
     income_rows.append([f"С {first_round}", income_set["finalMultiplier"]])
     first_round_groups = load(DATA / "Rounds" / "DefaultRoundSet" / "1.json")["groups"]
-    red = load(DATA / "Bloons" / "Red" / "Red.json")
-    red_cash = next(m for m in red["behaviors"] if short_type(m) == "DistributeCashModel")
     red_count = sum(group["count"] for group in first_round_groups if group["bloon"] == "Red")
-    first_multiplier = next((entry["multiplier"] for entry in income_set["thresholds"]
-                             if entry["threshold"] > 0), income_set["finalMultiplier"])
-    pop_total = 0 if red_cash["giveNoCash"] else red_count * (
-        (red_cash["cash"] + red_cash["additionalCash"]) * first_multiplier * red_cash["multiplier"]
-        + red_cash["additive"])
+
+    def simple_bloon_cash(bloon, income_multiplier):
+        """Sum separately popped layers for the Red, Blue and Green example rounds."""
+        model = load(DATA / "Bloons" / bloon / f"{bloon}.json")
+        cash = next(m for m in model["behaviors"] if short_type(m) == "DistributeCashModel")
+        layer = 0 if cash["giveNoCash"] else (
+            (cash["cash"] + cash["additionalCash"]) * income_multiplier * cash["multiplier"] + cash["additive"])
+        children = (child for m in model["behaviors"] if short_type(m) == "SpawnChildrenModel"
+                    for child in m["children"])
+        return layer + sum(simple_bloon_cash(child, income_multiplier) for child in children)
+
+    def income_multiplier_for_round(round_number):
+        return next((entry["multiplier"] for entry in income_set["thresholds"]
+                     if round_number <= entry["threshold"]), income_set["finalMultiplier"])
+
+    pop_total = red_count * simple_bloon_cash("Red", income_multiplier_for_round(1))
+    first_threshold = income_set["thresholds"][0]["threshold"]
+    red_at_threshold = simple_bloon_cash("Red", income_multiplier_for_round(first_threshold))
+    red_after_threshold = simple_bloon_cash("Red", income_multiplier_for_round(first_threshold + 1))
+    chimps_round = load(DATA / "Rounds" / "DefaultRoundSet" / f"{chimps_start}.json")
+    chimps_multiplier = income_multiplier_for_round(chimps_start)
+    chimps_pop_cash = sum(group["count"] * simple_bloon_cash(group["bloon"], chimps_multiplier)
+                          for group in chimps_round["groups"])
+    chimps_rows = [[players, chimps_first_xp, chimps_first_xp / players, chimps_pop_cash / players,
+                    chimps_first_bonus / players, (chimps_pop_cash + chimps_first_bonus) / players]
+                   for players in (2, 3, 4)]
     _, easy_base, easy_round_multiple = next(row for row in bonus_rows if row[0] == "Easy")
     end_total = easy_base + easy_round_multiple
     example_rows = [[players, pop_total / players, end_total / players, (pop_total + end_total) / players]
                     for players in (2, 3, 4)]
+    departure_balance = 300
+    departure_rows = [[players, players - 1, departure_balance / (players - 1), pop_total / (players - 1)]
+                      for players in (2, 3, 4)]
     thrive = load(DATA / "Powers" / "Thrive.json")
     thrive_model = next(model for model in thrive["behaviors"] if short_type(model) == "ThriveModel")
     thrive_scale = thrive_model["increaseBloonWorthSimBehaviorModel"]["cashScale"]
     thrive_rows = [[players, pop_share, pop_total * thrive_scale / players]
                    for players, pop_share, _, _ in example_rows]
+    village = load(DATA / "Towers" / "MonkeyVillage" / "MonkeyVillage-003.json")
+    town_model = next(model for model in village["behaviors"] if short_type(model) == "CashIncreaseModel")
+    marked_red_cash = simple_bloon_cash("Red", income_multiplier_for_round(1)) * town_model["multiplier"]
+    marked_red_cash += town_model["increase"]
+    town_rows = [[players, marked_red_cash / players, marked_red_cash * thrive_scale / players]
+                 for players in (2, 3, 4)]
     imf_farm = load(DATA / "Towers" / "BananaFarm" / "BananaFarm-040.json")
     loan = next(model for behavior in imf_farm["behaviors"] for model in (behavior.get("behaviors") or [])
                 if short_type(model) == "ImfLoanModel")
@@ -230,7 +296,7 @@ def build_coop():
         ["Стартовые деньги", "делятся поровну", "Код игры: база режима делится на число игроков"],
         ["Деньги за лопание шаров", "делятся поровну", "Код игры: Simulation.UpdateStagedCash → AddSharedCash"],
         ["Бонус в конце раунда", "делится поровну до личных модификаторов, включая Double Cash, если он разрешён в режиме", "Код игры: AddSharedCash (EndOfRound)"],
-        ["Перевод денег другому игроку", "напрямую от игрока игроку", "Код игры: Simulation.SendCash"],
+        ["Перевод денег другому игроку", "получателю без Double Cash, с удержанием по его займу IMF", "Код игры: Simulation.SendCash → AddCash"],
         ["Подбираемые деньги (бананы, ящики)", "владельцу башни, кто бы их ни подобрал", "Код игры: Cash.Pickup → Pickup.Owner.PlayerOwnerId"],
         ["Бонус ловушки инженера", "владельцу ловушки. Стоимость пойманных шаров учитывает доход раунда появления. В CHIMPS бонус отключён", "Код игры: EatBloon.Collide, EatBloon.EmitCash"],
         ["Бонус Wall of Trees", "владельцу стены при подборе. В CHIMPS бонус отключён", "Код игры: WallOfTrees.EmitCash → Cash.Pickup"],
@@ -243,7 +309,20 @@ def build_coop():
         ["Игрок окончательно удалён из матча", "его баланс делится поровну между оставшимися. Следующие общие выплаты делятся на оставшихся", "Код игры: RemovePeerPermanently → Simulation.RemovePlayer"],
     ])
     rows = []
-    for (kind, oid), types in sources().items():
+    income_sources = sources()
+    trap_multiplier = next(e["first"]["rbeCashMultiplier"]
+                           for (kind, oid), types in income_sources.items()
+                           if kind == "towers" and oid == "EngineerMonkey"
+                           for key, e in types.items() if key[0] == "EatBloonModel")
+    capture_rows = []
+    red_layer = load(DATA / "Bloons" / "Red" / "Red.json")["layerNumber"]
+    for bloon in ("Red", "Blue", "Green"):
+        raw = captured_cash_layers(bloon)
+        capture_rows.append([t(bloon, fallback=bloon), raw,
+                             raw * (trap_multiplier - 1) * income_multiplier_for_round(1),
+                             raw * (trap_multiplier - 1) * income_multiplier_for_round(first_threshold + 1),
+                             captured_cash_layers(bloon, red_layer)])
+    for (kind, oid), types in income_sources.items():
         for (k, name, *_), e in types.items():
             who = "<br>".join(f"<b>{esc(v)}</b>" + (f" <small class='note'>{esc(tier_text(kind, keys))}</small>" if tier_text(kind, keys) else "")
                               for v, keys in e["tiers"].items())
@@ -254,6 +333,29 @@ def build_coop():
             elif k == "BananaCentralBuffModel":
                 what = f"<b>{esc(INCOME_RU[k])}</b> ×{fmt(e['first']['multiplier'])}"
                 what += " <small class='note'>Бафф действует на подходящие фермы всей команды, в том числе после их постройки или улучшения</small>"
+            elif k == "CashPerTowerInRangeModel":
+                model = e["first"]
+                extras = ", ".join(map(fmt, model["extraCashPerTier"]))
+                what = (f"<b>{esc(INCOME_RU[k])}</b> ${fmt(model['baseCash'])}"
+                        f" <small class='note'>Плюс за каждую подходящую башню в радиусе по её тиру: {extras}. "
+                        f"Предел до множителей способности: ${fmt(model['maxCashGeneration'])}</small>")
+            elif k == "MonkeyCityIncomeSupportModel":
+                multiplier = e["first"]["incomeModifier"]
+                what = (f"<b>{esc(INCOME_RU[k])}</b>"
+                        f" <small class='note'>Для поддерживаемых выплат в конце раунда и дохода способности Друида: "
+                        f"×{fmt(multiplier)}. К множителю выработки денежных снарядов: "
+                        f"+{fmt((multiplier - 1) * 100)} п. п.</small>")
+            elif k == "CashIncreaseModel":
+                model = e["first"]
+                what = (f"<b>{esc(INCOME_RU[k])}</b>"
+                        f" <small class='note'>Для отмеченных шаров к множителю дохода за лопание: "
+                        f"+{fmt((model['multiplier'] - 1) * 100)} п. п. "
+                        f"Фиксированная прибавка: ${fmt(model['increase'])}.</small>")
+            elif k == "CashbackZoneModel":
+                model = e["first"]
+                what = (f"<b>{esc(INCOME_RU[k])}</b> +{fmt(model['cashbackZoneMultiplier'] * 100)} п. п."
+                        f" <small class='note'>Лимит эффектов этой модели: {model['maxStacks']}. "
+                        f"Предел доли возврата в модели: {fmt(model['cashbackMaxPercent'] * 100)}%</small>")
             elif k == "BananaCashIncreaseSupportModel" and e["first"].get("mutatorId") == "BankHack:Regular":
                 bonus = fmt(e["first"]["multiplier"] * 100)
                 what = (f"<b>Bank Hack</b> +{bonus} п. п. к множителю выработки банка"
@@ -272,14 +374,35 @@ def build_coop():
     body = (card("rules", "Общие правила", rules
                  + "<p class='note'>Правила прочитаны в коде игры (GameAssembly.dll версии 57.4): в выгрузке данных их нет. "
                  "При 2, 3 и 4 игроках доля без других модификаторов: половина, треть, четверть.</p>"
+                 "<p class='note'>Проверка выполнена по данным и коду, без записи живых кооп-матчей. "
+                 "Для ловушки инженера подтверждён отдельный бонус владельцу; обычная выплата за поглощённые шары "
+                 "ещё не подтверждена.</p>"
                  + table(["Игроков", "Стандарт: база → на игрока", "Deflation: база → на игрока"], start_rows)
+                 + "<p>При делении стартовой суммы игра отбрасывает дробную часть, затем выдаёт по одному "
+                 "дополнительному доллару за каждую единицу остатка в порядке обхода словаря игроков. "
+                 "Double Cash удваивает уже назначенную сумму, если режим разрешает удвоение.</p>"
                  + f"<p>Если в матче действует знание More Cash, оно один раз добавляет ${fmt(more_cash_bonus)} "
                  "к стартовой сумме команды перед делением. Ниже суммы Standard с этим знанием, до Double Cash.</p>"
                  + table(["Игроков", "Standard с More Cash, команда → на игрока"], more_cash_rows)
-                 + "<p>Общий бонус в конце раунда равен базе плюс номер раунда, умноженный на коэффициент. "
+                 + "<p>Когда игра окончательно удаляет игрока, его остаток делится на число оставшихся. "
+                 "Эта сумма сразу прибавляется к их балансам без Double Cash и удержания по займу IMF. "
+                 "Следующие общие выплаты тоже делятся на оставшихся, с обычными личными модификаторами. "
+                 "При временном обрыве связи доля рассчитывается по прежнему числу игроков, пока симуляция сохраняет их записи. "
+                 f"Ниже пример с остатком ${fmt(departure_balance)} и следующей общей выплатой ${fmt(pop_total)} "
+                 "до личных модификаторов. Правило привязано к окончательному удалению из матча.</p>"
+                 + table(["Игроков до выхода", "Осталось", "Из остатка на игрока, $", "Из следующей выплаты на игрока, $"],
+                         departure_rows)
+                 + "<p>Общий бонус в конце раунда равен базе плюс отображаемый номер раунда, умноженный на коэффициент. "
                  "Доля игрока равна общему бонусу, делённому на текущее число получателей. "
                  "Double Cash может удвоить эту долю для своего игрока. Затем из неё может удерживаться платёж по займу IMF.</p>"
-                 + table(["Сложность", "База бонуса", "Коэффициент номера раунда"], bonus_rows), section="Кооп")
+                 + table(["Сложность", "База бонуса", "Коэффициент номера раунда"], bonus_rows)
+                 + f"<p>Пример для первого раунда CHIMPS ({chimps_start}) на карте Beginner с рейтингом сложности 1. "
+                 "У каждого игрока по одной учитываемой башне одинаковой стоимости. "
+                 "В расчёте все шары лопаются обычными атаками, без дополнительных денежных эффектов. "
+                 f"Команда получает ${fmt(chimps_pop_cash)} за все шары и ${fmt(chimps_first_bonus)} за завершение раунда.</p>"
+                 + table(["Игроков", "XP аккаунта каждому", "XP башни каждого игрока",
+                          "Шары на игрока, $", "Бонус на игрока, $", "Всего на игрока, $"],
+                         chimps_rows), section="Кооп")
             + card("pop-income", "Деньги за лопание шаров",
                    "<p>Игра выбирает коэффициент по раунду появления шара, даже если его лопнули позже. "
                    "Для обычного поп-дохода она применяет коэффициент, затем делит итог между получателями.</p>"
@@ -287,6 +410,9 @@ def build_coop():
                    "Игра прибавляет к фиксированной сумме число снятых слоёв, засчитанных в <code>nonRegrowLayers</code>, "
                    "умноженное на коэффициент раунда появления и множитель бонуса. В CHIMPS обе части этой выплаты равны нулю.</p>"
                    + table(["Раунд появления", "Коэффициент DefaultIncomeSet"], income_rows)
+                   + f"<p>Красный шар, появившийся в раунде {first_threshold}, даёт команде ${fmt(red_at_threshold)}. "
+                   f"Если он появился на раунд позже, выплата составляет ${fmt(red_after_threshold)} "
+                   "до деления и личных модификаторов.</p>"
                    + f"<p>Пример для первого раунда Easy Standard. За {red_count} красных шаров команда получает "
                    f"${fmt(pop_total)}, за завершение раунда ещё ${fmt(end_total)}. В таблице доли до личных "
                    "модификаторов. Стартовые деньги и доход башен в расчёт не входят.</p>"
@@ -296,6 +422,10 @@ def build_coop():
                    "Бонус входит в общую сумму до деления. Одновременные эффекты с тем же именем "
                    "игра учитывает один раз. Ниже тот же доход за шары до личных модификаторов.</p>"
                    + table(["Игроков", "За шары без Thrive, $ на игрока", "За шары с Thrive, $ на игрока"], thrive_rows)
+                   + "<p>Несколько меток Monkey Town на одном шаре не складываются. "
+                   "Thrive умножает уже увеличенный доход. Ниже доли за один отмеченный красный шар "
+                   "с полным коэффициентом дохода, до личных модификаторов.</p>"
+                   + table(["Игроков", "Monkey Town, $ на игрока", "Monkey Town и Thrive, $ на игрока"], town_rows)
                    + "<p>Если один игрок имеет Double Cash и непогашенный заём IMF, обычный доход за шары "
                    "сначала делится, затем его доля удваивается, затем из неё удерживается погашение. "
                    f"Ставка удержания для 0-4-0 из дампа составляет {fmt(collection_rate * 100)}%. "
@@ -304,8 +434,28 @@ def build_coop():
                    + table(["Игроков", "Другим игрокам каждому, $", "Доля заёмщика после Double Cash, $",
                             "В погашение, $", "В кошелёк заёмщика, $"], modifier_rows)
                    + "<p>Для прямого начисления владельцу, например за подбор ловушки инженера, "
-                   "игра сначала удерживает долг и затем удваивает остаток, если выплата допускает Double Cash.</p>",
+                   "игра сначала удерживает долг и затем удваивает остаток, если выплата допускает Double Cash. "
+                   "Например, при доле или прямой выплате $100 до удвоения и остатке долга $10 получатель "
+                   f"получит ${fmt(200 - min(200 * collection_rate, 10))} из общей выплаты "
+                   f"или ${fmt(2 * (100 - min(100 * collection_rate, 10)))} из прямой. "
+                   "Оба примера начинаются с одинакового долга и предполагают, что удвоение разрешено.</p>"
+                   "<p>При переводе $100 другому игроку Double Cash не применяется. "
+                   f"Если у получателя осталось не меньше ${fmt(100 * collection_rate)} долга по займу IMF, "
+                   f"${fmt(100 * collection_rate)} уйдут на погашение, а ${fmt(100 * (1 - collection_rate))} поступят в кошелёк. "
+                   "Сумма не зависит от числа игроков.</p>",
                    section="Кооп")
+            + card("engineer-trap", "Бонус ловушки инженера",
+                   "<p>База бонуса считается по пойманному шару и его потомкам из выгрузки. "
+                   "Каждый слой с номером не выше наименьшего уже достигнутого номера даёт 1 плюс layerCountOffset. "
+                   "Выросшие заново верхние слои не дают повторного бонуса.</p>"
+                   f"<p>Ловушка умножает накопленную базу на коэффициент дохода раунда появления шара, "
+                   f"затем при выдаче бонуса на ({fmt(trap_multiplier)} − 1). "
+                   "Это отдельный бонус владельцу, одинаковый при 2, 3 и 4 игроках. "
+                   "Таблица показывает вклад одного шара в будущую выплату до личных модификаторов, "
+                   "без обычных денег за лопание. В CHIMPS этот бонус отключён.</p>"
+                   + table(["Шар", "База свежего шара", "Бонус при появлении в раунде 1, $",
+                            f"Бонус при появлении в раунде {first_threshold + 1}, $",
+                            "База, если ранее достигнут красный слой"], capture_rows), section="Кооп")
             + card("farm-income", "Автоматический доход ферм",
                    "<p>Marketplace, Central Market и Monkey Wall Street начисляют эти деньги владельцу. "
                    "Сумма за раунд предполагает, что ферма использует все запланированные срабатывания. "
@@ -322,6 +472,12 @@ def build_coop():
                    + table(["Улучшения фермы", "Срабатываний", "За срабатывание, $", "За полный набор, $",
                             "Ёмкость, $", "Ставка, %"], bank_rows), section="Кооп")
             + card("sources", "Доход башен, героев и сил",
+                   "<p>Зоны возврата действуют при продаже обычной башни в режимах, где они разрешены. "
+                   "При продаже парагона и в CHIMPS игра пропускает эти зоны. "
+                   "Обычные зоны Buccaneer и зона парагона используют один счётчик при продаже. "
+                   "Игра обходит подходящие зоны в порядке реестра и сверяет счётчик с лимитом текущей зоны. "
+                   "Если первой идёт обычная зона, парагон уже пропускается. "
+                   "Если первым идёт парагон, следующие обычные зоны могут добавить свой вклад до своего лимита.</p>"
                    "<p class='note'>«Делится» и «владельцу» взяты из флагов модели: distributeCash у денег в конце раунда, "
                    "у подбираемых денег PickupModel рядом, emittedByCashEarnedMultiplier и distributeBonusIncome. "
                    "«Не проверено»: путь этих денег в коде игры ещё не прослежен. Числа из "
@@ -331,6 +487,7 @@ def build_coop():
                    + table(["Источник", "Что даёт", "В коопе"], rows).replace("<table>", "<table id='coop-src'>", 1), section="Кооп"))
     page("coop.html", "Деньги в коопе", "Откуда приходят деньги и делятся ли они между игроками в кооперативе.", body,
          [("rules", "Общие правила"), ("pop-income", "Деньги за лопание шаров"),
+          ("engineer-trap", "Бонус ловушки инженера"),
           ("farm-income", "Автоматический доход ферм"),
           ("banks", "Monkey Bank"),
           ("sources", "Доход башен, героев и сил")])

@@ -80,7 +80,7 @@ EFFECT_RU = {
     "DamageTypeSupportModel": "Тип урона", "FreezeDurationSupportModel": "Длительность заморозки",
     "AbilityCooldownScaleSupportModel": "Перезарядка способностей", "MonkeyCityIncomeSupportModel": "Доход",
     "BananaCashIncreaseSupportModel": "Доход от бананов", "PiercePercentageSupportModel": "Пробивание, %",
-    "CashbackZoneModel": "Возврат денег при покупке", "FreeUpgradeSupportModel": "Бесплатные улучшения",
+    "CashbackZoneModel": "Больше денег при продаже", "FreeUpgradeSupportModel": "Бесплатные улучшения",
     "DamageModifierSupportModel": "Урон по типу шаров", "SupportStackingRangeModel": "Дальность, складывается",
     "RateSupportExplosiveModel": "Перезарядка взрывных башен", "RateSupportBombExpertModel": "Перезарядка бомб",
     "AddBehaviorToTowerSupportModel": "Добавляет поведение башне", "AddBehaviorToTowerTypeSupportModel": "Добавляет поведение башням",
