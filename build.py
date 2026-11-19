@@ -28,6 +28,7 @@ from wiki.heroes import build_heroes
 from wiki.links import build_index, build_links
 from wiki.towers import build_towers
 from wiki.bloons import build_bloons, build_rounds
+from wiki.freeplay import build_freeplay
 
 
 def main():
@@ -41,6 +42,7 @@ def main():
                             ("achievements.html", build_achievements), ("maps.html", build_maps),
                             ("towers.html", build_towers), ("heroes.html", build_heroes), ("bloons.html", build_bloons),
                             ("rounds.html", build_rounds),
+                            ("freeplay.html", build_freeplay),
                             ("links.html", build_links), ("index.html", build_index)):
             core.current_file = file
             build()

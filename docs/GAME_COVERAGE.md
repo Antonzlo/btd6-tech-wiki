@@ -57,7 +57,7 @@ formula, game test for confirmation. The decomp only names the thing to call.
 | Bloon status overlays | Visual effects | Export `BloonOverlays/` (59) | EXPORT | Low value |
 | Rounds | Default, ABR, mode sets, quest sets | Export `Rounds/` | WIKI | `rounds.html` and `rounds-*.html` |
 | Rogue and Frontier round sets | 7 Rogue, 7 Frontier | Export `Rounds/Rogue*`, `Frontier*` | WIKI | `rounds.html` links all 14 sets. Each shows its wave composition, base RBE and timing. Per-encounter cash and round bonuses still need verification |
-| Freeplay scaling | HP and speed growth after round 80, stun resistance, super ceramics | `ProgressiveDifficultyManager` statics and `GetHealthMultiplier` / `GetSpeedMultiplier` / `GetStunResistance` | DATA | The 57.4 dump is in `data/KnowledgeLayout/freeplay.json` and covers rounds 1 to 1000. Wiki presentation is pending |
+| Freeplay scaling | HP and speed growth after round 80, stun resistance, super ceramics | `ProgressiveDifficultyManager` statics and `GetHealthMultiplier` / `GetSpeedMultiplier` / `GetStunResistance` | WIKI | `freeplay.html` from `data/KnowledgeLayout/freeplay.json` (rounds 1 to 1000). Which bloons get the HP and speed growth: NATIVE (`ChangeSpeedAndHealth`), not checked |
 | Bosses | 7 bosses, 5 tiers plus Elite | Export `Bosses/` and bloon models | WIKI | `bosses.html` |
 | Boss events as a mode | Rules, tier timing, leaderboard | SERVER for schedules, rules in export Mods for some | SERVER | |
 

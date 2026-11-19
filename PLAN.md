@@ -40,7 +40,6 @@ Open in the notes themselves (needs more reading of the code or a test in game):
 
 ## 5. Not in the export: needs the dumper or the game code
 Checked only by the absence of any mention in `wiki/`.
-- [ ] Freeplay rules: bloon HP and speed growth by round.
 - [ ] Odyssey, Race, Contested Territory and boss events as modes.
 - [ ] Insta monkey and collection event chances.
 
