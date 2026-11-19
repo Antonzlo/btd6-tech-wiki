@@ -43,8 +43,6 @@ Checked only by the absence of any mention in `wiki/`.
 - [ ] Freeplay rules: bloon HP and speed growth by round.
 - [ ] Odyssey, Race, Contested Territory and boss events as modes.
 - [ ] Insta monkey and collection event chances.
-- [ ] Standard starting cash 650 is hardcoded in `wiki/heroes.py` (`START_CASH`).
-- [ ] Which difficulty each mode is played on (`MODE_BASE` in `wiki/modes.py` is written by hand).
 
 ## 6. Legends, later
 - [ ] Rogue Legends: `Artifacts/` (573), `rogueData.json` (rarity chances, XP per tile, shop, starter kits, CHIMPS

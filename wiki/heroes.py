@@ -25,7 +25,9 @@ def hero_level_rows(folder, base, ucost):
     return rows
 
 
-START_CASH = 650  # standard starting cash; not in the export (the game model default, not a mode modifier)
+# standard starting cash: Medium's StartingCashModModel (Easy and Hard set the same)
+START_CASH = int(next(m["changeBase"] for m in load(DATA / "Mods" / "Medium.json")["mutatorMods"]
+                      if core.short_type(m) == "StartingCashModModel"))
 
 
 def hero_calc(totals, cost):

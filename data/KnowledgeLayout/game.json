@@ -224,5 +224,18 @@
     "Hero": 16,
     "Paragon": 32,
     "Items": 64
+  },
+  "modeDifficulty": {
+    "PrimaryOnly": "Easy",
+    "Deflation": "Easy",
+    "MilitaryOnly": "Medium",
+    "Apopalypse": "Medium",
+    "Reverse": "Medium",
+    "MagicOnly": "Hard",
+    "DoubleMoabHealth": "Hard",
+    "HalfCash": "Hard",
+    "AlternateBloonsRounds": "Hard",
+    "Impoppable": "Hard",
+    "Clicks": "Hard"
   }
 }

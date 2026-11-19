@@ -1,18 +1,20 @@
 """Game mode and income pages."""
 import collections
 import re
+import sys
 from wiki.core import (
-    card, esc, fmt, game_text, group, icon, json_files, load, page, short_type, stats, t, table,
+    GAME, card, esc, fmt, game_text, group, icon, json_files, load, page, short_type, stats, t, table,
 )
 from wiki.charts import dual_line_chart
 from wiki.mods import mod_table
 from wiki.bloons import bonus_cash_mod, raw_round_pops, round_set_href
 
 
-# The game stacks a mode on the difficulty it is picked under; that link is not in the export (the in-game menu).
-MODE_BASE = {"Impoppable": "Hard", "Clicks": "Hard", "HalfCash": "Hard", "DoubleMoabHealth": "Hard",
-             "AlternateBloonsRounds": "Hard", "MagicOnly": "Hard", "MilitaryOnly": "Medium", "Apopalypse": "Medium",
-             "Reverse": "Medium", "PrimaryOnly": "Easy", "Deflation": "Easy"}
+# The game stacks a mode on the difficulty it is picked under: game.json modeDifficulty, read by the dumper from the
+# mode screen (Ctrl+Shift+F6).
+MODE_BASE = GAME.get("modeDifficulty", {})
+if not MODE_BASE:
+    print("warning: game.json has no modeDifficulty, modes are shown without their difficulty: run the dumper", file=sys.stderr)
 
 
 INCOME_NAMES = {"DefaultIncomeSet": "Обычный доход", "AcceleratedIncomeSet": "Ускоренный доход",
